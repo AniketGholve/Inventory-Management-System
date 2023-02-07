@@ -1,4 +1,4 @@
-let URL = "https://disease.sh/v3/covid-19/all";
+let URL = "http://localhost:1111/getAllPatientList";
 let app = angular.module("MyApp" , []);
 
 app.controller('MyCtrl', ($scope , $http)=>{
