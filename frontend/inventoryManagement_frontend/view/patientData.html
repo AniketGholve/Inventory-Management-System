@@ -1,0 +1,123 @@
+<div ng-controller="MyController">
+    <h1 class="text-center">Patient Details</h1>
+    <div>
+        <form ng-submit="getById()" class="form-inline d-flex justify-content-center mt-3">
+            <input type="text" id="patientId" placeholder="Search Patient Id" ng-model="variable" class="">
+            <button type="submit" class="btn btn-outline-success my-2 my-sm-0">Search</button>
+        </form>
+    </div>
+    <div class="container d-flex justify-content-center mt-5">
+        <table id="patientDetailsTable" class="borderBlack ">
+            <tr>
+                <th class="px-3">Id</th>
+                <th class="px-3">Patient Id</th>
+                <th class="px-3">First Name</th>
+                <th class="px-3">Last Name</th>
+                <th class="px-3">Middle Name</th>
+                <th class="px-3">Date Of Birth</th>
+                <th class="px-3">Patient Status</th>
+                <th class="px-3">Email</th>
+                <th class="px-3">Location Id</th>
+                <th class="px-3">Last Dispense Loc Id</th>
+                <th class="px-3">Enterprise Id</th>
+                <th class="px-3">Payer Type</th>
+                <th class="px-3">Pa Needed</th>
+                <th class="px-3">Independent Inventory</th>
+                <th class="px-3">Edit</th>
+                <th class="px-3">Delete</th>
+            </tr>
+            <tr ng-repeat="x in allPatientData" ng-if="searchPatientData==null">
+                <td class="px-3">
+                    {{ x.id }}
+                </td>
+                <td class="px-3">
+                    {{ x.patientId }}
+                </td>
+                <td class="px-3">
+                    {{ x.patientFirstName }}
+                </td>
+                <td class="px-3">
+                    {{ x.patientLastName }}
+                </td>
+                <td class="px-3">
+                    {{ x.patientMiddleName }}
+                </td>
+                <td class="px-3">
+                    {{ x.patientDob}}
+                </td>
+                <td class="px-3">
+                    {{ x.patientStatus}}
+                </td>
+                <td class="px-3">
+                    {{ x.patientEmail }}
+                </td>
+                <td class="px-3">
+                    {{ x.patientLocationId }}
+                </td>
+                <td class="px-3">
+                    {{ x.patientLastDispenseId }}
+                </td>
+                <td class="px-3">
+                    {{ x.patientEnterpriseId}}
+                </td>
+                <td class="px-3">
+                    {{ x.patientPayerType}}
+                </td>
+                <td class="px-3">
+                    {{ x.patientPaNeeded }}
+                </td>
+                <td class="px-3">
+                    {{ x.independentInventory }}
+                </td>
+                <td ng-if="allPatientData"><a href="#!updatePatient/{{x.patientId}}">edit</a></td>
+                <td ng-if="allPatientData"><a href="" ng-click="deleteById(x.id)" onclick="reloadWindow()">delete</a></td>
+            </tr>
+            <tr ng-if="searchPatientData!=null" ng-init="x=searchPatientData">
+                <td class="px-3">
+                    {{ x.id }}
+                </td>
+                <td class="px-3">
+                    {{ x.patientId }}
+                </td>
+                <td class="px-3">
+                    {{ x.patientFirstName }}
+                </td>
+                <td class="px-3">
+                    {{ x.patientLastName }}
+                </td>
+                <td class="px-3">
+                    {{ x.patientMiddleName }}
+                </td>
+                <td class="px-3">
+                    {{ x.patientDob}}
+                </td>
+                <td class="px-3">
+                    {{ x.patientStatus}}
+                </td>
+                <td class="px-3">
+                    {{ x.patientEmail }}
+                </td>
+                <td class="px-3">
+                    {{ x.patientLocationId }}
+                </td>
+                <td class="px-3">
+                    {{ x.patientLastDispenseId }}
+                </td>
+                <td class="px-3">
+                    {{ x.patientEnterpriseId}}
+                </td>
+                <td class="px-3">
+                    {{ x.patientPayerType}}
+                </td>
+                <td class="px-3">
+                    {{ x.patientPaNeeded }}
+                </td>
+                <td class="px-3">
+                    {{ x.independentInventory }}
+                </td>
+                <td><a href="#!updatePatient/{{x.patientId}}">edit</a></td>
+                <td> <a href="" ng-click="deleteById(x.id)" onclick="reloadWindow()">delete</a></td>
+            </tr>
+        </table>
+    </div>
+</div>
