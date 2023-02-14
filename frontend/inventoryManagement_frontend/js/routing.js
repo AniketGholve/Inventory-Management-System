@@ -43,12 +43,11 @@ app.controller("MyController", ($scope, $http) => {
 
 app.controller('updateController', function ($scope, $http,$routeParams) {
     $http.get("http://localhost:7890/getPatientById/"+$routeParams.param1).then((responce) => {
-        $scope.updateData = responce.data;
+        $scope.updateFormData = responce.data;
         console.log($scope.updateData);
     }, (error) => {
         alert(id);
     })
-    $scope.updateFormData = {};
     $scope.updatePatientForm = function () {
         $http({
             method: 'PUT',
@@ -60,6 +59,7 @@ app.controller('updateController', function ($scope, $http,$routeParams) {
                 $scope.errorUserName = data.errors;
             } else {
                 console.log($scope.updateFormData)
+                alert("Updated Data")
             }
         });
     };
