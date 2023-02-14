@@ -51,7 +51,7 @@ public class PatientServiceImpl implements PatientService {
 	public Object updatePatient(Patient p)
 	{
 		String pid=p.getPatientId();
-		Query q=entityManager.createQuery("select p from Patient p where patient_id=:u");
+		Query q=entityManager.createQuery("select p from Patient p where p.patientId=:u");
 		q.setParameter("u", pid);
 		Patient patient=(Patient) q.getSingleResult();
 		if(patient==null) return "patient with given data not exists";
