@@ -1,0 +1,62 @@
+<div ng-controller="postController">
+    <div>
+        <h1 class="text-center">Add Patient Details</h1>
+    </div>
+    <form name="userForm" ng-submit="submitForm()">
+        <div class="row g-3 form-control d-flex justify-content-between w-50 m-auto">
+            <div class="col-auto">
+                <label for="">Patient Id </label>
+                <input type="text" class="input2" ng-model="formDataFields.patientId" required>
+            </div>
+            <div class="col-auto">
+                <label for="">First Name</label>
+                <input type="text" class="input3" ng-model="formDataFields.patientFirstName" required>
+            </div>
+            <div class="col-auto">
+                <label for="">Last Name</label>
+                <input type="text" class="input4" ng-model="formDataFields.patientLastName" required>
+            </div>
+            <div class="col-auto">
+                <label for="">Middle Name</label>
+                <input type="text" class="input5" ng-model="formDataFields.patientMiddleName">
+            </div>
+            <div class="col-auto">
+                <label for="">DOB</label>
+                <input type="date" class="input6" ng-model="formDataFields.patientDob" required>
+            </div>
+            <div class="col-auto">
+                <label for="">Patient Status</label>
+                <select ng-model="formDataFields.patientStatus">
+                    <option value="Active">Active</option>
+                    <option value="Inactive">Inactive</option>
+                </select>
+            </div>
+            <div class="col-auto">
+                <label for="">Email</label>
+                <input type="text" ng-model="formDataFields.patientEmail" required>
+            </div>
+            <div class="col-auto">
+                <label for="">Payer Type</label>
+                <select type="checkbox" ng-model="formDataFields.patientPayerType">
+                    <option value="default" selected>default</option>
+                    <option value="Commercial">Commercial</option>
+                    <option value="Medicare">Medicare</option>
+                    <option value="Medicare with Supplemental">Medicare with Supplemental</option>
+                    <option value="Medicare Advantage">Medicare Advantage</option>
+                    <option value="Medicaid">Medicaid</option>
+                    <option value="Self pay">Self pay</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+            <div class="col-auto" required>
+                <label for="">PA Needed</label>
+                <input type="checkbox" ng-model="formDataFields.patientPaNeeded" class="input15">
+            </div>
+            <div class="col-auto" required>
+                <label for="">Independent Inventory</label>
+                <input type="checkbox" ng-model="formDataFields.independentInventory" class="input16">
+            </div>
+            <input type="submit" name="formDataFields" value="Submit"/>
+        </div>
+    </form>
+</div>
