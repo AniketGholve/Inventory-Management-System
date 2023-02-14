@@ -1,0 +1,106 @@
+________________________PatientController___________________________
+	
+//	@GetMapping("/getPatientById/{pid}")
+//	public ResponseEntity<?> getPatientById(@PathVariable("pid") String pid){
+//		Object p=(Patient) patientServiceImpl.getPatientById(pid);
+//		if(p==null) return new ResponseEntity<Object>("given id not exists",HttpStatus.OK);
+//		return new ResponseEntity<Object>(p,HttpStatus.OK);
+//	}
+	
+//	
+//	@GetMapping("/getAllDataByQuery")
+//	public ResponseEntity<?> getAllDataByQuery()
+//	{
+//		List<Patient> l=patientServiceImpl.getAllPatientByQuery();
+//		if(l.size()==0) return new ResponseEntity<String>("Data not exists in the database",HttpStatus.NOT_FOUND);
+//		return new ResponseEntity<List<Patient>>(l,HttpStatus.CREATED);
+//
+//	}
+	
+//	@PostMapping("/insertDataByQuery")
+//	public ResponseEntity<Patient> insertDataByQuery(@RequestBody Patient patient)
+//	{
+//		Patient p=patientServiceImpl.insertPatientByQuery(patient);
+//		return new ResponseEntity<Patient>(p,HttpStatus.OK);
+//	}
+
+
+
+
+
+----------------------------------------------------------------------------------------------------------------
+_______________________________GET SCREEN BY QUERY OLD METHOD____________________________
+
+//	@Override
+//	public List<?> getScreen() {
+//		
+//		System.out.println("urtyuiop");
+//
+//		//Query q=entityManager.createNativeQuery("select f.product_name,f.serial_count,s.exp from (select p.product_id, p.product_name,count(*) as serial_count from serial s inner join product p where s.product_id=p.product_id group by p.product_id) as f inner join (select product_id,count(*) as exp from serial where expiry_date>sysdate() group by product_id) as s on f.product_id=s.product_id;");
+//		Query q=entityManager.createNativeQuery("select f.product_id,f.product_name,f.serial_count,s.exp from (select p.product_id, p.product_name,count(*) as serial_count from serial s inner join product p where s.product_id=p.product_id group by p.product_id) as f inner join (select product_id,count(*) as exp from serial where expiry_date>sysdate() group by product_id) as s on f.product_id=s.product_id;");
+//
+//		List<?> l=q.getResultList();
+//		List<Object> il=q.getResultList();
+//		System.out.println("urtyuiop");
+//		System.out.println(l);
+//		
+//		return l;
+//	}
+
+----------------------------------------------------------------------------------------------------------------
+___________________________________________________________PATIENT SERVICE IMPL CODE_____________________________________
+
+//	@Override
+//	public String getPatientByIdJPQL(int pid) {
+//		// TODO Auto-generated method stub
+//		String p=patientRepo.getPatientByIdJPQL(pid);
+//		System.out.println("patient p ");
+//		return p;
+//	}
+
+
+//	@Override
+//	public List<Patient> getAllPatientByQuery() {
+//		// TODO Auto-generated method stub
+//		Query q=entityManager.createNativeQuery("select * from patient", Patient.class);
+//		List<Patient> p=q.getResultList();
+//		return p;
+//	}
+
+
+
+
+
+//	@Override
+//	@Transactional
+//	public Patient insertPatientByQuery(Patient patient) {
+//		// TODO Auto-generated method stub
+//		Query q=entityManager.createNativeQuery("insert into patient (created_on,email,enterprise_id,independent_inventory,last_dispense_loc_id,location_id,mail_to,modified_on,pa_needed,patient_date_of_birth,patient_first_name,patient_id,patient_last_name,patient_mi,patient_status,payer_type,src_id)  values (?,?,?,?,?,?,?,?,?,?,?,?,Convert(AES_ENCRYPT(?,'this-is-patient-'),char),?,?,?,?)");
+//		q.setParameter(1, patient.getCreated_on());
+//		q.setParameter(2, patient.getEmail());
+//		q.setParameter(3, patient.getEnterprise_id());
+//		q.setParameter(4, patient.getIndependent_inventory());
+//		q.setParameter(5, patient.getLast_dispense_loc_id());
+//		q.setParameter(6, patient.getLocation_id());
+//		q.setParameter(7, patient.getMail_to());
+//		q.setParameter(8, patient.getModified_on());
+//		q.setParameter(9, patient.isPa_needed());
+//		q.setParameter(10, patient.getPatient_date_of_birth());
+//		q.setParameter(11, patient.getPatient_first_name());
+//		q.setParameter(12, patient.getPatient_id());
+//		q.setParameter(13, patient.getPatient_last_name());
+//		q.setParameter(14, patient.getPatient_mi());
+//		q.setParameter(15, patient.isPatient_status());
+//		q.setParameter(16, patient.isPayer_type());
+//		q.setParameter(17, patient.getSrc_id());
+//		q.executeUpdate();
+//		return patient;
+//	}
+
+
+//	@Override
+//	public Patient updatePatientByQuery() {
+//		// TODO Auto-generated method stub
+//		Query q=entityManager.createNativeQuery("update patient set )
+//		return null;
+//	}
