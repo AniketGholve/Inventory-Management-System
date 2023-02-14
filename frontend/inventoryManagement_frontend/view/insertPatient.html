@@ -6,19 +6,19 @@
         <div class="row g-3 form-control d-flex justify-content-between w-50 m-auto">
             <div class="col-auto">
                 <label for="">Patient Id </label>
-                <input type="text" class="input2" ng-model="formDataFields.patientId" required>
+                <input type="text" class="input2" ng-model="formDataFields.patientId">
             </div>
             <div class="col-auto">
                 <label for="">First Name</label>
-                <input type="text" class="input3" ng-model="formDataFields.patientFirstName" required>
+                <input type="text" class="input3" ng-model="formDataFields.patientFirstName" pattern="[\w]{1,15}" title="Please Enter A Valid Name only alphabets allowed" required>
             </div>
             <div class="col-auto">
                 <label for="">Last Name</label>
-                <input type="text" class="input4" ng-model="formDataFields.patientLastName" required>
+                <input type="text" class="input4" ng-model="formDataFields.patientLastName" pattern="[A-Za-z]{1,15}" title="Please Enter A Valid Name only alphabets allowed" required>
             </div>
             <div class="col-auto">
                 <label for="">Middle Name</label>
-                <input type="text" class="input5" ng-model="formDataFields.patientMiddleName">
+                <input type="text" class="input5" ng-model="formDataFields.patientMiddleName" pattern="[A-Za-z]{0,15}" title="Please Enter A Valid Name only alphabets allowed">
             </div>
             <div class="col-auto">
                 <label for="">DOB</label>
@@ -33,12 +33,12 @@
             </div>
             <div class="col-auto">
                 <label for="">Email</label>
-                <input type="text" ng-model="formDataFields.patientEmail" required>
+                <input type="email" ng-model="formDataFields.patientEmail" title="Not a valid email eg: abc@xyz.com" required>
             </div>
             <div class="col-auto">
                 <label for="">Payer Type</label>
-                <select type="checkbox" ng-model="formDataFields.patientPayerType">
-                    <option value="default" selected>default</option>
+                <select type="checkbox" ng-model="formDataFields.patientPayerType" required>
+                    <option value="Default" selected>Default</option>
                     <option value="Commercial">Commercial</option>
                     <option value="Medicare">Medicare</option>
                     <option value="Medicare with Supplemental">Medicare with Supplemental</option>
@@ -48,13 +48,13 @@
                     <option value="Other">Other</option>
                 </select>
             </div>
-            <div class="col-auto" required>
+            <div class="col-auto">
                 <label for="">PA Needed</label>
-                <input type="checkbox" ng-model="formDataFields.patientPaNeeded" class="input15">
+                <input type="checkbox" ng-init="formDataFields.patientPaNeeded=false" ng-model="formDataFields.patientPaNeeded" class="input15">
             </div>
-            <div class="col-auto" required>
+            <div class="col-auto">
                 <label for="">Independent Inventory</label>
-                <input type="checkbox" ng-model="formDataFields.independentInventory" class="input16">
+                <input type="checkbox" ng-init="formDataFields.independentInventory=false" ng-model="formDataFields.independentInventory" class="input16">
             </div>
             <input type="submit" name="formDataFields" value="Submit"/>
         </div>

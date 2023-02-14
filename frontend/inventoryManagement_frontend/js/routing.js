@@ -1,9 +1,10 @@
 const app = angular.module("myApp", ["ngRoute"]);
 var formData;
 app.config(function ($routeProvider) {
-    $routeProvider.when("/", {
-        templateUrl: "/view/insertPatient.html"
-    })
+    $routeProvider
+            .when("/", {
+            templateUrl: "/view/insertPatient.html"
+        })
         .when("/patientData", {
             templateUrl: "/view/patientData.html"
         })
@@ -41,10 +42,9 @@ app.controller("MyController", ($scope, $http) => {
     }
 });
 
-app.controller('updateController', function ($scope, $http,$routeParams) {
-    $http.get("http://localhost:7890/getPatientById/"+$routeParams.param1).then((responce) => {
+app.controller('updateController', function ($scope, $http, $routeParams,$filter) {
+    $http.get("http://localhost:7890/getPatientById/" + $routeParams.param1).then((responce) => {
         $scope.updateFormData = responce.data;
-        console.log($scope.updateData);
     }, (error) => {
         alert(id);
     })
