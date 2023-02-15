@@ -17,6 +17,7 @@ import com.varun.LoginUser.Entity.UserEntity;
 import com.varun.LoginUser.Repository.UserRepository;
 @CrossOrigin
 @RestController
+@CrossOrigin
 @RequestMapping("/api")
 public class UserController {
 
