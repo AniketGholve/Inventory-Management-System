@@ -1,62 +1,63 @@
-<div ng-controller="postController">
+<div ng-controller = "insertController">
     <div>
-        <h1 class="text-center">Add Patient Details</h1>
+        <h1 class = "text-center">Add Patient Details</h1>
     </div>
-    <form name="userForm" ng-submit="submitForm()">
-        <div class="row g-3 form-control d-flex justify-content-between w-50 m-auto">
-            <div class="col-auto">
-                <label for="">Patient Id </label>
-                <input type="text" class="input2" ng-model="formDataFields.patientId">
+    <form name = "userForm" ng-submit = "submistForm()">
+        <div class = "row g-3 form-control d-flex justify-content-between w-50 m-auto">
+            <div class = "col-auto">
+                <label for = "">Patient Id </label>
+                <input type = "text" class = "input2" ng-model = "formDataFields.patientId">
             </div>
-            <div class="col-auto">
-                <label for="">First Name</label>
-                <input type="text" class="input3" ng-model="formDataFields.patientFirstName" pattern="[\w]{1,15}" title="Please Enter A Valid Name only alphabets allowed" required>
+            <div class = "col-auto">
+                <label for = "">First Name</label>
+                <input type = "text" class = "input3" ng-model = "formDataFields.patientFirstName" pattern = "[\w]{1,15}" title = "Please Enter A Valid Name only alphabets allowed" required>
             </div>
-            <div class="col-auto">
-                <label for="">Last Name</label>
-                <input type="text" class="input4" ng-model="formDataFields.patientLastName" pattern="[A-Za-z]{1,15}" title="Please Enter A Valid Name only alphabets allowed" required>
+            <div class = "col-auto">
+                <label for = "">Last Name</label>
+                <input type = "text" class = "input4" ng-model = "formDataFields.patientLastName" pattern = "[A-Za-z]{1,15}" title = "Please Enter A Valid Name only alphabets allowed" required>
             </div>
-            <div class="col-auto">
-                <label for="">Middle Name</label>
-                <input type="text" class="input5" ng-model="formDataFields.patientMiddleName" pattern="[A-Za-z]{0,15}" title="Please Enter A Valid Name only alphabets allowed">
+            <div class = "col-auto">
+                <label for = "">Middle Name</label>
+                <input type = "text" class = "input5" ng-model = "formDataFields.patientMiddleName" pattern = "[A-Za-z]{0,15}" title = "Please Enter A Valid Name only alphabets allowed">
             </div>
-            <div class="col-auto">
-                <label for="">DOB</label>
-                <input type="date" class="input6" ng-model="formDataFields.patientDob" required>
+            <div class = "col-auto">
+                <label for = "">DOB</label>
+                <input type = "date" class = "input6" ng-model = "formDataFields.patientDob" required>
             </div>
-            <div class="col-auto">
-                <label for="">Patient Status</label>
-                <select ng-model="formDataFields.patientStatus">
-                    <option value="Active">Active</option>
-                    <option value="Inactive">Inactive</option>
+            <div class = "col-auto">
+                <label for = "">Patient Status</label>
+                <select ng-model = "formDataFields.patientStatus">
+                    <option value = "Active">Active</option>
+                    <option value = "Inactive">Inactive</option>
                 </select>
             </div>
-            <div class="col-auto">
-                <label for="">Email</label>
-                <input type="email" ng-model="formDataFields.patientEmail" title="Not a valid email eg: abc@xyz.com" required>
+            <div class = "col-auto">
+                <label for = "">Email</label>
+                <input type = "email" ng-model = "formDataFields.patientEmail" title = "Not a valid email eg: abc@xyz.com" required>
             </div>
-            <div class="col-auto">
-                <label for="">Payer Type</label>
-                <select type="checkbox" ng-model="formDataFields.patientPayerType" required>
-                    <option value="Default" selected>Default</option>
-                    <option value="Commercial">Commercial</option>
-                    <option value="Medicare">Medicare</option>
-                    <option value="Medicare with Supplemental">Medicare with Supplemental</option>
-                    <option value="Medicare Advantage">Medicare Advantage</option>
-                    <option value="Medicaid">Medicaid</option>
-                    <option value="Self pay">Self pay</option>
-                    <option value="Other">Other</option>
+            <div class = "col-auto">
+                <label for = "">Payer Type</label>
+                <select type = "checkbox" ng-model = "formDataFields.patientPayerType" required>
+                    <option value = "Default" selected>Default</option>
+                    <option value = "Commercial">Commercial</option>
+                    <option value = "Medicare">Medicare</option>
+                    <option value = "Medicare with Supplemental">Medicare with Supplemental</option>
+                    <option value = "Medicare Advantage">Medicare Advantage</option>
+                    <option value = "Medicaid">Medicaid</option>
+                    <option value = "Self pay">Self pay</option>
+                    <option value = "Other">Other</option>
                 </select>
             </div>
-            <div class="col-auto">
-                <label for="">PA Needed</label>
-                <input type="checkbox" ng-init="formDataFields.patientPaNeeded=false" ng-model="formDataFields.patientPaNeeded" class="input15">
+            <div class = "col-auto">
+                <label for = "">PA Needed</label>
+                <input type = "checkbox" ng-init = "formDataFields.patientPaNeeded  =  false" ng-model = "formDataFields.patientPaNeeded" class = "input15">
             </div>
-            <div class="col-auto">
-                <label for="">Independent Inventory</label>
-                <input type="checkbox" ng-init="formDataFields.independentInventory=false" ng-model="formDataFields.independentInventory" class="input16">
+            <div class = "col-auto">
+                <label for = "">Independent Inventory</label>
+                <input type = "checkbox" ng-init = "formDataFields.independentInventory  =  false" ng-model = "formDataFields.independentInventory" class = "input16">
             </div>
-            <input type="submit" name="formDataFields" value="Submit"/>
+            <input type = "submit" name = "formDataFields" value = "Submit"/>
         </div>
     </form>
+    {{errorUserName}}
 </div>

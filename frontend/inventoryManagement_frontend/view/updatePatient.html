@@ -1,63 +1,62 @@
-<div ng-controller="updateController">
+<div ng-controller = "updateController">
     <div>
-        <h1 class="text-center">Update Patient Details</h1>
+        <h1 class = "text-center">Update Patient Details</h1>
     </div>
-    
-    <form name="userForm" ng-submit="updatePatientForm()">
-        <div class="row g-3 form-control d-flex justify-content-between w-50 m-auto">
-            <div class="col-auto">
-                <label for="">Patient Id </label>
-                <input type="text" class="input2" ng-model="updateFormData.patientId" required>
+    <form name = "userForm" ng-submit = "updatePatientForm()">
+        <div class = "row g-3 form-control d-flex justify-content-between w-50 m-auto">
+            <div class = "col-auto">
+                <label for = "">Patient Id </label>
+                <input type = "text" class = "input2" ng-model = "updateFormData.patientId" required>
             </div>
-            <div class="col-auto">
-                <label for="">First Name</label>
-                <input type="text" class="input3"  ng-model="updateFormData.patientFirstName" >
+            <div class = "col-auto">
+                <label for = "">First Name</label>
+                <input type = "text" class = "input3"  ng-model = "updateFormData.patientFirstName" >
             </div>
-            <div class="col-auto">
-                <label for="">Last Name</label>
-                <input type="text" class="input4"  ng-model="updateFormData.patientLastName" >
+            <div class = "col-auto">
+                <label for = "">Last Name</label>
+                <input type = "text" class = "input4"  ng-model = "updateFormData.patientLastName" >
             </div>
-            <div class="col-auto">
-                <label for="">Middle Name</label>
-                <input type="text" class="input5" ng-model="updateFormData.patientMiddleName" >
+            <div class = "col-auto">
+                <label for = "">Middle Name</label>
+                <input type = "text" class = "input5" ng-model = "updateFormData.patientMiddleName" >
             </div>
-            <div class="col-auto">
-                <label for="">DOB</label>
-                <input type="date" class="input6" ng-model="updateFormData.patientDob" >
+            <div class = "col-auto">
+                <label for = "">DOB</label>
+                <input type = "date" class = "input6" ng-model = "updateFormData.patientDob" >
             </div>
-            <div class="col-auto" >
-                <label for="">Patient Status</label>
-                <select ng-model="updateFormData.patientStatus" >
-                    <option value="Inactive">Inactive</option>
-                    <option value="Active">Active</option>
+            <div class = "col-auto" >
+                <label for = "">Patient Status</label>
+                <select ng-model = "updateFormData.patientStatus" >
+                    <option value = "Inactive">Inactive</option>
+                    <option value = "Active">Active</option>
                 </select>
             </div>
-            <div class="col-auto">
-                <label for="">Email</label>
-                <input type="text" ng-model="updateFormData.patientEmail" >
+            <div class = "col-auto">
+                <label for = "">Email</label>
+                <input type = "text" ng-model = "updateFormData.patientEmail" >
             </div>
-            <div class="col-auto">
-                <label for="">Payer Type</label>
-                <select type="checkbox"  ng-model="updateFormData.patientPayerType" >
-                    <option value="Default" selected>Default</option>
-                    <option value="Commercial">Commercial</option>
-                    <option value="Medicare">Medicare</option>
-                    <option value="Medicare with Supplemental">Medicare with Supplemental</option>
-                    <option value="Medicare Advantage">Medicare Advantage</option>
-                    <option value="Medicaid">Medicaid</option>
-                    <option value="Self pay">Self pay</option>
-                    <option value="Other">Other</option>
+            <div class = "col-auto">
+                <label for = "">Payer Type</label>
+                <select type = "checkbox"  ng-model = "updateFormData.patientPayerType" >
+                    <option value = "Default" selected>Default</option>
+                    <option value = "Commercial">Commercial</option>
+                    <option value = "Medicare">Medicare</option>
+                    <option value = "Medicare with Supplemental">Medicare with Supplemental</option>
+                    <option value = "Medicare Advantage">Medicare Advantage</option>
+                    <option value = "Medicaid">Medicaid</option>
+                    <option value = "Self pay">Self pay</option>
+                    <option value = "Other">Other</option>
                 </select>
             </div>
-            <div class="col-auto">
-                <label for="">PA Needed</label>
-                <input type="checkbox" ng-model="updateFormData.patientPaNeeded" class="input15">
+            <div class = "col-auto">
+                <label for = "">PA Needed</label>
+                <input type = "checkbox" ng-model = "updateFormData.patientPaNeeded" class = "input15">
             </div>
-            <div class="col-auto">
-                <label for="">Independent Inventory</label>
-                <input type="checkbox" ng-model="updateFormData.independentInventory" class="input16">
+            <div class = "col-auto">
+                <label for = "">Independent Inventory</label>
+                <input type = "checkbox" ng-model = "updateFormData.independentInventory" class = "input16">
             </div>
-            <input type="submit" name="updateFormData" value="Submit" />
+            <input type = "submit" name = "updateFormData" value = "Submit" />
         </div>
     </form>
 </div>
