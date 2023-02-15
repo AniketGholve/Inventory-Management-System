@@ -4,26 +4,23 @@ let app = angular.module("loginApp", ['ngRoute']);
 app.config(function ($routeProvider) {
     $routeProvider
         .when('/', {
-            templateUrl: "/login.html"
-
+            templateUrl: "view/login.html"
         })
         .when('/home/:param1', {
-            templateUrl: "/home.html"
+            templateUrl: "view/home.html"
         })
-       .when('/elp_users' ,{
-        templateUrl: "/elp_users.html"
-       })
-       .when('/mlp_users' ,{
-        templateUrl: "/mlp_users.html"
-       })
-       .when('/clp_users' ,{
-        templateUrl: "/clp_users.html"
-       })
-       .when('/alp_users' ,{
-        templateUrl: "/alp_users.html"
-       })
-      
-
+        .when('/elp_users', {
+            templateUrl: "view/elp_users.html"
+        })
+        .when('/mlp_users', {
+            templateUrl: "view/mlp_users.html"
+        })
+        .when('/clp_users', {
+            templateUrl: "view/clp_users.html"
+        })
+        .when('/alp_users', {
+            templateUrl: "view/alp_users.html"
+        })
 });
 
 app.controller("loginCtrl", ($scope, $http, $window) => {
@@ -32,7 +29,7 @@ app.controller("loginCtrl", ($scope, $http, $window) => {
     $scope.title = "Login Page";
     $scope.getRequest = (v) => {
         console.log("I've been pressed!");
-       
+
         $http({
             method: 'POST',
             url: 'http://localhost:7890/login/',
@@ -53,7 +50,6 @@ app.controller("loginCtrl", ($scope, $http, $window) => {
 });
 
 app.controller("homeCtrl", function ($scope, $window, $location, $http, $routeParams) {
-
     $scope.getUserForMLP = function () {
         console.log("Get user data for MLP")
         $http({
@@ -114,7 +110,7 @@ app.controller("homeCtrl", function ($scope, $window, $location, $http, $routePa
 
             }
             else {
-                $windows.location.href = 'http://localhost:7890/api/get/' + $routeParams.param1;
+                $windows.location.href ="#!unauthorized";
             }
 
 
@@ -139,51 +135,19 @@ app.controller("homeCtrl", function ($scope, $window, $location, $http, $routePa
             else {
                 $windows.location.href = 'http://localhost:7890/api/get/' + $routeParams.param1;
             }
-
-
         })
     }
-    
-    app.controller("elp_userCtrl", function ($scope) {
-
-            // $scope.tab = 1;
-            // console.log("running");
-            // $scope.setTab = function (newTab) {
-            //     console.log("hit");
-            //     $scope.tab = newTab;
-            // };
-
-            // $scope.isSet = function (tabNum) {
-            //     console.log("run");
-            //     return $scope.tab === tabNum;
-            // };
-
-        });
-
-    app.controller("mlp_userCtrl", function ($scope, $window, $location, $http, $routeParams) {
-
-        $scope
-
-    });
-
-    app.controller("alp_userCtrl", function ($scope, $window, $location, $http, $routeParams) {
-
-        $scope
-
-    });
-
-    app.controller("clp_userCtrl", function ($scope, $window, $location, $http, $routeParams) {
-
-        $scope
-
-    });
-
 });
 
-
-
-
-
-
-
-
+app.controller("mlp",($scope,$http)=>{
+    let token='eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhbmlrZXRAMDIxMCIsImV4cCI6MTY3NjQ3MjY3MiwiaWF0IjoxNjc2NDU0NjcyfQ.fCL9451lDm3fhuikG1m1B_kg9gxEJnUOVayZPChwfZKQn2yoBghgsPpzBn19P-_gSnB4LQmA-UUk8IlpijBd9w';
+    $http({
+        method: 'GET',
+        url: 'http://localhost:7890/api/get/aniket@0210',
+        headers:{ 
+    } 
+    }).then((response) => {
+        $scope.data = response.data;
+        console.log(response.data);
+    })
+});
