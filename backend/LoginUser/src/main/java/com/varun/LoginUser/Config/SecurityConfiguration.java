@@ -32,6 +32,8 @@ public class SecurityConfiguration {
 	private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
 	
 	
+	
+	
 
 	@Autowired
 	private JwtRequestFilter jwtRequestFilter;
