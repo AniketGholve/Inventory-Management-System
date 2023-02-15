@@ -35,7 +35,7 @@ app.controller("loginCtrl", ($scope, $http, $window) => {
        
         $http({
             method: 'POST',
-            url: 'http://localhost:8080/api/login/',
+            url: 'http://localhost:7890/login/',
             data: $scope.submit,
             headers: { 'Content-Type': 'application/json' }
         }).then((response) => {
@@ -58,7 +58,7 @@ app.controller("homeCtrl", function ($scope, $window, $location, $http, $routePa
         console.log("Get user data for MLP")
         $http({
             method: 'GET',
-            url: 'http://localhost:8080/api/login/get/' + $routeParams.param1
+            url: 'http://localhost:7890/api/get/' + $routeParams.param1
 
 
         }).then((response) => {
@@ -69,7 +69,7 @@ app.controller("homeCtrl", function ($scope, $window, $location, $http, $routePa
                 $window.location.href = "#!mlp_users";
             }
             else {
-                $windows.location.href = 'http://localhost:8080/api/login/get/' + $routeParams.param1;
+                $windows.location.href = 'http://localhost:7890/api/get/' + $routeParams.param1;
             }
 
 
@@ -79,7 +79,7 @@ app.controller("homeCtrl", function ($scope, $window, $location, $http, $routePa
         console.log("Get user data for ELP")
         $http({
             method: 'GET',
-            url: 'http://localhost:8080/api/login/get/' + $routeParams.param1
+            url: 'http://localhost:7890/api/get/' + $routeParams.param1
 
 
         }).then((response) => {
@@ -91,7 +91,7 @@ app.controller("homeCtrl", function ($scope, $window, $location, $http, $routePa
 
             }
             else {
-                $windows.location.href = 'http://localhost:8080/api/login/get/' + $routeParams.param1;
+                $windows.location.href = 'http://localhost:7890/api/get/' + $routeParams.param1;
             }
 
 
@@ -102,7 +102,7 @@ app.controller("homeCtrl", function ($scope, $window, $location, $http, $routePa
         console.log("Get user data for CLP")
         $http({
             method: 'GET',
-            url: 'http://localhost:8080/api/login/get/' + $routeParams.param1
+            url: 'http://localhost:7890/api/get/' + $routeParams.param1
 
 
         }).then((response) => {
@@ -114,7 +114,7 @@ app.controller("homeCtrl", function ($scope, $window, $location, $http, $routePa
 
             }
             else {
-                $windows.location.href = 'http://localhost:8080/api/login/get/' + $routeParams.param1;
+                $windows.location.href = 'http://localhost:7890/api/get/' + $routeParams.param1;
             }
 
 
@@ -125,7 +125,7 @@ app.controller("homeCtrl", function ($scope, $window, $location, $http, $routePa
         console.log("Get user data for ALP")
         $http({
             method: 'GET',
-            url: 'http://localhost:8080/api/login/get/' + $routeParams.param1
+            url: 'http://localhost:7890/api/get/' + $routeParams.param1
 
 
         }).then((response) => {
@@ -137,7 +137,7 @@ app.controller("homeCtrl", function ($scope, $window, $location, $http, $routePa
 
             }
             else {
-                $windows.location.href = 'http://localhost:8080/api/login/get/' + $routeParams.param1;
+                $windows.location.href = 'http://localhost:7890/api/get/' + $routeParams.param1;
             }
 
 
