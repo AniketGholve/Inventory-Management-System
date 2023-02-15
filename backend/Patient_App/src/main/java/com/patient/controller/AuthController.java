@@ -1,4 +1,4 @@
-package com.varun.LoginUser.Controller;
+package com.patient.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -7,16 +7,15 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.varun.LoginUser.Entity.Request;
-import com.varun.LoginUser.Entity.Response;
-import com.varun.LoginUser.Security.CustomUserDetailService;
-import com.varun.LoginUser.Security.JwtUtilTokenHelper;
+import com.patient.Entity.JwtRequest;
+import com.patient.Entity.JwtResponse;
+import com.patient.Security.CustomUserDetailService;
+import com.patient.Security.JwtUtilTokenHelper;
 
 @RestController
 @CrossOrigin
@@ -32,14 +31,10 @@ public class AuthController {
 	private JwtUtilTokenHelper jwtUtilTokenHelper;
 
 	@PostMapping("/login")
-	public ResponseEntity<Response> createToken(@RequestBody Request jwtRequest) throws Exception {
-		System.out.println("qqqqqqqqqqqqq");
-		System.out.println(jwtRequest);
+	public ResponseEntity<JwtResponse> createToken(@RequestBody JwtRequest jwtRequest) throws Exception {
 		try {
-
 			this.authenticationManager.authenticate(
 					new UsernamePasswordAuthenticationToken(jwtRequest.getUsername(), jwtRequest.getPassword()));
-
 		} catch (UsernameNotFoundException e) {
 			e.printStackTrace();
 			throw new Exception("User Not Found Exception");
@@ -49,13 +44,11 @@ public class AuthController {
 		}
 
 		UserDetails userDetails = this.customUserDetailService.loadUserByUsername(jwtRequest.getUsername());
-		String token = this.jwtUtilTokenHelper.generateToken(userDetails);
-		System.out.println("asdfghjkl");
-		System.out.println("JWT" + token);
 
+		String token = this.jwtUtilTokenHelper.generateToken(userDetails);
 		// {"token":"value"}
 
-		return ResponseEntity.ok(new Response(token));
+		return ResponseEntity.ok(new JwtResponse(token));
 
 	}
 
