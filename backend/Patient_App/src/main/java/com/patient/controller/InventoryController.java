@@ -29,7 +29,6 @@ public class InventoryController {
 	@PostMapping("/createInventory")
 	private ResponseEntity<?> createInventory(@RequestBody Inventory inventory)
 	{
-		System.out.println(inventory.getOnHand());
 		Inventory createdInventory=inventoryServiceImpl.createInventory(inventory);
 		return new ResponseEntity<Inventory>(createdInventory,HttpStatus.OK);
 	}
@@ -44,17 +43,14 @@ public class InventoryController {
 	@GetMapping("/getSerialNumber/{pid}")
 	private ResponseEntity<?> getSerialNumber(@PathVariable("pid") Integer pid)
 	{
-		System.out.println(pid);
 		List<Serial> l=inventoryServiceImpl.getSerialNumber(pid);
 		return new ResponseEntity<List<Serial>>(l,HttpStatus.OK);
 		
 	}
 	
-	
 	@GetMapping("/getExpiredSerialDetails/{pid}")
 	private ResponseEntity<?> getExpiredSerialDetails(@PathVariable("pid") Integer pid)
 	{
-		System.out.println(pid);
 		List<Serial> l=inventoryServiceImpl.getExpiredSerialDetails(pid);
 		return new ResponseEntity<List<Serial>>(l,HttpStatus.OK);
 		
