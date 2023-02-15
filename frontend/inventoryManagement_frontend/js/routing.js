@@ -2,7 +2,7 @@ const app = angular.module("myApp", ["ngRoute"]);
 var formData;
 app.config(function ($routeProvider) {
     $routeProvider
-            .when("/", {
+        .when("/", {
             templateUrl: "/view/insertPatient.html"
         })
         .when("/patientData", {
@@ -21,8 +21,8 @@ app.config(function ($routeProvider) {
 
 app.controller("MyController", ($scope, $http) => {
 
-    $http.get("http://localhost:7890/getAllData").then((responce) => {
-        $scope.allPatientData = responce.data;
+    $http.get("http://localhost:7890/getAllData").then((response) => {
+        $scope.allPatientData = response.data;
     }, (error) => {
         console.log(error)
     })
@@ -30,23 +30,24 @@ app.controller("MyController", ($scope, $http) => {
     $scope.getById = () => {
         var url = "http://localhost:7890/getPatientById/" + $scope.variable;
         console.log(url)
-        $http.get(url).then((responce) => {
-            $scope.searchPatientData = responce.data;
+        $http.get(url).then((response) => {
+            $scope.searchPatientData = response.data;
         }, (error) => {
             $scope.searchPatientData = null;
             alert("No Data Found");
         })
     }
     $scope.deleteById = (id) => {
-        $http.delete("http://localhost:7890/deletePatient/" + id).then((responce) => { }, (error) => { })
+        $http.delete("http://localhost:7890/deletePatient/" + id).then((response) => { }, (error) => { })
     }
 });
 
-app.controller('updateController', function ($scope, $http, $routeParams,$filter) {
-    $http.get("http://localhost:7890/getPatientById/" + $routeParams.param1).then((responce) => {
-        $scope.updateFormData = responce.data;
+app.controller('updateController', function ($scope, $http, $routeParams, $filter) {
+    $http.get("http://localhost:7890/getPatientById/" + $routeParams.param1).then((response) => {
+        $scope.updateFormData = response.data;
+        $scope.updateFormData.patientDob = new Date(response.data.patientDob);
     }, (error) => {
-        alert(id);
+        console.log(error);
     })
     $scope.updatePatientForm = function () {
         $http({
@@ -65,14 +66,14 @@ app.controller('updateController', function ($scope, $http, $routeParams,$filter
     };
 });
 
-app.controller('postController', function ($scope, $http) {
+app.controller('insertController', function ($scope, $http) {
     $scope.submit = {};
     $scope.submitForm = function () {
         $http({
             method: 'POST',
             url: 'http://localhost:7890/createPatient',
             data: $scope.formDataFields,
-            headers: { 'Content-Type': 'application/json' }
+            headers: { 'Content-Type' : 'application/json' }
         }).then(function (data) {
             if (data.errors) {
                 $scope.errorUserName = data.errors;
@@ -89,9 +90,9 @@ app.controller("findByIdController", ($scope, $http) => {
     $scope.getById = () => {
         var url = "http://localhost:7890/getPatientById/" + $scope.serach_patient_id;
         console.log(url)
-        $http.get(url).then((responce) => {
-            console.log(responce)
-            $scope.data = responce.data;
+        $http.get(url).then((response) => {
+            console.log(response)
+            $scope.data = response.data;
         }, (error) => {
             $scope.data = null
             alert("No Data Found");
@@ -100,8 +101,8 @@ app.controller("findByIdController", ($scope, $http) => {
 });
 
 app.controller("inventoryController", ($scope, $http) => {
-    $http.get("http://localhost:7890/getAllData").then((responce) => {
-        $scope.data = responce.data;
+    $http.get("http://localhost:7890/getAllData").then((response) => {
+        $scope.data = response.data;
     }, (error) => {
         console.log(error)
     })
@@ -109,21 +110,21 @@ app.controller("inventoryController", ($scope, $http) => {
 
 
 app.controller("productList", ($scope, $http) => {
-    $http.get("http://localhost:7890/getScreen").then((responce) => {
-        $scope.data = responce.data;
+    $http.get("http://localhost:7890/getScreen").then((response) => {
+        $scope.data = response.data;
     }, (error) => {
         console.log(error)
     })
     $scope.getOnHand = (id) => {
-        $http.get("http://localhost:7890/getSerialNumber/" + id).then((responce) => {
-            $scope.onHandData = responce.data;
+        $http.get("http://localhost:7890/getSerialNumber/" + id).then((response) => {
+            $scope.onHandData = response.data;
         }, (error) => {
             console.log(error)
         })
     }
     $scope.getExpired = (id) => {
-        $http.get("http://localhost:7890/getExpiredSerialDetails/" + id).then((responce) => {
-            $scope.expiredData = responce.data;
+        $http.get("http://localhost:7890/getExpiredSerialDetails/" + id).then((response) => {
+            $scope.expiredData = response.data;
         }, (error) => {
             console.log(error)
         })

@@ -1,93 +1,93 @@
-<div ng-controller="productList">
+<div ng-controller = "productList">
   <div>
-    <h1 class="text-center">Product List</h1>
+    <h1 class = "text-center">Product List</h1>
   </div>
   <div>
-    <div class="container d-flex justify-content-center">
-      <table id="patientDetailsTable" class="borderBlack table">
+    <div class = "container d-flex justify-content-center">
+      <table id = "patientDetailsTable" class = "borderBlack table">
         <thead>
           <tr>
-            <th class="px-3 capitalize" scope="row">Doses</th>
-            <th class="px-3 capitalize" scope="row">On Hand</th>
-            <th class="px-3 capitalize" scope="row">Expired Doses</th>
+            <th class = "px-3 capitalize" scope = "row">Doses</th>
+            <th class = "px-3 capitalize" scope = "row">On Hand</th>
+            <th class = "px-3 capitalize" scope = "row">Expired Doses</th>
           </tr>
         </thead>
         <tbody>
-          <tr ng-repeat="x in data">
-            <td class="capitalize">{{x.productName}}</td>
-            <td ng-click="getOnHand(x.productId)"><a data-bs-toggle="modal" data-bs-target="#ohHand"
-                style="cursor: default;">{{x.onHand}}</a></td>
-            <td ng-click="getExpired(x.productId)"><a data-bs-toggle="modal" data-bs-target="#expiredDoses" style="cursor: default;">{{x.expiredQty}}</a></td>
+          <tr ng-repeat = "x in data">
+            <td class = "capitalize">{{x.productName}}</td>
+            <td ng-click = "getOnHand(x.productId)"><a data-bs-toggle = "modal" data-bs-target = "#ohHand"
+                style = "cursor: default;">{{x.onHand}}</a></td>
+            <td ng-click = "getExpired(x.productId)"><a data-bs-toggle = "modal" data-bs-target = "#expiredDoses" style = "cursor: default;">{{x.expiredQty}}</a></td>
           </tr>
         </tbody>
       </table>
       
       <!-- Modal -->
-      <div class="modal fade" id="ohHand" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Serial Numbers</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      <div class = "modal fade" id = "ohHand" tabindex = "-1" aria-labelledby = "exampleModalLabel" aria-hidden = "true">
+        <div class = "modal-dialog">
+          <div class = "modal-content">
+            <div class = "modal-header">
+              <h5 class = "modal-title" id = "exampleModalLabel">Serial Numbers</h5>
+              <button type = "button" class = "btn-close" data-bs-dismiss = "modal" aria-label = "Close"></button>
             </div>
-            <div class="modal-body" >
-              <table id="patientDetailsTable" class="borderBlack ">
+            <div class = "modal-body" >
+              <table id = "patientDetailsTable" class = "borderBlack ">
                 <tr>
-                    <th class="px-3">Serial Id</th>
-                    <th class="px-3">Serial Number</th>
-                    <th class="px-3">NDC</th>
-                    <th class="px-3">LOT</th>
-                    <th class="px-3">Expiry Date</th>
-                    <th class="px-3">Serial Status</th>
-                    <th class="px-3">Created On</th>
-                    <th class="px-3">Enterprise Id</th>
-                    <th class="px-3">Location Id</th>
-                    <th class="px-3">Product Id</th>
-                    <th class="px-3">Patient Specific</th>
-                    <th class="px-3">src Id</th>
+                    <th class = "px-3">Serial Id</th>
+                    <th class = "px-3">Serial Number</th>
+                    <th class = "px-3">NDC</th>
+                    <th class = "px-3">LOT</th>
+                    <th class = "px-3">Expiry Date</th>
+                    <th class = "px-3">Serial Status</th>
+                    <th class = "px-3">Created On</th>
+                    <th class = "px-3">Enterprise Id</th>
+                    <th class = "px-3">Location Id</th>
+                    <th class = "px-3">Product Id</th>
+                    <th class = "px-3">Patient Specific</th>
+                    <th class = "px-3">src Id</th>
                 </tr>
-                <tr ng-repeat="x in onHandData">
-                  <td ng-repeat="t in x">{{t}}</td>
+                <tr ng-repeat = "x in onHandData">
+                  <td ng-repeat = "t in x">{{t}}</td>
                 </tr>
               </table>
             </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <div class = "modal-footer">
+              <button type = "button" class = "btn btn-secondary" data-bs-dismiss = "modal">Close</button>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="modal fade" id="expiredDoses" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Serial Numbers</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      <div class = "modal fade" id = "expiredDoses" tabindex = "-1" aria-labelledby = "exampleModalLabel" aria-hidden = "true">
+        <div class = "modal-dialog">
+          <div class = "modal-content">
+            <div class = "modal-header">
+              <h5 class = "modal-title" id = "exampleModalLabel">Serial Numbers</h5>
+              <button type = "button" class = "btn-close" data-bs-dismiss = "modal" aria-label = "Close"></button>
             </div>
-            <div class="modal-body"> 
-              <table id="patientDetailsTable" class="borderBlack ">
+            <div class = "modal-body"> 
+              <table id = "patientDetailsTable" class = "borderBlack ">
                 <tr>
-                    <th class="px-3">Serial Id</th>
-                    <th class="px-3">Serial Number</th>
-                    <th class="px-3">NDC</th>
-                    <th class="px-3">LOT</th>
-                    <th class="px-3">Expiry Date</th>
-                    <th class="px-3">Serial Status</th>
-                    <th class="px-3">Created On</th>
-                    <th class="px-3">Enterprise Id</th>
-                    <th class="px-3">Location Id</th>
-                    <th class="px-3">Product Id</th>
-                    <th class="px-3">Patient Specific</th>
-                    <th class="px-3">Src Id</th>
+                    <th class = "px-3">Serial Id</th>
+                    <th class = "px-3">Serial Number</th>
+                    <th class = "px-3">NDC</th>
+                    <th class = "px-3">LOT</th>
+                    <th class = "px-3">Expiry Date</th>
+                    <th class = "px-3">Serial Status</th>
+                    <th class = "px-3">Created On</th>
+                    <th class = "px-3">Enterprise Id</th>
+                    <th class = "px-3">Location Id</th>
+                    <th class = "px-3">Product Id</th>
+                    <th class = "px-3">Patient Specific</th>
+                    <th class = "px-3">Src Id</th>
                 </tr>
-                <tr ng-repeat="x in expiredData">
-                  <td ng-repeat="t in x">{{t}}</td>
+                <tr ng-repeat = "x in expiredData">
+                  <td ng-repeat = "t in x">{{t}}</td>
                 </tr>
               </table>
             </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <div class = "modal-footer">
+              <button type = "button" class = "btn btn-secondary" data-bs-dismiss = "modal">Close</button>
             </div>
           </div>
         </div>
