@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.varun.LoginUser.Entity.UserEntity;
 import com.varun.LoginUser.Repository.UserRepository;
-
+@CrossOrigin
 @RestController
 @RequestMapping("/api")
 public class UserController {
@@ -61,6 +62,7 @@ public class UserController {
 
 	@GetMapping("/get/{username}")
 	public UserEntity getRole(@PathVariable("username") String username) {
+		System.out.println("get/username");
 		return userRepository.findByUsername(username);
 	}
 }

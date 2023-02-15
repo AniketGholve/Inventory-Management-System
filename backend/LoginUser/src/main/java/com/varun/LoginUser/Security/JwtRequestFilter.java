@@ -30,6 +30,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 		// TODO Auto-generated method stub
 
 		String requestTokenHeader = request.getHeader("Authorization");
+		
 		String username = null;
 		String jwtToken = null;
 		
