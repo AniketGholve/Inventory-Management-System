@@ -43,7 +43,7 @@ public class SecurityConfiguration {
 
 		http.csrf().disable().authorizeHttpRequests()
 				.requestMatchers(new AntPathRequestMatcher("/login"), new AntPathRequestMatcher("/api/addUser"))
-				.permitAll().anyRequest().authenticated().and().exceptionHandling()
+				.permitAll().anyRequest().authenticated().and().cors().and().exceptionHandling()
 				.authenticationEntryPoint(this.jwtAuthenticationEntryPoint).and().sessionManagement()
 				.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 

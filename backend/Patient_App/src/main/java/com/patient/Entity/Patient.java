@@ -22,7 +22,7 @@ public class Patient {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	@Convert(converter = AESEncryption.class)
-	@Column(name="patient_id")
+	@Column(name="patient_id" ,unique=true)
 	private String  patientId;
 	@Convert(converter = AESEncryption.class)
 	@Column(name="patient_first_name")

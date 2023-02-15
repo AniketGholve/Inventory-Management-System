@@ -8,6 +8,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,7 +17,7 @@ import com.varun.LoginUser.Entity.Request;
 import com.varun.LoginUser.Entity.Response;
 import com.varun.LoginUser.Security.CustomUserDetailService;
 import com.varun.LoginUser.Security.JwtUtilTokenHelper;
-
+@CrossOrigin
 @Controller
 public class AuthController {
 
