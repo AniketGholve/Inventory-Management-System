@@ -17,9 +17,16 @@ import com.varun.LoginUser.Entity.Request;
 import com.varun.LoginUser.Entity.Response;
 import com.varun.LoginUser.Security.CustomUserDetailService;
 import com.varun.LoginUser.Security.JwtUtilTokenHelper;
+<<<<<<< HEAD
 
 @RestController
 @CrossOrigin
+=======
+@CrossOrigin
+@Controller
+
+@RestController
+>>>>>>> aa3fda88d9a10b8420f1db71c2a4fdd6d48a1a7b
 public class AuthController {
 
 	@Autowired
