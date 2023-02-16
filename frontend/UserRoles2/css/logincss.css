@@ -1,0 +1,29 @@
+
+body{
+    font-family: 'Gentium Book Plus', serif;
+}
+#patientDetailsTable , #inventoryDetailsTable{
+    font-size: 15px;
+}
+table,tr,th,td{
+    border: 2px solid black;
+}
+.nav_hover:hover{
+    background-color: rgb(195, 73, 73);
+    border-radius:15% ;
+}
+.nav_hover a:hover{
+    color: white;
+}
+.nav-link{
+    padding: 5px;
+}
+.capitalize {
+    text-transform: capitalize;
+ }
+ .modal{
+    --bs-modal-width: 1200px;
+ }
+ .modal-dialog{
+    max-width: 1200px;
+ }
