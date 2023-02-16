@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.varun.LoginUser.Entity.UserEntity;
 import com.varun.LoginUser.Repository.UserRepository;
-@CrossOrigin
 @RestController
 @CrossOrigin
 @RequestMapping("/api")

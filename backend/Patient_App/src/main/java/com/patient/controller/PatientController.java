@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,7 +28,7 @@ public class PatientController {
 	@Autowired
 	PatientServiceImpl patientServiceImpl;
 	
-	
+	@PreAuthorize("hasAuthority('CLP')")
 	@PostMapping("/createPatient")
 	public ResponseEntity<Patient> createData(@RequestBody Patient patient)
 	{
@@ -36,7 +37,7 @@ public class PatientController {
 		return new ResponseEntity<Patient>(p,HttpStatus.CREATED);
 	}
 	
-	
+	@PreAuthorize("hasAuthority('CLP')")
 	@GetMapping("/getAllData")
 	public ResponseEntity<?> getData()
 	{
@@ -46,6 +47,7 @@ public class PatientController {
 		return new ResponseEntity<List<Patient>>(l,HttpStatus.CREATED);
 	}
 	
+	@PreAuthorize("hasAuthority('CLP')")
 	@PutMapping("/updatePatient")
 	public ResponseEntity<?> updatePatient(@RequestBody Patient p){
 		

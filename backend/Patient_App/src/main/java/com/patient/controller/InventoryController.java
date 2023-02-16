@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,7 +26,7 @@ public class InventoryController {
 	@Autowired
 	private InventoryServiceImpl inventoryServiceImpl;
 	
-	
+	@PreAuthorize("hasAuthority('MLP')")
 	@PostMapping("/createInventory")
 	private ResponseEntity<?> createInventory(@RequestBody Inventory inventory)
 	{
@@ -33,6 +34,7 @@ public class InventoryController {
 		return new ResponseEntity<Inventory>(createdInventory,HttpStatus.OK);
 	}
 	
+	@PreAuthorize("hasAuthority('MLP')")
 	@GetMapping("/getScreen")
 	private ResponseEntity<?> getScreen()
 	{
@@ -40,6 +42,7 @@ public class InventoryController {
 		return new ResponseEntity<List<Inventory>>(l,HttpStatus.OK);
 	}
 	
+
 	@GetMapping("/getSerialNumber/{pid}")
 	private ResponseEntity<?> getSerialNumber(@PathVariable("pid") Integer pid)
 	{
