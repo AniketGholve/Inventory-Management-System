@@ -70,17 +70,11 @@ app.controller("mlp", ($scope, $http) => {
     $scope.navOption1Link="#!mlp_users"
     $http({
         method: 'GET',
-<<<<<<< HEAD
         url: 'http://localhost:7890/getScreen',
         headers: {
             'Content-Type': 'application/json',
             'Authorization': sessionStorage.getItem("token")
         }
-=======
-        url: 'http://localhost:7890/api/get/ajay@123',
-        headers:{ 'Content-Type': 'application/json','Authorization':'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhamF5QDEyMyIsImV4cCI6MTY3NjQ3Nzc5MSwiaWF0IjoxNjc2NDU5NzkxfQ.N69-t6wQ098Bdn-AauVFi3lmUzkq7sUHxLcmdfOOJTHVCeKK-AcS88jlhD1taSIu0zpcQEa3HW1n1tyZgKUt6A'
-    } 
->>>>>>> aa3fda88d9a10b8420f1db71c2a4fdd6d48a1a7b
     }).then((response) => {
         $scope.data = response.data;
     }, (error) => {
