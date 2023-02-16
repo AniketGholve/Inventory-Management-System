@@ -15,7 +15,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.varun.LoginUser.Entity.UserEntity;
 import com.varun.LoginUser.Repository.UserRepository;
+<<<<<<< HEAD
 
+=======
+>>>>>>> aa3fda88d9a10b8420f1db71c2a4fdd6d48a1a7b
 @RestController
 @CrossOrigin
 @RequestMapping("/api")
