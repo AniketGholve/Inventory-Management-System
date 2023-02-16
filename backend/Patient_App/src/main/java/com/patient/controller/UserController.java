@@ -28,11 +28,9 @@ public class UserController {
 	private PasswordEncoder passwordEncoder;
 	
 	@PostMapping("/addUser")
-<<<<<<< HEAD
-	public int addUser(@RequestBody UserEntity user) {
-=======
+
+
 	public Integer addUser(@RequestBody UserEntity user) {
->>>>>>> aa3fda88d9a10b8420f1db71c2a4fdd6d48a1a7b
 		String role = user.getRole();
 		String arr[] = { "CLP", "ELP", "ALP", "MLP" };
 		boolean result = Arrays.asList(arr).contains(role);
@@ -42,16 +40,9 @@ public class UserController {
 			return 1;
 		}
 		return -1;
-<<<<<<< HEAD
 	}
 
-	@GetMapping("/get")
-	public String get() {
-		// return userRepository.findAll();
-		return "Loged in";
-=======
->>>>>>> aa3fda88d9a10b8420f1db71c2a4fdd6d48a1a7b
-	}
+
 
 	
 	
