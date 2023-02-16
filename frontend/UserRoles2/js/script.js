@@ -1,4 +1,0 @@
-function reloadWindow()
-{
-    location.reload();
-}
