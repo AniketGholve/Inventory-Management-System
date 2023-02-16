@@ -1,0 +1,37 @@
+<div ng-controller="loginCtrl">
+
+    <div class="container">
+        <div class="sub1">
+            <h1>{{title}}</h1>
+            <br>
+            <div class="sub2">
+                <form name="frm" ng-submit="getRequest(submit.username)">
+                    <div>
+                        Username : <input type="email" name="myname" ng-model="submit.username" required minlength="6"
+                            maxlength="45" />
+                        <span ng-show="frm.myname.$dirty && frm.myname.$error.required">Please Enter Your Username
+                        </span>
+                        <span ng-show="frm.myname.$dirty && frm.myname.$error.email">Invalid Username! </span>
+                    </div>
+
+                    <br>
+
+                    <div>
+                        Password : <input type="password" name="userPassword" ng-model="submit.password" required
+                            ng-pattern="/^(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{4,10}$/" />
+                        <span ng-show="frm.userPassword.$dirty && frm.userPassword.$error.required">There must be
+                            lowercase, Uppercase ,Number 0-9 ,Special Character at least once .</span>
+
+                    </div>
+                    <br>
+                    <br>
+                    <input type="submit" value="Login">
+                    <span class="getResponse">{{ getResponse }}</span>
+                    <br>
+
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
