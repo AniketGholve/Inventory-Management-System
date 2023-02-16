@@ -1,5 +1,9 @@
 
-let app = angular.module("loginApp", ['ngRoute']);
+function reloadWindow()
+{
+    location.reload();
+}
+let app = angular.module("myApp", ['ngRoute']);
 
 app.config(function ($routeProvider) {
     $routeProvider
@@ -161,7 +165,7 @@ app.controller("clp", function ($scope, $http) {
     }
 });
 
-app.controller('registerController', function ($scope, $http) {
+app.controller('registerController', function ($scope, $http,$window) {
     $scope.navOption1Link="#!";
     $scope.navOption1="Login";
     $scope.navOption2Link="#!register";
@@ -176,7 +180,7 @@ app.controller('registerController', function ($scope, $http) {
             headers: {'Content-Type': 'application/json'},
             data:$scope.register
         }).then((response)=>{
-            console.log(response);
+            $window.location.href = "#!";
         },(error)=> {
             console.log(error);
         });
@@ -228,6 +232,7 @@ app.controller('insertController', function ($scope, $http,$window) {
     $scope.navOption1="Patient";
     $scope.hide="d-none";
     $scope.submit = {};
+    $scope.fileData;
     $scope.submitForm = function () {
         $http({
             method: 'POST',
