@@ -3,6 +3,7 @@ package com.patient.controller;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,7 +26,7 @@ public class UserController {
 
 	@Autowired
 	private PasswordEncoder passwordEncoder;
-
+	
 	@PostMapping("/addUser")
 	public String addUser(@RequestBody UserEntity user) {
 		String role = user.getRole();
@@ -39,12 +40,8 @@ public class UserController {
 		return "wrong role";
 	}
 
-	@GetMapping("/get")
-	public String get() {
-		// return userRepository.findAll();
-		return "Loged in";
-	}
-
+	
+	
 	@GetMapping("/get/{username}")
 	public UserEntity getRole(@PathVariable("username") String username) {
 		return userEntityRepo.findByUsername(username);
