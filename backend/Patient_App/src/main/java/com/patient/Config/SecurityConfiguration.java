@@ -1,7 +1,6 @@
-package com.varun.LoginUser.Config;
+package com.patient.Config;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -17,10 +16,9 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-import com.varun.LoginUser.Security.CustomUserDetailService;
-import com.varun.LoginUser.Security.JwtAuthenticationEntryPoint;
-import com.varun.LoginUser.Security.JwtRequestFilter;
-import com.varun.LoginUser.Security.JwtUtilTokenHelper;
+import com.patient.Security.CustomUserDetailService;
+import com.patient.Security.JwtAuthenticationEntryPoint;
+import com.patient.Security.JwtRequestFilter;
 
 @EnableWebSecurity
 @Configuration
@@ -31,7 +29,7 @@ public class SecurityConfiguration {
 
 	@Autowired
 	private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
-
+	
 	@Autowired
 	private JwtRequestFilter jwtRequestFilter;
 

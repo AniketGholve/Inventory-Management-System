@@ -1,9 +1,11 @@
-package com.varun.LoginUser.Entity;
+package com.patient.Entity;
 
-public class Request {
+public class JwtRequest {
 	
 	private String username;
 	private String password;
+	
+	
 	public String getUsername() {
 		return username;
 	}
@@ -16,13 +18,14 @@ public class Request {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public Request(String username, String password) {
+	public JwtRequest(String username, String password) {
 		super();
 		this.username = username;
 		this.password = password;
 	}
-	public Request() {
+	public JwtRequest() {
 		super();
+		// TODO Auto-generated constructor stub
 	}
 	
 	
