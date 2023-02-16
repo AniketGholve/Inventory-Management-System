@@ -28,16 +28,16 @@ public class UserController {
 	private PasswordEncoder passwordEncoder;
 	
 	@PostMapping("/addUser")
-	public String addUser(@RequestBody UserEntity user) {
+	public Integer addUser(@RequestBody UserEntity user) {
 		String role = user.getRole();
 		String arr[] = { "CLP", "ELP", "ALP", "MLP" };
 		boolean result = Arrays.asList(arr).contains(role);
 		if (result) {
 			user.setPassword(passwordEncoder.encode(user.getPassword()));
 			userEntityRepo.save(user);
-			return "User data added sucessfully";
+			return 1;
 		}
-		return "wrong role";
+		return -1;
 	}
 
 	

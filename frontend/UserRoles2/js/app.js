@@ -32,9 +32,9 @@ app.controller("loginCtrl", ($scope, $http, $window) => {
 
         $http({
             method: 'POST',
-            url: 'http://localhost:7890/login/',
+            url: 'http://localhost:7890/login',
             data: $scope.submit,
-            headers: { 'Content-Type': 'application/json' }
+            headers: { 'Content-Type': 'application/json','Authorization':'qweryui' }
         }).then((response) => {
             $scope.data = response.data;
             console.log($scope.data);
@@ -143,8 +143,8 @@ app.controller("mlp",($scope,$http)=>{
     let token='eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhbmlrZXRAMDIxMCIsImV4cCI6MTY3NjQ3MjY3MiwiaWF0IjoxNjc2NDU0NjcyfQ.fCL9451lDm3fhuikG1m1B_kg9gxEJnUOVayZPChwfZKQn2yoBghgsPpzBn19P-_gSnB4LQmA-UUk8IlpijBd9w';
     $http({
         method: 'GET',
-        url: 'http://localhost:7890/api/get/aniket@0210',
-        headers:{ 
+        url: 'http://localhost:7890/api/get/ajay@123',
+        headers:{ 'Content-Type': 'application/json','Authorization':'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhamF5QDEyMyIsImV4cCI6MTY3NjQ3Nzc5MSwiaWF0IjoxNjc2NDU5NzkxfQ.N69-t6wQ098Bdn-AauVFi3lmUzkq7sUHxLcmdfOOJTHVCeKK-AcS88jlhD1taSIu0zpcQEa3HW1n1tyZgKUt6A'
     } 
     }).then((response) => {
         $scope.data = response.data;
