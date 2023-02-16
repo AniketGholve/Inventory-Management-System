@@ -29,6 +29,10 @@ public class UserController {
 	
 	@PostMapping("/addUser")
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> cef03ca5a9a551fbe7f62ddd8e768b01cffbcc92
 	public Integer addUser(@RequestBody UserEntity user) {
 		String role = user.getRole();
 		String arr[] = { "CLP", "ELP", "ALP", "MLP" };
@@ -39,7 +43,16 @@ public class UserController {
 			return 1;
 		}
 		return -1;
+<<<<<<< HEAD
 	}	
+=======
+	}
+
+
+
+	
+	
+>>>>>>> cef03ca5a9a551fbe7f62ddd8e768b01cffbcc92
 	@GetMapping("/get/{username}")
 	public UserEntity getRole(@PathVariable("username") String username) {
 		return userEntityRepo.findByUsername(username);
