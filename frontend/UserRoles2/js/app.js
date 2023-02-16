@@ -20,6 +20,12 @@ app.config(function ($routeProvider) {
         })
         .when('/alp_users', {
             templateUrl: "view/alp_users.html"
+        })
+        .when("/updatePatient/:param1", {
+            templateUrl: "view/updatePatient.html"
+        })
+        .when("/insertPatient", {
+            templateUrl: "/view/insertPatient.html"
         });
 });
 
@@ -111,6 +117,10 @@ app.controller("mlp", ($scope, $http) => {
 });
 
 app.controller("clp", function ($scope, $http) {
+    $scope.navOption1Link="#!/clp_users";
+    $scope.navOption1="Patient";
+    $scope.navOption2Link="#!/insertPatient";
+    $scope.navOption2="Insert Patient";
     $http({
         method: 'GET',
         url: "http://localhost:7890/getAllData",
@@ -169,6 +179,70 @@ app.controller('registerController', function ($scope, $http) {
             console.log(response);
         },(error)=> {
             console.log(error);
+        });
+    };
+});
+
+
+app.controller('updateController', function ($scope, $http, $routeParams) {
+    $scope.navOption1Link="#!/clp_users";
+    $scope.navOption1="Patient";
+    $scope.hide="d-none";
+    $http({
+        method: 'GET',
+        url: "http://localhost:7890/getPatientById/" + $routeParams.param1,
+        data: $scope.updateFormData,
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': sessionStorage.getItem("token")
+        }
+    }).then((response) => {
+        $scope.updateFormData = response.data;
+        $scope.updateFormData.patientDob = new Date(response.data.patientDob);
+    }, (error) => {
+        console.log(error);
+    })
+    $scope.updatePatientForm = function () {
+        $http({
+            method: 'PUT',
+            url: 'http://localhost:7890/updatePatient',
+            data: $scope.updateFormData,
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': sessionStorage.getItem("token")
+            }
+        }).then(function (data) {
+            if (data.errors) {
+                $scope.errorUserName = data.errors;
+            } else {
+                console.log($scope.updateFormData)
+                alert("Updated Data")
+            }
+        });
+    };
+});
+
+app.controller('insertController', function ($scope, $http) {
+    $scope.navOption1Link="#!/clp_users";
+    $scope.navOption1="Patient";
+    $scope.hide="d-none";
+    $scope.submit = {};
+    $scope.submitForm = function () {
+        $http({
+            method: 'POST',
+            url: 'http://localhost:7890/createPatient',
+            data: $scope.formDataFields,
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': sessionStorage.getItem("token")
+            }
+        }).then(function (data) {
+            if (data.errors) {
+                $scope.errorUserName = data.errors;
+            } else {
+                alert("Data Added Successfully");
+                $scope.formDataFields = null;
+            }
         });
     };
 });
