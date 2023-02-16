@@ -55,7 +55,7 @@ public class PatientController {
 		return new ResponseEntity<Patient>(updatedPatient,HttpStatus.OK);
 		
 	}
-	
+	@PreAuthorize("hasAuthority('CLP')")
 	@GetMapping("/getPatientById/{pid}")
 	public ResponseEntity<?> getPatientById(@PathVariable("pid") String pid){
 		Object p=(Patient) patientServiceImpl.getPatientById(pid);
