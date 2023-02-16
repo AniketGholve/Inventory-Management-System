@@ -184,7 +184,7 @@ app.controller('registerController', function ($scope, $http) {
 });
 
 
-app.controller('updateController', function ($scope, $http, $routeParams) {
+app.controller('updateController', function ($scope, $http, $routeParams ,$window) {
     $scope.navOption1Link="#!/clp_users";
     $scope.navOption1="Patient";
     $scope.hide="d-none";
@@ -214,15 +214,16 @@ app.controller('updateController', function ($scope, $http, $routeParams) {
         }).then(function (data) {
             if (data.errors) {
                 $scope.errorUserName = data.errors;
+                alert("Error Occured No Data was changed");
             } else {
-                console.log($scope.updateFormData)
-                alert("Updated Data")
+                alert("Data Updated Successfully");
+                $window.location.href = "#!/clp_users";
             }
         });
     };
 });
 
-app.controller('insertController', function ($scope, $http) {
+app.controller('insertController', function ($scope, $http,$window) {
     $scope.navOption1Link="#!/clp_users";
     $scope.navOption1="Patient";
     $scope.hide="d-none";
@@ -241,6 +242,7 @@ app.controller('insertController', function ($scope, $http) {
                 $scope.errorUserName = data.errors;
             } else {
                 alert("Data Added Successfully");
+                $window.location.href = "#!clp_users";
                 $scope.formDataFields = null;
             }
         });
