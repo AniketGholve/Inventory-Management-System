@@ -37,7 +37,7 @@ public class SecurityConfiguration {
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
 		http.csrf().disable().authorizeHttpRequests()
-				.requestMatchers(new AntPathRequestMatcher("/login"), new AntPathRequestMatcher("/api/addUser"))
+				.requestMatchers(new AntPathRequestMatcher("/login"), new AntPathRequestMatcher("/api/addUser"), new AntPathRequestMatcher("/api/SuccessOrders/1"), new AntPathRequestMatcher("/api/ErrorOrders/1"))
 				.permitAll().anyRequest().authenticated().and().cors().and().exceptionHandling()
 				.authenticationEntryPoint(this.jwtAuthenticationEntryPoint).and().sessionManagement()
 				.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
