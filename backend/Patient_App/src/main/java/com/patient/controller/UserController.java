@@ -5,8 +5,9 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
-////import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,6 +20,9 @@ import com.patient.Entity.Orders;
 import com.patient.Entity.UserEntity;
 import com.patient.Repo.OrdersRepository;
 import com.patient.Repo.UserEntityRepo;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 
 @RestController
@@ -44,36 +48,35 @@ public class UserController {
 		this.Orepo = orepo;
 	}
 
+
 	@PostMapping("/addUser")
-	public String addUser(@RequestBody UserEntity user) {
+	public Integer addUser(@RequestBody UserEntity user) {
 		String role = user.getRole();
 		String arr[] = { "CLP", "ELP", "ALP", "MLP" };
 		boolean result = Arrays.asList(arr).contains(role);
 		if (result) {
 			user.setPassword(passwordEncoder.encode(user.getPassword()));
 			userEntityRepo.save(user);
-			return "User data added sucessfully";
+			return 1;
 		}
-		return "wrong role";
-	}
+		return -1;
 
-	@GetMapping("/get")
-	public String get() {
-		// return userRepository.findAll();
-		return "Loged in";
 	}
+	
 
 	@GetMapping("/get/{username}")
 	public UserEntity getRole(@PathVariable("username") String username) {
 		return userEntityRepo.findByUsername(username);
 	}
 	
+	@PreAuthorize("hasAuthority('ELP')")
 	@GetMapping("/ErrorOrders/{e}")
 	public List<Orders> getStatus_Error(@PathVariable("e") int e){
 
 		return Orepo.getErrorOrders(e);
 	}
 	
+	@PreAuthorize("hasAuthority('ELP')")
 	@GetMapping("/SuccessOrders/{s}")
 	public List<Orders> getStatus_Success(@PathVariable("s") int s) {
 		return Orepo.getSuccessOrders(s);

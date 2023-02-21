@@ -1,13 +1,20 @@
 package com.patient.Entity;
 
-import jakarta.annotation.Generated;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
-public class UserEntity {
+public class UserEntity implements UserDetails {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,6 +46,12 @@ public class UserEntity {
 	public void setRole(String role) {
 		this.role = role;
 	}
+	
+	
+	@Override
+	public String toString() {
+		return "UserEntity [id=" + id + ", username=" + username + ", password=" + password + ", role=" + role + "]";
+	}
 	public UserEntity(Integer id, String username, String password, String role) {
 		super();
 		this.id = id;
@@ -49,6 +62,36 @@ public class UserEntity {
 	public UserEntity() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+	
+	
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		// TODO Auto-generated method stub
+		List<SimpleGrantedAuthority> authorities=new ArrayList<>();
+		authorities.add(new SimpleGrantedAuthority(this.getRole()));
+		System.out.println(authorities.toString());
+		return authorities;
+	}
+	@Override
+	public boolean isAccountNonExpired() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+	@Override
+	public boolean isAccountNonLocked() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+	@Override
+	public boolean isCredentialsNonExpired() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+	@Override
+	public boolean isEnabled() {
+		// TODO Auto-generated method stub
+		return true;
 	}
 	
 	
