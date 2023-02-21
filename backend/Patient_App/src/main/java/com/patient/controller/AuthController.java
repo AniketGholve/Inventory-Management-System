@@ -17,6 +17,9 @@ import com.patient.Entity.JwtResponse;
 import com.patient.Security.CustomUserDetailService;
 import com.patient.Security.JwtUtilTokenHelper;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
 @RestController
 @CrossOrigin
 public class AuthController {
@@ -47,9 +50,15 @@ public class AuthController {
 
 		String token = this.jwtUtilTokenHelper.generateToken(userDetails);
 		// {"token":"value"}
+		System.out.println(token);
 
 		return ResponseEntity.ok(new JwtResponse(token));
 
+	}
+	
+	@PostMapping("/logout")
+	public String logoutDo(HttpServletRequest request,HttpServletResponse response) {
+		return "redirect/login";
 	}
 
 }

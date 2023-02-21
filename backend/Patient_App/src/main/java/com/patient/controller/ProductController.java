@@ -20,7 +20,7 @@ public class ProductController {
 	private ProductServiceImpl productServiceImpl;
 	
 	@PostMapping("/createProduct")
-	private ResponseEntity<?> createProduct(@RequestBody Product product)
+	public ResponseEntity<?> createProduct(@RequestBody Product product)
 	{
 		Product createdProduct=productServiceImpl.createProduct(product);
 		return new ResponseEntity<Product>(createdProduct,HttpStatus.OK);
