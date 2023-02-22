@@ -1,9 +1,10 @@
 package com.patient.Entity;
 
 import java.util.ArrayList;
+
 import java.util.Collection;
 import java.util.List;
-
+////
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,6 +15,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
+//implements UserDetails
 public class UserEntity implements UserDetails {
 
 	@Id
