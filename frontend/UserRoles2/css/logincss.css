@@ -27,3 +27,44 @@ table,tr,th,td{
  .modal-dialog{
     max-width: 1200px;
  }
+ .error{
+    background-color: blue ;
+    color: white;
+ }
+ .tabs-nav {
+
+    padding: 20px 0 0;
+
+    list-style: none;
+
+  }
+
+  .tabs-nav li {
+
+    display: inline;
+
+    margin-right: 20px;
+
+  }
+
+  .tabs-nav a {
+
+    display:inline-block;
+
+    cursor: pointer;
+
+  }
+
+  .tabs-nav .active {
+
+    color: red;
+
+  }
+
+  .tab-content {
+
+    border: 1px solid #ddd;
+
+    padding: 20px;
+
+  }

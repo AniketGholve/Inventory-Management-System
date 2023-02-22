@@ -1,7 +1,5 @@
 package com.patient.Entity;
 
-
-
 import java.sql.Date;
 import java.util.List;
 
@@ -22,49 +20,49 @@ import jakarta.persistence.OneToOne;
 
 @Entity
 public class Patient {
-	
-	
+
 	@Convert(converter = AESEncryption.class)
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	@Convert(converter = AESEncryption.class)
-	@Column(name="patient_id" ,unique=true)
-	private String  patientId;
+	@Column(name = "patient_id", unique = true)
+	private String patientId;
 	@Convert(converter = AESEncryption.class)
-	@Column(name="patient_first_name")
-	private String patientFirstName;	
+	@Column(name = "patient_first_name")
+	private String patientFirstName;
 	@Convert(converter = AESEncryption.class)
-	@Column(name="patient_last_name")
-	private String patientLastName;	
+	@Column(name = "patient_last_name")
+	private String patientLastName;
 	@Convert(converter = AESEncryption.class)
-	@Column(name="patient_mi")
-	private String patientMiddleName;		
+	@Column(name = "patient_mi")
+	private String patientMiddleName;
 	@Convert(converter = AESEncryption.class)
-	@Column(name="patient_date_of_birth")
-	private Date patientDob;	
-	@Column(name="patient_status")
+	@Column(name = "patient_date_of_birth")
+	private Date patientDob;
+	@Column(name = "patient_status")
 	private String patientStatus;
-	@Column(name="email")
+	@Column(name = "email")
 	private String patientEmail;
-	@Column(name="created_on")
+	@Column(name = "created_on")
 	private Date patientCreatedOn;
-	@Column(name="modified_on")
+	@Column(name = "modified_on")
 	private Date patientModifiedOn;
-	@Column(name="location_id")
+	@Column(name = "location_id")
 	private Integer patientLocationId;
-	@Column(name="last_dispense_loc_id")
+	@Column(name = "last_dispense_loc_id")
 	private Integer patientLastDispenseId;
-	@Column(name="enterprise_id")
-	private Integer patientEnterpriseId;	
-	@Column(name="payer_type")
-	private String patientPayerType;	
-	@Column(name="pa_needed")
+	@Column(name = "enterprise_id")
+	private Integer patientEnterpriseId;
+	@Column(name = "payer_type")
+	private String patientPayerType;
+	@Column(name = "pa_needed")
 	private Boolean patientPaNeeded;
-	@Column(name="independent_inventory")
+	@Column(name = "independent_inventory")
 	private Boolean independentInventory;
-	@Column(name="src_id")
+	@Column(name = "src_id")
 	private Integer patientSrcId;
+
 	
 	
 //	@OneToOne(mappedBy = "patient",cascade = CascadeType.ALL)
@@ -75,7 +73,7 @@ public class Patient {
 	@OneToMany(mappedBy = "patient",cascade = CascadeType.ALL)
 	@JsonManagedReference
 	private List<PatientFile> patientFile;
-	
+
 
 
 	public Integer getId() {
@@ -83,9 +81,11 @@ public class Patient {
 	}
 
 
+
 	public void setId(Integer id) {
 		this.id = id;
 	}
+
 
 
 	public String getPatientId() {
@@ -93,9 +93,11 @@ public class Patient {
 	}
 
 
+
 	public void setPatientId(String patientId) {
 		this.patientId = patientId;
 	}
+
 
 
 	public String getPatientFirstName() {
@@ -103,9 +105,11 @@ public class Patient {
 	}
 
 
+
 	public void setPatientFirstName(String patientFirstName) {
 		this.patientFirstName = patientFirstName;
 	}
+
 
 
 	public String getPatientLastName() {
@@ -113,9 +117,11 @@ public class Patient {
 	}
 
 
+
 	public void setPatientLastName(String patientLastName) {
 		this.patientLastName = patientLastName;
 	}
+
 
 
 	public String getPatientMiddleName() {
@@ -123,9 +129,11 @@ public class Patient {
 	}
 
 
+
 	public void setPatientMiddleName(String patientMiddleName) {
 		this.patientMiddleName = patientMiddleName;
 	}
+
 
 
 	public Date getPatientDob() {
@@ -133,9 +141,11 @@ public class Patient {
 	}
 
 
+
 	public void setPatientDob(Date patientDob) {
 		this.patientDob = patientDob;
 	}
+
 
 
 	public String getPatientStatus() {
@@ -143,9 +153,11 @@ public class Patient {
 	}
 
 
+
 	public void setPatientStatus(String patientStatus) {
 		this.patientStatus = patientStatus;
 	}
+
 
 
 	public String getPatientEmail() {
@@ -153,9 +165,11 @@ public class Patient {
 	}
 
 
+
 	public void setPatientEmail(String patientEmail) {
 		this.patientEmail = patientEmail;
 	}
+
 
 
 	public Date getPatientCreatedOn() {
@@ -163,9 +177,11 @@ public class Patient {
 	}
 
 
+
 	public void setPatientCreatedOn(Date patientCreatedOn) {
 		this.patientCreatedOn = patientCreatedOn;
 	}
+
 
 
 	public Date getPatientModifiedOn() {
@@ -173,9 +189,11 @@ public class Patient {
 	}
 
 
+
 	public void setPatientModifiedOn(Date patientModifiedOn) {
 		this.patientModifiedOn = patientModifiedOn;
 	}
+
 
 
 	public Integer getPatientLocationId() {
@@ -183,9 +201,11 @@ public class Patient {
 	}
 
 
+
 	public void setPatientLocationId(Integer patientLocationId) {
 		this.patientLocationId = patientLocationId;
 	}
+
 
 
 	public Integer getPatientLastDispenseId() {
@@ -193,9 +213,11 @@ public class Patient {
 	}
 
 
+
 	public void setPatientLastDispenseId(Integer patientLastDispenseId) {
 		this.patientLastDispenseId = patientLastDispenseId;
 	}
+
 
 
 	public Integer getPatientEnterpriseId() {
@@ -203,9 +225,11 @@ public class Patient {
 	}
 
 
+
 	public void setPatientEnterpriseId(Integer patientEnterpriseId) {
 		this.patientEnterpriseId = patientEnterpriseId;
 	}
+
 
 
 	public String getPatientPayerType() {
@@ -213,9 +237,11 @@ public class Patient {
 	}
 
 
+
 	public void setPatientPayerType(String patientPayerType) {
 		this.patientPayerType = patientPayerType;
 	}
+
 
 
 	public Boolean getPatientPaNeeded() {
@@ -223,9 +249,11 @@ public class Patient {
 	}
 
 
+
 	public void setPatientPaNeeded(Boolean patientPaNeeded) {
 		this.patientPaNeeded = patientPaNeeded;
 	}
+
 
 
 	public Boolean getIndependentInventory() {
@@ -233,9 +261,11 @@ public class Patient {
 	}
 
 
+
 	public void setIndependentInventory(Boolean independentInventory) {
 		this.independentInventory = independentInventory;
 	}
+
 
 
 	public Integer getPatientSrcId() {
@@ -243,9 +273,11 @@ public class Patient {
 	}
 
 
+
 	public void setPatientSrcId(Integer patientSrcId) {
 		this.patientSrcId = patientSrcId;
 	}
+
 
 
 	public List<PatientFile> getPatientFile() {
@@ -253,9 +285,11 @@ public class Patient {
 	}
 
 
+
 	public void setPatientFile(List<PatientFile> patientFile) {
 		this.patientFile = patientFile;
 	}
+
 
 
 	public Patient(Integer id, String patientId, String patientFirstName, String patientLastName,
@@ -285,10 +319,12 @@ public class Patient {
 	}
 
 
+
 	public Patient() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+
 
 
 	@Override
@@ -303,23 +339,7 @@ public class Patient {
 				+ ", patientSrcId=" + patientSrcId + ", patientFile=" + patientFile + "]";
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+
 	
 }

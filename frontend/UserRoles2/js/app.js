@@ -253,3 +253,4 @@ app.controller('insertController', function ($scope, $http,$window) {
         });
     };
 });
+
