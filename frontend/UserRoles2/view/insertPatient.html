@@ -1,82 +1,97 @@
-<div ng-controller = "insertController">
+<div ng-controller="insertController">
     <div ng-include="'view/header.html'"></div>
     <div>
-        <h1 class = "text-center">Add Patient Details</h1>
+        <h1 class="text-center">Add Patient Details</h1>
     </div>
-    <form name = "userForm" ng-submit = "submitForm()">
-        <div class = "row g-3 form-control d-flex justify-content-between w-50 m-auto">
-            <div class = "col-auto">
-                <label for = "">Patient Id </label>
-                <input type = "text" class = "input2" ng-model = "formDataFields.patientId">
+    <form name="userForm" ng-submit="submitForm()">
+        <div class="row g-3 form-control d-flex justify-content-between w-50 m-auto">
+            <div class="col-auto">
+                <label for="">Patient Id </label>
+                <input type="text" class="input2" ng-model="formDataFields.patientId">
             </div>
-            <div class = "col-auto">
-                <label for = "">First Name</label>
-                <input type = "text" class = "input3" ng-model = "formDataFields.patientFirstName" pattern = "[\w]{1,15}" title = "Please Enter A Valid Name only alphabets allowed" required>
+            <div class="col-auto">
+                <label for="">First Name</label>
+                <input type="text" class="input3" ng-model="formDataFields.patientFirstName" pattern="[\w]{1,15}"
+                    title="Please Enter A Valid Name only alphabets allowed" required>
             </div>
-            <div class = "col-auto">
-                <label for = "">Last Name</label>
-                <input type = "text" class = "input4" ng-model = "formDataFields.patientLastName" pattern = "[A-Za-z]{1,15}" title = "Please Enter A Valid Name only alphabets allowed" required>
+            <div class="col-auto">
+                <label for="">Last Name</label>
+                <input type="text" class="input4" ng-model="formDataFields.patientLastName" pattern="[A-Za-z]{1,15}"
+                    title="Please Enter A Valid Name only alphabets allowed" required>
             </div>
-            <div class = "col-auto">
-                <label for = "">Middle Name</label>
-                <input type = "text" class = "input5" ng-model = "formDataFields.patientMiddleName" pattern = "[A-Za-z]{0,15}" title = "Please Enter A Valid Name only alphabets allowed">
+            <div class="col-auto">
+                <label for="">Middle Name</label>
+                <input type="text" class="input5" ng-model="formDataFields.patientMiddleName" pattern="[A-Za-z]{0,15}"
+                    title="Please Enter A Valid Name only alphabets allowed">
             </div>
-            <div class = "col-auto">
-                <label for = "">DOB</label>
-                <input type = "date" class = "input6" ng-model = "formDataFields.patientDob" required>
+            <div class="col-auto">
+                <label for="">DOB</label>
+                <input type="date" class="input6" ng-model="formDataFields.patientDob" required>
             </div>
-            <div class = "col-auto">
-                <label for = "">Patient Status</label>
-                <select ng-model = "formDataFields.patientStatus">
-                    <option value = "Active">Active</option>
-                    <option value = "Inactive">Inactive</option>
+            <div class="col-auto">
+                <label for="">Patient Status</label>
+                <select ng-model="formDataFields.patientStatus">
+                    <option value="Active">Active</option>
+                    <option value="Inactive">Inactive</option>
                 </select>
             </div>
-            <div class = "col-auto">
-                <label for = "">Email</label>
-                <input type = "email" ng-model = "formDataFields.patientEmail" title = "Not a valid email eg: abc@xyz.com" required>
+            <div class="col-auto">
+                <label for="">Email</label>
+                <input type="email" ng-model="formDataFields.patientEmail" title="Not a valid email eg: abc@xyz.com"
+                    required>
             </div>
-            <div class = "col-auto">
-                <label for = "">Payer Type</label>
-                <select type = "checkbox" ng-model = "formDataFields.patientPayerType" required>
-                    <option value = "Default" selected>Default</option>
-                    <option value = "Commercial">Commercial</option>
-                    <option value = "Medicare">Medicare</option>
-                    <option value = "Medicare with Supplemental">Medicare with Supplemental</option>
-                    <option value = "Medicare Advantage">Medicare Advantage</option>
-                    <option value = "Medicaid">Medicaid</option>
-                    <option value = "Self pay">Self pay</option>
-                    <option value = "Other">Other</option>
+            <div class="col-auto">
+                <label for="">Payer Type</label>
+                <select type="checkbox" ng-model="formDataFields.patientPayerType" required>
+                    <option value="Default" selected>Default</option>
+                    <option value="Commercial">Commercial</option>
+                    <option value="Medicare">Medicare</option>
+                    <option value="Medicare with Supplemental">Medicare with Supplemental</option>
+                    <option value="Medicare Advantage">Medicare Advantage</option>
+                    <option value="Medicaid">Medicaid</option>
+                    <option value="Self pay">Self pay</option>
+                    <option value="Other">Other</option>
                 </select>
             </div>
-            <div class = "col-auto">
-                <label for = "">PA Needed</label>
-                <input type = "checkbox" ng-init = "formDataFields.patientPaNeeded  =  false" ng-model = "formDataFields.patientPaNeeded" class = "input15">
+            <div class="col-auto">
+                <label for="">PA Needed</label>
+                <input type="checkbox" ng-init="formDataFields.patientPaNeeded=false"
+                    ng-model="formDataFields.patientPaNeeded" class="input15">
             </div>
-            <div class = "col-auto">
-                <label for = "">Independent Inventory</label>
-                <input type = "checkbox" ng-init = "formDataFields.independentInventory  =  false" ng-model = "formDataFields.independentInventory" class = "input16">
+            <div class="col-auto">
+                <label for="">Independent Inventory</label>
+                <input type="checkbox" ng-init="formDataFields.independentInventory=false"
+                    ng-model="formDataFields.independentInventory" class="input16">
             </div>
-            <!-- <div class = "col-500 d-flex justify-content-center">
-                <input type="file" file-model="customer.file">
-            </div> -->
-            <input type = "submit" name = "formDataFields" value = "Submit"/>
+            <div class="col-500 d-flex justify-content-center">
+                <!-- <input type="file" ng-model="fileData"> for refrence -->
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                    data-bs-target="#uploadModal">Upload File</button>
+            </div>
+            <input type="submit" name="formDataFields" value="Submit" />
         </div>
     </form>
-</div>
-
-<!-- <div class="modal fade" id="uploadModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="uploadModalLabel">Modal title</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    <div class="modal fade" id="uploadModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog w-50">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="uploadModalLabel">Modal title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="d-flex">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="green"
+                        class="bi bi-check-circle-fill position-relative" id="uplodeSuccessSign" viewBox="0 0 16 16">
+                        <path
+                            d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+                    </svg>
+                    <input type="file" class="modal-body d-flex" file-input="files" accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,
+                        text/plain, application/pdf, image/*" multiple>
+                    </input>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
         </div>
-        <input type="file" class="modal-body" ></input>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
-        </div>
-      </div>
     </div>
-  </div> -->
+</div>
