@@ -4,7 +4,7 @@ import com.patient.Entity.Product;
 
 public interface ProductService {
 	
-	public Product createProduct(Product product);
+	public Product createProduct(Product product) throws Exception;
 
 
 }

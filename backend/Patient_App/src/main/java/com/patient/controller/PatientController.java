@@ -13,20 +13,18 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.patient.Entity.Patient;
 import com.patient.ServiceImpl.PatientServiceImpl;
-
-import lombok.Delegate;
 
 @RestController
 @CrossOrigin
 public class PatientController {
 	
 	@Autowired
-	PatientServiceImpl patientServiceImpl;
+	private PatientServiceImpl patientServiceImpl;
+
 	
 	@PreAuthorize("hasAuthority('CLP')")
 	@PostMapping("/createPatient")
@@ -65,12 +63,24 @@ public class PatientController {
 	
 	
 	
+	
 	@DeleteMapping("deletePatient/{id}")
 	public ResponseEntity<String> deletePatient(@PathVariable("id") Integer id)
 	{
 		String s=patientServiceImpl.deletePatient(id);
 		return new ResponseEntity<String>(s,HttpStatus.OK);
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 
 	
