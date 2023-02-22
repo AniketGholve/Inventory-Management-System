@@ -34,7 +34,6 @@ table,tr,th,td{
  .tabs-nav {
 
     padding: 20px 0 0;
-
     list-style: none;
 
   }
@@ -67,4 +66,7 @@ table,tr,th,td{
 
     padding: 20px;
 
+  }
+  #uplodeSuccessSign{
+    display: none;
   }
