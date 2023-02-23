@@ -2,19 +2,19 @@ function reloadWindow() {
     location.reload();
 }
 let app = angular.module("myApp", ['ngRoute']);
-
 app.directive("fileInput", function ($parse) {
     return {
-        link: function ($scope, element, attrs) {
+        link: function (scope, element, attrs) {
             element.on("change", function (event) {
                 var files = event.target.files;
                 console.log(files[0].name);
-                $parse(attrs.fileInput).assign($scope, element[0].files);
-                $scope.$apply();
+                $parse(attrs.fileInput).assign(scope, element[0].files);
+                scope.$apply();
             });
-        }
-    }
+        },
+    }   
 });
+
 
 app.config(function ($routeProvider) {
     $routeProvider
