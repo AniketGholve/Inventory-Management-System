@@ -13,12 +13,15 @@ app.factory('myInterceptor', function ($q) {
     };
     return interceptor;
 });
+
+
 app.directive("fileInput", function ($parse) {
     return {
         link: function (scope, element, attrs) {
             element.on("change", function (event) {
-                var files = event.target.files;
-                console.log(files[0].name);
+                // var files = event.target.files;
+                // console.log(attrs)
+                // console.log(files[0].name);
                 $parse(attrs.fileInput).assign(scope, element[0].files);
                 scope.$apply();
             });
@@ -157,10 +160,11 @@ app.controller("clp", function ($scope, $http) {
         }
     }).then((response) => {
         $scope.allPatientData = response.data;
-        $scope.arrayCount = $scope.allPatientData.size;
-        console.log($scope.allPatientData.length)
+        let arrayCount = $scope.allPatientData.length;
+        // console.log($scope.allPatientData.length)
         var range = [];
-        for (var i = 0; i < $scope.fileCount; i++) {
+        for (var i = 0; i <arrayCount; i++) {
+            console.log($scope.allPatientData[i].patientFile.length)
             range.push(i);
         }
         $scope.range = range;
@@ -193,7 +197,7 @@ app.controller("clp", function ($scope, $http) {
             }
         }).then((response) => { }, (error) => { })
     }
-    $scope.demoFile = (id) => {
+    $scope.fileDownload = (id) => {
         $http({
             method: 'get',
             url: "http://localhost:7890/downloadFile?id=" + id,
@@ -302,12 +306,31 @@ app.controller('updateController', function ($scope, $http, $routeParams, $windo
     }
 });
 
-app.controller('insertController', function ($scope, $http, $window) {
+app.controller('insertController', function ($scope, $http, $window,$rootScope) {
     $scope.navOption1Link = "#!/clp_users";
     $scope.navOption1 = "Patient";
     $scope.hide = "d-none";
     $scope.submit = {};
-    $scope.fileData;
+    // $scope.fileData=(file)=>{
+    //     document.getElementById("selectedTable").style.display="table"
+    //     $rootScope.changeFileData=file;
+    // }
+    
+    // $scope.deleteData=(files,id)=>{
+    //     console.log("delete data");
+    //     console.log(files[0]);
+    //     files[0].name="Aniket"
+    //     //console.log(typeof files)
+    //     delete files[0];
+    //     //files[0].File=null;
+    //     console.log(files);
+    // }
+
+    // $scope.preprocessing=()=>
+    // {
+    //     console.log($scope.files)
+    // }
+
     $scope.submitForm = function () {
         $http({
             method: 'POST',
@@ -343,7 +366,7 @@ app.controller('insertController', function ($scope, $http, $window) {
                     });
                 alert("Data Added Successfully");
                 $window.location.href = "#!clp_users";
-                $scope.formDataFields = null;
+                // $scope.formDataFields = null;
             }
         });
     };

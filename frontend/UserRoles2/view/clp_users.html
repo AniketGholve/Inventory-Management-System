@@ -73,7 +73,7 @@
                 </td>
                 <!-- href="http://localhost:7890/downloadFile?id={{x.patientFile[i].fileId}}" -->
                 <td><button ng-repeat="i in range"
-                        ng-click="demoFile(x.patientFile[i].fileId)">{{x.patientFile[i].fileName}}</button>
+                        ng-click="fileDownload(x.patientFile[i].fileId)">{{x.patientFile[i].fileName}}</button>
                 </td>
                 <td><a href="#!updatePatient/{{x.patientId}}">edit</a></td>
                 <td><a href="" ng-click="deleteById(x.id)" onclick="reloadWindow()">delete</a></td>
