@@ -2,6 +2,8 @@ package com.patient.Repo;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface EnterpriseRepo extends JpaRepository<Enterprise, Integer> {
+import com.patient.Entity.Enterprises;
+
+public interface EnterpriseRepo extends JpaRepository<Enterprises, Integer> {
 
 }

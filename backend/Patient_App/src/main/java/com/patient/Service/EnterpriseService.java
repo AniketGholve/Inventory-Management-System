@@ -1,17 +1,19 @@
 package com.patient.Service;
 
-import org.apache.catalina.connector.Response;
-import org.springframework.http.ResponseEntity;
+import java.util.List;
+
+ 
+import com.patient.Entity.Enterprises;
 
 public interface EnterpriseService {
 	
 	
-	private ResponseEntity<Enterprise> createEnterprise(Enterprise enterprise);
+	public Enterprises createEnterprises(Enterprises enterprises);
 	
-	private ResponseEntity<List<Enterprise>> getAllEnterprise();
+	public List<Enterprises> getAllEnterprises();
 	
-	private ResponseEntity<Enterprise> updateEnterprise(Enterprise enterprise);
+	public Enterprises updateEnterprise(Enterprises enterprises);
 	
-	private ResponseEntity<String> deleteenterprise(Integer enterpriseId);
+	public String deleteEnterprise(Integer enterpriseId);
 
 }
