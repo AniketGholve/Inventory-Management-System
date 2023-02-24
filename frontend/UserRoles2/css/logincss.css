@@ -1,75 +1,86 @@
+body {
+  font-family: 'Gentium Book Plus', serif;
+}
 
-body{
-    font-family: 'Gentium Book Plus', serif;
+#patientDetailsTable,
+#inventoryDetailsTable {
+  font-size: 15px;
 }
-#patientDetailsTable , #inventoryDetailsTable{
-    font-size: 15px;
+
+table,
+tr,
+th,
+td {
+  border: 2px solid black;
 }
-table,tr,th,td{
-    border: 2px solid black;
+
+.nav_hover:hover {
+  background-color: rgb(195, 73, 73);
+  border-radius: 15%;
 }
-.nav_hover:hover{
-    background-color: rgb(195, 73, 73);
-    border-radius:15% ;
+
+.nav_hover a:hover {
+  color: white;
 }
-.nav_hover a:hover{
-    color: white;
+
+.nav-link {
+  padding: 5px;
 }
-.nav-link{
-    padding: 5px;
-}
+
 .capitalize {
-    text-transform: capitalize;
- }
- .modal{
-    --bs-modal-width: 1200px;
- }
- .modal-dialog{
-    max-width: 1200px;
- }
- .error{
-    background-color: blue ;
-    color: white;
- }
- .tabs-nav {
+  text-transform: capitalize;
+}
 
-    padding: 20px 0 0;
-    list-style: none;
+.modal {
+  --bs-modal-width: 1200px;
+}
 
-  }
+.modal-dialog {
+  max-width: 1200px;
+}
 
-  .tabs-nav li {
+.error {
+  background-color: blue;
+  color: white;
+}
 
-    display: inline;
+.tabs-nav {
 
-    margin-right: 20px;
+  padding: 20px 0 0;
+  list-style: none;
 
-  }
+}
 
-  .tabs-nav a {
+.tabs-nav li {
 
-    display:inline-block;
+  display: inline;
 
-    cursor: pointer;
+  margin-right: 20px;
 
-  }
+}
 
-  .tabs-nav .active {
+.tabs-nav a {
 
-    color: red;
+  display: inline-block;
 
-  }
+  cursor: pointer;
 
-  .tab-content {
+}
 
-    border: 1px solid #ddd;
+.tabs-nav .active {
 
-    padding: 20px;
+  color: red;
 
-  }
-  #uplodeSuccessSign{
-    display: none;
-  }
-  /* #selectedTable{
-    display: none;
-  } */
+}
+
+.tab-content {
+
+  border: 1px solid #ddd;
+
+  padding: 20px;
+
+}
+
+#uplodeSuccessSign {
+  display: none;
+}
