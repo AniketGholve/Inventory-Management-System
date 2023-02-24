@@ -92,7 +92,7 @@ public class PatientFile {
 	
 	
 	
-	@ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JsonBackReference
 	
 	@JoinTable(name = "patient_documents",inverseJoinColumns = {@JoinColumn(name="patient_id",referencedColumnName = "id")},joinColumns = {@JoinColumn(name="doc_id",referencedColumnName = "doc_id")})

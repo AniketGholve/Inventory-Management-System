@@ -72,16 +72,13 @@ public class Patient {
 //	private PatientFile patientFile;
 	
 	
-	@OneToMany(mappedBy = "patient",fetch = FetchType.LAZY)
+	
+	@OneToMany(cascade = CascadeType.REMOVE, mappedBy= "patient",fetch = FetchType.LAZY)
 	@JsonManagedReference
-	@Fetch(value = FetchMode.SUBSELECT)
+	//@Fetch(value = FetchMode.SUBSELECT)
 
 	private List<PatientFile> patientFile;
 	
-	
-
-
-
 	public Integer getId() {
 		return id;
 	}

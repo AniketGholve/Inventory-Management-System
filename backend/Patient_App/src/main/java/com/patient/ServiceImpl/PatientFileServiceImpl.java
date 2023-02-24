@@ -32,7 +32,8 @@ public class PatientFileServiceImpl implements PatientFileService {
 		
 	@Override
 	public List<PatientFile> uploadMultiplePatientFile(MultipartFile[] multipartFile, Patient patient) throws IOException {
-		// TODO Auto-generated method stub
+		// TODO Auto-generated method 
+		System.out.println(multipartFile.toString());
 		long m=System.currentTimeMillis();
 		List<PatientFile> patientFilelist=new ArrayList<>();
 		Patient p=patientRepo.findById(patient.getId()).orElseThrow();
