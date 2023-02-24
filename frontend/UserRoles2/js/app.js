@@ -163,7 +163,7 @@ app.controller("clp", function ($scope, $http) {
         $scope.allPatientData = response.data;
         let arrayCount = $scope.allPatientData.length;
         console.log($scope.allPatientData.length)
-        $scope.searchedPatientFileRange = function(min, max) {
+        $scope.searchedPatientFileRange = function (min, max) {
             var input = [];
             for (var i = min; i <= max; i++) {
                 input.push(i);
@@ -248,12 +248,16 @@ app.controller('registerController', function ($scope, $http, $window) {
 });
 
 
-app.controller('updateController', function ($scope, $http, $routeParams, $window,$rootScope) {
+app.controller('updateController', function ($scope, $http, $routeParams, $window, $rootScope) {
     $scope.navOption1Link = "#!/clp_users";
     $scope.navOption1 = "Patient";
     $scope.hide = "d-none";
+    $rootScope.dataFile = null;
     $scope.fileData = (files) => {
-        $rootScope.dataFile = files
+        if($rootScope.dataFile==null)
+        {
+            $rootScope.dataFile = files;
+        }
     }
     $scope.deleteData = (id) => {
         updatedFiles = $rootScope.dataFile;
@@ -300,19 +304,21 @@ app.controller('updateController', function ($scope, $http, $routeParams, $windo
                 alert("Error Occured No Data was changed");
             } else {
                 var form_data = new FormData();
-                angular.forEach($scope.files, function (file) {
+                angular.forEach($rootScope.dataFile, function (file) {
                     form_data.append('file', file);
                 });
-                form_data.append('patient', JSON.stringify(data.data));
-                //$http.post("http://localhost:7890/createPatientForFile", data.data).then(function (response) { });
-                $http.put("http://localhost:7890/updateUploadMultiplePatientFile", form_data,
-                    {
-                        transformRequest: angular.identity,
-                        headers: { 'Content-Type': undefined, 'Process-Data': false, 'Authorization': sessionStorage.getItem("token") }
-                    }).then(function (response) {
-                        var uplodeSuccessSign = document.getElementById("uplodeSuccessSign");
-                        uplodeSuccessSign.style.display = "block";
-                    });
+                if ($rootScope.dataFile != null) {
+                    form_data.append('patient', JSON.stringify(data.data));
+                    //$http.post("http://localhost:7890/createPatientForFile", data.data).then(function (response) { });
+                    $http.put("http://localhost:7890/updateUploadMultiplePatientFile", form_data,
+                        {
+                            transformRequest: angular.identity,
+                            headers: { 'Content-Type': undefined, 'Process-Data': false, 'Authorization': sessionStorage.getItem("token") }
+                        }).then(function (response) {
+                            var uplodeSuccessSign = document.getElementById("uplodeSuccessSign");
+                            uplodeSuccessSign.style.display = "block";
+                        });
+                }
                 alert("Data Updated Successfully");
                 $window.location.href = "#!/clp_users";
             }
@@ -335,8 +341,12 @@ app.controller('insertController', function ($scope, $http, $window, $rootScope)
     $scope.navOption1 = "Patient";
     $scope.hide = "d-none";
     $scope.submit = {};
+    $rootScope.dataFile = null;
     $scope.fileData = (files) => {
-        $rootScope.dataFile = files
+        if($rootScope.dataFile==null)
+        {
+            $rootScope.dataFile = files;
+        }
     }
     $scope.deleteData = (id) => {
         updatedFiles = $rootScope.dataFile;
@@ -367,21 +377,22 @@ app.controller('insertController', function ($scope, $http, $window, $rootScope)
                 angular.forEach($rootScope.dataFile, function (file) {
                     form_data.append('file', file);
                 });
-                form_data.append('patient', JSON.stringify(data.data));
-                $scope.updateFileData = {}
-
-                //$http.post("http://localhost:7890/createPatientForFile", data.data).then(function (response) { });
-                $http.post("http://localhost:7890/uploadMultiplePatientFile", form_data,
-                    {
-                        transformRequest: angular.identity,
-                        headers: { 'Content-Type': undefined, 'Process-Data': false, 'Authorization': sessionStorage.getItem("token") }
-                    }).then(function (response) {
-                        var uplodeSuccessSign = document.getElementById("uplodeSuccessSign");
-                        uplodeSuccessSign.style.display = "block";
-                    }, (error) => {
-                        alert("file not uploaded");
-                        console.log(error)
-                    });
+                if ($rootScope.dataFile != null) {
+                    form_data.append('patient', JSON.stringify(data.data));
+                    $scope.updateFileData = {}
+                    //$http.post("http://localhost:7890/createPatientForFile", data.data).then(function (response) { });
+                    $http.post("http://localhost:7890/uploadMultiplePatientFile", form_data,
+                        {
+                            transformRequest: angular.identity,
+                            headers: { 'Content-Type': undefined, 'Process-Data': false, 'Authorization': sessionStorage.getItem("token") }
+                        }).then(function (response) {
+                            var uplodeSuccessSign = document.getElementById("uplodeSuccessSign");
+                            uplodeSuccessSign.style.display = "block";
+                        }, (error) => {
+                            alert("file not uploaded");
+                            console.log(error)
+                        });
+                }
                 alert("Data Added Successfully");
                 $window.location.href = "#!clp_users";
             }
