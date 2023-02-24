@@ -300,7 +300,7 @@ app.controller('updateController', function ($scope, $http, $routeParams, $windo
                 alert("Error Occured No Data was changed");
             } else {
                 var form_data = new FormData();
-                angular.forEach($scope.files, function (file) {
+                angular.forEach($rootScope.dataFile, function (file) {
                     form_data.append('file', file);
                 });
                 form_data.append('patient', JSON.stringify(data.data));
@@ -383,7 +383,7 @@ app.controller('insertController', function ($scope, $http, $window, $rootScope)
                         console.log(error)
                     });
                 alert("Data Added Successfully");
-                $window.location.href = "#!clp_users";
+                //$window.location.href = "#!clp_users";
             }
         });
     };
