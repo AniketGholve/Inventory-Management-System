@@ -89,6 +89,7 @@
                         text/plain, application/pdf, image/*" multiple>
                     </input>
                 </div>
+                <button ng-click="fileData(files)">Show Selected</button>
                 <table id="selectedTable">
                     <thead>
                         <tr>
@@ -97,9 +98,9 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="i in files">
+                        <tr ng-repeat="i in dataFile">
                             <td>{{i.name}}</td>
-                            <td><a href="" ng-click="deleteData(files,$index)">Deselect</a></td>
+                            <td><a href="" ng-click="deleteData($index)">Deselect</a></td>
                         </tr>
                     </tbody>
                 </table>

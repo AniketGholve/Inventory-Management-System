@@ -72,12 +72,14 @@
                     {{ x.independentInventory }}
                 </td>
                 <!-- href="http://localhost:7890/downloadFile?id={{x.patientFile[i].fileId}}" -->
-                <td><button ng-repeat="i in range"
-                        ng-click="fileDownload(x.patientFile[i].fileId)">{{x.patientFile[i].fileName}}</button>
+                <td>
+                    <a class="d-block" href="" ng-repeat="j in range[$index]"
+                        ng-click="fileDownload(x.patientFile[j].fileId)">{{x.patientFile[j].fileName}}</a>
                 </td>
                 <td><a href="#!updatePatient/{{x.patientId}}">edit</a></td>
                 <td><a href="" ng-click="deleteById(x.id)" onclick="reloadWindow()">delete</a></td>
             </tr>
+            
             <tr ng-if="searchPatientData!=null" ng-init="x=searchPatientData">
                 <td class="px-3">
                     {{ x.id }}
@@ -121,8 +123,9 @@
                 <td class="px-3">
                     {{ x.independentInventory }}
                 </td>
-                <td><a ng-repeat="i in range"
-                        href="http://localhost:7890/downloadFile?id={{x.patientFile[i].fileId}}">{{x.patientFile[i].fileName}}<br><br></a>
+                <td>
+                    <a class="d-block" href="" ng-repeat="j in searchedPatientFileRange(0,x.patientFile.length)"
+                        ng-click="fileDownload(x.patientFile[j].fileId)">{{x.patientFile[j].fileName}}</a>
                 </td>
                 <td><a href="#!updatePatient/{{x.patientId}}">edit</a></td>
                 <td> <a href="" ng-click="deleteById(x.id)" onclick="reloadWindow()">delete</a></td>

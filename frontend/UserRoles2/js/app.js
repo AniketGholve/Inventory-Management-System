@@ -151,6 +151,7 @@ app.controller("clp", function ($scope, $http) {
     $scope.navOption1 = "Patient";
     $scope.navOption2Link = "#!/insertPatient";
     $scope.navOption2 = "Insert Patient";
+
     $http({
         method: 'GET',
         url: "http://localhost:7890/getAllData",
@@ -161,12 +162,23 @@ app.controller("clp", function ($scope, $http) {
     }).then((response) => {
         $scope.allPatientData = response.data;
         let arrayCount = $scope.allPatientData.length;
-        // console.log($scope.allPatientData.length)
+        console.log($scope.allPatientData.length)
+        $scope.searchedPatientFileRange = function(min, max) {
+            var input = [];
+            for (var i = min; i <= max; i++) {
+                input.push(i);
+            }
+            return input;
+        };
         var range = [];
-        for (var i = 0; i <arrayCount; i++) {
-            console.log($scope.allPatientData[i].patientFile.length)
-            range.push(i);
+        for (var i = 0; i < arrayCount; i++) {
+            var data = [];
+            for (var j = 0; j < $scope.allPatientData[i].patientFile.length; j++) {
+                data.push(j);
+            }
+            range.push(data);
         }
+        console.log(range);
         $scope.range = range;
     }, (error) => {
         console.log(error)
@@ -236,11 +248,23 @@ app.controller('registerController', function ($scope, $http, $window) {
 });
 
 
-app.controller('updateController', function ($scope, $http, $routeParams, $window) {
+app.controller('updateController', function ($scope, $http, $routeParams, $window,$rootScope) {
     $scope.navOption1Link = "#!/clp_users";
     $scope.navOption1 = "Patient";
     $scope.hide = "d-none";
-
+    $scope.fileData = (files) => {
+        $rootScope.dataFile = files
+    }
+    $scope.deleteData = (id) => {
+        updatedFiles = $rootScope.dataFile;
+        files = [];
+        for (var i = 0; i < updatedFiles.length; i++) {
+            if (updatedFiles[i].name != updatedFiles[id].name) {
+                files.push(updatedFiles[i]);
+            }
+        }
+        $rootScope.dataFile = files
+    }
     $http({
         method: 'GET',
         url: "http://localhost:7890/getPatientById/" + $routeParams.param1,
@@ -306,30 +330,24 @@ app.controller('updateController', function ($scope, $http, $routeParams, $windo
     }
 });
 
-app.controller('insertController', function ($scope, $http, $window,$rootScope) {
+app.controller('insertController', function ($scope, $http, $window, $rootScope) {
     $scope.navOption1Link = "#!/clp_users";
     $scope.navOption1 = "Patient";
     $scope.hide = "d-none";
     $scope.submit = {};
-    // $scope.fileData=(file)=>{
-    //     document.getElementById("selectedTable").style.display="table"
-    //     $rootScope.changeFileData=file;
-    // }
-    
-    // $scope.deleteData=(files,id)=>{
-    //     console.log("delete data");
-    //     console.log(files[0]);
-    //     files[0].name="Aniket"
-    //     //console.log(typeof files)
-    //     delete files[0];
-    //     //files[0].File=null;
-    //     console.log(files);
-    // }
-
-    // $scope.preprocessing=()=>
-    // {
-    //     console.log($scope.files)
-    // }
+    $scope.fileData = (files) => {
+        $rootScope.dataFile = files
+    }
+    $scope.deleteData = (id) => {
+        updatedFiles = $rootScope.dataFile;
+        files = [];
+        for (var i = 0; i < updatedFiles.length; i++) {
+            if (updatedFiles[i].name != updatedFiles[id].name) {
+                files.push(updatedFiles[i]);
+            }
+        }
+        $rootScope.dataFile = files
+    }
 
     $scope.submitForm = function () {
         $http({
@@ -346,7 +364,7 @@ app.controller('insertController', function ($scope, $http, $window,$rootScope) 
                 $scope.errorUserName = data.errors;
             } else {
                 var form_data = new FormData();
-                angular.forEach($scope.files, function (file) {
+                angular.forEach($rootScope.dataFile, function (file) {
                     form_data.append('file', file);
                 });
                 form_data.append('patient', JSON.stringify(data.data));
@@ -366,7 +384,6 @@ app.controller('insertController', function ($scope, $http, $window,$rootScope) 
                     });
                 alert("Data Added Successfully");
                 $window.location.href = "#!clp_users";
-                // $scope.formDataFields = null;
             }
         });
     };
