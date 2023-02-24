@@ -39,16 +39,40 @@ public class PatientFileServiceImpl implements PatientFileService {
 		for (MultipartFile file:multipartFile) {
 			
 			PatientFile patientFile=new PatientFile();
-			patientFile.setUploadTime(new Date(m));
+			patientFile.setCreatedDate(new Date(m));
+			patientFile.setEnterpriseId(null);
+			patientFile.setFileStatus(null);
+			patientFile.setLocationId(null);
+			patientFile.setMessageDetails(null);
+			patientFile.setMsgFormatVersion(null);
+			patientFile.setOperation(null);
+			patientFile.setReceiverId(null);
+			patientFile.setReceiverName(null);
+			patientFile.setRecvthrough(null);
+			patientFile.setRequest(null);
+			patientFile.setResponse(null);
+			patientFile.setSenderId(null);
+			patientFile.setSenderName(null);
+			patientFile.setSoapMessageType(null);
+			patientFile.setSourceDataFile(null);
+			patientFile.setSourceFileFormatId(null);
+			patientFile.setSourceFileSubformatId(null);
+			patientFile.setSourceMimeType(null);
+			patientFile.setTransMimeType(null);
+			patientFile.setTransDataFile(null);
+			patientFile.setTransFileFormatId(null);
+			patientFile.setTransFileSubformatId(null);
+			patientFile.setUpdatedDate(new Date(m));
 			patientFile.setFileName(file.getOriginalFilename());
 			patientFile.setSize(file.getSize());
 			patientFile.setPatient(p);
 			patientFile.setFileData(file.getBytes());
 			patientFileRepo.save(patientFile);
 			patientFilelist.add(patientFile);
-
+			
 	}
 		
+		p.setPatientFile(patientFilelist);
 		return patientFilelist;
 }
 	public void downloadFile(String id,HttpServletResponse response) throws IOException {
