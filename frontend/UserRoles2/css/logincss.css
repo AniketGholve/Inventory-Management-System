@@ -71,7 +71,77 @@ td {
 
   color: red;
 
-}
+
+  }
+  #uplodeSuccessSign{
+    display: none;
+  }
+
+  .insert{
+    display: grid;
+    height: 50px;
+    width: 150px;
+    background: linear-gradient(#9365ff , #6f3bff);
+    position: absolute;
+    margin: auto;
+    left: 0;
+    right:0;
+    place-items: center;
+    font-family: "Poppins",sans-serif;
+    color: white;
+   
+    font-weight: 500;
+    text-decoration: none;
+    letter-spacing: 2px;
+    border-radius: 3px;
+
+  }
+  /* .icon{
+   color: white;
+   align-items: center;
+  } */
+
+  .sub-menu{
+    position:absolute;
+    top: 100%;
+    right: 2%;
+    width: 150px;
+    padding: 20px;
+    margin: 10px;
+    display: none;
+    margin: 12px 0;
+    place-items: center;
+    font-family: "Poppins",sans-serif;
+    letter-spacing: 2px;
+    border-radius: 3px;
+    background: grey;
+    /* overflow: hidden;
+    transition: max-height 0.5s; */
+    
+  }
+
+  
+  .sub-menu-link{
+    color: white;
+    font-weight: 500;
+    text-decoration: none;
+  }
+  .hr{
+    color: white;
+  }
+  .btn1{
+    background-color:#212529;
+    color: white;
+    border:none;
+  }
+  #valid,#invalid{
+    display: none;
+
+  }
+
+ 
+
+
 
 .tab-content {
 
@@ -84,3 +154,4 @@ td {
 #uplodeSuccessSign {
   display: none;
 }
+

@@ -1,0 +1,35 @@
+<div ng-controller="edit_userCtrl">
+    <div ng-include="'view/header.html'"></div>
+    <div>
+        <h1 class="text-center">Edit User Details</h1>
+    </div>
+    <div class="container d-flex justify-content-center">
+        <form ng-submit="updatedData()" class="d-flex">
+            <div class="mt-1">
+                <div class="mt-2">
+                    <input class="text-center" type="text" ng-model="edit.firstName" required
+                        placeholder="First Name" />
+                </div>
+                <div class="mt-2">
+                    <input class="text-center" type="text" ng-model="edit.lastName" required placeholder="Last Name" />
+                </div>
+                <div class="mt-2">
+                    <input class="text-center" type="password" ng-model="edit.password" required
+                        placeholder="Password" />
+                </div>
+
+                <div class="mt-2">
+                    <input type="date" class="input6" ng-model="edit.dateofBirth" required placeholder="DOB" />
+                </div>
+
+                <div class="mt-2">
+                    <input type="tel" pattern="^\d{10}$" ng-model="edit.phoneNo" required placeholder="Mobile" />
+                </div>
+
+                <div class="mt-2 justify-content-center d-flex">
+                    <input class="btn btn-primary" name="edit" type="submit" value="Save"></input>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

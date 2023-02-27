@@ -1,7 +1,17 @@
 
-
+function myFunction() {
+    var x = document.getElementById("myDIV");
+    if (x.style.display === "none") {
+      x.style.display = "block";
+    } else {
+      x.style.display = "none";
+    }
+  }
 app.controller("elp", ['$scope', '$http', function ($scope, $http) {
-   console.log("Hello")
+    $scope.navOption3Link="#!";
+    $scope.navOption3="Logout";
+    $scope.navOption5Link="#!edit_user";
+    $scope.navOption5="MyAccount";
     $scope.tabs = [{
         title: 'Success Orders',
         url: 'successOrders.html'
@@ -57,10 +67,42 @@ app.controller("elp", ['$scope', '$http', function ($scope, $http) {
 }]);
 
 
-app.controller('logoutCtrl', function($scope,$window,$http){
+app.controller('logoutCtrl', function($scope,$window){
     $scope.logout = () => {
         sessionStorage.removeItem("token")
         $window.location.href = "#!";
 }
 });
+
+app.controller("edit_userCtrl", function ($scope, $http, $window) {
+    $scope.navOption1Link = "#!";
+    $scope.navOption1 = "Login";
+    $scope.navOption2Link = "#!register";
+    $scope.navOption2 = "Register";
+    $scope.navOption3Link="#!";
+    $scope.navOption3="Logout";
+    $scope.navOption5Link="#!edit_user";
+    $scope.navOption5="MyAccount";
+
+    $scope.edit = {};
+    $scope.updatedData = () => {
+        console.log($scope.edit);
+        //console.log()
+        $scope.edit.username = sessionStorage.getItem("username");
+        $http({
+
+            method: 'PUT',
+            url: "http://localhost:7890/api/editUser/" +$scope.edit.username,
+            headers: { 'Content-Type': 'application/json',
+            'Authorization': sessionStorage.getItem("token")},
+            data: $scope.edit
+        }).then((response) => {
+            console.log("edit");
+            $window.location.href = "#!";
+        }, (error) => {
+            console.log(error);
+        });
+    };
+});
+
 

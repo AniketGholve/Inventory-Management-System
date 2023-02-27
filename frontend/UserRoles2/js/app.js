@@ -55,15 +55,21 @@ app.config(function ($routeProvider, $httpProvider) {
         })
         .when("/insertPatient", {
             templateUrl: "/view/insertPatient.html"
+        })
+        .when("/edit_user" , {
+            templateUrl: "/view/edit_user.html"
         });
     $httpProvider.interceptors.push('myInterceptor');
 });
 
 app.controller("loginCtrl", ($scope, $http, $window) => {
-    $scope.navOption1Link = "#!";
-    $scope.navOption1 = "Login";
-    $scope.navOption2Link = "#!register";
-    $scope.navOption2 = "Register";
+
+    $scope.navOption1Link="#!";
+    $scope.navOption1="Login";
+    $scope.navOption2Link="#!register";
+    $scope.navOption2="Register";
+    $scope.hideUser="d-none"
+
     $scope.getRequest = (v) => {
         $http({
             method: 'POST',
@@ -73,7 +79,7 @@ app.controller("loginCtrl", ($scope, $http, $window) => {
         }).then((response) => {
             $scope.data = response.data;
             sessionStorage.setItem("token", "Bearer " + $scope.data.token)
-            if ($scope.data) {
+            if ($scope.data) {sessionStorage.setItem("username",$scope.submit.username)
                 $http({
                     method: 'GET',
                     url: 'http://localhost:7890/api/get/' + $scope.submit.username,
@@ -147,10 +153,13 @@ app.controller("mlp", ($scope, $http) => {
 });
 
 app.controller("clp", function ($scope, $http) {
-    $scope.navOption1Link = "#!/clp_users";
-    $scope.navOption1 = "Patient";
-    $scope.navOption2Link = "#!/insertPatient";
-    $scope.navOption2 = "Insert Patient";
+
+    $scope.navOption1Link="#!/clp_users";
+    $scope.navOption1="Patients";
+    $scope.navOption4Link="#!/insertPatient";
+    $scope.navOption4="Insert Patient";
+    $scope.navOption3Link="#!";
+    $scope.navOption3="Logout";
 
     $http({
         method: 'GET',
@@ -229,15 +238,34 @@ app.controller("clp", function ($scope, $http) {
     }
 });
 
-app.controller('registerController', function ($scope, $http, $window) {
-    $scope.navOption1Link = "#!";
-    $scope.navOption1 = "Login";
-    $scope.navOption2Link = "#!register";
-    $scope.navOption2 = "Register";
+
+app.controller('registerController', function ($scope, $http,$window) {
+    $scope.navOption1Link="#!";
+    $scope.navOption1="Login";
+    $scope.navOption2Link="#!register";
+    $scope.navOption2="Register";
+    $scope.hideUser="d-none"
+    
+  
+    $scope.validPassword =function( ){
+   
+        if($scope.register.confirmPassword == $scope.register.password){
+            document.getElementById("valid").style.display = "block";
+            document.getElementById("Invalid").style.display = "none";
+
+        }
+        else{
+            document.getElementById("Invalid").style.display = "block";
+            document.getElementById("valid").style.display = "none";
+        }
+    };
+
+
 
     $scope.register = {};
     $scope.formData = () => {
         console.log($scope.register);
+
         $http({
             method: 'Post',
             url: "http://localhost:7890/api/addUser",
@@ -252,9 +280,10 @@ app.controller('registerController', function ($scope, $http, $window) {
 });
 
 
+
 app.controller('updateController', function ($scope, $http, $routeParams, $window, $rootScope) {
     $scope.navOption1Link = "#!/clp_users";
-    $scope.navOption1 = "Patient";
+    $scope.navOption1 = "Patients";
     $scope.hide = "d-none";
     $rootScope.dataFile = null;
     $scope.fileData = (files) => {
@@ -287,6 +316,7 @@ app.controller('updateController', function ($scope, $http, $routeParams, $windo
         }
         $rootScope.dataFile = files
     }
+
     $http({
         method: 'GET',
         url: "http://localhost:7890/getPatientById/" + $routeParams.param1,
@@ -354,10 +384,12 @@ app.controller('updateController', function ($scope, $http, $routeParams, $windo
     }
 });
 
+
 app.controller('insertController', function ($scope, $http, $window, $rootScope) {
     $scope.navOption1Link = "#!/clp_users";
-    $scope.navOption1 = "Patient";
+    $scope.navOption1 = "Patients";
     $scope.hide = "d-none";
+
     $scope.submit = {};
     $rootScope.dataFile = null;
     $scope.fileData = (file) => {

@@ -1,3 +1,4 @@
+
 // function reloadWindow() {
 //     location.reload();
 // }
@@ -43,6 +44,7 @@
 //             templateUrl: "/view/insertPatient.html"
 //         });
 // });
+
 
 // app.controller("loginCtrl", ($scope, $http, $window) => {
 //     $scope.navOption1Link = "#!";
@@ -131,6 +133,7 @@
 //     }
 // });
 
+
 // app.controller("clp", function ($scope, $http) {
 //     $scope.navOption1Link = "#!/clp_users";
 //     $scope.navOption1 = "Patient";
@@ -154,6 +157,7 @@
 //     }, (error) => {
 //         console.log(error)
 //     })
+
 
 //     $scope.getById = () => {
 //         $http({
