@@ -394,7 +394,8 @@ app.controller('insertController', function ($scope, $http, $window, $rootScope)
     $rootScope.dataFile = null;
     $scope.fileData = (files) => {
         if ($rootScope.dataFile == null) {
-            $rootScope.dataFile =files;
+            $rootScope.dataFile = [...files];
+            document.getElementById("fileInputField").value="";
         }
         else {
             updatedFiles = $rootScope.dataFile;
@@ -407,7 +408,7 @@ app.controller('insertController', function ($scope, $http, $window, $rootScope)
                 newfiles.push(updatedFiles[i]);
             }
             document.getElementById("fileInputField").value="";
-            $rootScope.dataFile=newfiles;
+            $rootScope.dataFile = newfiles;
         }
         console.log($rootScope.dataFile.length)
     }
