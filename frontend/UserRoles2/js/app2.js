@@ -325,19 +325,19 @@
 //     };
 // });
 
-let app = angular.module("myApp",[]);
-app.controller('updateEnterprise', function ($scope, $http, $window) {
-    $scope.updateEnterpriseForm=()=>{
-        $scope.updateFormData.enterpriseId=1;
-        $http({
-            method: 'put',
-            url: "http://localhost:7890/updateEnterprise",
-            headers: { 'Content-Type': 'application/json'},
-            data: $scope.updateFormData
-        }).then((response) => {
-            console.log(response.data)
-        }, (error) => {
-            console.log(error);
-        });
-    }
-});
+// let app = angular.module("myApp",[]);
+// app.controller('updateEnterprise', function ($scope, $http, $window) {
+//     $scope.updateEnterpriseForm=()=>{
+//         $scope.updateFormData.enterpriseId=1;
+//         $http({
+//             method: 'put',
+//             url: "http://localhost:7890/updateEnterprise",
+//             headers: { 'Content-Type': 'application/json'},
+//             data: $scope.updateFormData
+//         }).then((response) => {
+//             console.log(response.data)
+//         }, (error) => {
+//             console.log(error);
+//         });
+//     }
+// });

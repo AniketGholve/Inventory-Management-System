@@ -1,0 +1,80 @@
+<div ng-controller="clinicController">
+    <!-- <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">Clinics</a>
+            </div>
+        </div>
+    </nav> -->
+    <h1 class="list">Clinics</h1>
+
+
+    <div class="container">
+        <div>
+            <table class="table table-striped table-bordered">
+                <thead class="clinics">
+                    <tr>
+
+                        <th>Territory</th>
+
+                        <th>Clinic Name</th>
+
+                        <th>Custom Number</th>
+
+                        <th>City</th>
+
+                        <th>State</th>
+
+                        <th>ZipCode</th>
+
+                        <th>Facility Count</th>
+
+                        <th>Order</th>
+
+                        <th>Inventory</th>
+
+                        <th>Edit</th>
+
+                        <th>Remove</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <tr ng-repeat="x in clinic_data">
+
+                        <td>{{x.country}}</td>
+
+                        <td>{{x.name}}</td>
+
+                        <td>{{x.phone}}</td>
+
+                        <td>{{x.city}}</td>
+
+                        <td>{{x.state}}</td>
+
+                        <td>{{x.zipcode}}</td>
+
+                        <td>{{x.active}}</td>
+
+                        <td>{{x.order}}</td>
+
+                        <td>{{x.inventory}}</td>
+
+                        <td>{{x.Edit}}</td>
+
+                        <td>{{x.remove}}</td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>

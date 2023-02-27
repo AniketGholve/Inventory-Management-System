@@ -2,6 +2,7 @@ function reloadWindow() {
     location.reload();
 }
 let app = angular.module("myApp", ['ngRoute']);
+
 app.factory('myInterceptor', function ($q) {
     var interceptor = {
         responseError: function (rejection) {
@@ -58,6 +59,9 @@ app.config(function ($routeProvider, $httpProvider) {
         })
         .when("/edit_user" , {
             templateUrl: "/view/edit_user.html"
+        })
+        .when("/clinics", {
+            templateUrl: "/view/clinics.html"
         });
     $httpProvider.interceptors.push('myInterceptor');
 });
@@ -68,8 +72,9 @@ app.controller("loginCtrl", ($scope, $http, $window) => {
     $scope.navOption1="Login";
     $scope.navOption2Link="#!register";
     $scope.navOption2="Register";
-    $scope.hideUser="d-none"
-
+    $scope.hideUser="d-none";
+    $scope.navOption6Link="#!clinics";
+    $scope.navOption6="Clinics";
     $scope.getRequest = (v) => {
         $http({
             method: 'POST',
@@ -463,4 +468,45 @@ app.controller('insertController', function ($scope, $http, $window, $rootScope)
             }
         });
     };
+});
+
+
+
+app.controller('createEnterprise', function ($scope, $http, $window) {
+    $scope.createEnterpriseForm=()=>{
+        $http({
+            method: 'Post',
+            url: "http://localhost:7890/createEnterprises",
+            headers: { 'Content-Type': 'application/json','Authorization': sessionStorage.getItem("token") },
+            data: $scope.formDataFields
+
+        }).then((response) => {
+
+            // $window.location.href = "#!";
+            console.log(response.data);
+
+        }, (error) => {
+
+            console.log(error);
+
+        });
+
+    }
+
+});
+
+app.controller('updateEnterprise', function ($scope, $http, $window) {
+    $scope.updateEnterpriseForm=()=>{
+        $scope.updateFormData.enterpriseId=1;
+        $http({
+            method: 'put',
+            url: "http://localhost:7890/updateEnterprise",
+            headers: { 'Content-Type': 'application/json'},
+            data: $scope.updateFormData
+        }).then((response) => {
+            console.log(response.data)
+        }, (error) => {
+            console.log(error);
+        });
+    }
 });

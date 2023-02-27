@@ -1,5 +1,6 @@
 package com.patient.Entity;
 
+import java.sql.Date;
 import java.util.ArrayList;
 
 import java.util.Collection;
@@ -24,6 +25,10 @@ public class UserEntity implements UserDetails {
 	private String username;
 	private String password;
 	private String role;
+	private String firstName;
+	private String lastName;
+	private Date dateofBirth;
+	private String phoneNo;
 	public Integer getId() {
 		return id;
 	}
@@ -48,18 +53,46 @@ public class UserEntity implements UserDetails {
 	public void setRole(String role) {
 		this.role = role;
 	}
-	
-	
+	public String getFirstName() {
+		return firstName;
+	}
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+	public String getLastName() {
+		return lastName;
+	}
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+	public Date getDateofBirth() {
+		return dateofBirth;
+	}
+	public void setDateofBirth(Date dateofBirth) {
+		this.dateofBirth = dateofBirth;
+	}
+	public String getPhoneNo() {
+		return phoneNo;
+	}
+	public void setPhoneNo(String phoneNo) {
+		this.phoneNo = phoneNo;
+	}
 	@Override
 	public String toString() {
 		return "UserEntity [id=" + id + ", username=" + username + ", password=" + password + ", role=" + role + "]";
 	}
-	public UserEntity(Integer id, String username, String password, String role) {
+	
+	public UserEntity(Integer id, String username, String password, String role, String firstName, String lastName,
+			Date dateofBirth, String phoneNo) {
 		super();
 		this.id = id;
 		this.username = username;
 		this.password = password;
 		this.role = role;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.dateofBirth = dateofBirth;
+		this.phoneNo = phoneNo;
 	}
 	public UserEntity() {
 		super();
