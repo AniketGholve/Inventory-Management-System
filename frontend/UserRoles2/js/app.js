@@ -1,11 +1,36 @@
-
-function reloadWindow()
-{
+function reloadWindow() {
     location.reload();
 }
 let app = angular.module("myApp", ['ngRoute']);
+app.factory('myInterceptor', function ($q) {
+    var interceptor = {
+        responseError: function (rejection) {
+            if (rejection.status === 401) {
+                window.location.href = '#!';
+                console.log("Unauthorized To access the page");
+            }
+        }
+    };
+    return interceptor;
+});
 
-app.config(function ($routeProvider) {
+
+app.directive("fileInput", function ($parse) {
+    return {
+        link: function (scope, element, attrs) {
+            element.on("change", function (event) {
+                // var files = event.target.files;
+                // console.log(attrs)
+                // console.log(files[0].name);
+                $parse(attrs.fileInput).assign(scope, element[0].files);
+                scope.$apply();
+            });
+        },
+    }
+});
+
+
+app.config(function ($routeProvider, $httpProvider) {
     $routeProvider
         .when('/', {
             templateUrl: "view/login.html"
@@ -34,20 +59,23 @@ app.config(function ($routeProvider) {
         .when("/edit_user" , {
             templateUrl: "/view/edit_user.html"
         });
+    $httpProvider.interceptors.push('myInterceptor');
 });
 
 app.controller("loginCtrl", ($scope, $http, $window) => {
+
     $scope.navOption1Link="#!";
     $scope.navOption1="Login";
     $scope.navOption2Link="#!register";
     $scope.navOption2="Register";
     $scope.hideUser="d-none"
+
     $scope.getRequest = (v) => {
         $http({
             method: 'POST',
             url: 'http://localhost:7890/login',
             data: $scope.submit,
-            headers: { 'Content-Type': 'application/json','Authorization':'qweryui' }
+            headers: { 'Content-Type': 'application/json', 'Authorization': 'qweryui' }
         }).then((response) => {
             $scope.data = response.data;
             sessionStorage.setItem("token", "Bearer " + $scope.data.token)
@@ -79,9 +107,9 @@ app.controller("loginCtrl", ($scope, $http, $window) => {
 });
 
 app.controller("mlp", ($scope, $http) => {
-    $scope.hide="d-none";
-    $scope.navOption1="Inventory"
-    $scope.navOption1Link="#!mlp_users"
+    $scope.hide = "d-none";
+    $scope.navOption1 = "Inventory"
+    $scope.navOption1Link = "#!mlp_users"
     $http({
         method: 'GET',
         url: 'http://localhost:7890/getScreen',
@@ -125,12 +153,14 @@ app.controller("mlp", ($scope, $http) => {
 });
 
 app.controller("clp", function ($scope, $http) {
+
     $scope.navOption1Link="#!/clp_users";
     $scope.navOption1="Patients";
     $scope.navOption4Link="#!/insertPatient";
     $scope.navOption4="Insert Patient";
     $scope.navOption3Link="#!";
     $scope.navOption3="Logout";
+
     $http({
         method: 'GET',
         url: "http://localhost:7890/getAllData",
@@ -140,6 +170,23 @@ app.controller("clp", function ($scope, $http) {
         }
     }).then((response) => {
         $scope.allPatientData = response.data;
+        let arrayCount = $scope.allPatientData.length;
+        $scope.searchedPatientFileRange = function (min, max) {
+            var input = [];
+            for (var i = min; i <= max; i++) {
+                input.push(i);
+            }
+            return input;
+        };
+        var range = [];
+        for (var i = 0; i < arrayCount; i++) {
+            var data = [];
+            for (var j = 0; j < $scope.allPatientData[i].patientFile.length; j++) {
+                data.push(j);
+            }
+            range.push(data);
+        }
+        $scope.range = range;
     }, (error) => {
         console.log(error)
     })
@@ -153,11 +200,19 @@ app.controller("clp", function ($scope, $http) {
                 'Authorization': sessionStorage.getItem("token")
             }
         }).then((response) => {
-            $scope.searchPatientData = response.data;
+            if(response==null)
+            {
+                alert("No Data Found");
+            }
+            else
+            {
+                $scope.searchPatientData = response.data;
+            }
+            
         }, (error) => {
-            $scope.searchPatientData = null;
             alert("No Data Found");
-        })
+            $scope.searchPatientData = null;
+        });
     }
     $scope.deleteById = (id) => {
         $http({
@@ -169,7 +224,22 @@ app.controller("clp", function ($scope, $http) {
             }
         }).then((response) => { }, (error) => { })
     }
+    $scope.fileDownload = (id) => {
+        $http({
+            method: 'get',
+            url: "http://localhost:7890/downloadFile?id=" + id,
+            headers: {
+                'Authorization': sessionStorage.getItem("token")
+            },
+            responseType: 'arraybuffer'
+        }).then((response) => {
+            var file = new Blob([response.data], { type: 'application/pdf' });
+            var fileURL = URL.createObjectURL(file);
+            window.open(fileURL);
+        }, (error) => { console.log(error) })
+    }
 });
+
 
 app.controller('registerController', function ($scope, $http,$window) {
     $scope.navOption1Link="#!";
@@ -192,28 +262,49 @@ app.controller('registerController', function ($scope, $http,$window) {
         }
     };
 
-    $scope.register={};
+
+
+    $scope.register = {};
     $scope.formData = () => {
         console.log($scope.register);
 
         $http({
             method: 'Post',
             url: "http://localhost:7890/api/addUser",
-            headers: {'Content-Type': 'application/json'},
-            data:$scope.register
-        }).then((response)=>{
+            headers: { 'Content-Type': 'application/json' },
+            data: $scope.register
+        }).then((response) => {
             $window.location.href = "#!";
-        },(error)=> {
+        }, (error) => {
             console.log(error);
         });
     };
 });
 
 
-app.controller('updateController', function ($scope, $http, $routeParams ,$window) {
-    $scope.navOption1Link="#!/clp_users";
-    $scope.navOption1="Patients";
-    $scope.hide="d-none";
+
+app.controller('updateController', function ($scope, $http, $routeParams, $window, $rootScope) {
+    $scope.navOption1Link = "#!/clp_users";
+    $scope.navOption1 = "Patients";
+    $scope.hide = "d-none";
+    $rootScope.dataFile = null;
+    $scope.fileData = (files) => {
+        if($rootScope.dataFile==null)
+        {
+            $rootScope.dataFile = files;
+        }
+    }
+    $scope.deleteData = (id) => {
+        updatedFiles = $rootScope.dataFile;
+        files = [];
+        for (var i = 0; i < updatedFiles.length; i++) {
+            if (updatedFiles[i].name != updatedFiles[id].name) {
+                files.push(updatedFiles[i]);
+            }
+        }
+        $rootScope.dataFile = files
+    }
+
     $http({
         method: 'GET',
         url: "http://localhost:7890/getPatientById/" + $routeParams.param1,
@@ -225,6 +316,12 @@ app.controller('updateController', function ($scope, $http, $routeParams ,$windo
     }).then((response) => {
         $scope.updateFormData = response.data;
         $scope.updateFormData.patientDob = new Date(response.data.patientDob);
+        $scope.fileCount = $scope.updateFormData.patientFile.length;
+        var range = [];
+        for (var i = 0; i < $scope.fileCount; i++) {
+            range.push(i);
+        }
+        $scope.range = range;
     }, (error) => {
         console.log(error);
     })
@@ -242,19 +339,64 @@ app.controller('updateController', function ($scope, $http, $routeParams ,$windo
                 $scope.errorUserName = data.errors;
                 alert("Error Occured No Data was changed");
             } else {
+                var form_data = new FormData();
+                angular.forEach($rootScope.dataFile, function (file) {
+                    form_data.append('file', file);
+                });
+                if ($rootScope.dataFile != null) {
+                    form_data.append('patient', JSON.stringify(data.data));
+                    //$http.post("http://localhost:7890/createPatientForFile", data.data).then(function (response) { });
+                    $http.put("http://localhost:7890/updateUploadMultiplePatientFile", form_data,
+                        {
+                            transformRequest: angular.identity,
+                            headers: { 'Content-Type': undefined, 'Process-Data': false, 'Authorization': sessionStorage.getItem("token") }
+                        }).then(function (response) {
+                            var uplodeSuccessSign = document.getElementById("uplodeSuccessSign");
+                            uplodeSuccessSign.style.display = "block";
+                        });
+                }
                 alert("Data Updated Successfully");
                 $window.location.href = "#!/clp_users";
             }
         });
     };
+
+    $scope.deleteFile = (fileId) => {
+        console.log(fileId);
+        var deleteUrl = "http://localhost:7890/deleteFile?fileId=" + fileId;
+        $http.delete(deleteUrl, {
+            headers: { 'Authorization': sessionStorage.getItem("token") }
+        }).then(function (response) {
+            $window.location.reload();
+        });
+    }
 });
 
-app.controller('insertController', function ($scope, $http,$window) {
-    $scope.navOption1Link="#!/clp_users";
-    $scope.navOption1="Patients";
-    $scope.hide="d-none";
+
+app.controller('insertController', function ($scope, $http, $window, $rootScope) {
+    $scope.navOption1Link = "#!/clp_users";
+    $scope.navOption1 = "Patients";
+    $scope.hide = "d-none";
+
     $scope.submit = {};
-    $scope.fileData;
+    $rootScope.dataFile = null;
+    $scope.fileData = (files) => {
+        if($rootScope.dataFile==null)
+        {
+            $rootScope.dataFile = files;
+        }
+    }
+    $scope.deleteData = (id) => {
+        updatedFiles = $rootScope.dataFile;
+        files = [];
+        for (var i = 0; i < updatedFiles.length; i++) {
+            if (updatedFiles[i].name != updatedFiles[id].name) {
+                files.push(updatedFiles[i]);
+            }
+        }
+        $rootScope.dataFile = files
+    }
+
     $scope.submitForm = function () {
         $http({
             method: 'POST',
@@ -265,14 +407,33 @@ app.controller('insertController', function ($scope, $http,$window) {
                 'Authorization': sessionStorage.getItem("token")
             }
         }).then(function (data) {
+            console.log(data);
             if (data.errors) {
                 $scope.errorUserName = data.errors;
             } else {
+                var form_data = new FormData();
+                angular.forEach($rootScope.dataFile, function (file) {
+                    form_data.append('file', file);
+                });
+                if ($rootScope.dataFile != null) {
+                    form_data.append('patient', JSON.stringify(data.data));
+                    $scope.updateFileData = {}
+                    //$http.post("http://localhost:7890/createPatientForFile", data.data).then(function (response) { });
+                    $http.post("http://localhost:7890/uploadMultiplePatientFile", form_data,
+                        {
+                            transformRequest: angular.identity,
+                            headers: { 'Content-Type': undefined, 'Process-Data': false, 'Authorization': sessionStorage.getItem("token") }
+                        }).then(function (response) {
+                            var uplodeSuccessSign = document.getElementById("uplodeSuccessSign");
+                            uplodeSuccessSign.style.display = "block";
+                        }, (error) => {
+                            alert("file not uploaded");
+                            console.log(error)
+                        });
+                }
                 alert("Data Added Successfully");
-                $window.location.href = "#!clp_users";
-                $scope.formDataFields = null;
+                //$window.location.href = "#!clp_users";
             }
         });
     };
 });
-

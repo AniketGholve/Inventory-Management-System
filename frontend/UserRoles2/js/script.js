@@ -71,7 +71,6 @@ app.controller('logoutCtrl', function($scope,$window){
     $scope.logout = () => {
         sessionStorage.removeItem("token")
         $window.location.href = "#!";
-
 }
 });
 

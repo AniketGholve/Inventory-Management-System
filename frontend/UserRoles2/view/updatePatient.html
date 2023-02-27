@@ -62,9 +62,27 @@
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                     data-bs-target="#uploadModal">Upload File</button>
             </div>
-            <input type="submit" name="updateFormData" value="Submit" />
+            <input type="submit" name="updateFormData" value="Update" />
         </div>
     </form>
+    <h3 class="text-center mt-4">Patient Files</h3>
+    <div class="d-flex justify-content-center">
+        <table>
+            <thead>
+                <tr>
+                    <th class="px-5">File Name</th>
+                    <th class="px-5">Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="i in range">
+                    <th class="px-5">{{updateFormData.patientFile[i].fileName}}</th>
+                    <th class="px-5"><a href="" ng-click="deleteFile(updateFormData.patientFile[i].fileId)">delete</a>
+                    </th>
+                </tr>
+            </tbody>
+        </table>
+    </div>
     <div class="modal fade" id="uploadModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog w-50">
             <div class="modal-content">
@@ -82,25 +100,25 @@
                         <input type="file" class=" d-flex" file-input="files" accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,
                         text/plain, application/pdf, image/*" multiple>
                         </input>
-                        <h3 class="text-center mt-4">Existing Files</h3>
-                        <div class="d-flex justify-content-center">
-                            <table>
+                        <div class="text-center mt-4">
+                            <table class="w-100">
                                 <thead>
                                     <tr>
-                                        <th class="px-5">File Name</th>
-                                        <th class="px-5">Delete</th>
+                                        <th>File Name</th>
+                                        <th>Deselect</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr ng-repeat="i in range">
-                                        <th class="px-5">{{updateFormData.patientFileDb[i].fileName}}</th>
-                                        <th class="px-5"><a href="" ng-click="deleteFile(updateFormData.patientFileDb[i].fileId)">delete</a></th>
+                                    <tr ng-repeat="i in dataFile">
+                                        <td>{{i.name}}</td>
+                                        <td><a href="" ng-click="deleteData($index)">Deselect</a></td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
+                <button ng-click="fileData(files)" class="w-100">Uplode Files</button>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 </div>

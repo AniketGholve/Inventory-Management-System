@@ -3,6 +3,9 @@ package com.patient.Entity;
 import java.sql.Date;
 import java.util.List;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.patient.encryption.AESEncryption;
 
@@ -14,9 +17,7 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 
 @Entity
 public class Patient {
@@ -24,6 +25,7 @@ public class Patient {
 	@Convert(converter = AESEncryption.class)
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	
 	private Integer id;
 	@Convert(converter = AESEncryption.class)
 	@Column(name = "patient_id", unique = true)
@@ -70,12 +72,13 @@ public class Patient {
 //	private PatientFile patientFile;
 	
 	
-	@OneToMany(mappedBy = "patient",cascade = CascadeType.ALL)
+	
+	@OneToMany(cascade = CascadeType.REMOVE, mappedBy= "patient",fetch = FetchType.LAZY)
 	@JsonManagedReference
+	//@Fetch(value = FetchMode.SUBSELECT)
+
 	private List<PatientFile> patientFile;
-
-
-
+	
 	public Integer getId() {
 		return id;
 	}
