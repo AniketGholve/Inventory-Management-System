@@ -1,12 +1,17 @@
 <div ng-controller="clp">
     <div ng-include="'view/header.html'"></div>
-    <h1 class="text-center">Patient Details</h1>
+    <h1 class="text-center">Patients</h1>
     <div>
         <form ng-submit="getById()" class="form-inline d-flex justify-content-center mt-3">
             <input type="text" id="patientId" placeholder="Search Patient Id" ng-model="variable" class="">
             <button type="submit" class="btn btn-outline-success my-2 my-sm-0">Search</button>
         </form>
     </div>
+    <br>
+    <div>     
+            <a class="insert" href="{{navOption4Link}}">{{navOption4}}</a>
+    </div>
+    <br>
     <div class="container d-flex justify-content-center mt-5">
         <table id="patientDetailsTable" class="borderBlack ">
             <tr>

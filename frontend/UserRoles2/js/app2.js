@@ -41,6 +41,9 @@ app.config(function ($routeProvider) {
         })
         .when("/insertPatient", {
             templateUrl: "/view/insertPatient.html"
+        })
+        .when("/edit_user" , {
+            templateUrl: "/view/edit_user.html"
         });
 });
 
@@ -49,6 +52,7 @@ app.controller("loginCtrl", ($scope, $http, $window) => {
     $scope.navOption1 = "Login";
     $scope.navOption2Link = "#!register";
     $scope.navOption2 = "Register";
+    $scope.hideUser="d-none"
     $scope.getRequest = (v) => {
         $http({
             method: 'POST',
@@ -89,6 +93,8 @@ app.controller("mlp", ($scope, $http) => {
     $scope.hide = "d-none";
     $scope.navOption1 = "Inventory"
     $scope.navOption1Link = "#!mlp_users"
+    $scope.navOption3Link="#!";
+    $scope.navOption3="Logout";
     $http({
         method: 'GET',
         url: 'http://localhost:7890/getScreen',
@@ -133,9 +139,13 @@ app.controller("mlp", ($scope, $http) => {
 
 app.controller("clp", function ($scope, $http) {
     $scope.navOption1Link = "#!/clp_users";
-    $scope.navOption1 = "Patient";
-    $scope.navOption2Link = "#!/insertPatient";
-    $scope.navOption2 = "Insert Patient";
+    $scope.navOption1 = "Patients";
+    $scope.navOption4Link = "#!/insertPatient";
+    $scope.navOption4 = "Insert Patient";
+    $scope.navOption3Link="#!";
+    $scope.navOption3="Logout";
+    $scope.navOption5Link="#!edit_user";
+    $scope.navOption5="MyAccount";
     $http({
         method: 'GET',
         url: "http://localhost:7890/getAllDataDb",
@@ -187,6 +197,8 @@ app.controller('registerController', function ($scope, $http, $window) {
     $scope.navOption1 = "Login";
     $scope.navOption2Link = "#!register";
     $scope.navOption2 = "Register";
+    
+    
 
     $scope.register = {};
     $scope.formData = () => {
@@ -207,7 +219,7 @@ app.controller('registerController', function ($scope, $http, $window) {
 
 app.controller('updateController', function ($scope, $http, $routeParams, $window) {
     $scope.navOption1Link = "#!/clp_users";
-    $scope.navOption1 = "Patient";
+    $scope.navOption1 = "Patients";
     $scope.hide = "d-none";
 
     $http({
@@ -277,7 +289,7 @@ app.controller('updateController', function ($scope, $http, $routeParams, $windo
 
 app.controller('insertController', function ($scope, $http, $window) {
     $scope.navOption1Link = "#!/clp_users";
-    $scope.navOption1 = "Patient";
+    $scope.navOption1 = "Patients";
     $scope.hide = "d-none";
     $scope.submit = {};
     $scope.fileData;

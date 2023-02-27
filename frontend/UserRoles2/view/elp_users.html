@@ -8,7 +8,7 @@
       <div id="tabs">
          <ul class="tabs-nav">
 
-            <button ng-repeat="tab in tabs" ng-class="{active:isActiveTab(tab.url)}" ng-click="onClickTab(tab)">
+            <button class="btn" ng-repeat="tab in tabs" ng-class="{active:isActiveTab(tab.url)}" ng-click="onClickTab(tab)">
                {{tab.title}}</button>
          </ul>
          <div id="tab-content">
