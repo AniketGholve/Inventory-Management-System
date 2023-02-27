@@ -2,6 +2,7 @@ function reloadWindow() {
     location.reload();
 }
 let app = angular.module("myApp", ['ngRoute']);
+
 app.factory('myInterceptor', function ($q) {
     var interceptor = {
         responseError: function (rejection) {
@@ -462,4 +463,29 @@ app.controller('insertController', function ($scope, $http, $window, $rootScope)
             }
         });
     };
+});
+
+
+
+app.controller('createEnterprise', function ($scope, $http, $window) {
+    $scope.createEnterpriseForm=()=>{
+        $http({
+            method: 'Post',
+            url: "http://localhost:7890/createEnterprises",
+            headers: { 'Content-Type': 'application/json','Authorization': sessionStorage.getItem("token") },
+            data: $scope.formDataFields
+
+        }).then((response) => {
+
+            // $window.location.href = "#!";
+            console.log(response.data);
+
+        }, (error) => {
+
+            console.log(error);
+
+        });
+
+    }
+
 });
