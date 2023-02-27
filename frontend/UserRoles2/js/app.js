@@ -162,7 +162,6 @@ app.controller("clp", function ($scope, $http) {
     }).then((response) => {
         $scope.allPatientData = response.data;
         let arrayCount = $scope.allPatientData.length;
-        console.log($scope.allPatientData.length)
         $scope.searchedPatientFileRange = function (min, max) {
             var input = [];
             for (var i = min; i <= max; i++) {
@@ -178,7 +177,6 @@ app.controller("clp", function ($scope, $http) {
             }
             range.push(data);
         }
-        console.log(range);
         $scope.range = range;
     }, (error) => {
         console.log(error)
@@ -193,11 +191,19 @@ app.controller("clp", function ($scope, $http) {
                 'Authorization': sessionStorage.getItem("token")
             }
         }).then((response) => {
-            $scope.searchPatientData = response.data;
+            if(response==null)
+            {
+                alert("No Data Found");
+            }
+            else
+            {
+                $scope.searchPatientData = response.data;
+            }
+            
         }, (error) => {
-            $scope.searchPatientData = null;
             alert("No Data Found");
-        })
+            $scope.searchPatientData = null;
+        });
     }
     $scope.deleteById = (id) => {
         $http({
