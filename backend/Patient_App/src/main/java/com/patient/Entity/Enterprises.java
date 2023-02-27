@@ -35,7 +35,7 @@ public class Enterprises {
 	@Column(name="is_corporate")
 	private Boolean isCorporate;
 	@Column(name="active")
-	private String active;
+	private Boolean active;
 	@Column(name="deleted")
 	private Boolean deleted;
 	@Column(name="country")
@@ -51,24 +51,20 @@ public class Enterprises {
 	@Column(name="modified_on")
 	private Date modifiedOn;
 	@Column(name="shared_patients")
-	private String sharedPatients;
+	private Boolean sharedPatients;
 	@Column(name="scheduled_reports")
-	private Date scheduledReports;
+	private Boolean scheduledReports;
 	@Column(name="show_jit")
 	private String showJit;
 	@Column(name="gln")
 	private String gln;
 	@Column(name="ehr_implementation_status")
-	private String ehrImplementationStatus;
-	public Enterprises() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+	private Boolean ehrImplementationStatus;
 	public Enterprises(int enterpriseId, String name, String addrLink1, String addrLink2, String city, String state,
-			String stateCode, String zipcode, String phone, String email, Boolean isCorporate, String active,
+			String stateCode, String zipcode, String phone, String email, Boolean isCorporate, Boolean active,
 			Boolean deleted, String country, String extEnterpriseId, String modifiedBy, String createdBy,
-			Date createdOn, Date modifiedOn, String sharedPatients, Date scheduledReports, String showJit, String gln,
-			String ehrImplementationStatus) {
+			Date createdOn, Date modifiedOn, Boolean sharedPatients, Boolean scheduledReports, String showJit,
+			String gln, Boolean ehrImplementationStatus) {
 		super();
 		this.enterpriseId = enterpriseId;
 		this.name = name;
@@ -94,6 +90,10 @@ public class Enterprises {
 		this.showJit = showJit;
 		this.gln = gln;
 		this.ehrImplementationStatus = ehrImplementationStatus;
+	}
+	public Enterprises() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 	public int getEnterpriseId() {
 		return enterpriseId;
@@ -161,10 +161,10 @@ public class Enterprises {
 	public void setIsCorporate(Boolean isCorporate) {
 		this.isCorporate = isCorporate;
 	}
-	public String getActive() {
+	public Boolean getActive() {
 		return active;
 	}
-	public void setActive(String active) {
+	public void setActive(Boolean active) {
 		this.active = active;
 	}
 	public Boolean getDeleted() {
@@ -209,16 +209,16 @@ public class Enterprises {
 	public void setModifiedOn(Date modifiedOn) {
 		this.modifiedOn = modifiedOn;
 	}
-	public String getSharedPatients() {
+	public Boolean getSharedPatients() {
 		return sharedPatients;
 	}
-	public void setSharedPatients(String sharedPatients) {
+	public void setSharedPatients(Boolean sharedPatients) {
 		this.sharedPatients = sharedPatients;
 	}
-	public Date getScheduledReports() {
+	public Boolean getScheduledReports() {
 		return scheduledReports;
 	}
-	public void setScheduledReports(Date scheduledReports) {
+	public void setScheduledReports(Boolean scheduledReports) {
 		this.scheduledReports = scheduledReports;
 	}
 	public String getShowJit() {
@@ -233,23 +233,10 @@ public class Enterprises {
 	public void setGln(String gln) {
 		this.gln = gln;
 	}
-	public String getEhrImplementationStatus() {
+	public Boolean getEhrImplementationStatus() {
 		return ehrImplementationStatus;
 	}
-	public void setEhrImplementationStatus(String ehrImplementationStatus) {
+	public void setEhrImplementationStatus(Boolean ehrImplementationStatus) {
 		this.ehrImplementationStatus = ehrImplementationStatus;
 	}
-	@Override
-	public String toString() {
-		return "Enterprises [enterpriseId=" + enterpriseId + ", name=" + name + ", addrLink1=" + addrLink1
-				+ ", addrLink2=" + addrLink2 + ", city=" + city + ", state=" + state + ", stateCode=" + stateCode
-				+ ", zipcode=" + zipcode + ", phone=" + phone + ", email=" + email + ", isCorporate=" + isCorporate
-				+ ", active=" + active + ", deleted=" + deleted + ", country=" + country + ", extEnterpriseId="
-				+ extEnterpriseId + ", modifiedBy=" + modifiedBy + ", createdBy=" + createdBy + ", createdOn="
-				+ createdOn + ", modifiedOn=" + modifiedOn + ", sharedPatients=" + sharedPatients
-				+ ", scheduledReports=" + scheduledReports + ", showJit=" + showJit + ", gln=" + gln
-				+ ", ehrImplementationStatus=" + ehrImplementationStatus + "]";
-	}
-	
-	
 }

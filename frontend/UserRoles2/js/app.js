@@ -2,6 +2,7 @@ function reloadWindow() {
     location.reload();
 }
 let app = angular.module("myApp", ['ngRoute']);
+
 app.factory('myInterceptor', function ($q) {
     var interceptor = {
         responseError: function (rejection) {
@@ -292,13 +293,12 @@ app.controller('updateController', function ($scope, $http, $routeParams, $windo
     $rootScope.dataFile = null;
     $scope.fileData = (files) => {
         if ($rootScope.dataFile == null) {
-            $rootScope.dataFile = files;
+            $rootScope.dataFile =files;
         }
         else {
             updatedFiles = $rootScope.dataFile;
             newfiles = [];
             for (var i = 0; i < updatedFiles.length; i++) {
-                
                     newfiles.push(updatedFiles[i]);
             }
             updatedFiles=files
@@ -310,6 +310,7 @@ app.controller('updateController', function ($scope, $http, $routeParams, $windo
         }
         console.log($rootScope.dataFile.length)
     }
+    
     $scope.deleteData = (id) => {
         updatedFiles = $rootScope.dataFile;
         files = [];
@@ -396,9 +397,9 @@ app.controller('insertController', function ($scope, $http, $window, $rootScope)
 
     $scope.submit = {};
     $rootScope.dataFile = null;
-    $scope.fileData = (file) => {
+    $scope.fileData = (files) => {
         if ($rootScope.dataFile == null) {
-            $rootScope.dataFile =$scope.demoData;
+            $rootScope.dataFile =files;
         }
         else {
             updatedFiles = $rootScope.dataFile;
@@ -406,7 +407,7 @@ app.controller('insertController', function ($scope, $http, $window, $rootScope)
             for (var i = 0; i < updatedFiles.length; i++) {
                     newfiles.push(updatedFiles[i]);
             }
-            updatedFiles=file
+            updatedFiles=files
             for (var i = 0; i < updatedFiles.length; i++) {
                 newfiles.push(updatedFiles[i]);
             }
@@ -466,4 +467,29 @@ app.controller('insertController', function ($scope, $http, $window, $rootScope)
             }
         });
     };
+});
+
+
+
+app.controller('createEnterprise', function ($scope, $http, $window) {
+    $scope.createEnterpriseForm=()=>{
+        $http({
+            method: 'Post',
+            url: "http://localhost:7890/createEnterprises",
+            headers: { 'Content-Type': 'application/json','Authorization': sessionStorage.getItem("token") },
+            data: $scope.formDataFields
+
+        }).then((response) => {
+
+            // $window.location.href = "#!";
+            console.log(response.data);
+
+        }, (error) => {
+
+            console.log(error);
+
+        });
+
+    }
+
 });
