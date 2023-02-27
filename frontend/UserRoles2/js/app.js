@@ -191,15 +191,13 @@ app.controller("clp", function ($scope, $http) {
                 'Authorization': sessionStorage.getItem("token")
             }
         }).then((response) => {
-            if(response==null)
-            {
+            if (response == null) {
                 alert("No Data Found");
             }
-            else
-            {
+            else {
                 $scope.searchPatientData = response.data;
             }
-            
+
         }, (error) => {
             alert("No Data Found");
             $scope.searchPatientData = null;
@@ -260,10 +258,24 @@ app.controller('updateController', function ($scope, $http, $routeParams, $windo
     $scope.hide = "d-none";
     $rootScope.dataFile = null;
     $scope.fileData = (files) => {
-        if($rootScope.dataFile==null)
-        {
+        if ($rootScope.dataFile == null) {
             $rootScope.dataFile = files;
         }
+        else {
+            updatedFiles = $rootScope.dataFile;
+            newfiles = [];
+            for (var i = 0; i < updatedFiles.length; i++) {
+                
+                    newfiles.push(updatedFiles[i]);
+            }
+            updatedFiles=files
+            for (var i = 0; i < updatedFiles.length; i++) {
+                newfiles.push(updatedFiles[i]);
+            }
+            document.getElementById("fileInputField").value="";
+            $rootScope.dataFile=newfiles;
+        }
+        console.log($rootScope.dataFile.length)
     }
     $scope.deleteData = (id) => {
         updatedFiles = $rootScope.dataFile;
@@ -348,12 +360,26 @@ app.controller('insertController', function ($scope, $http, $window, $rootScope)
     $scope.hide = "d-none";
     $scope.submit = {};
     $rootScope.dataFile = null;
-    $scope.fileData = (files) => {
-        if($rootScope.dataFile==null)
-        {
-            $rootScope.dataFile = files;
+    $scope.fileData = (file) => {
+        if ($rootScope.dataFile == null) {
+            $rootScope.dataFile =$scope.demoData;
         }
+        else {
+            updatedFiles = $rootScope.dataFile;
+            newfiles = [];
+            for (var i = 0; i < updatedFiles.length; i++) {
+                    newfiles.push(updatedFiles[i]);
+            }
+            updatedFiles=file
+            for (var i = 0; i < updatedFiles.length; i++) {
+                newfiles.push(updatedFiles[i]);
+            }
+            document.getElementById("fileInputField").value="";
+            $rootScope.dataFile=newfiles;
+        }
+        console.log($rootScope.dataFile.length)
     }
+
     $scope.deleteData = (id) => {
         updatedFiles = $rootScope.dataFile;
         files = [];
@@ -400,7 +426,7 @@ app.controller('insertController', function ($scope, $http, $window, $rootScope)
                         });
                 }
                 alert("Data Added Successfully");
-                //$window.location.href = "#!clp_users";
+                $window.location.href = "#!clp_users";
             }
         });
     };

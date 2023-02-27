@@ -124,7 +124,7 @@
                     {{ x.independentInventory }}
                 </td>
                 <td>
-                    <a class="d-block" href="" ng-repeat="j in searchedPatientFileRange(0,x.patientFile.length)"
+                    <a class="d-block" href="" ng-repeat="j in searchedPatientFileRange(0,x.patientFile.length) "
                         ng-click="fileDownload(x.patientFile[j].fileId)">{{x.patientFile[j].fileName}}</a>
                 </td>
                 <td><a href="#!updatePatient/{{x.patientId}}">edit</a></td>

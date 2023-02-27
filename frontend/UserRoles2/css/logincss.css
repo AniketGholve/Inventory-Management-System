@@ -3,7 +3,7 @@ body {
 }
 
 #patientDetailsTable,
-#inventoryDetailsTable {
+#inventoryDetailsTable ,#selectedTable{
   font-size: 15px;
 }
 
