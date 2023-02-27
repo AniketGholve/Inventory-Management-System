@@ -400,7 +400,7 @@ app.controller('insertController', function ($scope, $http, $window, $rootScope)
                         });
                 }
                 alert("Data Added Successfully");
-                $window.location.href = "#!clp_users";
+                //$window.location.href = "#!clp_users";
             }
         });
     };

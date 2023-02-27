@@ -36,7 +36,7 @@ public class Enterprises {
 	private Boolean isCorporate;
 	@Column(name="active")
 	private String active;
-	@Column(name="delete")
+	@Column(name="deleted")
 	private Boolean deleted;
 	@Column(name="country")
 	private String country;
@@ -56,7 +56,7 @@ public class Enterprises {
 	private Date scheduledReports;
 	@Column(name="show_jit")
 	private String showJit;
-	@Column(name="gin")
+	@Column(name="gln")
 	private String gln;
 	@Column(name="ehr_implementation_status")
 	private String ehrImplementationStatus;
