@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -61,9 +63,29 @@ public class UserController {
 			return 1;
 		}
 		return -1;
-
 	}
 	
+	@PutMapping("/editUser/{username}")
+    public ResponseEntity<UserEntity> editUser(@PathVariable String username, @RequestBody UserEntity user) {
+        UserEntity u = userEntityRepo.findByUsername(username);
+        if(user.getFirstName() != null) {
+            u.setFirstName(user.getFirstName());
+            System.out.println(user.getFirstName());
+        }
+        if (user.getLastName()!= null) {
+            u.setLastName(user.getLastName());
+        }
+        if (user.getDateofBirth() != null) {
+            u.setDateofBirth(user.getDateofBirth());
+        }
+        if (user.getPhoneNo() != null) {
+            u.setPhoneNo(user.getPhoneNo());
+        }
+        
+        UserEntity editUser = userEntityRepo.save(u);
+        return ResponseEntity.ok(editUser);
+
+    }
 
 	@GetMapping("/get/{username}")
 	public UserEntity getRole(@PathVariable("username") String username) {
