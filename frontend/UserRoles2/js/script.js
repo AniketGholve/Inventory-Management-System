@@ -12,6 +12,9 @@ app.controller("elp", ['$scope', '$http', function ($scope, $http) {
     $scope.navOption3="Logout";
     $scope.navOption5Link="#!edit_user";
     $scope.navOption5="MyAccount";
+    $scope.navOption6Link="#!clinics";
+    $scope.navOption6="Clinics";
+
     $scope.tabs = [{
         title: 'Success Orders',
         url: 'successOrders.html'
@@ -104,5 +107,60 @@ app.controller("edit_userCtrl", function ($scope, $http, $window) {
         });
     };
 });
+
+
+app.controller('clinicController', function($scope,$http,$window){
+    console.log("run");
+    $http({
+
+        method: 'GET',
+        url: 'http://localhost:7890/getAllEnterprise',
+        headers: {
+            'Content-Type': 'application/json'
+         }
+
+    }).then((response) => {
+
+        console.log(response.data);
+
+        $scope.clinic_data = response.data;
+
+        $scope.delete = (id) => {
+            console.log("delete");
+            console.log(id);
+            $http({
+
+                method: 'DELETE',
+                url: 'http://localhost:7890/deleteEnterprise/' +id,
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': sessionStorage.getItem("token")
+
+                 }
+
+            }).then((response) => {
+               
+                $window.location.reload();
+
+
+            },
+            (error)=> {
+                console.log(error);
+        
+    }),
+ 
+    
+
+    (error) => {
+
+        console.log(error);
+    }
+    }
+});
+});
+
+
+
+
 
 

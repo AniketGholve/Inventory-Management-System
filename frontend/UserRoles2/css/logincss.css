@@ -155,3 +155,13 @@ td {
   display: none;
 }
 
+.clinics{
+  background-color: rgb(14, 14, 44);
+  color: white;
+
+}
+
+.list{
+  text-align: center;
+  color: black;
+}

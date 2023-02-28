@@ -56,6 +56,9 @@ app.config(function ($routeProvider, $httpProvider) {
         .when("/insertPatient", {
             templateUrl: "/view/insertPatient.html"
         })
+        .when("/clinics", {
+            templateUrl: "/view/clinics.html"
+        })
         .when("/edit_user" , {
             templateUrl: "/view/edit_user.html"
         });
@@ -69,7 +72,7 @@ app.controller("loginCtrl", ($scope, $http, $window) => {
     $scope.navOption2Link="#!register";
     $scope.navOption2="Register";
     $scope.hideUser="d-none"
-
+   
     $scope.getRequest = (v) => {
         $http({
             method: 'POST',
@@ -110,6 +113,10 @@ app.controller("mlp", ($scope, $http) => {
     $scope.hide = "d-none";
     $scope.navOption1 = "Inventory"
     $scope.navOption1Link = "#!mlp_users"
+    $scope.navOption3Link="#!";
+    $scope.navOption3="Logout";
+    $scope.navOption6Link="#!clinics";
+    $scope.navOption6="Clinics";
     $http({
         method: 'GET',
         url: 'http://localhost:7890/getScreen',
@@ -160,6 +167,8 @@ app.controller("clp", function ($scope, $http) {
     $scope.navOption4="Insert Patient";
     $scope.navOption3Link="#!";
     $scope.navOption3="Logout";
+    $scope.navOption6Link="#!clinics";
+    $scope.navOption6="Clinics";
 
     $http({
         method: 'GET',
