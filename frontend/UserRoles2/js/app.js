@@ -66,6 +66,10 @@ app.config(function ($routeProvider, $httpProvider) {
         .when("/updateEnterprise/:param1",
         {
             templateUrl: "/view/updateEnterprise.html"
+        })
+        .when("/insertEnterprise",
+        {
+            templateUrl: "/view/insertEnterprise.html"
         });
     $httpProvider.interceptors.push('myInterceptor');
 });
@@ -476,7 +480,7 @@ app.controller('insertController', function ($scope, $http, $window, $rootScope)
 
 
 
-app.controller('createEnterprise', function ($scope, $http, $window) {
+app.controller('insertEnterprise', function ($scope, $http, $window) {
     $scope.createEnterpriseForm=()=>{
         $http({
             method: 'Post',
@@ -484,7 +488,7 @@ app.controller('createEnterprise', function ($scope, $http, $window) {
             headers: { 'Content-Type': 'application/json','Authorization': sessionStorage.getItem("token") },
             data: $scope.formDataFields
         }).then((response) => {
-            $window.location.href = "#!";
+            $window.location.href = "#!clinics";
             console.log(response.data);
         }, (error) => {
             console.log(error);

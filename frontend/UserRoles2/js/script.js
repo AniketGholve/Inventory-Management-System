@@ -71,9 +71,7 @@ app.controller('logoutCtrl', function($scope,$window){
 });
 
 app.controller("clinicController", function($scope,$window,$http){
-    $scope.navOption1Link = "#!updateEnterprise";
-    $scope.navOption1 = "Update Enterprise";
-    $http({
+     $http({
         method: 'GET',
         url: 'http://localhost:7890/getAllEnterprise',
         headers: {
