@@ -2,18 +2,18 @@
 function myFunction() {
     var x = document.getElementById("myDIV");
     if (x.style.display === "none") {
-      x.style.display = "block";
+        x.style.display = "block";
     } else {
-      x.style.display = "none";
+        x.style.display = "none";
     }
-  }
+}
 app.controller("elp", ['$scope', '$http', function ($scope, $http) {
-    $scope.navOption3Link="#!";
-    $scope.navOption3="Logout";
-    $scope.navOption5Link="#!edit_user";
-    $scope.navOption5="MyAccount";
-    $scope.navOption6Link="#!clinics";
-    $scope.navOption6="Clinics";
+    $scope.navOption3Link = "#!";
+    $scope.navOption3 = "Logout";
+    $scope.navOption5Link = "#!edit_user";
+    $scope.navOption5 = "MyAccount";
+    $scope.navOption6Link = "#!clinics";
+    $scope.navOption6 = "Clinics";
 
     $scope.tabs = [{
         title: 'Success Orders',
@@ -36,8 +36,8 @@ app.controller("elp", ['$scope', '$http', function ($scope, $http) {
         method: 'GET',
         url: 'http://localhost:7890/api/SuccessOrders/1',
         headers: {
-           'Content-Type': 'application/json',
-           'Authorization': sessionStorage.getItem("token")
+            'Content-Type': 'application/json',
+            'Authorization': sessionStorage.getItem("token")
         }
     }).then((response) => {
         console.log(response.data);
@@ -47,14 +47,14 @@ app.controller("elp", ['$scope', '$http', function ($scope, $http) {
             console.log(error);
         });
 
-        $http({
-            method: 'GET',
-            url: 'http://localhost:7890/api/ErrorOrders/2',
-            headers: {
-               'Content-Type': 'application/json',
-               'Authorization': sessionStorage.getItem("token")
-            }
-        }).then((response) => {
+    $http({
+        method: 'GET',
+        url: 'http://localhost:7890/api/ErrorOrders/2',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': sessionStorage.getItem("token")
+        }
+    }).then((response) => {
         console.log(response.data);
         $scope.error_data = response.data;
     },
@@ -64,28 +64,28 @@ app.controller("elp", ['$scope', '$http', function ($scope, $http) {
 }]);
 
 
-app.controller('logoutCtrl', function($scope,$window){
+app.controller('logoutCtrl', function ($scope, $window) {
     $scope.logout = () => {
         sessionStorage.removeItem("token")
         $window.location.href = "#!";
-}
+    }
 });
 
 
 
 
 
-    
+
 
 app.controller("edit_userCtrl", function ($scope, $http, $window) {
     $scope.navOption1Link = "#!";
     $scope.navOption1 = "Login";
     $scope.navOption2Link = "#!register";
     $scope.navOption2 = "Register";
-    $scope.navOption3Link="#!";
-    $scope.navOption3="Logout";
-    $scope.navOption5Link="#!edit_user";
-    $scope.navOption5="MyAccount";
+    $scope.navOption3Link = "#!";
+    $scope.navOption3 = "Logout";
+    $scope.navOption5Link = "#!edit_user";
+    $scope.navOption5 = "MyAccount";
 
     $scope.edit = {};
     $scope.updatedData = () => {
@@ -94,9 +94,11 @@ app.controller("edit_userCtrl", function ($scope, $http, $window) {
         $http({
 
             method: 'PUT',
-            url: "http://localhost:7890/api/editUser/" +$scope.edit.username,
-            headers: { 'Content-Type': 'application/json',
-            'Authorization': sessionStorage.getItem("token")},
+            url: "http://localhost:7890/api/editUser/" + $scope.edit.username,
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': sessionStorage.getItem("token")
+            },
             data: $scope.edit
         }).then((response) => {
             console.log("edit");
@@ -108,9 +110,12 @@ app.controller("edit_userCtrl", function ($scope, $http, $window) {
 });
 
 
-app.controller('clinicController', function($scope,$http,$window){
-    $scope.navOption3Link="#!";
-    $scope.navOption3="Logout";
+app.controller('clinicController', function ($scope, $http, $window) {
+    $scope.navOption3Link = "#!";
+    $scope.navOption3 = "Logout";
+    $scope.hide2 = "d-none";
+    $scope.hide = "d-none";
+    $scope.hide1 = "d-none";
     console.log("run");
     $http({
 
@@ -118,7 +123,7 @@ app.controller('clinicController', function($scope,$http,$window){
         url: 'http://localhost:7890/getAllEnterprise',
         headers: {
             'Content-Type': 'application/json'
-         }
+        }
 
     }).then((response) => {
 
@@ -127,35 +132,28 @@ app.controller('clinicController', function($scope,$http,$window){
         $scope.clinic_data = response.data;
 
     },
-    (error) => {
+        (error) => {
 
-        console.log(error);
-    }
+            console.log(error);
+        }
     );
     $scope.deleteClinic = (id) => {
         console.log("delete");
         console.log(id);
         $http({
-
             method: 'DELETE',
-            url: 'http://localhost:7890/deleteEnterprise/' +id,
+            url: 'http://localhost:7890/deleteEnterprise/' + id,
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': sessionStorage.getItem("token")
-
-             }
-
+            }
         }).then((response) => {
-           
             $window.location.reload();
-
-
-        },
-        (error)=> {
-            console.log(error);
-    
-})
-}});
+        },(error) => {
+                console.log(error);
+            })
+    }
+});
 
 
 

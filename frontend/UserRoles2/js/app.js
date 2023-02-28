@@ -513,6 +513,8 @@ app.controller('updateEnterprise', function ($scope, $http, $window,$routeParams
     $scope.navOption3="Logout";
     $scope.navOption1Link="#!clinics";
     $scope.navOption1="Clinic";
+    $scope.hide2="d-none";
+    $scope.hide="d-none";
     $http({
         method: 'get',
         url: "http://localhost:7890/getByEnterpriseId/"+ $routeParams.param1,
