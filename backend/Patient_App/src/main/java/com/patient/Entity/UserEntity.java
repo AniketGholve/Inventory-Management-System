@@ -1,5 +1,6 @@
 package com.patient.Entity;
 
+import java.sql.Date;
 import java.util.ArrayList;
 
 import java.util.Collection;
@@ -21,11 +22,39 @@ public class UserEntity implements UserDetails {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	private String firstName;
+    private String lastName;
+    private Date dateofBirth;
+    private String phoneNo;
 	private String username;
 	private String password;
 	private String role;
 	public Integer getId() {
 		return id;
+	}
+	public String getFirstName() {
+		return firstName;
+	}
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+	public String getLastName() {
+		return lastName;
+	}
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+	public Date getDateofBirth() {
+		return dateofBirth;
+	}
+	public void setDateofBirth(Date dateofBirth) {
+		this.dateofBirth = dateofBirth;
+	}
+	public String getPhoneNo() {
+		return phoneNo;
+	}
+	public void setPhoneNo(String phoneNo) {
+		this.phoneNo = phoneNo;
 	}
 	public void setId(Integer id) {
 		this.id = id;
@@ -50,9 +79,12 @@ public class UserEntity implements UserDetails {
 	}
 	
 	
+	
 	@Override
 	public String toString() {
-		return "UserEntity [id=" + id + ", username=" + username + ", password=" + password + ", role=" + role + "]";
+		return "UserEntity [firstName=" + firstName + ", lastName=" + lastName + ", dateofBirth=" + dateofBirth
+				+ ", phoneNo=" + phoneNo + ", id=" + id + ", username=" + username + ", password=" + password
+				+ ", role=" + role + "]";
 	}
 	public UserEntity(Integer id, String username, String password, String role) {
 		super();
