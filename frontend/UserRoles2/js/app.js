@@ -180,8 +180,8 @@ app.controller("clp", function ($scope, $http) {
     $scope.navOption4="Insert Patient";
     $scope.navOption3Link="#!";
     $scope.navOption3="Logout";
-    $scope.navOption6Link="#!clinics";
-    $scope.navOption6="Clinics";
+    $scope.navOption2Link="#!clinics";
+    $scope.navOption2="Clinics";
 
     $http({
         method: 'GET',
@@ -511,7 +511,8 @@ app.controller('insertEnterprise', function ($scope, $http, $window) {
 app.controller('updateEnterprise', function ($scope, $http, $window,$routeParams) {
     $scope.navOption3Link="#!";
     $scope.navOption3="Logout";
-   
+    $scope.navOption1Link="#!clinics";
+    $scope.navOption1="Clinic";
     $http({
         method: 'get',
         url: "http://localhost:7890/getByEnterpriseId/"+ $routeParams.param1,
