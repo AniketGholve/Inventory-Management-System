@@ -493,6 +493,12 @@ app.controller('insertController', function ($scope, $http, $window, $rootScope)
 
 
 app.controller('insertEnterprise', function ($scope, $http, $window) {
+    $scope.navOption1Link="#!clinics";
+    $scope.navOption1="Clinic";
+    $scope.navOption3Link="#!";
+    $scope.navOption3="Logout";
+    $scope.hide2="d-none";
+    $scope.hide="d-none";
     $scope.createEnterpriseForm=()=>{
         $http({
             method: 'Post',
