@@ -182,7 +182,7 @@ app.controller("clp", function ($scope, $http) {
     $scope.navOption3="Logout";
     $scope.navOption2Link="#!clinics";
     $scope.navOption2="Clinics";
-
+    $scope.hide2="d-none";
     $http({
         method: 'GET',
         url: "http://localhost:7890/getAllData",
@@ -307,6 +307,7 @@ app.controller('updateController', function ($scope, $http, $routeParams, $windo
     $scope.navOption1Link = "#!/clp_users";
     $scope.navOption1 = "Patients";
     $scope.hide = "d-none";
+    $scope.hide2="d-none";
     $rootScope.dataFile = null;
     $scope.fileData = (files) => {
         if ($rootScope.dataFile == null) {
@@ -412,7 +413,7 @@ app.controller('insertController', function ($scope, $http, $window, $rootScope)
     $scope.navOption1 = "Patients";
     $scope.navOption3Link="#!";
     $scope.navOption3="Logout";
-    
+    $scope.hide2="d-none";
     $scope.hide = "d-none";
 
     $scope.submit = {};
