@@ -49,7 +49,7 @@ app.config(function ($routeProvider, $httpProvider) {
             templateUrl: "view/clp_users.html"
         })
         .when('/alp_users', {
-            templateUrl: "view/alp_users.html"
+            templateUrl: "view/clinics.html"
         })
         .when("/updatePatient/:param1", {
             templateUrl: "view/updatePatient.html"
@@ -62,6 +62,10 @@ app.config(function ($routeProvider, $httpProvider) {
         })
         .when("/clinics", {
             templateUrl: "/view/clinics.html"
+        })
+        .when("/updateEnterprise/:param1",
+        {
+            templateUrl: "/view/updateEnterprise.html"
         });
     $httpProvider.interceptors.push('myInterceptor');
 });
@@ -479,32 +483,35 @@ app.controller('createEnterprise', function ($scope, $http, $window) {
             url: "http://localhost:7890/createEnterprises",
             headers: { 'Content-Type': 'application/json','Authorization': sessionStorage.getItem("token") },
             data: $scope.formDataFields
-
         }).then((response) => {
-
-            // $window.location.href = "#!";
+            $window.location.href = "#!";
             console.log(response.data);
-
         }, (error) => {
-
             console.log(error);
-
         });
-
     }
-
 });
 
-app.controller('updateEnterprise', function ($scope, $http, $window) {
+app.controller('updateEnterprise', function ($scope, $http, $window,$routeParams) {
+   
+    $http({
+        method: 'get',
+        url: "http://localhost:7890/getByEnterpriseId/"+ $routeParams.param1,
+        headers: { 'Content-Type': 'application/json','Authorization': sessionStorage.getItem("token") },
+    }).then((response) => {
+        $scope.updateEnterpriseFormData=response.data;
+    }, (error) => {
+        console.log(error);
+    });
     $scope.updateEnterpriseForm=()=>{
-        $scope.updateFormData.enterpriseId=1;
         $http({
             method: 'put',
             url: "http://localhost:7890/updateEnterprise",
-            headers: { 'Content-Type': 'application/json'},
-            data: $scope.updateFormData
+            headers: { 'Content-Type': 'application/json' ,'Authorization': sessionStorage.getItem("token")},
+            data: $scope.updateEnterpriseFormData
         }).then((response) => {
-            console.log(response.data)
+            alert("Data Update Sussessfully")
+            $window.location.href="#!clinics"
         }, (error) => {
             console.log(error);
         });

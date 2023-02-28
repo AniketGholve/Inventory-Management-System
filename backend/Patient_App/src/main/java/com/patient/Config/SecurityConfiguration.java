@@ -40,16 +40,7 @@ public class SecurityConfiguration {
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
 		http.csrf().disable().authorizeHttpRequests()
-
-<<<<<<< HEAD
-				.requestMatchers(new AntPathRequestMatcher("/login"),new AntPathRequestMatcher("/api/SuccessOrders/1"), new AntPathRequestMatcher("/api/ErrorOrders/1"),new AntPathRequestMatcher("/updateEnterprise"), new AntPathRequestMatcher("/createEnterprises"),new AntPathRequestMatcher("/api/addUser"))
-=======
-<<<<<<< HEAD
-				.requestMatchers(new AntPathRequestMatcher("/login"),new AntPathRequestMatcher("/api/SuccessOrders/1"), new AntPathRequestMatcher("/api/ErrorOrders/1"), new AntPathRequestMatcher("/api/addUser"), new AntPathRequestMatcher("/getAllEnterprise"))
-=======
-				.requestMatchers(new AntPathRequestMatcher("/login"),new AntPathRequestMatcher("/createEnterprises"), new AntPathRequestMatcher("/api/ErrorOrders/1"), new AntPathRequestMatcher("/api/addUser"))
->>>>>>> 7d8be012ab4aa0a55369f2105e900dceed9e8455
->>>>>>> 6b2a4b70171681aa532867ae9265394b4d43d133
+				.requestMatchers(new AntPathRequestMatcher("/login"),new AntPathRequestMatcher("/getAllEnterprise"), new AntPathRequestMatcher("/api/ErrorOrders/1"),new AntPathRequestMatcher("/updateEnterprise"), new AntPathRequestMatcher("/getByEnterpriseId/{id}"),new AntPathRequestMatcher("/api/addUser"))
 				.permitAll().anyRequest().authenticated().and().cors().and().exceptionHandling()
 				.authenticationEntryPoint(this.jwtAuthenticationEntryPoint).and().sessionManagement()
 				.sessionCreationPolicy(SessionCreationPolicy.STATELESS);

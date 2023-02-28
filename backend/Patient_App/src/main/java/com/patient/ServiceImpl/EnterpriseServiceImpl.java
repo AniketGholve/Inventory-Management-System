@@ -2,6 +2,7 @@ package com.patient.ServiceImpl;
 
 import java.sql.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -78,6 +79,11 @@ public class EnterpriseServiceImpl implements EnterpriseService {
 		// TODO Auto-generated method stub
 		enterpriseRepo.deleteById(enterpriseId);
 		return "Enterprises Deleted Successfully";
+	}
+
+	public Enterprises getByEnterpriseId(int id) {
+		Enterprises e=enterpriseRepo.findById(id).orElse(null);
+		return e;
 	}
 
 	
