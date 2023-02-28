@@ -42,7 +42,12 @@ public class EnterpriseController {
 		Enterprises e=enterpriseserviceImpl.updateEnterprise(enterprises);
 		return new ResponseEntity<Enterprises>(e,HttpStatus.OK);
 	}
-	
+	@GetMapping("/getByEnterpriseId/{id}")
+	public ResponseEntity<Enterprises> getByEnterpriseId(@PathVariable("id") int id)
+	{
+		Enterprises e=enterpriseserviceImpl.getByEnterpriseId(id);
+		return new ResponseEntity<Enterprises>(e,HttpStatus.OK);
+	}
 	
 	
 	@GetMapping("/getAllEnterprise")

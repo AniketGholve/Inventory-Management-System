@@ -41,13 +41,10 @@ app.controller("elp", ['$scope', '$http', function ($scope, $http) {
         }
     }).then((response) => {
         console.log(response.data);
-
         $scope.success_data = response.data;
     },
         (error) => {
-
             console.log(error);
-
         });
 
         $http({
@@ -59,13 +56,10 @@ app.controller("elp", ['$scope', '$http', function ($scope, $http) {
             }
         }).then((response) => {
         console.log(response.data);
-
         $scope.error_data = response.data;
     },
         (error) => {
-
             console.log(error);
-
         });
 }]);
 
@@ -76,6 +70,9 @@ app.controller('logoutCtrl', function($scope,$window){
         $window.location.href = "#!";
 }
 });
+
+
+    
 
 app.controller("edit_userCtrl", function ($scope, $http, $window) {
     $scope.navOption1Link = "#!";
@@ -90,7 +87,6 @@ app.controller("edit_userCtrl", function ($scope, $http, $window) {
     $scope.edit = {};
     $scope.updatedData = () => {
         console.log($scope.edit);
-        //console.log()
         $scope.edit.username = sessionStorage.getItem("username");
         $http({
 
@@ -110,6 +106,8 @@ app.controller("edit_userCtrl", function ($scope, $http, $window) {
 
 
 app.controller('clinicController', function($scope,$http,$window){
+    $scope.navOption3Link="#!";
+    $scope.navOption3="Logout";
     console.log("run");
     $http({
 
@@ -125,39 +123,37 @@ app.controller('clinicController', function($scope,$http,$window){
 
         $scope.clinic_data = response.data;
 
-        $scope.delete = (id) => {
-            console.log("delete");
-            console.log(id);
-            $http({
-
-                method: 'DELETE',
-                url: 'http://localhost:7890/deleteEnterprise/' +id,
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': sessionStorage.getItem("token")
-
-                 }
-
-            }).then((response) => {
-               
-                $window.location.reload();
-
-
-            },
-            (error)=> {
-                console.log(error);
-        
-    }),
- 
-    
-
+    },
     (error) => {
 
         console.log(error);
     }
-    }
-});
-});
+    );
+    $scope.deleteClinic = (id) => {
+        console.log("delete");
+        console.log(id);
+        $http({
+
+            method: 'DELETE',
+            url: 'http://localhost:7890/deleteEnterprise/' +id,
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': sessionStorage.getItem("token")
+
+             }
+
+        }).then((response) => {
+           
+            $window.location.reload();
+
+
+        },
+        (error)=> {
+            console.log(error);
+    
+})
+}});
+
 
 
 

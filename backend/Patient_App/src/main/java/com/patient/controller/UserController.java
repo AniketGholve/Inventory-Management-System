@@ -58,8 +58,8 @@ public class UserController {
 			return 1;
 		}
 		return -1;
-
 	}
+
 
 	@PutMapping("/editUser/{username}")
 	public ResponseEntity<UserEntity> editUser(@PathVariable String username, @RequestBody UserEntity user) {
@@ -80,8 +80,6 @@ public class UserController {
 		}
 		UserEntity editUser = userEntityRepo.save(u);
 		return ResponseEntity.ok(editUser);
-		
-
 	}
 
 	@GetMapping("/get/{username}")

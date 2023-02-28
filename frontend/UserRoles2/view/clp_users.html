@@ -78,7 +78,7 @@
                 </td>
                 <!-- href="http://localhost:7890/downloadFile?id={{x.patientFile[i].fileId}}" -->
                 <td>
-                    <a class="d-block" href="" ng-repeat="j in range[$index]"
+                    <a class="d-block mb-2" href="" ng-repeat="j in range[$index]"
                         ng-click="fileDownload(x.patientFile[j].fileId)">{{x.patientFile[j].fileName}}</a>
                 </td>
                 <td><a href="#!updatePatient/{{x.patientId}}">edit</a></td>
@@ -129,7 +129,7 @@
                     {{ x.independentInventory }}
                 </td>
                 <td>
-                    <a class="d-block" href="" ng-repeat="j in searchedPatientFileRange(0,x.patientFile.length)"
+                    <a class="d-block m-2" href="" ng-repeat="j in searchedPatientFileRange(0,x.patientFile.length) "
                         ng-click="fileDownload(x.patientFile[j].fileId)">{{x.patientFile[j].fileName}}</a>
                 </td>
                 <td><a href="#!updatePatient/{{x.patientId}}">edit</a></td>

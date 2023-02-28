@@ -3,7 +3,7 @@ body {
 }
 
 #patientDetailsTable,
-#inventoryDetailsTable {
+#inventoryDetailsTable ,#selectedTable{
   font-size: 15px;
 }
 
@@ -155,6 +155,8 @@ td {
   display: none;
 }
 
+
+
 .clinics{
   background-color: rgb(14, 14, 44);
   color: white;
@@ -165,3 +167,5 @@ td {
   text-align: center;
   color: black;
 }
+
+

@@ -2,6 +2,7 @@ function reloadWindow() {
     location.reload();
 }
 let app = angular.module("myApp", ['ngRoute']);
+
 app.factory('myInterceptor', function ($q) {
     var interceptor = {
         responseError: function (rejection) {
@@ -48,7 +49,7 @@ app.config(function ($routeProvider, $httpProvider) {
             templateUrl: "view/clp_users.html"
         })
         .when('/alp_users', {
-            templateUrl: "view/alp_users.html"
+            templateUrl: "view/clinics.html"
         })
         .when("/updatePatient/:param1", {
             templateUrl: "view/updatePatient.html"
@@ -61,6 +62,13 @@ app.config(function ($routeProvider, $httpProvider) {
         })
         .when("/edit_user" , {
             templateUrl: "/view/edit_user.html"
+        })
+        .when("/clinics", {
+            templateUrl: "/view/clinics.html"
+        })
+        .when("/updateEnterprise/:param1",
+        {
+            templateUrl: "/view/updateEnterprise.html"
         });
     $httpProvider.interceptors.push('myInterceptor');
 });
@@ -71,8 +79,9 @@ app.controller("loginCtrl", ($scope, $http, $window) => {
     $scope.navOption1="Login";
     $scope.navOption2Link="#!register";
     $scope.navOption2="Register";
-    $scope.hideUser="d-none"
-   
+    $scope.hideUser="d-none";
+    
+
     $scope.getRequest = (v) => {
         $http({
             method: 'POST',
@@ -209,15 +218,13 @@ app.controller("clp", function ($scope, $http) {
                 'Authorization': sessionStorage.getItem("token")
             }
         }).then((response) => {
-            if(response==null)
-            {
+            if (response == null) {
                 alert("No Data Found");
             }
-            else
-            {
+            else {
                 $scope.searchPatientData = response.data;
             }
-            
+
         }, (error) => {
             alert("No Data Found");
             $scope.searchPatientData = null;
@@ -298,11 +305,25 @@ app.controller('updateController', function ($scope, $http, $routeParams, $windo
     $scope.hide = "d-none";
     $rootScope.dataFile = null;
     $scope.fileData = (files) => {
-        if($rootScope.dataFile==null)
-        {
-            $rootScope.dataFile = files;
+        if ($rootScope.dataFile == null) {
+            $rootScope.dataFile =files;
         }
+        else {
+            updatedFiles = $rootScope.dataFile;
+            newfiles = [];
+            for (var i = 0; i < updatedFiles.length; i++) {
+                    newfiles.push(updatedFiles[i]);
+            }
+            updatedFiles=files
+            for (var i = 0; i < updatedFiles.length; i++) {
+                newfiles.push(updatedFiles[i]);
+            }
+            document.getElementById("fileInputField").value="";
+            $rootScope.dataFile=newfiles;
+        }
+        console.log($rootScope.dataFile.length)
     }
+    
     $scope.deleteData = (id) => {
         updatedFiles = $rootScope.dataFile;
         files = [];
@@ -385,16 +406,34 @@ app.controller('updateController', function ($scope, $http, $routeParams, $windo
 app.controller('insertController', function ($scope, $http, $window, $rootScope) {
     $scope.navOption1Link = "#!/clp_users";
     $scope.navOption1 = "Patients";
+    $scope.navOption3Link="#!";
+    $scope.navOption3="Logout";
+    
     $scope.hide = "d-none";
 
     $scope.submit = {};
     $rootScope.dataFile = null;
     $scope.fileData = (files) => {
-        if($rootScope.dataFile==null)
-        {
-            $rootScope.dataFile = files;
+        if ($rootScope.dataFile == null) {
+            $rootScope.dataFile = [...files];
+            document.getElementById("fileInputField").value="";
         }
+        else {
+            updatedFiles = $rootScope.dataFile;
+            newfiles = [];
+            for (var i = 0; i < updatedFiles.length; i++) {
+                    newfiles.push(updatedFiles[i]);
+            }
+            updatedFiles=files
+            for (var i = 0; i < updatedFiles.length; i++) {
+                newfiles.push(updatedFiles[i]);
+            }
+            document.getElementById("fileInputField").value="";
+            $rootScope.dataFile = newfiles;
+        }
+        console.log($rootScope.dataFile.length)
     }
+
     $scope.deleteData = (id) => {
         updatedFiles = $rootScope.dataFile;
         files = [];
@@ -441,8 +480,54 @@ app.controller('insertController', function ($scope, $http, $window, $rootScope)
                         });
                 }
                 alert("Data Added Successfully");
-                //$window.location.href = "#!clp_users";
+                $window.location.href = "#!clp_users";
             }
         });
     };
+});
+
+
+
+app.controller('createEnterprise', function ($scope, $http, $window) {
+    $scope.createEnterpriseForm=()=>{
+        $http({
+            method: 'Post',
+            url: "http://localhost:7890/createEnterprises",
+            headers: { 'Content-Type': 'application/json','Authorization': sessionStorage.getItem("token") },
+            data: $scope.formDataFields
+        }).then((response) => {
+            $window.location.href = "#!";
+            console.log(response.data);
+        }, (error) => {
+            console.log(error);
+        });
+    }
+});
+
+app.controller('updateEnterprise', function ($scope, $http, $window,$routeParams) {
+    $scope.navOption3Link="#!";
+    $scope.navOption3="Logout";
+   
+    $http({
+        method: 'get',
+        url: "http://localhost:7890/getByEnterpriseId/"+ $routeParams.param1,
+        headers: { 'Content-Type': 'application/json','Authorization': sessionStorage.getItem("token") },
+    }).then((response) => {
+        $scope.updateEnterpriseFormData=response.data;
+    }, (error) => {
+        console.log(error);
+    });
+    $scope.updateEnterpriseForm=()=>{
+        $http({
+            method: 'put',
+            url: "http://localhost:7890/updateEnterprise",
+            headers: { 'Content-Type': 'application/json' ,'Authorization': sessionStorage.getItem("token")},
+            data: $scope.updateEnterpriseFormData
+        }).then((response) => {
+            alert("Data Update Sussessfully")
+            $window.location.href="#!clinics"
+        }, (error) => {
+            console.log(error);
+        });
+    }
 });
