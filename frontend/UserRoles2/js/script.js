@@ -72,6 +72,9 @@ app.controller('logoutCtrl', function($scope,$window){
 });
 
 
+
+
+
     
 
 app.controller("edit_userCtrl", function ($scope, $http, $window) {
