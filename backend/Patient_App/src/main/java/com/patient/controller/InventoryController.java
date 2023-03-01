@@ -34,7 +34,7 @@ public class InventoryController {
 		return new ResponseEntity<Inventory>(createdInventory,HttpStatus.OK);
 	}
 	
-	@PreAuthorize("hasAuthority('MLP')")
+	@PreAuthorize("hasAuthority('CLP')")
 	@GetMapping("/getScreen")
 	public ResponseEntity<?> getScreen()
 	{

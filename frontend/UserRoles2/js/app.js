@@ -538,3 +538,52 @@ app.controller('updateEnterprise', function ($scope, $http, $window,$routeParams
         });
     }
 });
+
+app.controller('clinicSelect',function($scope){
+    $scope.getClinicData=()=>{
+        http({
+            method: 'get',
+            url: "http://localhost:7890/getClinicNames",
+            headers: { 'Content-Type': 'application/json' ,'Authorization': sessionStorage.getItem("token")}
+        }).then((response)=>{
+            $scope.clinicNames=response.data;
+        },(error)=>{})
+    }
+});
+
+app.controller('registerUser',function($scope,$window){
+    $scope.addUserData={};
+    $scope.addUserFields=()=>{
+        http({
+            method: 'post',
+            url: "http://localhost:7890/",
+            headers: { 'Content-Type': 'application/json' ,'Authorization': sessionStorage.getItem("token")},
+            data:$scope.updateUserData,
+        }).then((response)=>{
+            alert("Data Added Successfully");
+            $window.location.reload();
+        },(error)=>{
+            alert("Error Occured In Storing Data Please try again");
+            console.log(error);
+        })
+    }
+});
+
+app.controller('updateUser',function($scope,$window){
+    $scope.updateUserData={};
+    $scope.updateUserFileds=()=>{
+        http({
+            method: 'post',
+            url: "http://localhost:7890/",
+            headers: { 'Content-Type': 'application/json' ,'Authorization': sessionStorage.getItem("token")},
+            data:$scope.updateUserData,
+        }).then((response)=>{
+            alert("Data Updated Successfully");
+            $window.location.reload();
+
+        },(error)=>{
+            alert("Error Occured In Storing Data Please try again");
+            console.log(error);
+        })
+    }
+});
