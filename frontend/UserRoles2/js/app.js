@@ -493,6 +493,7 @@ app.controller('insertEnterprise', function ($scope, $http, $window) {
     $scope.navOption3="Logout";
     $scope.hide2="d-none";
     $scope.hide="d-none";
+    $scope.formDataFields={};
     $scope.createEnterpriseForm=()=>{
         $http({
             method: 'Post',

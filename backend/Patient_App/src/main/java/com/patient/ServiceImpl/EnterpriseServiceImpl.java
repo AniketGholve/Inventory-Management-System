@@ -11,12 +11,17 @@ import com.patient.Entity.Enterprises;
 import com.patient.Repo.EnterpriseRepo;
 import com.patient.Service.EnterpriseService;
 
+import jakarta.persistence.EntityManager;
+
 @Service
 public class EnterpriseServiceImpl implements EnterpriseService {
 	
 	
 	@Autowired
 	private EnterpriseRepo enterpriseRepo;
+	
+	@Autowired
+	private EntityManager entityManager;
 
 	@Override
 	public Enterprises createEnterprises(Enterprises enterprises) {
@@ -85,6 +90,10 @@ public class EnterpriseServiceImpl implements EnterpriseService {
 		Enterprises e=enterpriseRepo.findById(id).orElse(null);
 		return e;
 	}
+
+	 
+
+	 
 
 	
 	

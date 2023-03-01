@@ -62,9 +62,9 @@ public class UserController {
 
 
 	@PutMapping("/editUser/{username}")
-	public ResponseEntity<UserEntity> editUser(@PathVariable String username, @RequestBody UserEntity user) {
+	public ResponseEntity<UserEntity> editUser(@PathVariable  String username, @RequestBody UserEntity user) {
 		UserEntity u = userEntityRepo.findByUsername(username);
-		if(user.getFirstName() != null) {
+ 		if(user.getFirstName() != null) {
 			u.setFirstName(user.getFirstName());
 			System.out.println(user.getFirstName());
 			
