@@ -45,6 +45,9 @@ app.config(function ($routeProvider, $httpProvider) {
         .when('/mlp_users', {
             templateUrl: "view/mlp_users.html"
         })
+        .when('/inventory', {
+            templateUrl: "view/inventory.html"
+        })
         .when('/clp_users', {
             templateUrl: "view/clp_users.html"
         })
@@ -122,14 +125,17 @@ app.controller("loginCtrl", ($scope, $http, $window) => {
     }
 });
 
-app.controller("mlp", ($scope, $http) => {
-    $scope.hide = "d-none";
-    $scope.navOption1 = "Inventory"
-    $scope.navOption1Link = "#!mlp_users"
+app.controller("clp", function ($scope, $http) {
+
+    $scope.navOption1Link="#!/clp_users";
+    $scope.navOption1="Patients";
+    $scope.navOption4Link="#!/insertPatient";
+    $scope.navOption4="Insert Patient";
     $scope.navOption3Link="#!";
     $scope.navOption3="Logout";
-    $scope.navOption6Link="#!clinics";
-    $scope.navOption6="Clinics";
+    $scope.navOption2Link="#!inventory";
+    $scope.navOption2="Inventory";
+    $scope.hide2="d-none";
     $http({
         method: 'GET',
         url: 'http://localhost:7890/getScreen',
@@ -170,19 +176,6 @@ app.controller("mlp", ($scope, $http) => {
             console.log(error)
         })
     }
-});
-
-app.controller("clp", function ($scope, $http) {
-
-    $scope.navOption1Link="#!/clp_users";
-    $scope.navOption1="Patients";
-    $scope.navOption4Link="#!/insertPatient";
-    $scope.navOption4="Insert Patient";
-    $scope.navOption3Link="#!";
-    $scope.navOption3="Logout";
-    $scope.navOption2Link="#!clinics";
-    $scope.navOption2="Clinics";
-
     $http({
         method: 'GET',
         url: "http://localhost:7890/getAllData",
@@ -307,6 +300,7 @@ app.controller('updateController', function ($scope, $http, $routeParams, $windo
     $scope.navOption1Link = "#!/clp_users";
     $scope.navOption1 = "Patients";
     $scope.hide = "d-none";
+    $scope.hide2="d-none";
     $rootScope.dataFile = null;
     $scope.fileData = (files) => {
         if ($rootScope.dataFile == null) {
@@ -412,7 +406,7 @@ app.controller('insertController', function ($scope, $http, $window, $rootScope)
     $scope.navOption1 = "Patients";
     $scope.navOption3Link="#!";
     $scope.navOption3="Logout";
-    
+    $scope.hide2="d-none";
     $scope.hide = "d-none";
 
     $scope.submit = {};
