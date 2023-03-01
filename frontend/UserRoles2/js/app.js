@@ -493,6 +493,9 @@ app.controller('insertController', function ($scope, $http, $window, $rootScope)
 
 
 app.controller('insertEnterprise', function ($scope, $http, $window) {
+    $scope.navOption3Link="#!";
+    $scope.navOption3="Logout";
+
     $scope.createEnterpriseForm=()=>{
         $http({
             method: 'Post',

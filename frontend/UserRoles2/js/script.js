@@ -89,6 +89,7 @@ app.controller("edit_userCtrl", function ($scope, $http, $window) {
 
     $scope.edit = {};
     $scope.updatedData = () => {
+        delete $scope.edit.confirmPassword;
         console.log($scope.edit);
         $scope.edit.username = sessionStorage.getItem("username");
         $http({

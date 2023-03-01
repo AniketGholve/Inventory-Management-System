@@ -17,6 +17,14 @@
                     <input class="text-center" type="password" ng-model="edit.password" required
                         placeholder="Password" />
                 </div>
+                
+                <div class="mt-2">
+                    <input class="text-center" type="password" name="confirmPassword" ng-model="edit.confirmPassword" required  ng-init= "confirmPassword_error_show =0"
+                    ng-change="validPassword()" 
+                     placeholder="Confirm Password" /></div>
+                <span id="Invalid">Password Not Matched</span>
+                <span id="valid">Password Matched</span>
+               
 
                 <div class="mt-2">
                     <input type="date" class="input6" ng-model="edit.dateofBirth" required placeholder="DOB" />
