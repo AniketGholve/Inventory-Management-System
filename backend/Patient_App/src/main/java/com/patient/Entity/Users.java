@@ -1,15 +1,19 @@
 package com.patient.Entity;
 
 import java.sql.Date;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
 @Entity
 public class Users {
+	
 	@Column(name="user_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Id
 	private Integer userId;
 	@Column(name="first_name")
 	private String firstName;
@@ -59,6 +63,9 @@ public class Users {
 	private Date lastLogin; 
 	@Column(name="src_id")
 	private Integer srcId;
+	
+	
+	
 	public Users() {
 		super();
 	}
@@ -255,4 +262,6 @@ public class Users {
 				+ ", passwordUpdatedDate=" + passwordUpdatedDate + ", token=" + token + ", tokenExpiryTime="
 				+ tokenExpiryTime + ", role=" + role + ", lastLogin=" + lastLogin + ", srcId=" + srcId + "]";
 	}
+	
+	
 }
