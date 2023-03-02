@@ -7,32 +7,40 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item nav_hover">
+                <li class="nav-item nav_hover {{hide1}}">
                     <a class="nav-link" href="{{navOption1Link}}">{{navOption1}}</a>
                 </li>
                 <li class="nav-item nav_hover {{hide}}">
                     <a class="nav-link" href="{{navOption2Link}}">{{navOption2}}</a>
                 </li>
-                <li class="nav-item nav_hover ">
+                <li class="nav-item nav_hover {{hide2}}">
                     <a class="nav-link" href="{{navOption6Link}}">{{navOption6}}</a>
                 </li>
+
+                <li class="nav-item nav_hover ">
+                    <a class="nav-link" href="{{navOption7Link}}">{{navOption7}}</a>
+                </li>
+
+                <li class="nav-item nav_hover ">
+                    <a class="nav-link" href="{{navOption8Link}}">{{navOption8}}</a>
+                </li>
+                
             </ul>
 
             <div class="{{hideUser}}">
                 <div class="icon">
-                    <button onclick="myFunction()" class="btn1" > <i  style="font-size:50px"
+                    <button onclick="myFunction()" class="btn1"> <i style="font-size:50px"
                             class="fa">&#xf2be;</i></button>
                 </div>
 
                 <div id="myDIV" class="sub-menu">
-                    <a class="sub-menu-link" ng-controller="edit_userCtrl" 
-                        href="{{navOption5Link}}">{{navOption5}}</a>
+                    <a class="sub-menu-link" ng-click="editUser()" ng-controller="edit_userCtrl"  href="{{navOption5Link}}">{{navOption5}}</a>
                     <hr class="hr">
-                    <div >
-                    <a class="sub-menu-link" ng-controller="logoutCtrl" ng-click="logout()"
-                        href="{{navOption3Link}}">{{navOption3}}</a>
+                    <div>
+                        <a class="sub-menu-link" ng-controller="logoutCtrl" ng-click="logout()"
+                            href="{{navOption3Link}}">{{navOption3}}</a>
+                    </div>
                 </div>
-            </div>
             </div>
 
         </div>
