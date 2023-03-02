@@ -107,16 +107,21 @@ public class ClinicServiceImpl implements ClinicService {
 			c.setLocTypeId((String)o[24]);
 			c.setModifiedBy((String)o[25]);
 			c.setModifiedOn((Date)o[26]);
-			c.setOrderPoNumber((String)o[27]);
-			c.setOverrideRep((String)o[28]);
-			c.setRegionalManager((String)o[29]);
-			c.setSalesRep1((String)o[30]);
-			c.setSalesRep2((String)o[31]);
-			c.setShipmentMethod((String)o[32]);
-			c.setShipTo((String)o[33]);
-			c.setShipToName((String)o[34]);
-			c.setSrc_id((Integer)o[35]);
-			c.setTimeZone((String)o[36]);
+			c.setName((String)o[27]);
+			c.setOrderPoNumber((String)o[28]);
+			c.setOverrideRep((String)o[29]);
+			c.setPhone((String)o[30]);
+			c.setRegionalManager((String)o[31]);
+			c.setSalesRep1((String)o[32]);
+			c.setSalesRep2((String)o[33]);
+			c.setShipTo((String)o[34]);
+			c.setShipToName((String)o[35]);
+			c.setShipmentMethod((String)o[36]);
+			c.setSrc_id((Integer)o[37]);
+			c.setState((String)o[38]);
+			c.setStateCode((String)o[39]);
+			c.setTimeZone((String)o[40]);
+			c.setzipcode((String)o[41]);
 			resultList.add(c);
 		}
 		 
