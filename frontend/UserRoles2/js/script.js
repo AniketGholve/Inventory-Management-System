@@ -96,6 +96,7 @@ app.controller("edit_userCtrl", function ($scope, $http, $window, $route) {
         headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") },
     }).then((response) => {
         $scope.edit = response.data;
+        console.log($scope.edit);
         // $scope.edit.password = null;
         $scope.edit.dateofBirth = new Date($scope.edit.dateofBirth);
     }, (error) => {
@@ -104,7 +105,7 @@ app.controller("edit_userCtrl", function ($scope, $http, $window, $route) {
     $scope.updatedData = () => {
         // delete $scope.edit.confirmPassword;
         console.log($scope.edit);
-        // $scope.edit.username = sessionStorage.getItem("username");
+         $scope.edit.username = sessionStorage.getItem("username");
 
         if ($scope.edit.confirmPassword === $scope.edit.password) {
             document.getElementById("valid").style.display = "block";
