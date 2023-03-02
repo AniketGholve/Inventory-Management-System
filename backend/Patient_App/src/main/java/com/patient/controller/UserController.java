@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -62,7 +63,7 @@ public class UserController {
 
 
 	@PutMapping("/editUser/{username}")
-	public ResponseEntity<UserEntity> editUser(@PathVariable String username, @RequestBody UserEntity user) {
+	public ResponseEntity<UserEntity> editUser(@PathVariable("username") String username, @RequestBody UserEntity user) {
 		UserEntity u = userEntityRepo.findByUsername(username);
 		if(user.getFirstName() != null) {
 			u.setFirstName(user.getFirstName());
@@ -78,6 +79,10 @@ public class UserController {
 		if (user.getPhoneNo() != null) {
 			u.setPhoneNo(user.getPhoneNo());
 		}
+		if (user.getPassword() != null) {
+            u.setPassword(user.getPassword());  
+            System.out.println(user.getPassword());
+        }
 		UserEntity editUser = userEntityRepo.save(u);
 		return ResponseEntity.ok(editUser);
 	}
@@ -86,6 +91,18 @@ public class UserController {
 	public UserEntity getRole(@PathVariable("username") String username) {
 		return userEntityRepo.findByUsername(username);
 	}
+	
+	@GetMapping("/getUserDetails/{username}")
+    public ResponseEntity<UserEntity> getById(@PathVariable("username") String username) {
+        UserEntity u = userEntityRepo.findByUsername(username);
+        return new ResponseEntity<UserEntity>(u,HttpStatus.OK);
+    }
+//	    public ResponseEntity<UserEntity> getById(@PathVariable("id") int id) {
+//	        UserEntity u = userEntityRepo.findById(id);
+//	        return new ResponseEntity<UserEntity>(u,HttpStatus.OK);
+//	    }
+
+
 
 	@PreAuthorize("hasAuthority('ELP')")
 	@GetMapping("/ErrorOrders/{e}")
