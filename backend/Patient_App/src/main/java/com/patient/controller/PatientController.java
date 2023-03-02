@@ -72,7 +72,12 @@ public class PatientController {
 	}
 	
 	
-	
+	@GetMapping("getPatientByClinic/{clinicLocationId}")
+	public ResponseEntity<List<Patient>> getPatientByClinic(@PathVariable Integer clinicLocationId)
+	{
+		List<Patient> l=patientServiceImpl.getPatientById(clinicLocationId);
+		return new ResponseEntity<List<Patient>>(l,HttpStatus.OK);
+	}
 	
 	
 	
