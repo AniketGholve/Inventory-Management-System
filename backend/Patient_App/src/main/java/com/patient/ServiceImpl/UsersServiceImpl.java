@@ -124,4 +124,13 @@ public class UsersServiceImpl implements UsersService {
 		
 	}
 
+	@Override
+	public Users getUsersByUsersId(Integer UsersId) {
+		// TODO Auto-generated method stub
+		
+		Users u=usersRepo.findById(UsersId).orElseThrow();
+		
+		return u;
+	}
+
 }
