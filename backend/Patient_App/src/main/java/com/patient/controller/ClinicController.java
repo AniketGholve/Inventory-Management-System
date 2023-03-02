@@ -54,7 +54,6 @@ public class ClinicController {
 	
 	
 	
-	
 	@GetMapping("/getAllClinic")
 	public ResponseEntity<List<Clinic>> getAllClinic()
 	{
@@ -69,5 +68,19 @@ public class ClinicController {
 		String message=clinicServiceImpl.deleteClinic(locationId);
 		return new ResponseEntity<String>(message,HttpStatus.OK);
 	}
+	
+	
+	
+	
+	@GetMapping("getClinicNames")
+	public ResponseEntity<List<Clinic>> getClinicNamesAndId()
+	{
+		List<Clinic> c=clinicServiceImpl.getClinicNamesAndId();
+		return new ResponseEntity<List<Clinic>>(c,HttpStatus.OK);
+		
+	}
+	
+	
+	 
 
 }
