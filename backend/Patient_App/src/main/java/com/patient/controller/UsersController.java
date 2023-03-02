@@ -41,14 +41,14 @@ public class UsersController {
 	private UsersServiceImpl usersServiceImpl;
 
 	
-	@PostMapping("/addUser")
+	@PostMapping("/addUsers")
 	public Integer addUser(@RequestBody Users users) {
 		Integer result=usersServiceImpl.addUsers(users);
 		return result;
 		}
 	
 	
-	@PutMapping("/editUser/{userId}")
+	@PutMapping("/editUsers/{userId}")
 	public ResponseEntity<Users> editUser(@PathVariable Integer userId, @RequestBody Users users) {
 		Users u=usersServiceImpl.editUser(users, userId);
 		return new ResponseEntity<Users>(u,HttpStatus.OK);
@@ -63,7 +63,7 @@ public class UsersController {
 	}
 	
 	
-	@DeleteMapping("/deleteUser/{userId}")
+	@DeleteMapping("/deleteUsers/{userId}")
 	public ResponseEntity<String> deleteUser(@PathVariable Integer userId)
 	{
 		
@@ -72,7 +72,7 @@ public class UsersController {
 	}
 	
 	
-	
+		
 	@PreAuthorize("hasAuthority('ELP')")
 	@GetMapping("/ErrorOrders/{e}")
 	public List<Orders> getStatus_Error(@PathVariable("e") int e) {
