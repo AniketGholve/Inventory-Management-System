@@ -1,4 +1,8 @@
 <div ng-controller="registerUserFields">
+    <div ng-include="'view/header.html'"></div>
+    <div>
+        <h1 class="text-center">Add Clinic User</h1>
+    </div>
     <form ng-submit="addUser()">
         <div class="row g-3 form-control d-flex justify-content-between w-50 m-auto">
             <div class="col-auto d-flex justify-content-between w-50">
@@ -34,11 +38,11 @@
                 <input type="text" ng-model="addUserData.mobilePhone" required>
             </div>
             <div class="col-auto d-flex justify-content-between w-50">
-                <label for="">password</label>
+                <label for="">Password</label>
                 <input type="text" ng-model="addUserData.password" required>
             </div>
             <div class="col-auto d-flex justify-content-between w-50">
-                <label for="">role</label>
+                <label for="">Role</label>
                 <select ng-model="addUserData.roleId" class="text-center" required>
                     <option value="" class="d-none">Please Choose</option>
                     <option value="ELP">ELP</option>
