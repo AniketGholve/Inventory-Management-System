@@ -66,9 +66,12 @@ app.config(function ($routeProvider, $httpProvider) {
         .when("/edit_user" , {
             templateUrl: "/view/edit_user.html"
         })
-        .when("/updateEnterprise/:param1",
+        .when("/clinics", {
+            templateUrl: "/view/clinics.html"
+        })
+        .when("/updateClinic/:param1",
         {
-            templateUrl: "/view/updateEnterprise.html"
+            templateUrl: "/view/updateClinic.html"
         })
         .when("/success_orders", {
             templateUrl: "/view/success_orders.html"
@@ -76,10 +79,15 @@ app.config(function ($routeProvider, $httpProvider) {
         .when("/error_orders", {
             templateUrl: "/view/error_orders.html"
         })
-        .when("/insertEnterprise",
+        .when("/insertClinic",
         {
-            templateUrl: "/view/insertEnterprise.html"
-        });
+            templateUrl: "/view/insertClinic.html"
+        })
+        .when("/addUser",
+        {
+            templateUrl: "/view/addClinicUser.html"
+        })
+        ;
     $httpProvider.interceptors.push('myInterceptor');
 });
 
@@ -491,7 +499,7 @@ app.controller('insertController', function ($scope, $http, $window, $rootScope)
 
 
 
-app.controller('insertEnterprise', function ($scope, $http, $window) {
+app.controller('insertClinic', function ($scope, $http, $window) {
     $scope.navOption1Link="#!clinics";
     $scope.navOption1="Clinic";
     $scope.navOption3Link="#!";
@@ -500,21 +508,21 @@ app.controller('insertEnterprise', function ($scope, $http, $window) {
     $scope.hide="d-none";
     $scope.formDataFields={};
     $scope.createEnterpriseForm=()=>{
+        console.log($scope.formDataFields);
         $http({
             method: 'Post',
-            url: "http://localhost:7890/createEnterprises",
+            url: "http://localhost:7890/createClinic",
             headers: { 'Content-Type': 'application/json','Authorization': sessionStorage.getItem("token") },
             data: $scope.formDataFields
         }).then((response) => {
             $window.location.href = "#!clinics";
-            console.log(response.data);
         }, (error) => {
             console.log(error);
         });
     }
 });
 
-app.controller('updateEnterprise', function ($scope, $http, $window,$routeParams) {
+app.controller('updateClinic', function ($scope, $http, $window,$routeParams) {
     $scope.navOption3Link="#!";
     $scope.navOption3="Logout";
     $scope.navOption1Link="#!clinics";
@@ -523,7 +531,7 @@ app.controller('updateEnterprise', function ($scope, $http, $window,$routeParams
     $scope.hide="d-none";
     $http({
         method: 'get',
-        url: "http://localhost:7890/getByEnterpriseId/"+ $routeParams.param1,
+        url: "http://localhost:7890/getByClinicId/"+ $routeParams.param1,
         headers: { 'Content-Type': 'application/json','Authorization': sessionStorage.getItem("token") },
     }).then((response) => {
         $scope.updateEnterpriseFormData=response.data;
@@ -533,7 +541,7 @@ app.controller('updateEnterprise', function ($scope, $http, $window,$routeParams
     $scope.updateEnterpriseForm=()=>{
         $http({
             method: 'put',
-            url: "http://localhost:7890/updateEnterprise",
+            url: "http://localhost:7890/updateClinic",
             headers: { 'Content-Type': 'application/json' ,'Authorization': sessionStorage.getItem("token")},
             data: $scope.updateEnterpriseFormData
         }).then((response) => {
@@ -557,7 +565,13 @@ app.controller('clinicSelect',function($scope){
     }
 });
 
-app.controller('registerUser',function($scope,$window){
+app.controller('registerUserFields',function($scope,$window){
+    $scope.navOption3Link="#!";
+    $scope.navOption3="Logout";
+    $scope.navOption1Link="#!clinics";
+    $scope.navOption1="Clinic";
+    $scope.hide2="d-none";
+    $scope.hide="d-none";
     $scope.addUserData={};
     $scope.addUserFields=()=>{
         http({
@@ -576,6 +590,7 @@ app.controller('registerUser',function($scope,$window){
 });
 
 app.controller('updateUser',function($scope,$window){
+
     $scope.updateUserData={};
     $scope.updateUserFileds=()=>{
         http({

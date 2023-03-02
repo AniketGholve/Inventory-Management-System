@@ -1,4 +1,4 @@
-<div ng-controller="updateEnterprise">
+<div ng-controller="updateClinic">
     <div ng-include="'/view/header.html'"></div>
     <div>
         <div>
@@ -8,11 +8,11 @@
             <div class="row g-3 form-control d-flex justify-content-between w-50 m-auto">
                 <div class="col-auto d-flex justify-content-between w-50">
                     <label for="">Clinic Name </label>
-                    <input type="text" ng-model="updateEnterpriseFormData.name" required>
+                    <input type="text" ng-model="updateEnterpriseFormData.name" required pattern="[a-zA-Z]{1,20}">
                 </div>
                 <div class="col-auto d-flex justify-content-between w-50">
                     <label for="">Phone Number</label>
-                    <input type="text" ng-model="updateEnterpriseFormData.phone" maxlength="10">
+                    <input type="text" ng-model="updateEnterpriseFormData.phone" pattern="[\d]{10}" maxlength="10">
                 </div>
                 <div class="col-auto d-flex justify-content-between w-50">
                     <label for="">Email</label>
@@ -20,11 +20,11 @@
                 </div>
                 <div class="col-auto d-flex justify-content-between w-50">
                     <label for="">Address Line 1</label>
-                    <input type="text" ng-model="updateEnterpriseFormData.addrLink1">
+                    <input type="text" ng-model="updateEnterpriseFormData.addrLine1">
                 </div>
                 <div class="col-auto d-flex justify-content-between w-50">
                     <label for="">Address Line 2</label>
-                    <input type="text" ng-model="updateEnterpriseFormData.addrLink2">
+                    <input type="text" ng-model="updateEnterpriseFormData.addrLine2">
                 </div>
                 <div class="col-auto d-flex justify-content-between w-50">
                     <label for="">City</label>
@@ -47,25 +47,12 @@
                     <input type="text" ng-model="updateEnterpriseFormData.zipcode">
                 </div>
                 <hr>
-                <div class="col-auto ">
-                    <label for="">Scheduled Reports</label>
-                    <input type="checkbox" ng-model="updateEnterpriseFormData.scheduledReports">
-                </div>
-                <div class="col-auto">
-                    <label for="">Shared Patients</label>
-                    <input type="checkbox" ng-model="updateEnterpriseFormData.sharedPatients">
-                </div>
                 <div class="col-auto">
                     <label for="">Active</label>
                     <input type="checkbox" ng-model="updateEnterpriseFormData.active">
-                </div>
-                <div class="col-auto">
-                    <label for="">Ehr Implementation Status</label>
-                    <input type="checkbox" ng-model="updateEnterpriseFormData.ehrImplementationStatus">
-                </div>
-                <div class="col-auto">
-                    <label for="">Corporate</label>
-                    <input type="checkbox" ng-model="updateEnterpriseFormData.isCorporate">
+
+                    <!-- <label for="">Ehr Implementation Status</label>
+                    <input type="checkbox" ng-model="updateEnterpriseFormData.ehrImplementationStatus"> -->
                 </div>
                 <input class="btn btn-primary" type="submit" name="updateEnterpriseFormData" value="Update" />
             </div>

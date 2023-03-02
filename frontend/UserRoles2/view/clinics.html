@@ -3,7 +3,7 @@
     <div ng-include="'view/header.html'"></div>
     <h1 class="list">Clinics</h1><br>
     <div>
-        <button class="insert"> <a href="#!insertEnterprise" style="color: white;">Add Clinic</a></button><br>
+        <button class="insert"> <a href="#!insertClinic" style="color: white;">Add Clinic</a></button><br>
     </div>
     <div class="container">
         <div>
@@ -21,6 +21,7 @@
                             <th>Order</th>
                             <th>Inventory</th>
                             <th>Actions</th>
+                            <th>Add User</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -34,12 +35,13 @@
                             <td class="p-3">0</td>
                             <td class="p-3">{{x.order}}</td>
                             <td class="p-3">{{x.inventory}}</td>
-                            <td><a href="#!updateEnterprise/{{x.enterpriseId}}">Edit</a>&nbsp &nbsp<a ng-click="deleteClinic(x.enterpriseId)" href="">Remove</a></td>
+                            <td><a href="#!updateClinic/{{x.locationId}}">Edit</a>&nbsp &nbsp<a ng-click="deleteClinic(x.locationId)" href="">Remove</a></td>
+                            <td><a href="#!addUser">Add User</a></td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
-
+    
 </div>

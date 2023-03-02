@@ -87,7 +87,7 @@ public class ClinicServiceImpl implements ClinicService {
 		clinic.setName(updatedClinic.getName());
 		clinic.setState(updatedClinic.getState());
 		clinic.setStateCode(updatedClinic.getStateCode());
-		clinic.setZipCode(updatedClinic.getZipCode());
+		clinic.setzipcode(updatedClinic.getzipcode());
 		clinic.setPhone(updatedClinic.getPhone());
 		clinic.setAccountNotes("accountNotes");
 		clinic.setAccountStatus("none");
