@@ -6,7 +6,7 @@ import com.patient.Entity.Users;
 
 public interface UsersService {
 	
-	public Integer addUsers(Users user);
+	public Users addUsers(Users user);
 	
 	public Users editUser(Users users,Integer userId);
 	

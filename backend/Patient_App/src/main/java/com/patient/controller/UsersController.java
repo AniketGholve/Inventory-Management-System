@@ -18,8 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.patient.Entity.Inventory;
-import com.patient.Entity.Orders;
+ import com.patient.Entity.Orders;
 import com.patient.Entity.UserEntity;
 import com.patient.Entity.Users;
 import com.patient.Repo.OrdersRepository;
@@ -32,9 +31,7 @@ import com.patient.ServiceImpl.UsersServiceImpl;
 @RequestMapping("/api")
 public class UsersController {
 	
-
-	@Autowired
-	private OrdersRepository Orepo;
+ 
 	
 	
 	@Autowired
@@ -42,9 +39,9 @@ public class UsersController {
 
 	
 	@PostMapping("/addUsers")
-	public Integer addUser(@RequestBody Users users) {
-		Integer result=usersServiceImpl.addUsers(users);
-		return result;
+	public ResponseEntity<Users> addUser(@RequestBody Users users) {
+		Users u=usersServiceImpl.addUsers(users);
+		return new ResponseEntity<Users>(u,HttpStatus.OK);
 		}
 	
 	
@@ -73,18 +70,6 @@ public class UsersController {
 	
 	
 		
-	@PreAuthorize("hasAuthority('ELP')")
-	@GetMapping("/ErrorOrders/{e}")
-	public List<Orders> getStatus_Error(@PathVariable("e") int e) {
-
-		return Orepo.getErrorOrders(e);
-	}
-
-	@PreAuthorize("hasAuthority('ELP')")
-	@GetMapping("/SuccessOrders/{s}")
-	public List<Orders> getStatus_Success(@PathVariable("s") int s) {
-		return Orepo.getSuccessOrders(s);
-
-	}
+	 
 	
 }

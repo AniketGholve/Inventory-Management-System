@@ -60,5 +60,8 @@ public class InventoryController {
 		return new ResponseEntity<List<Serial>>(l,HttpStatus.OK);
 		
 	}
+	
+	
+	
 
 }

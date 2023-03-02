@@ -1,6 +1,7 @@
 package com.patient.ServiceImpl;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,10 +9,10 @@ import org.springframework.stereotype.Service;
 
 import com.patient.Entity.Clinic;
 import com.patient.Repo.ClinicRepo;
-import com.patient.Repo.EnterpriseRepo;
 import com.patient.Service.ClinicService;
 
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.Query;
 @Service
 public class ClinicServiceImpl implements ClinicService {
 	
@@ -29,7 +30,7 @@ public class ClinicServiceImpl implements ClinicService {
 		Date d=new Date(m);
 		clinic.setAccountNotes("accountNotes");
 		clinic.setAccountStatus("none");
-		clinic.setActive(false);
+		clinic.setActive(true);
 		clinic.setBeepEnabled("none");
 		clinic.setBillTo("none");
 		clinic.setBillToName("none");
@@ -68,8 +69,58 @@ public class ClinicServiceImpl implements ClinicService {
 	@Override
 	public List<Clinic> getAllClinic() {
 		// TODO Auto-generated method stub
-		List<Clinic> c=clinicRepo.findAll();
-		return c;
+		Query q=entityManager.createNativeQuery("select * from clinic where deleted=? and active=?");
+		q.setParameter(1, 0);
+		q.setParameter(2, 1);
+		List<Object[]> l=q.getResultList();
+		System.out.println("list");
+		System.out.println(l);
+		List<Clinic> resultList=new ArrayList<>();
+		for(Object[] o:l)
+		{
+			Clinic c=new Clinic();
+			System.out.println((Integer)o[0]);
+			c.setLocationId((Integer)o[0]);
+			c.setAccountNotes((String)o[1]);
+			c.setAccountStatus((String)o[2]);
+			c.setActive((Boolean)o[3]);
+			c.setAddrLine1((String)o[4]);
+			c.setAddrLine2((String)o[5]);
+			c.setBeepEnabled((String)o[6]);
+			c.setBillTo((String)o[7]);
+			c.setBillToName((String)o[8]);
+			c.setCity((String)o[9]);
+			c.setContractPricing((String)o[10]);
+			c.setCountry((String)o[11]);
+			c.setCreatedBy((String)o[12]);
+ 			c.setCreatedOn((Date)o[13]);
+			c.setCustomerNumber((String)o[14]);
+			c.setDeleted((Boolean)o[15]);
+			c.setDivisionManager((String)o[16]);
+			c.setEdiEnabled((String)o[17]);
+			c.setEhrEnabled((String)o[18]);
+			c.setEmail((String)o[19]);
+			c.setEnterpriseId((Integer)o[20]);
+			c.setFax((String)o[21]);
+			c.setForecastMeu((String)o[22]);
+			c.setGln((String)o[23]);
+			c.setLocTypeId((String)o[24]);
+			c.setModifiedBy((String)o[25]);
+			c.setModifiedOn((Date)o[26]);
+			c.setOrderPoNumber((String)o[27]);
+			c.setOverrideRep((String)o[28]);
+			c.setRegionalManager((String)o[29]);
+			c.setSalesRep1((String)o[30]);
+			c.setSalesRep2((String)o[31]);
+			c.setShipmentMethod((String)o[32]);
+			c.setShipTo((String)o[33]);
+			c.setShipToName((String)o[34]);
+			c.setSrc_id((Integer)o[35]);
+			c.setTimeZone((String)o[36]);
+			resultList.add(c);
+		}
+		 
+		return resultList;
 	}
 
 	@Override
@@ -126,7 +177,10 @@ public class ClinicServiceImpl implements ClinicService {
 	@Override
 	public String deleteClinic(Integer locationId) {
 		// TODO Auto-generated method stub
-		clinicRepo.deleteById(locationId);
+		Clinic c=clinicRepo.findById(locationId).orElseThrow();
+		c.setDeleted(true);
+		c.setActive(false);
+		clinicRepo.save(c);
 		return "User deleted successfully";
 	}
 
@@ -136,7 +190,34 @@ public class ClinicServiceImpl implements ClinicService {
 		Clinic c=clinicRepo.findById(locationId).orElseThrow();
 		return c;
 	}
+	
+	
+	
+	
+	public List<Clinic> getClinicNamesAndId(){
+		
+		
+		Query q=entityManager.createNativeQuery("select location_id,enterprise_id,name from clinic");
+		List<Object[]> l=q.getResultList();
+		List<Clinic> resultList=new ArrayList<>();
+		for(Object[] o:l)
+		{
+			Clinic c=new Clinic();
+			c.setLocationId((Integer)o[0]);
+			c.setEnterpriseId((Integer)o[1]);
+			c.setName((String)o[2]);
+			resultList.add(c);
+			
+		}
+		return resultList;
+	}
+
+
+		
+		
+		
+}
 
 	
 
-}
+ 
