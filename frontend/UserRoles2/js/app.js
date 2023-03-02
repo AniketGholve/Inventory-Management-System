@@ -79,7 +79,7 @@ app.config(function ($routeProvider, $httpProvider) {
         })
         .when("/addUser",
         {
-            templateUrl: "/view/add_clinic_patient.html"
+            templateUrl: "/view/addClinicUser.html"
         })
         ;
     $httpProvider.interceptors.push('myInterceptor');
