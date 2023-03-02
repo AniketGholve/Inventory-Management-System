@@ -14,6 +14,8 @@ public interface UsersService {
 	
 	public List<Users> getAllUsers();
 	
+	public List<Users> getUsersByLocationId(Integer locationId);
+	
 
 	
 }

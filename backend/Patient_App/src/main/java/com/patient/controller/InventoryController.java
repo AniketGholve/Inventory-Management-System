@@ -58,7 +58,15 @@ public class InventoryController {
 	{
 		List<Serial> l=inventoryServiceImpl.getExpiredSerialDetails(pid);
 		return new ResponseEntity<List<Serial>>(l,HttpStatus.OK);
-		
+	}
+	
+	
+	
+	@GetMapping("/getInventoryByClinic/{clinicLocationId}")
+	public ResponseEntity<List<Inventory>> getInventoryByClinic(@PathVariable Integer clinicLocationId)
+	{
+		List<Inventory> inventoryList=inventoryServiceImpl.getInventoryByClinic(clinicLocationId);
+		return new ResponseEntity<List<Inventory>>(inventoryList,HttpStatus.OK);
 	}
 	
 	
