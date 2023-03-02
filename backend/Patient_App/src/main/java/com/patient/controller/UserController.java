@@ -62,9 +62,10 @@ public class UserController {
 	}
 
 
-	@PutMapping("/editUser/{username}")
-	public ResponseEntity<UserEntity> editUser(@PathVariable String username, @RequestBody UserEntity user) {
-		UserEntity u = userEntityRepo.findByUsername(username);
+	@PutMapping("/editUser")
+	public ResponseEntity<UserEntity> editUser(@RequestBody UserEntity user) {
+		UserEntity u = userEntityRepo.findByUsername(user.getUsername());
+		
 		if(user.getFirstName() != null) {
 			u.setFirstName(user.getFirstName());
 			System.out.println(user.getFirstName());	
@@ -81,13 +82,20 @@ public class UserController {
 		if (user.getPassword() != null) {
 			u.setPassword(passwordEncoder.encode(user.getPassword()));
 		}
+		if (user.getUsername() != null) {
+			u.setUsername(user.getUsername());
+		}
+		if (user.getRole() != null) {
+			u.setRole(user.getRole());
+		}
+		
 		UserEntity editUser = userEntityRepo.save(u);
 		return ResponseEntity.ok(editUser);
 	}
 	
-	@GetMapping("/getUserDetails/{id}")
-	public ResponseEntity<UserEntity> getById(@PathVariable("id") int id) {
-		UserEntity u = userEntityRepo.findById(id).orElseThrow();
+	@GetMapping("/getUserDetails/{username}")
+	public ResponseEntity<UserEntity> getByUsername(@PathVariable String username) {
+		UserEntity u = userEntityRepo.findByUsername(username);
 		return new ResponseEntity<UserEntity>(u,HttpStatus.OK);
 	}
 	
@@ -96,18 +104,18 @@ public class UserController {
 		return userEntityRepo.findByUsername(username);
 	}
 
-	@PreAuthorize("hasAuthority('ELP')")
-	@GetMapping("/ErrorOrders/{e}")
-	public List<Orders> getStatus_Error(@PathVariable("e") int e) {
-
-		return Orepo.getErrorOrders(e);
-	}
-
-	@PreAuthorize("hasAuthority('ELP')")
-	@GetMapping("/SuccessOrders/{s}")
-	public List<Orders> getStatus_Success(@PathVariable("s") int s) {
-		return Orepo.getSuccessOrders(s);
-
-	}
+//	@PreAuthorize("hasAuthority('ELP')")
+//	@GetMapping("/ErrorOrders/{e}")
+//	public List<Orders> getStatus_Error(@PathVariable("e") int e) {
+//
+//		return Orepo.getErrorOrders(e);
+//	}
+//
+//	@PreAuthorize("hasAuthority('ELP')")
+//	@GetMapping("/SuccessOrders/{s}")
+//	public List<Orders> getStatus_Success(@PathVariable("s") int s) {
+//		return Orepo.getSuccessOrders(s);
+//
+//	}
 
 }

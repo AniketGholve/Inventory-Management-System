@@ -111,18 +111,20 @@ app.controller("edit_userCtrl", function ($scope, $http, $window) {
 
 
 app.controller('clinicController', function ($scope, $http, $window) {
+    $scope.navOption1Link="#!clinics";
+    $scope.navOption1="Clinic";
     $scope.navOption3Link = "#!";
     $scope.navOption3 = "Logout";
     $scope.hide2 = "d-none";
     $scope.hide = "d-none";
-    $scope.hide1 = "d-none";
     console.log("run");
     $http({
 
         method: 'GET',
-        url: 'http://localhost:7890/getAllEnterprise',
+        url: 'http://localhost:7890/getAllClinic',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': sessionStorage.getItem("token")
         }
 
     }).then((response) => {
@@ -142,7 +144,7 @@ app.controller('clinicController', function ($scope, $http, $window) {
         console.log(id);
         $http({
             method: 'DELETE',
-            url: 'http://localhost:7890/deleteEnterprise/' + id,
+            url: 'http://localhost:7890/deleteClinic/' + id,
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': sessionStorage.getItem("token")

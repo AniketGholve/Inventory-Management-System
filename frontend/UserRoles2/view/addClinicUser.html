@@ -1,0 +1,57 @@
+<div ng-controller="registerUserFields">
+    <div ng-include="'view/header.html'"></div>
+    <div>
+        <h1 class="text-center">Add Clinic User</h1>
+    </div>
+    <form ng-submit="addUser()">
+        <div class="row g-3 form-control d-flex justify-content-between w-50 m-auto">
+            <div class="col-auto d-flex justify-content-between w-50">
+                <label for=""> First Name </label>
+                <input type="text" ng-model="addUserData.firstName" required>
+            </div>
+            <div class="col-auto d-flex justify-content-between w-50">
+                <label for=""> Last Name </label>
+                <input type="text" ng-model="addUserData.lastName" required>
+            </div>
+            <div class="col-auto d-flex justify-content-between w-50">
+                <label for=""> Middle Name </label>
+                <input type="text" ng-model="addUserData.middleName" required>
+            </div>
+            <div class="col-auto d-flex justify-content-between w-50">
+                <label for="">User Name </label>
+                <input type="text" ng-model="addUserData.userLogin" required>
+            </div>
+            <div class="col-auto d-flex justify-content-between w-50">
+                <label for="">Email</label>
+                <input type="text" ng-model="addUserData.email" required>
+            </div>
+            <div class="col-auto d-flex justify-content-between w-50">
+                <label for="">Job Title</label>
+                <input type="text" ng-model="addUserData.jobTitle" required>
+            </div>
+            <div class="col-auto d-flex justify-content-between w-50">
+                <label for="">Work Number</label>
+                <input type="text" ng-model="addUserData.workPhone" required>
+            </div>
+            <div class="col-auto d-flex justify-content-between w-50">
+                <label for="">Mobile Number</label>
+                <input type="text" ng-model="addUserData.mobilePhone" required>
+            </div>
+            <div class="col-auto d-flex justify-content-between w-50">
+                <label for="">Password</label>
+                <input type="text" ng-model="addUserData.password" required>
+            </div>
+            <div class="col-auto d-flex justify-content-between w-50">
+                <label for="">Role</label>
+                <select ng-model="addUserData.roleId" class="text-center" required>
+                    <option value="" class="d-none">Please Choose</option>
+                    <option value="ELP">ELP</option>
+                    <option value="MLP">MLP</option>
+                    <option value="ALP">ALP</option>
+                    <option value="CLP">CLP</option>
+                </select>
+            </div>
+            <input class="btn btn-primary" type="submit" name="addUserData" value="Add User" />
+        </div>
+    </form>
+</div>

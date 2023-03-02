@@ -65,4 +65,7 @@ public class EnterpriseController {
 		String message=enterpriseserviceImpl.deleteEnterprise(enterpriseId);
 		return new ResponseEntity<String>(message,HttpStatus.OK);
 	}
+	
+	
+	
 }
