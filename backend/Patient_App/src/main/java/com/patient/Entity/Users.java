@@ -28,7 +28,7 @@ public class Users {
 	@Column(name="enterprise_id")
 	private Integer enterpriseId;
 	@Column(name="default_location_id")
-	private String defaultLocationId; 
+	private Integer defaultLocationId; 
 	@Column(name="job_title")
 	private String jobTitle; 
 	@Column(name="active")
@@ -63,44 +63,6 @@ public class Users {
 	private Date lastLogin; 
 	@Column(name="src_id")
 	private Integer srcId;
-	
-	
-	
-	public Users() {
-		super();
-	}
-	public Users(Integer userId, String firstName, String lastName, String middleName, String userLogin, String email,
-			Integer enterpriseId, String defaultLocationId, String jobTitle, Boolean active, Boolean deleted,
-			String workPhone, String mobilePhone, String promptForLocation, Boolean allowOverride, Date createdOn,
-			Date modifiedOn, String externalId, String password, Date passwordUpdatedDate, String token,
-			String tokenExpiryTime, String role, Date lastLogin, Integer srcId) {
-		super();
-		this.userId = userId;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.middleName = middleName;
-		this.userLogin = userLogin;
-		this.email = email;
-		this.enterpriseId = enterpriseId;
-		this.defaultLocationId = defaultLocationId;
-		this.jobTitle = jobTitle;
-		this.active = active;
-		this.deleted = deleted;
-		this.workPhone = workPhone;
-		this.mobilePhone = mobilePhone;
-		this.promptForLocation = promptForLocation;
-		this.allowOverride = allowOverride;
-		this.createdOn = createdOn;
-		this.modifiedOn = modifiedOn;
-		this.externalId = externalId;
-		this.password = password;
-		this.passwordUpdatedDate = passwordUpdatedDate;
-		this.token = token;
-		this.tokenExpiryTime = tokenExpiryTime;
-		this.role = role;
-		this.lastLogin = lastLogin;
-		this.srcId = srcId;
-	}
 	public Integer getUserId() {
 		return userId;
 	}
@@ -143,10 +105,10 @@ public class Users {
 	public void setEnterpriseId(Integer enterpriseId) {
 		this.enterpriseId = enterpriseId;
 	}
-	public String getDefaultLocationId() {
+	public Integer getDefaultLocationId() {
 		return defaultLocationId;
 	}
-	public void setDefaultLocationId(String defaultLocationId) {
+	public void setDefaultLocationId(Integer defaultLocationId) {
 		this.defaultLocationId = defaultLocationId;
 	}
 	public String getJobTitle() {
@@ -251,6 +213,42 @@ public class Users {
 	public void setSrcId(Integer srcId) {
 		this.srcId = srcId;
 	}
+	public Users(Integer userId, String firstName, String lastName, String middleName, String userLogin, String email,
+			Integer enterpriseId, Integer defaultLocationId, String jobTitle, Boolean active, Boolean deleted,
+			String workPhone, String mobilePhone, String promptForLocation, Boolean allowOverride, Date createdOn,
+			Date modifiedOn, String externalId, String password, Date passwordUpdatedDate, String token,
+			String tokenExpiryTime, String role, Date lastLogin, Integer srcId) {
+		super();
+		this.userId = userId;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.middleName = middleName;
+		this.userLogin = userLogin;
+		this.email = email;
+		this.enterpriseId = enterpriseId;
+		this.defaultLocationId = defaultLocationId;
+		this.jobTitle = jobTitle;
+		this.active = active;
+		this.deleted = deleted;
+		this.workPhone = workPhone;
+		this.mobilePhone = mobilePhone;
+		this.promptForLocation = promptForLocation;
+		this.allowOverride = allowOverride;
+		this.createdOn = createdOn;
+		this.modifiedOn = modifiedOn;
+		this.externalId = externalId;
+		this.password = password;
+		this.passwordUpdatedDate = passwordUpdatedDate;
+		this.token = token;
+		this.tokenExpiryTime = tokenExpiryTime;
+		this.role = role;
+		this.lastLogin = lastLogin;
+		this.srcId = srcId;
+	}
+	public Users() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 	@Override
 	public String toString() {
 		return "Users [userId=" + userId + ", firstName=" + firstName + ", lastName=" + lastName + ", middleName="
@@ -262,6 +260,9 @@ public class Users {
 				+ ", passwordUpdatedDate=" + passwordUpdatedDate + ", token=" + token + ", tokenExpiryTime="
 				+ tokenExpiryTime + ", role=" + role + ", lastLogin=" + lastLogin + ", srcId=" + srcId + "]";
 	}
+	
+	
+	
 	
 	
 }

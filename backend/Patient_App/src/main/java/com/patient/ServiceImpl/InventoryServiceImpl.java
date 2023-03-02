@@ -120,9 +120,30 @@ public class InventoryServiceImpl implements InventoryService {
 	
 	
 	
-	public ResponseEntity<List<Inventory>> getInventoryByClinic(Integer clinicLocationId)
+	public  List<Inventory> getInventoryByClinic(Integer clinicLocationId)
 	{
-		
+		Query q=entityManager.createNativeQuery("select * from inventory where location_id=?");
+		q.setParameter(1, clinicLocationId);
+		List<Object[]> l=q.getResultList();
+		List<Inventory> resultList=new ArrayList<>();
+		for(Object[] o:l)
+		{
+			Inventory i=new Inventory();
+			i.setInventoryId((Integer)o[0]);
+			i.setCreatedOn((Date)o[1]);
+			i.setEnterpriseId((Integer)o[2]);
+			i.setExpiredQty((Integer)o[3]);
+			i.setInitial((String)o[4]);
+			i.setLocationId((Integer)o[5]);
+			i.setModifiedOn((Date)o[6]);
+			i.setOnHand((Integer)o[7]);
+			i.setOrderedQty((Integer)o[8]);
+			i.setOverDue((Date)o[9]);
+			i.setProductId((Integer)o[10]);
+			resultList.add(i);
+			
+		}
+		return resultList;
 	}
 	
 	
