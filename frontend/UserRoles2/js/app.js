@@ -77,11 +77,18 @@ app.config(function ($routeProvider, $httpProvider) {
         {
             templateUrl: "/view/insertClinic.html"
         })
-        .when("/addUser",
+        .when("/addUser/:param1",
         {
             templateUrl: "/view/addClinicUser.html"
         })
-        ;
+        .when("/clinicUsers/:param1",
+        {
+            templateUrl:"/view/clinicUsers.html"
+        })
+        .when("/clinicDetails/:param1",
+        {
+            templateUrl:"/view/clinicDetails.html"
+        });
     $httpProvider.interceptors.push('myInterceptor');
 });
 
@@ -136,11 +143,12 @@ app.controller("clp", function ($scope, $http) {
     $scope.navOption1="Patients";
     $scope.navOption4Link="#!/insertPatient";
     $scope.navOption4="Insert Patient";
+    $scope.navOption6Link="#!/clinicUsers"
+    $scope.navOption6="Users"
     $scope.navOption3Link="#!";
     $scope.navOption3="Logout";
     $scope.navOption2Link="#!inventory";
     $scope.navOption2="Inventory";
-    $scope.hide2="d-none";
     $http({
         method: 'GET',
         url: 'http://localhost:7890/getScreen',
@@ -545,9 +553,20 @@ app.controller('updateClinic', function ($scope, $http, $window,$routeParams) {
     }
 });
 
-app.controller('clinicSelect',function($scope){
+app.controller('allClinicsUsers',function($scope,$http){
+        $http({
+            method: 'get',
+            url: "http://localhost:7890/api/getAllUsers",
+            headers: { 'Content-Type': 'application/json' ,'Authorization': sessionStorage.getItem("token")}
+        }).then((response)=>{
+            $scope.clinicsUsers=response.data;
+            console.log($scope.clinicsUsers)
+        },(error)=>{})
+});
+
+app.controller('clinicSelect',function($scope,$http){
     $scope.getClinicData=()=>{
-        http({
+        $http({
             method: 'get',
             url: "http://localhost:7890/getClinicNames",
             headers: { 'Content-Type': 'application/json' ,'Authorization': sessionStorage.getItem("token")}
@@ -557,23 +576,18 @@ app.controller('clinicSelect',function($scope){
     }
 });
 
-app.controller('registerUserFields',function($scope,$window){
-    $scope.navOption3Link="#!";
-    $scope.navOption3="Logout";
-    $scope.navOption1Link="#!clinics";
-    $scope.navOption1="Clinic";
-    $scope.hide2="d-none";
-    $scope.hide="d-none";
-    $scope.addUserData={};
+app.controller('registerUserFields',function($scope,$window,$http,$routeParams){
     $scope.addUserFields=()=>{
-        http({
+        $scope.addUserData.defaultLocationId=$routeParams.param1;
+        $http({
             method: 'post',
-            url: "http://localhost:7890/",
+            url: "http://localhost:7890/api/addUsers",
             headers: { 'Content-Type': 'application/json' ,'Authorization': sessionStorage.getItem("token")},
-            data:$scope.updateUserData,
+            data:$scope.addUserData,
         }).then((response)=>{
+            console.log(response.data)
             alert("Data Added Successfully");
-            $window.location.reload();
+            // $window.location.reload();
         },(error)=>{
             alert("Error Occured In Storing Data Please try again");
             console.log(error);
@@ -600,3 +614,32 @@ app.controller('updateUser',function($scope,$window){
         })
     }
 });
+app.controller('clinicDetails',function($scope,$window,$routeParams,$http){
+    $scope.navOption3Link="#!";
+    $scope.navOption3="Logout";
+    $scope.navOption1Link="#!clinics";
+    $scope.navOption1="Clinic";
+    $scope.hide2="d-none";
+    $scope.hide="d-none";
+    $scope.addUserData={};
+    $http({
+        method: 'get',
+        url: "http://localhost:7890/getByClinicId/"+$routeParams.param1,
+        headers: { 'Content-Type': 'application/json' ,'Authorization': sessionStorage.getItem("token")},
+    }).then((response)=>{
+        $scope.clinicData=response.data;
+    },(error)=>{
+        // alert("Error Occured In Storing Data Please try again");
+        console.log(error);
+    });
+    $http({
+        method: 'get',
+        url: "http://localhost:7890/api/getAllUsers",
+        headers: { 'Content-Type': 'application/json' ,'Authorization': sessionStorage.getItem("token")},
+    }).then((response)=>{
+        $scope.clinicUserData=response.data;
+    },(error)=>{
+        console.log(error);
+    })
+});
+
