@@ -599,20 +599,26 @@ app.controller('registerUserFields',function($scope,$window,$http,$routeParams){
     }
 });
 
-app.controller('updateUser',function($scope,$window,$routeParams){
+app.controller('updateUser',function($scope,$window,$routeParams,$http){
     $scope.updateUserData={};
-    // http({
-    //     method: 'get',
-    //     url: "http://localhost:7890/getUserById/"+$routeParams.param1,
-    //     headers: { 'Content-Type': 'application/json' ,'Authorization': sessionStorage.getItem("token")},
-    //     data:$scope.updateUserData,
-    // }).then((response)=>{
-    //     $scope.updateUserData=response.data;
-    // },(error)=>{
-    //     console.log(error);
-    // })
+    $http({
+        method: 'get',
+        url: "http://localhost:7890/api/getUserByUserId/"+$routeParams.param1,
+        headers: { 'Content-Type': 'application/json' ,'Authorization': sessionStorage.getItem("token")},
+        data:$scope.updateUserData,
+    }).then((response)=>{
+        $scope.updateUserData=response.data;
+        $scope.password=$scope.updateUserData.password;
+        $scope.updateUserData.password="";
+    },(error)=>{
+        console.log(error);
+    })
     $scope.updateUserFileds=()=>{
-        http({
+        if($scope.updateUserData.password==null)
+        {
+            $scope.updateUserData.password=$scope.password;
+        }
+        $http({
             method: 'post',
             url: "http://localhost:7890/",
             headers: { 'Content-Type': 'application/json' ,'Authorization': sessionStorage.getItem("token")},
