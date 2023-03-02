@@ -557,7 +557,13 @@ app.controller('clinicSelect',function($scope){
     }
 });
 
-app.controller('registerUser',function($scope,$window){
+app.controller('registerUserFields',function($scope,$window){
+    $scope.navOption3Link="#!";
+    $scope.navOption3="Logout";
+    $scope.navOption1Link="#!clinics";
+    $scope.navOption1="Clinic";
+    $scope.hide2="d-none";
+    $scope.hide="d-none";
     $scope.addUserData={};
     $scope.addUserFields=()=>{
         http({
@@ -576,6 +582,7 @@ app.controller('registerUser',function($scope,$window){
 });
 
 app.controller('updateUser',function($scope,$window){
+
     $scope.updateUserData={};
     $scope.updateUserFileds=()=>{
         http({
