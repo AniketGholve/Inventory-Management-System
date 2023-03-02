@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -66,8 +67,7 @@ public class UserController {
 		UserEntity u = userEntityRepo.findByUsername(username);
 		if(user.getFirstName() != null) {
 			u.setFirstName(user.getFirstName());
-			System.out.println(user.getFirstName());
-			
+			System.out.println(user.getFirstName());	
 		}
 		if (user.getLastName()!= null) {
 			u.setLastName(user.getLastName());
@@ -78,10 +78,19 @@ public class UserController {
 		if (user.getPhoneNo() != null) {
 			u.setPhoneNo(user.getPhoneNo());
 		}
+		if (user.getPassword() != null) {
+			u.setPassword(passwordEncoder.encode(user.getPassword()));
+		}
 		UserEntity editUser = userEntityRepo.save(u);
 		return ResponseEntity.ok(editUser);
 	}
-
+	
+	@GetMapping("/getUserDetails/{id}")
+	public ResponseEntity<UserEntity> getById(@PathVariable("id") int id) {
+		UserEntity u = userEntityRepo.findById(id).orElseThrow();
+		return new ResponseEntity<UserEntity>(u,HttpStatus.OK);
+	}
+	
 	@GetMapping("/get/{username}")
 	public UserEntity getRole(@PathVariable("username") String username) {
 		return userEntityRepo.findByUsername(username);
