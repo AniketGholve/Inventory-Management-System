@@ -88,8 +88,7 @@ app.controller("edit_userCtrl", function ($scope, $http, $window, $route) {
     $scope.navOption3Link = "#!";
     $scope.navOption3 = "Logout";
     $scope.navOption5Link = "#!edit_user";
-    $scope.navOption5 = "MyAccount";
-    
+    $scope.navOption5 = "My Account";
     
     $http({
         method: 'GET',
@@ -106,7 +105,7 @@ app.controller("edit_userCtrl", function ($scope, $http, $window, $route) {
     $scope.updatedData = () => {
         // delete $scope.edit.confirmPassword;
         console.log($scope.edit);
-          $scope.edit.username = sessionStorage.getItem("username");
+         $scope.edit.username = sessionStorage.getItem("username");
 
         if ($scope.edit.confirmPassword === $scope.edit.password) {
             document.getElementById("valid").style.display = "block";
@@ -119,7 +118,7 @@ app.controller("edit_userCtrl", function ($scope, $http, $window, $route) {
         if (document.getElementById("valid").style.display === "block") {
             $http({
                 method: 'PUT',
-                url: "http://localhost:7890/api/editUser/" + $scope.edit.username,
+                url: "http://localhost:7890/api/editUser" ,
                 headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") },
                 data: $scope.edit
             }).then((response) => {
@@ -128,8 +127,7 @@ app.controller("edit_userCtrl", function ($scope, $http, $window, $route) {
             }, (error) => {
                 console.log(error);
             });
-        }
-        
+        };
     };
 });
 
@@ -145,10 +143,9 @@ app.controller('clinicController', function ($scope, $http, $window) {
     $http({
 
         method: 'GET',
-        url: 'http://localhost:7890/getAllClinic',
+        url: 'http://localhost:7890/getAllEnterprise',
         headers: {
-            'Content-Type': 'application/json',
-            'Authorization': sessionStorage.getItem("token")
+            'Content-Type': 'application/json'
         }
 
     }).then((response) => {
@@ -168,7 +165,7 @@ app.controller('clinicController', function ($scope, $http, $window) {
         console.log(id);
         $http({
             method: 'DELETE',
-            url: 'http://localhost:7890/deleteClinic/' + id,
+            url: 'http://localhost:7890/deleteEnterprise/' + id,
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': sessionStorage.getItem("token")

@@ -63,7 +63,7 @@ app.config(function ($routeProvider, $httpProvider) {
         .when("/clinics", {
             templateUrl: "/view/clinics.html"
         })
-        .when("/edit_user" , {
+        .when("/edit_user", {
             templateUrl: "/view/edit_user.html"
         })
         .when("/clinics", {
@@ -149,6 +149,9 @@ app.controller("clp", function ($scope, $http) {
     $scope.navOption3="Logout";
     $scope.navOption2Link="#!inventory";
     $scope.navOption2="Inventory";
+    $scope.navOption5Link = "#!edit_user";
+    $scope.navOption5 = "My Account";
+
     $scope.hide2="d-none";
     $http({
         method: 'GET',
@@ -553,16 +556,15 @@ app.controller('updateClinic', function ($scope, $http, $window,$routeParams) {
     }
 });
 
-app.controller('clinicSelect',function($scope){
-    $scope.getClinicData=()=>{
-        http({
+app.controller('clinicSelect',function($scope,$http){
+        $http({
             method: 'get',
             url: "http://localhost:7890/getClinicNames",
             headers: { 'Content-Type': 'application/json' ,'Authorization': sessionStorage.getItem("token")}
         }).then((response)=>{
             $scope.clinicNames=response.data;
         },(error)=>{})
-    }
+    
 });
 
 app.controller('registerUserFields',function($scope,$window){
