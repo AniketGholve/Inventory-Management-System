@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -61,13 +62,13 @@ public class UserController {
 	}
 
 
-	@PutMapping("/editUser/{username}")
-	public ResponseEntity<UserEntity> editUser(@PathVariable String username, @RequestBody UserEntity user) {
-		UserEntity u = userEntityRepo.findByUsername(username);
+	@PutMapping("/editUser")
+	public ResponseEntity<UserEntity> editUser(@RequestBody UserEntity user) {
+		UserEntity u = userEntityRepo.findByUsername(user.getUsername());
+		
 		if(user.getFirstName() != null) {
 			u.setFirstName(user.getFirstName());
-			System.out.println(user.getFirstName());
-			
+			System.out.println(user.getFirstName());	
 		}
 		if (user.getLastName()!= null) {
 			u.setLastName(user.getLastName());
@@ -78,10 +79,26 @@ public class UserController {
 		if (user.getPhoneNo() != null) {
 			u.setPhoneNo(user.getPhoneNo());
 		}
+		if (user.getPassword() != null) {
+			u.setPassword(passwordEncoder.encode(user.getPassword()));
+		}
+		if (user.getUsername() != null) {
+			u.setUsername(user.getUsername());
+		}
+		if (user.getRole() != null) {
+			u.setRole(user.getRole());
+		}
+		
 		UserEntity editUser = userEntityRepo.save(u);
 		return ResponseEntity.ok(editUser);
 	}
-
+	
+	@GetMapping("/getUserDetails/{username}")
+	public ResponseEntity<UserEntity> getByUsername(@PathVariable String username) {
+		UserEntity u = userEntityRepo.findByUsername(username);
+		return new ResponseEntity<UserEntity>(u,HttpStatus.OK);
+	}
+	
 	@GetMapping("/get/{username}")
 	public UserEntity getRole(@PathVariable("username") String username) {
 		return userEntityRepo.findByUsername(username);
