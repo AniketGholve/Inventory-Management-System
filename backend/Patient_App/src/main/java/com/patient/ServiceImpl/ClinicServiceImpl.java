@@ -29,7 +29,6 @@ public class ClinicServiceImpl implements ClinicService {
 		Date d=new Date(m);
 		clinic.setAccountNotes("accountNotes");
 		clinic.setAccountStatus("none");
-		clinic.setActive(false);
 		clinic.setBeepEnabled("none");
 		clinic.setBillTo("none");
 		clinic.setBillToName("none");
@@ -91,7 +90,7 @@ public class ClinicServiceImpl implements ClinicService {
 		clinic.setPhone(updatedClinic.getPhone());
 		clinic.setAccountNotes("accountNotes");
 		clinic.setAccountStatus("none");
-		clinic.setActive(false);
+		clinic.setActive(updatedClinic.getActive());
 		clinic.setBeepEnabled("none");
 		clinic.setBillTo("none");
 		clinic.setBillToName("none");
