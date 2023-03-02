@@ -81,6 +81,10 @@ app.config(function ($routeProvider, $httpProvider) {
         {
             templateUrl: "/view/addClinicUser.html"
         })
+        .when("/updateUser/:param1",
+        {
+            templateUrl: "/view/updateClinicUser.html"
+        })
         .when("/clinicUsers/:param1",
         {
             templateUrl:"/view/clinicUsers.html"
@@ -595,9 +599,18 @@ app.controller('registerUserFields',function($scope,$window,$http,$routeParams){
     }
 });
 
-app.controller('updateUser',function($scope,$window){
-
+app.controller('updateUser',function($scope,$window,$routeParams){
     $scope.updateUserData={};
+    // http({
+    //     method: 'get',
+    //     url: "http://localhost:7890/getUserById/"+$routeParams.param1,
+    //     headers: { 'Content-Type': 'application/json' ,'Authorization': sessionStorage.getItem("token")},
+    //     data:$scope.updateUserData,
+    // }).then((response)=>{
+    //     $scope.updateUserData=response.data;
+    // },(error)=>{
+    //     console.log(error);
+    // })
     $scope.updateUserFileds=()=>{
         http({
             method: 'post',

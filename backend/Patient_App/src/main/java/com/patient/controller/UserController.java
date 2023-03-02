@@ -86,19 +86,18 @@ public class UserController {
 	public UserEntity getRole(@PathVariable("username") String username) {
 		return userEntityRepo.findByUsername(username);
 	}
-//
-////	@PreAuthorize("hasAuthority('ELP')")
-////	@GetMapping("/ErrorOrders/{e}")
-////	public List<Orders> getStatus_Error(@PathVariable("e") int e) {
-////
-////		return Orepo.getErrorOrders(e);
-////	}
-////
-////	@PreAuthorize("hasAuthority('ELP')")
-////	@GetMapping("/SuccessOrders/{s}")
-////	public List<Orders> getStatus_Success(@PathVariable("s") int s) {
-////		return Orepo.getSuccessOrders(s);
-////
-////	}
-//
+
+	@PreAuthorize("hasAuthority('ELP')")
+	@GetMapping("/ErrorOrders/{e}")
+	public List<Orders> getStatus_Error(@PathVariable("e") int e) {
+
+		return Orepo.getErrorOrders(e);
+	}
+
+	@PreAuthorize("hasAuthority('ELP')")
+	@GetMapping("/SuccessOrders/{s}")
+	public List<Orders> getStatus_Success(@PathVariable("s") int s) {
+		return Orepo.getSuccessOrders(s);
+
+	}
 }

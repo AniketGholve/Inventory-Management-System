@@ -1,7 +1,6 @@
 package com.patient.ServiceImpl;
 
 import java.sql.Date;
-import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,15 +18,12 @@ public class UsersServiceImpl implements UsersService {
 	private UsersRepo usersRepo;
 
 	@Override
-	public Integer addUsers(Users users) {
+	public Users addUsers(Users users) {
 		// TODO Auto-generated method stub
 		System.out.println(users);
 		long m=System.currentTimeMillis();
 		Date d=new Date(m);
-		System.out.println(users.toString());
-		String role = users.getRole();
-		String arr[] = { "CLP", "ELP", "ALP", "MLP" };
-		boolean result = Arrays.asList(arr).contains(role);
+		users.setRole("CLP");
 		users.setDeleted(false);
 		users.setPromptForLocation("none");
 		users.setAllowOverride(false);
@@ -39,13 +35,10 @@ public class UsersServiceImpl implements UsersService {
 		users.setTokenExpiryTime(null);
 		users.setLastLogin(null);
 		users.setSrcId(null);
-		
-		if (result) {
-			users.setPassword(passwordEncoder.encode(users.getPassword()));
-			usersRepo.save(users);
-			return 1;
-		}
-		return -1;
+		users.setPassword(passwordEncoder.encode(users.getPassword()));
+		Users u=usersRepo.save(users);
+		return u;
+			 
 		
 	}
 	

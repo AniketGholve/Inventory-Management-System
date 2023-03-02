@@ -16,5 +16,7 @@ public interface ClinicService {
 		public String deleteClinic(Integer locationId);
 		
 		public Clinic getClinicById(Integer locationId);
+		
+		public List<Clinic> getClinicNamesAndId();
 
 }
