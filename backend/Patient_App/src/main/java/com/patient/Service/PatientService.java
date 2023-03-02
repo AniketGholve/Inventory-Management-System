@@ -17,6 +17,9 @@ public interface PatientService {
 	
 	public String deletePatient(int pid);
 	
+	
+	public List<Patient> getPatientById(Integer clinicLocationId);
+	
 	//public String getPatientByIdJPQL(int pid);
 	
 	//public List<Patient> getAllPatientByQuery();
