@@ -61,31 +61,36 @@ public class UserController {
 		return -1;
 	}
 
+	@PutMapping("/editUser")
+    public ResponseEntity<UserEntity> editUser(@RequestBody UserEntity user) {
+        UserEntity u = userEntityRepo.findByUsername(user.getUsername());
 
-	@PutMapping("/editUser/{username}")
-	public ResponseEntity<UserEntity> editUser(@PathVariable("username") String username, @RequestBody UserEntity user) {
-		UserEntity u = userEntityRepo.findByUsername(username);
-		if(user.getFirstName() != null) {
-			u.setFirstName(user.getFirstName());
-			System.out.println(user.getFirstName());
-			
-		}
-		if (user.getLastName()!= null) {
-			u.setLastName(user.getLastName());
-		}
-		if (user.getDateofBirth() != null) {
-			u.setDateofBirth(user.getDateofBirth());
-		}
-		if (user.getPhoneNo() != null) {
-			u.setPhoneNo(user.getPhoneNo());
-		}
-		if (user.getPassword() != null) {
-            u.setPassword(user.getPassword());  
-            System.out.println(user.getPassword());
+        if(user.getFirstName() != null) {
+            u.setFirstName(user.getFirstName());
+            System.out.println(user.getFirstName());    
         }
-		UserEntity editUser = userEntityRepo.save(u);
-		return ResponseEntity.ok(editUser);
-	}
+        if (user.getLastName()!= null) {
+            u.setLastName(user.getLastName());
+        }
+        if (user.getDateofBirth() != null) {
+            u.setDateofBirth(user.getDateofBirth());
+        }
+        if (user.getPhoneNo() != null) {
+            u.setPhoneNo(user.getPhoneNo());
+        }
+        if (user.getPassword() != null) {
+            u.setPassword(passwordEncoder.encode(user.getPassword()));
+        }
+        if (user.getUsername() != null) {
+            u.setUsername(user.getUsername());
+        }
+        if (user.getRole() != null) {
+            u.setRole(user.getRole());
+        }
+
+        UserEntity editUser = userEntityRepo.save(u);
+        return ResponseEntity.ok(editUser);
+    }
 
 	@GetMapping("/get/{username}")
 	public UserEntity getRole(@PathVariable("username") String username) {
@@ -93,16 +98,10 @@ public class UserController {
 	}
 	
 	@GetMapping("/getUserDetails/{username}")
-    public ResponseEntity<UserEntity> getById(@PathVariable("username") String username) {
-        UserEntity u = userEntityRepo.findByUsername(username);
-        return new ResponseEntity<UserEntity>(u,HttpStatus.OK);
-    }
-//	    public ResponseEntity<UserEntity> getById(@PathVariable("id") int id) {
-//	        UserEntity u = userEntityRepo.findById(id);
-//	        return new ResponseEntity<UserEntity>(u,HttpStatus.OK);
-//	    }
-
-
+	public ResponseEntity<UserEntity> getByUsername(@PathVariable String username) {
+		UserEntity u = userEntityRepo.findByUsername(username);
+		return new ResponseEntity<UserEntity>(u,HttpStatus.OK);
+	}
 
 //	@PreAuthorize("hasAuthority('ELP')")
 //	@GetMapping("/ErrorOrders/{e}")
