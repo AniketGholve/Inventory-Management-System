@@ -5,11 +5,12 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 
 import com.patient.Entity.Users;
 import com.patient.Repo.UsersRepo;
 import com.patient.Service.UsersService;
-
+@Service
 public class UsersServiceImpl implements UsersService {
 	
 	private PasswordEncoder passwordEncoder;
