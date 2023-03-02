@@ -43,7 +43,7 @@ public class Clinic {
 	@Column(name = "phone")
 	private String phone;
 	@Column(name = "zipcode")
-	private String zipCode;
+	private String zipcode;
 	@Column(name = "bill_to")
 	private String billTo;
 	@Column(name = "ship_to")
@@ -182,11 +182,11 @@ public class Clinic {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-	public String getZipCode() {
-		return zipCode;
+	public String getzipcode() {
+		return zipcode;
 	}
-	public void setZipCode(String zipCode) {
-		this.zipCode = zipCode;
+	public void setzipcode(String zipcode) {
+		this.zipcode = zipcode;
 	}
 	public String getBillTo() {
 		return billTo;
@@ -352,7 +352,7 @@ public class Clinic {
 	}
 	public Clinic(Integer locationId, Integer enterpriseId, String name, String locTypeId, String customerNumber,
 			String email, String addrLine1, String addrLine2, String city, String state, String stateCode,
-			String country, String fax, String phone, String zipCode, String billTo, String shipTo, String billToName,
+			String country, String fax, String phone, String zipcode, String billTo, String shipTo, String billToName,
 			String shipToName, String gln, String accountNotes, String accountStatus, String contractPricing,
 			String orderPoNumber, String forecastMeu, String timeZone, String shipmentMethod, String createdBy,
 			String modifiedBy, Date createdOn, Date modifiedOn, String ehrEnabled, String ediEnabled,
@@ -373,7 +373,7 @@ public class Clinic {
 		this.country = country;
 		this.fax = fax;
 		this.phone = phone;
-		this.zipCode = zipCode;
+		this.zipcode = zipcode;
 		this.billTo = billTo;
 		this.shipTo = shipTo;
 		this.billToName = billToName;
@@ -407,7 +407,7 @@ public class Clinic {
 		return "Clinic [locationId=" + locationId + ", enterpriseId=" + enterpriseId + ", name=" + name + ", locTypeId="
 				+ locTypeId + ", customerNumber=" + customerNumber + ", email=" + email + ", addrLine1=" + addrLine1
 				+ ", addrLine2=" + addrLine2 + ", city=" + city + ", state=" + state + ", stateCode=" + stateCode
-				+ ", country=" + country + ", fax=" + fax + ", phone=" + phone + ", zipCode=" + zipCode + ", billTo="
+				+ ", country=" + country + ", fax=" + fax + ", phone=" + phone + ", zipcode=" + zipcode + ", billTo="
 				+ billTo + ", shipTo=" + shipTo + ", billToName=" + billToName + ", shipToName=" + shipToName + ", gln="
 				+ gln + ", accountNotes=" + accountNotes + ", accountStatus=" + accountStatus + ", contractPricing="
 				+ contractPricing + ", orderPoNumber=" + orderPoNumber + ", forecastMeu=" + forecastMeu + ", timeZone="

@@ -1,79 +1,58 @@
- <div ng-controller="insertEnterprise">
-        <div ng-include="'view/header.html'"></div>
-        <div>
-            <h1 class="text-center">Add Clinic Details</h1>
-        </div>
-        <form name="userForm" ng-submit="createEnterpriseForm()">
-            <div class="row g-3 form-control d-flex justify-content-between w-50 m-auto">
-                <div class="col-auto d-flex justify-content-between w-50">
-                    <label for="">Clinic Name: </label>
-                    <input type="text" class="input1" ng-model="formDataFields.name">
-                </div>
-                <div class="col-auto d-flex justify-content-between w-50">
-                    <label for="">Clinic Email: </label>
-                    <input type="text" class="input2" ng-model="formDataFields.email">
-                </div>
-                <div class="col-auto d-flex justify-content-between w-50">
-                    <label for="">Clinic Phone: </label>
-                    <input type="text" class="input3" ng-model="formDataFields.phone">
-                </div>
-                <div class="col-auto d-flex justify-content-between w-50">
-                    <label for="">Address-1:</label>
-                    <input type="text" class="input4" ng-model="formDataFields.addrLink1" required>
-                </div>
-                <div class="col-auto d-flex justify-content-between w-50">
-                    <label for="">Address-2:</label>
-                    <input type="text" class="input5" ng-model="formDataFields.addrLink2" required>
-                </div>
-                <div class="col-auto d-flex justify-content-between w-50">
-                    <label for="">City:</label>
-                    <input type="text" class="input6" ng-model="formDataFields.city">
-                </div>
-                <div class="col-auto d-flex justify-content-between w-50">
-                    <label for="">State:</label>
-                    <input type="text" class="input7" ng-model="formDataFields.state">
-                </div>
-                <div class="col-auto d-flex justify-content-between w-50">
-                    <label for="">Country:</label>
-                    <input type="text" class="input8" ng-model="formDataFields.country">
-                </div>
-                <div class="col-auto d-flex justify-content-between w-50">
-                    <label for="">StateCode:</label>
-                    <input type="text" class="input9" ng-model="formDataFields.stateCode">
-                </div>
-                <div class="col-auto d-flex justify-content-between w-50">
-                    <label for="">Zipcode:</label>
-                    <input type="text" class="input10" ng-model="formDataFields.zipcode">
-                </div>
-                <hr>
-                <div class="col-auto">
-                    <label for="">Active</label>
-                    <input type="checkbox" ng-init="formDataFields.active=false" ng-model="formDataFields.active"
-                        class="input11">
-                </div>
-                <div class="col-auto">
-                    <label for="">EhrImplementationStatus</label>
-                    <input type="checkbox" ng-init="formDataFields.ehrImplementationStatus=false"
-                        ng-model="formDataFields.ehrImplementationStatus" class="input12">
-                </div>
-                <div class="col-auto">
-                    <label for="">Corporate</label>
-                    <input type="checkbox" ng-init="formDataFields.isCorporate=false"
-                        ng-model="formDataFields.isCorporate" class="input13">
-                </div>
-                <div class="col-auto">
-                    <label for="">Schedule Reports</label>
-                    <input type="checkbox" ng-init="formDataFields.scheduledReports=false"
-                        ng-model="formDataFields.scheduledReports" class="input14">
-                </div>
-                <div class="col-auto">
-                    <label for="">Shared Patients</label>
-                    <input type="checkbox" ng-init="formDataFields.sharedPatients=false"
-                        ng-model="formDataFields.sharedPatients" class="input15">
-                </div>
-                <input  class="btn btn-primary" type="submit" name="formDataFields" value="Submit" />
-            </div>
-        </form>
+<div ng-controller="insertEnterprise">
+    <div ng-include="'view/header.html'"></div>
+    <div>
+        <h1 class="text-center">Add Clinic Details</h1>
     </div>
+    <form name="userForm" ng-submit="createEnterpriseForm()">
+        <div class="row g-3 form-control d-flex justify-content-between w-50 m-auto">
+            <div class="col-auto d-flex justify-content-between w-50">
+                <label for="">Clinic Name: </label>
+                <input type="text" class="input1" ng-model="formDataFields.name" pattern="[A-Za-z]{1,15}">
+            </div>
+            <div class="col-auto d-flex justify-content-between w-50">
+                <label for="">Clinic Email: </label>
+                <input type="email" class="input2" ng-model="formDataFields.email">
+            </div>
+            <div class="col-auto d-flex justify-content-between w-50">
+                <label for="">Clinic Phone: </label>
+                <input type="text" class="input3" ng-model="formDataFields.phone" pattern="[0,9]{10}" maxlength="10">
+            </div>
+            <div class="col-auto d-flex justify-content-between w-50">
+                <label for="">Address-1:</label>
+                <input type="text" class="input4" ng-model="formDataFields.addrLine1" required>
+            </div>
+            <div class="col-auto d-flex justify-content-between w-50">
+                <label for="">Address-2:</label>
+                <input type="text" class="input5" ng-model="formDataFields.addrLine2" required>
+            </div>
+            <div class="col-auto d-flex justify-content-between w-50">
+                <label for="">City:</label>
+                <input type="text" class="input6" ng-model="formDataFields.city">
+            </div>
+            <div class="col-auto d-flex justify-content-between w-50">
+                <label for="">State:</label>
+                <input type="text" class="input7" ng-model="formDataFields.state">
+            </div>
+            <div class="col-auto d-flex justify-content-between w-50">
+                <label for="">Country:</label>
+                <input type="text" class="input8" ng-model="formDataFields.country">
+            </div>
+            <div class="col-auto d-flex justify-content-between w-50">
+                <label for="">StateCode:</label>
+                <input type="text" class="input9" ng-model="formDataFields.stateCode">
+            </div>
+            <div class="col-auto d-flex justify-content-between w-50">
+                <label for="">Zipcode:</label>
+                <input type="text" class="input10" ng-model="formDataFields.zipcode">
+            </div>
+            <hr>
+            <div class="col-auto">
+                <label for="">Active</label>
+                <input type="checkbox" ng-model="formDataFields.active"
+                    class="input11">
+            </div>
+            <input  class="btn btn-primary" type="submit" name="formDataFields" value="Submit" />
+        </div>
+    </form>
+</div>
 
- 

@@ -76,7 +76,12 @@ app.config(function ($routeProvider, $httpProvider) {
         .when("/insertEnterprise",
         {
             templateUrl: "/view/insertEnterprise.html"
-        });
+        })
+        .when("/addUser",
+        {
+            templateUrl: "/view/add_clinic_patient.html"
+        })
+        ;
     $httpProvider.interceptors.push('myInterceptor');
 });
 
@@ -495,14 +500,14 @@ app.controller('insertEnterprise', function ($scope, $http, $window) {
     $scope.hide="d-none";
     $scope.formDataFields={};
     $scope.createEnterpriseForm=()=>{
+        console.log($scope.formDataFields);
         $http({
             method: 'Post',
-            url: "http://localhost:7890/createEnterprises",
+            url: "http://localhost:7890/createClinic",
             headers: { 'Content-Type': 'application/json','Authorization': sessionStorage.getItem("token") },
             data: $scope.formDataFields
         }).then((response) => {
             $window.location.href = "#!clinics";
-            console.log(response.data);
         }, (error) => {
             console.log(error);
         });
@@ -518,7 +523,7 @@ app.controller('updateEnterprise', function ($scope, $http, $window,$routeParams
     $scope.hide="d-none";
     $http({
         method: 'get',
-        url: "http://localhost:7890/getByEnterpriseId/"+ $routeParams.param1,
+        url: "http://localhost:7890/getByClinicId/"+ $routeParams.param1,
         headers: { 'Content-Type': 'application/json','Authorization': sessionStorage.getItem("token") },
     }).then((response) => {
         $scope.updateEnterpriseFormData=response.data;
@@ -528,7 +533,7 @@ app.controller('updateEnterprise', function ($scope, $http, $window,$routeParams
     $scope.updateEnterpriseForm=()=>{
         $http({
             method: 'put',
-            url: "http://localhost:7890/updateEnterprise",
+            url: "http://localhost:7890/updateClinic",
             headers: { 'Content-Type': 'application/json' ,'Authorization': sessionStorage.getItem("token")},
             data: $scope.updateEnterpriseFormData
         }).then((response) => {

@@ -26,7 +26,7 @@ public class InventoryController {
 	@Autowired
 	private InventoryServiceImpl inventoryServiceImpl;
 	
-	@PreAuthorize("hasAuthority('MLP')")
+	@PreAuthorize("hasAuthority('CLP')")
 	@PostMapping("/createInventory")
 	public ResponseEntity<?> createInventory(@RequestBody Inventory inventory)
 	{

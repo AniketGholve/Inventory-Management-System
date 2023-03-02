@@ -104,3 +104,408 @@ ___________________________________________________________PATIENT SERVICE IMPL 
 //		Query q=entityManager.createNativeQuery("update patient set )
 //		return null;
 //	}
+
+
+
+
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------
+file controller with one to one mapping
+
+	//update file with file patientid and file id
+//	@PutMapping(value="/updateUploadPatientFile",consumes = {MediaType.MULTIPART_FORM_DATA_VALUE,MediaType.APPLICATION_JSON_VALUE,MediaType.APPLICATION_OCTET_STREAM_VALUE})
+//	public ResponseEntity<?> updateUploadPatientFile(@RequestPart("file") MultipartFile file,@RequestPart("patientID")  Integer patientId,@RequestPart("FileId") String  fileId)
+//	{
+//		System.out.println("original file name "+file.getOriginalFilename());
+//		System.out.println("get size "+file.getSize());
+//		System.out.println("get content Type "+file.getContentType());
+//		System.out.println("get file name "+file.getName());
+////		System.out.println(patient.getPatientFirstName());
+////		System.out.println(patient.getId());
+//		//System.out.println(p.toString());
+//		try {
+//			
+//			
+//			
+//			if(file.isEmpty())
+//			{
+//				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Request Must contain file");
+//			}
+//			
+//			Patient patient=patientFileServiceImpl.updateUploadPatientFile(file, patientId,fileId);
+//			return new ResponseEntity<Object>(patient,HttpStatus.OK);
+//		}
+//		catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		return new ResponseEntity<String>("Some thing went wrong please try again",HttpStatus.INTERNAL_SERVER_ERROR);
+//		
+//		
+//	}
+	
+	
+
+//	
+//	///////////////for taking single file with the json obj and file in single request
+////	
+//	@PutMapping(value="/updateUploadPatientFile",consumes = {MediaType.MULTIPART_FORM_DATA_VALUE,MediaType.APPLICATION_JSON_VALUE,MediaType.APPLICATION_OCTET_STREAM_VALUE})
+//	public ResponseEntity<?> updateUploadPatientFile(@RequestPart("file") MultipartFile file,@RequestPart("patient")  String p) throws JsonMappingException, JsonProcessingException
+//	{ 	
+//		System.out.println("original file name "+file.getOriginalFilename());
+//		System.out.println("get size "+file.getSize());
+//		System.out.println("get content Type "+file.getContentType());
+//		System.out.println("get file name "+file.getName());
+////		System.out.println(patient.getPatientFirstName());
+////		System.out.println(patient.getId());
+////		System.out.println(p.toString());
+////		System.out.println(p.getPatientFile());
+//		//System.out.println(p.getPatientFile());
+//		System.out.println(p);
+//		System.out.println("before string");
+//		Patient patient=objectMapper.readValue(p, Patient.class);
+//		List<PatientFile> pf=new ArrayList<>();
+//		pf=patient.getPatientFile();
+//		System.out.println(pf.get(0).getFileId());
+//		//System.out.println(patient.getPatientFile());
+////		try {
+////			
+////			
+////			
+////			if(file.isEmpty())
+////			{
+////				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Request Must contain file");
+////			}
+////			
+////			Patient patient=patientFileServiceImpl.updateUploadPatientFile(file, p);
+////			return new ResponseEntity<Object>(patient,HttpStatus.OK);
+////		}
+////		catch (Exception e) {
+////			e.printStackTrace();
+////		}
+////		return new ResponseEntity<String>("Some thing went wrong please try again",HttpStatus.INTERNAL_SERVER_ERROR);
+//		return null;
+//		
+//	}
+//	
+//	
+	
+//	Upload file for one to one mapping 
+//	@PostMapping(value="/uploadFile",consumes = {MediaType.MULTIPART_FORM_DATA_VALUE,MediaType.APPLICATION_JSON_VALUE,MediaType.APPLICATION_OCTET_STREAM_VALUE})
+//	public ResponseEntity<?> uploadFile(@RequestPart("file") MultipartFile file,@RequestPart("patient")  Patient patient)
+//	{
+//		System.out.println("lkjhg");
+//		System.out.println("original file name "+file.getOriginalFilename());
+//		System.out.println("get size "+file.getSize());
+//		System.out.println("get content Type "+file.getContentType());
+//		System.out.println("get file name "+file.getName());
+//		System.out.println(patient.getPatientFirstName());
+//		System.out.println(patient.getId());
+//		try {
+//			
+//			
+//			if(file.isEmpty())
+//			{
+//				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Request Must contain file");
+//			}
+//			
+//			PatientFile patientFile=patientFileServiceImpl.uploadPatientFile(file,patient);
+//			return new ResponseEntity<Object>(patientFile,HttpStatus.OK);
+//		}
+//		catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		return new ResponseEntity<String>("Some thing went wrong please try again",HttpStatus.INTERNAL_SERVER_ERROR);
+//		
+//		
+//	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	//////////////////////////////////////////Patient File Storage Implementation/////////////////////////////
+	////////////////////////////////////////////Patient DB/////////////////////////////////////////////////
+	///////////PatientDb Controller
+//	@PreAuthorize("hasAuthority('CLP')")
+	@PostMapping("/createPatientDb")
+	public ResponseEntity<PatientDb> createDataDb(@RequestBody PatientDb patient)
+	{
+		
+		PatientDb p=patientDbServiceImpl.createPatientDb(patient);
+		return new ResponseEntity<PatientDb>(p,HttpStatus.CREATED);
+	}
+	
+//	@PreAuthorize("hasAuthority('CLP')")
+	@GetMapping("/getAllDataDb")
+	public ResponseEntity<?> getDataDb()
+	{
+		
+		List<PatientDb> l=patientDbServiceImpl.getAllPatientDb();
+		if(l.size()==0) return new ResponseEntity<String>("Data not exists in the database",HttpStatus.NOT_FOUND);
+		return new ResponseEntity<List<PatientDb>>(l,HttpStatus.CREATED);
+	}
+	
+//	@PreAuthorize("hasAuthority('CLP')")
+	@PutMapping("/updatePatientDb")
+	public ResponseEntity<?> updatePatientDb(@RequestBody PatientDb p){
+		
+		PatientDb updatedPatient=(PatientDb) patientDbServiceImpl.updatePatientDb(p);
+		return new ResponseEntity<PatientDb>(updatedPatient,HttpStatus.OK);
+		
+	}
+//	@PreAuthorize("hasAuthority('CLP')")
+	@GetMapping("/getPatientDbById/{pid}")
+	public ResponseEntity<?> getPatientDbById(@PathVariable("pid") String pid){
+		Object p=(PatientDb) patientDbServiceImpl.getPatientDbById(pid);
+		if(p==null) return new ResponseEntity<Object>("given id not exists",HttpStatus.OK);
+		return new ResponseEntity<Object>(p,HttpStatus.OK);
+	}
+	
+	
+	
+	
+	@DeleteMapping("deletePatientDb/{id}")
+	public ResponseEntity<String> deletePatientDb(@PathVariable("id") Integer id)
+	{
+		String s=patientDbServiceImpl.deletePatientDb(id);
+		return new ResponseEntity<String>(s,HttpStatus.OK);
+	}
+	
+	
+	
+	
+	
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	Patient DB FILE SERVICE IMPL
+	@Service
+public class PatientDbFileServiceImpl implements PatientDbFileService{
+	
+	
+	@Autowired
+	private PatientDbFileRepo patientDbFileRepo;
+	
+	@Autowired
+	private PatientDbRepo patientDbRepo;
+
+	@Override
+	public List<PatientDbFile> uploadMultiplePatientDbFile(MultipartFile[] multipartFile, PatientDb patientDb)
+			throws IOException {
+		long m=System.currentTimeMillis();
+		List<PatientDbFile> patientFilelist=new ArrayList<>();
+		for (MultipartFile file:multipartFile)
+		{
+		PatientDbFile patientFileDb=new PatientDbFile();
+		System.out.println(file.getName());
+		patientFileDb.setUploadTime(new Date(m));
+		patientFileDb.setFileName(file.getOriginalFilename());
+		patientFileDb.setSize(file.getSize());
+		//patientFileDb.setFilePath(uploadDir+File.separator+file.getOriginalFilename());
+		PatientDb p=patientDbRepo.findById(patientDb.getId()).orElseThrow();
+		patientFileDb.setPatientDb(patientDb);
+		patientFileDb.setFileData(file.getBytes());
+		patientDbFileRepo.save(patientFileDb);
+		patientFilelist.add(patientFileDb);
+		}
+
+		return patientFilelist;
+	}
+
+	@Override
+	public void deleteFileDb(String fileId) {
+		// TODO Auto-generated method stub
+		
+		patientDbFileRepo.deleteById(fileId);
+		
+	}
+
+	@Override
+	public void downloadFileDb(String id, HttpServletResponse response) throws IOException {
+		// TODO Auto-generated method stub
+		
+		PatientDbFile patientDbFile=patientDbFileRepo.findById(id).orElseThrow();
+		response.setContentType("application/octet-stream");
+		String headerKey="Content-Disposition";
+		String headerValue="attachment; filename="+patientDbFile.getFileName();
+		
+		response.setHeader(headerKey, headerValue);
+		
+		 
+		
+		ServletOutputStream outputStream=response.getOutputStream();
+		outputStream.write(patientDbFile.getFileData());
+		outputStream.close();
+		
+	}
+
+	 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	 //////////////////////////////Patient file service impl
+	 public PatientFileServiceImpl() throws IOException
+	{
+		
+	}
+
+	
+	public void downloadFile(String id,HttpServletResponse response) throws IOException {
+		// TODO Auto-generated method stub
+		
+		PatientFile patientFile=patientFileRepo.findById(id).orElseThrow();
+		response.setContentType("application/octet-stream");
+		String headerKey="Content-Disposition";
+		String headerValue="attachment; filename="+patientFile.getFileName();
+		
+		response.setHeader(headerKey, headerValue);
+		File f=new File(patientFile.getFilePath());
+		 FileInputStream fis = new FileInputStream(f);
+		System.out.println(f.length());
+		
+		ServletOutputStream outputStream=response.getOutputStream();
+		outputStream.write(fis.readAllBytes());
+		fis.close();
+		outputStream.close();
+		
+	}
+
+	@Override
+	public List<PatientFile> uploadMultiplePatientFile(MultipartFile[] multipartFile, Patient patient) throws IOException {
+		// TODO Auto-generated method stub
+		long m=System.currentTimeMillis();
+		List<PatientFile> patientFilelist=new ArrayList<>();
+		for (MultipartFile file:multipartFile)
+		{
+			PatientFile patientFile=new PatientFile();
+			System.out.println(file.getName());
+			String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath().path(patientFile.getFileId()).toUriString();
+			System.out.println(fileDownloadUri);
+			patientFile.setDownloadUri(fileDownloadUri);
+			patientFile.setUploadTime(new Date(m));
+			patientFile.setFileName(file.getOriginalFilename());
+			patientFile.setSize(file.getSize());
+			patientFile.setFilePath(uploadDir+File.separator+file.getOriginalFilename());
+			Patient p=patientRepo.findById(patient.getId()).orElseThrow();
+			patientFile.setPatient(p);
+			Files.copy(file.getInputStream(), Paths.get(uploadDir+File.separator+file.getOriginalFilename()),StandardCopyOption.REPLACE_EXISTING);
+			patientFileRepo.save(patientFile);
+			patientFilelist.add(patientFile);
+		}
+		
+		
+		
+		return patientFilelist;
+	}
+
+	@Override
+	public void deleteFile(String fileId) {
+		// TODO Auto-generated method stub
+		
+		PatientFile patientFile=patientFileRepo.findById(fileId).orElseThrow();
+		File deletedFile=new File(patientFile.getFilePath());
+		deletedFile.delete();
+		patientFileRepo.deleteById(fileId);
+		
+		
+	}
+
+	
+	
+	
+	
+	
+	////////////////////////////////////////////////////////////////////////////////////////////////////////
+	Patient Db file service Impl
+	
+	
+	
+//@Service
+//public class PatientDbFileServiceImpl implements PatientDbFileService{
+//	
+//	
+//	@Autowired
+//	private PatientDbFileRepo patientDbFileRepo;
+//	
+//	@Autowired
+//	private PatientDbRepo patientDbRepo;
+//
+//	@Override
+//	public List<PatientDbFile> uploadMultiplePatientDbFile(MultipartFile[] multipartFile, PatientDb patientDb)
+//			throws IOException {
+//		long m=System.currentTimeMillis();
+//		List<PatientDbFile> patientFilelist=new ArrayList<>();
+//		for (MultipartFile file:multipartFile)
+//		{
+//		PatientDbFile patientFileDb=new PatientDbFile();
+//		System.out.println(file.getName());
+//		patientFileDb.setUploadTime(new Date(m));
+//		patientFileDb.setFileName(file.getOriginalFilename());
+//		patientFileDb.setSize(file.getSize());
+//		//patientFileDb.setFilePath(uploadDir+File.separator+file.getOriginalFilename());
+//		PatientDb p=patientDbRepo.findById(patientDb.getId()).orElseThrow();
+//		patientFileDb.setPatientDb(patientDb);
+//		patientFileDb.setFileData(file.getBytes());
+//		patientDbFileRepo.save(patientFileDb);
+//		patientFilelist.add(patientFileDb);
+//		}
+//
+//		return patientFilelist;
+//	}
+//
+//	@Override
+//	public void deleteFileDb(String fileId) {
+//		// TODO Auto-generated method stub
+//		
+//		patientDbFileRepo.deleteById(fileId);
+//		
+//	}
+//
+//	@Override
+//	public void downloadFileDb(String id, HttpServletResponse response) throws IOException {
+//		// TODO Auto-generated method stub
+//		
+//		PatientDbFile patientDbFile=patientDbFileRepo.findById(id).orElseThrow();
+//		response.setContentType("application/octet-stream");
+//		String headerKey="Content-Disposition";
+//		String headerValue="attachment; filename="+patientDbFile.getFileName();
+//		
+//		response.setHeader(headerKey, headerValue);
+//		
+//		 
+//		
+//		ServletOutputStream outputStream=response.getOutputStream();
+//		outputStream.write(patientDbFile.getFileData());
+//		outputStream.close();
+//		
+//	}
+//	
+	
