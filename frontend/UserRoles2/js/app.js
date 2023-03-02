@@ -642,12 +642,11 @@ app.controller('clinicDetails',function($scope,$window,$routeParams,$http){
     }).then((response)=>{
         $scope.clinicData=response.data;
     },(error)=>{
-        // alert("Error Occured In Storing Data Please try again");
         console.log(error);
     });
     $http({
         method: 'get',
-        url: "http://localhost:7890/api/getAllUsers",
+        url: "http://localhost:7890/api/getUsersByLocationId/"+$routeParams.param1,
         headers: { 'Content-Type': 'application/json' ,'Authorization': sessionStorage.getItem("token")},
     }).then((response)=>{
         $scope.clinicUserData=response.data;

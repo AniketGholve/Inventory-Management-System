@@ -21,4 +21,6 @@ public Inventory createInventory(Inventory inventory);
 	
 	public List<Inventory> getInventoryByClinic(Integer clinicLocationId);
 	
+	
+	
 }

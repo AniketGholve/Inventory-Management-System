@@ -84,6 +84,8 @@ public class UsersServiceImpl implements UsersService {
 	
 	public List<Users> getUsersByLocationId(Integer locationId)
 	{
+		System.out.println(locationId.getClass());
+		System.out.println(locationId);
 		Query q=entityManager.createNativeQuery("select * from users where default_location_id=?");
 		q.setParameter(1, locationId);
 		List<Object[]> l=q.getResultList();
@@ -91,33 +93,32 @@ public class UsersServiceImpl implements UsersService {
 		for(Object[] o:l)
 		{
 			Users u=new Users();
-			
+			u.setUserId((Integer)o[0]);
 			u.setActive((Boolean)o[1]);
 			u.setAllowOverride((Boolean)o[2]);
-			u.setAllowOverride((Boolean)o[3]);
-			u.setCreatedOn((Date)o[4]);
-			u.setDefaultLocationId((String)o[5]);
-			u.setDeleted((Boolean)o[6]);
-			u.setEmail((String)o[7]);
-			u.setEnterpriseId((Integer)o[8]);
-			u.setExternalId((String)o[9]);
-			u.setFirstName((String)o[10]);
-			u.setJobTitle((String)o[11]);
-			u.setLastLogin((Date)o[12]);
-			u.setLastName((String)o[13]);
-			u.setMiddleName((String)o[14]);
-			u.setMobilePhone((String)o[15]);
-			u.setModifiedOn((Date)o[16]);
-			u.setPassword((String)o[17]);
-			u.setPasswordUpdatedDate((Date)o[18]);
-			u.setPromptForLocation((String)o[19]);
-			u.setRole((String)o[20]);
-			u.setSrcId((Integer)o[21]);
-			u.setToken((String)o[22]);
-			u.setTokenExpiryTime((String)o[23]);
-			u.setUserLogin((String)o[24]);
-			u.setWorkPhone((String)o[25]);
-			
+			u.setCreatedOn((Date)o[3]);
+			u.setDefaultLocationId((Integer)o[4]);
+			u.setDeleted((Boolean)o[5]);
+			u.setEmail((String)o[6]);
+			u.setEnterpriseId((Integer)o[7]);
+			u.setExternalId((String)o[8]);
+			u.setFirstName((String)o[9]);
+			u.setJobTitle((String)o[10]);
+			u.setLastLogin((Date)o[11]);
+			u.setLastName((String)o[12]);
+			u.setMiddleName((String)o[13]);
+			u.setMobilePhone((String)o[14]);
+			u.setModifiedOn((Date)o[15]);
+			u.setPassword((String)o[16]);
+			u.setPasswordUpdatedDate((Date)o[17]);
+			u.setPromptForLocation((String)o[18]);
+			u.setRole((String)o[19]);
+			u.setSrcId((Integer)o[20]);
+			u.setToken((String)o[21]);
+			u.setTokenExpiryTime((String)o[22]);
+			u.setUserLogin((String)o[23]);
+			u.setWorkPhone((String)o[24]);
+		
 			resultList.add(u);	
 		}
 		return resultList;
