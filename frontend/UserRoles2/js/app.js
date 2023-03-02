@@ -69,13 +69,13 @@ app.config(function ($routeProvider, $httpProvider) {
         .when("/clinics", {
             templateUrl: "/view/clinics.html"
         })
-        .when("/updateEnterprise/:param1",
+        .when("/updateClinic/:param1",
         {
-            templateUrl: "/view/updateEnterprise.html"
+            templateUrl: "/view/updateClinic.html"
         })
-        .when("/insertEnterprise",
+        .when("/insertClinic",
         {
-            templateUrl: "/view/insertEnterprise.html"
+            templateUrl: "/view/insertClinic.html"
         })
         .when("/addUser",
         {
@@ -491,7 +491,7 @@ app.controller('insertController', function ($scope, $http, $window, $rootScope)
 
 
 
-app.controller('insertEnterprise', function ($scope, $http, $window) {
+app.controller('insertClinic', function ($scope, $http, $window) {
     $scope.navOption1Link="#!clinics";
     $scope.navOption1="Clinic";
     $scope.navOption3Link="#!";
@@ -514,7 +514,7 @@ app.controller('insertEnterprise', function ($scope, $http, $window) {
     }
 });
 
-app.controller('updateEnterprise', function ($scope, $http, $window,$routeParams) {
+app.controller('updateClinic', function ($scope, $http, $window,$routeParams) {
     $scope.navOption3Link="#!";
     $scope.navOption3="Logout";
     $scope.navOption1Link="#!clinics";
