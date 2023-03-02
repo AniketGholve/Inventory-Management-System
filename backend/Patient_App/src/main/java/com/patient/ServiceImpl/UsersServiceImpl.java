@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.util.Arrays;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -13,8 +14,10 @@ import com.patient.Service.UsersService;
 @Service
 public class UsersServiceImpl implements UsersService {
 	
+	@Autowired
 	private PasswordEncoder passwordEncoder;
 	
+	@Autowired
 	private UsersRepo usersRepo;
 
 	@Override

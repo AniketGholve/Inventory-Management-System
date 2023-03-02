@@ -1,17 +1,19 @@
 package com.patient.ServiceImpl;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.patient.Entity.Clinic;
+import com.patient.Entity.Serial;
 import com.patient.Repo.ClinicRepo;
-import com.patient.Repo.EnterpriseRepo;
 import com.patient.Service.ClinicService;
 
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.Query;
 @Service
 public class ClinicServiceImpl implements ClinicService {
 	
@@ -136,7 +138,34 @@ public class ClinicServiceImpl implements ClinicService {
 		Clinic c=clinicRepo.findById(locationId).orElseThrow();
 		return c;
 	}
+	
+	
+	
+	
+	public List<Clinic> getClinicNamesAndId(){
+		
+		
+		Query q=entityManager.createNativeQuery("select location_id,enterprise_id,name from clinic");
+		List<Object[]> l=q.getResultList();
+		List<Clinic> resultList=new ArrayList<>();
+		for(Object[] o:l)
+		{
+			Clinic c=new Clinic();
+			c.setLocationId((Integer)o[0]);
+			c.setEnterpriseId((Integer)o[1]);
+			c.setName((String)o[2]);
+			resultList.add(c);
+			
+		}
+		return resultList;
+	}
+
+
+		
+		
+		
+}
 
 	
 
-}
+ 
