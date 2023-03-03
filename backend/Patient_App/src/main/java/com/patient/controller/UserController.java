@@ -22,6 +22,7 @@ import com.patient.Entity.Orders;
 import com.patient.Entity.UserEntity;
 import com.patient.Repo.OrdersRepository;
 import com.patient.Repo.UserEntityRepo;
+import com.patient.ServiceImpl.UserEntityServiceImpl;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -33,6 +34,9 @@ public class UserController {
 
 	@Autowired
 	private UserEntityRepo userEntityRepo;
+	
+	@Autowired
+	private UserEntityServiceImpl userEntityServiceImpl;
 
 	@Autowired
 	private PasswordEncoder passwordEncoder;
@@ -40,12 +44,7 @@ public class UserController {
 	@Autowired
 	private OrdersRepository Orepo;
 
-	public UserController(UserEntityRepo userEntityRepo, PasswordEncoder passwordEncoder, OrdersRepository orepo) {
-		super();
-		this.userEntityRepo = userEntityRepo;
-		this.passwordEncoder = passwordEncoder;
-		this.Orepo = orepo;
-	}
+	
 
 	@PostMapping("/addUser")
 	public Integer addUser(@RequestBody UserEntity user) {
@@ -67,6 +66,7 @@ public class UserController {
 		System.out.println(user.toString());
 		
 		UserEntity u = userEntityRepo.findByUsername(user.getUsername());
+		//UserEntity u=userEntityServiceImpl.findByCustomUsername(user.getUsername());
 		System.out.println(u.toString());
 		if(user.getFirstName() != null) {
 			u.setFirstName(user.getFirstName());
@@ -93,7 +93,7 @@ public class UserController {
 		
 		UserEntity editUser = userEntityRepo.save(u);
 		return ResponseEntity.ok(editUser);
-	}
+ 	}
 	
 	@GetMapping("/getUserDetails/{username}")
 	public ResponseEntity<UserEntity> getByUsername(@PathVariable String username) {
