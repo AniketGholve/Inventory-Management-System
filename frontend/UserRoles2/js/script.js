@@ -137,6 +137,8 @@ app.controller('clinicController', function ($scope, $http, $window) {
     $scope.navOption1="Clinics";
     $scope.navOption2Link = "#!/clinicUsers"
     $scope.navOption2 = "Users"
+    $scope.navOption5Link = "#!edit_user";
+    $scope.navOption5 = "My Account";
     $scope.navOption3Link = "#!";
     $scope.navOption3 = "Logout";
     $scope.hide2 = "d-none";
@@ -146,7 +148,10 @@ app.controller('clinicController', function ($scope, $http, $window) {
         method: 'GET',
         url: 'http://localhost:7890/getAllEnterprise',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': sessionStorage.getItem("token")
+
+
         }
 
     }).then((response) => {

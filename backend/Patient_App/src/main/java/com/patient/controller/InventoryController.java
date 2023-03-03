@@ -26,7 +26,7 @@ public class InventoryController {
 	@Autowired
 	private InventoryServiceImpl inventoryServiceImpl;
 	
-	@PreAuthorize("hasAuthority('CLP')")
+	//@PreAuthorize("hasAuthority('CLP')")
 	@PostMapping("/createInventory")
 	public ResponseEntity<?> createInventory(@RequestBody Inventory inventory)
 	{
@@ -34,7 +34,7 @@ public class InventoryController {
 		return new ResponseEntity<Inventory>(createdInventory,HttpStatus.OK);
 	}
 	
-	@PreAuthorize("hasAuthority('CLP')")
+	//@PreAuthorize("hasAuthority('CLP')")
 	@GetMapping("/getScreen")
 	public ResponseEntity<?> getScreen()
 	{

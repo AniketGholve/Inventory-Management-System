@@ -63,8 +63,11 @@ public class UserController {
 
 	@PutMapping("/editUser")
 	public ResponseEntity<UserEntity> editUser(@RequestBody UserEntity user) {
-		UserEntity u = userEntityRepo.findByUsername(user.getUsername());
+		System.out.println("user");
+		System.out.println(user.toString());
 		
+		UserEntity u = userEntityRepo.findByUsername(user.getUsername());
+		System.out.println(u.toString());
 		if(user.getFirstName() != null) {
 			u.setFirstName(user.getFirstName());
 			System.out.println(user.getFirstName());	
@@ -115,6 +118,12 @@ public class UserController {
 	public List<Orders> getStatus_Success(@PathVariable("s") int s) {
 		return Orepo.getSuccessOrders(s);
 
-	}}
 
+	
+
+
+
+	}
+}
+ 
 

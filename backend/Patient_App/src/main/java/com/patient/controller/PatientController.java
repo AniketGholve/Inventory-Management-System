@@ -26,7 +26,7 @@ public class PatientController {
 	private PatientServiceImpl patientServiceImpl;
 
 	
-	@PreAuthorize("hasAuthority('CLP')")
+	//@PreAuthorize("hasAuthority('CLP')")
 	@PostMapping("/createPatient")
 	public ResponseEntity<Patient> createData(@RequestBody Patient patient)
 	{
@@ -35,7 +35,7 @@ public class PatientController {
 		return new ResponseEntity<Patient>(p,HttpStatus.CREATED);
 	}
 	
-	@PreAuthorize("hasAuthority('CLP')")
+	//@PreAuthorize("hasAuthority('CLP')")
 	@GetMapping("/getAllData")
 	public ResponseEntity<?> getData()
 	{
@@ -45,7 +45,7 @@ public class PatientController {
 		return new ResponseEntity<List<Patient>>(l,HttpStatus.CREATED);
 	}
 	
-	@PreAuthorize("hasAuthority('CLP')")
+	//@PreAuthorize("hasAuthority('CLP')")
 	@PutMapping("/updatePatient")
 	public ResponseEntity<?> updatePatient(@RequestBody Patient p){
 		
@@ -53,7 +53,7 @@ public class PatientController {
 		return new ResponseEntity<Patient>(updatedPatient,HttpStatus.OK);
 		
 	}
-	@PreAuthorize("hasAuthority('CLP')")
+	//@PreAuthorize("hasAuthority('CLP')")
 	@GetMapping("/getPatientById/{pid}")
 	public ResponseEntity<?> getPatientById(@PathVariable("pid") String pid){
 		Object p=(Patient) patientServiceImpl.getPatientById(pid);
@@ -75,7 +75,7 @@ public class PatientController {
 	@GetMapping("getPatientByClinic/{clinicLocationId}")
 	public ResponseEntity<List<Patient>> getPatientByClinic(@PathVariable Integer clinicLocationId)
 	{
-		List<Patient> l=patientServiceImpl.getPatientById(clinicLocationId);
+		List<Patient> l=patientServiceImpl.getPatientByLocationId(clinicLocationId);
 		return new ResponseEntity<List<Patient>>(l,HttpStatus.OK);
 	}
 	

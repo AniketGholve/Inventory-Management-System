@@ -96,7 +96,7 @@ public class PatientServiceImpl implements PatientService {
 
 
 	@Override
-	public List<Patient> getPatientById(Integer clinicLocationId) {
+	public List<Patient> getPatientByLocationId(Integer clinicLocationId) {
 		// TODO Auto-generated method stub
 		Query q=entityManager.createNativeQuery("select p from Patient p where p.location_id=:u" );
 		q.setParameter("u", clinicLocationId);
