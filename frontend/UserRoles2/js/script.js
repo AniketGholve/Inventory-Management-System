@@ -112,7 +112,7 @@ app.controller("edit_userCtrl", function ($scope, $http, $window) {
 
 app.controller('clinicController', function ($scope, $http, $window) {
     $scope.navOption1Link="#!clinics";
-    $scope.navOption1="Clinic";
+    $scope.navOption1="Clinics";
     $scope.navOption2Link = "#!/clinicUsers"
     $scope.navOption2 = "Users"
     $scope.navOption3Link = "#!";

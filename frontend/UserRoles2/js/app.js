@@ -503,7 +503,7 @@ app.controller('insertController', function ($scope, $http, $window, $rootScope)
 
 app.controller('insertClinic', function ($scope, $http, $window) {
     $scope.navOption1Link = "#!clinics";
-    $scope.navOption1 = "Clinic";
+    $scope.navOption1 = "Clinics";
     $scope.navOption3Link = "#!";
     $scope.navOption3 = "Logout";
     $scope.hide2 = "d-none";
@@ -528,7 +528,7 @@ app.controller('updateClinic', function ($scope, $http, $window, $routeParams) {
     $scope.navOption3Link = "#!";
     $scope.navOption3 = "Logout";
     $scope.navOption1Link = "#!clinics";
-    $scope.navOption1 = "Clinic";
+    $scope.navOption1 = "Clinics";
     $scope.hide2 = "d-none";
     $scope.hide = "d-none";
     $http({
@@ -555,7 +555,13 @@ app.controller('updateClinic', function ($scope, $http, $window, $routeParams) {
     }
 });
 
-app.controller('allClinicsUsers', function ($scope, $http) {
+app.controller('allClinicsUsers', function ($scope, $http, $window) {
+    $scope.navOption3Link = "#!";
+    $scope.navOption3 = "Logout";
+    $scope.navOption1Link = "#!clinics";
+    $scope.navOption1 = "Clinics";
+    $scope.hide2 = "d-none";
+    $scope.hide = "d-none";
     $http({
         method: 'get',
         url: "http://localhost:7890/api/getAllUsers",
@@ -564,9 +570,26 @@ app.controller('allClinicsUsers', function ($scope, $http) {
         $scope.clinicsUsers = response.data;
         console.log($scope.clinicsUsers)
     }, (error) => { })
+    $scope.deleteUsers = (id) => {
+        $http({
+            method: 'delete',
+            url: "http://localhost:7890/api/deleteUsers/" + id,
+            headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") },
+        }).then((response) => {
+            $window.location.reload();
+        }, (error) => {
+            console.log(error);
+        })
+    }
 });
 
 app.controller('clinicSelect', function ($scope, $http) {
+    $scope.navOption3Link = "#!";
+    $scope.navOption3 = "Logout";
+    $scope.navOption1Link = "#!clinics";
+    $scope.navOption1 = "Clinics";
+    $scope.hide2 = "d-none";
+    $scope.hide = "d-none";
     $scope.getClinicData = () => {
         $http({
             method: 'get',
@@ -579,6 +602,12 @@ app.controller('clinicSelect', function ($scope, $http) {
 });
 
 app.controller('registerUserFields', function ($scope, $window, $http, $routeParams) {
+    $scope.navOption3Link = "#!";
+    $scope.navOption3 = "Logout";
+    $scope.navOption1Link = "#!clinics";
+    $scope.navOption1 = "Clinics";
+    $scope.hide2 = "d-none";
+    $scope.hide = "d-none";
     $scope.addUserFields = () => {
         $scope.addUserData.defaultLocationId = $routeParams.param1;
         $http({
@@ -598,6 +627,12 @@ app.controller('registerUserFields', function ($scope, $window, $http, $routePar
 });
 
 app.controller('updateUser', function ($scope, $window, $routeParams, $http) {
+    $scope.navOption3Link = "#!";
+    $scope.navOption3 = "Logout";
+    $scope.navOption1Link = "#!clinics";
+    $scope.navOption1 = "Clinics";
+    $scope.hide2 = "d-none";
+    $scope.hide = "d-none";
     $scope.updateUserData = {};
     $http({
         method: 'get',
@@ -612,6 +647,12 @@ app.controller('updateUser', function ($scope, $window, $routeParams, $http) {
         console.log(error);
     })
     $scope.updateUserFileds = () => {
+        $scope.navOption3Link = "#!";
+        $scope.navOption3 = "Logout";
+        $scope.navOption1Link = "#!clinics";
+        $scope.navOption1 = "Clinics";
+        $scope.hide2 = "d-none";
+        $scope.hide = "d-none";
         console.log($scope.updateUserData)
         if ($scope.updateUserData.password == null) {
             $scope.updateUserData.password = $scope.password;
@@ -633,9 +674,11 @@ app.controller('updateUser', function ($scope, $window, $routeParams, $http) {
 });
 app.controller('clinicDetails', function ($scope, $window, $routeParams, $http) {
     $scope.navOption1Link = "#!clinics";
-    $scope.navOption1 = "Clinic";
+    $scope.navOption1 = "Clinics";
     $scope.navOption3Link = "#!";
     $scope.navOption3 = "Logout";
+    $scope.hide2 = "d-none";
+    $scope.hide = "d-none";
     $scope.addUserData = {};
     $http({
         method: 'get',
@@ -655,4 +698,15 @@ app.controller('clinicDetails', function ($scope, $window, $routeParams, $http) 
     }, (error) => {
         console.log(error);
     })
+    $scope.deleteUsers = (id) => {
+        $http({
+            method: 'delete',
+            url: "http://localhost:7890/api/deleteUsers/" + id,
+            headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") },
+        }).then((response) => {
+            $window.location.reload();
+        }, (error) => {
+            console.log(error);
+        })
+    }
 });
