@@ -21,7 +21,6 @@
                             <th>Order</th>
                             <th>Inventory</th>
                             <th>Actions</th>
-                            <th>Add User</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -35,13 +34,11 @@
                             <td class="p-3">0</td>
                             <td class="p-3">{{x.order}}</td>
                             <td class="p-3">{{x.inventory}}</td>
-                            <td><a href="#!updateClinic/{{x.locationId}}">Edit</a>&nbsp &nbsp<a ng-click="deleteClinic(x.locationId)" href="">Remove</a></td>
-                            <td><a href="#!addUser">Add User</a></td>
+                            <td><a href="#!updateClinic/{{x.locationId}}">Edit</a>&nbsp &nbsp<a ng-click="deleteClinic(x.locationId)" href="">Remove</a>&nbsp &nbsp<a href="#!/clinicDetails/{{x.locationId}}">view</a></td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
-    
 </div>

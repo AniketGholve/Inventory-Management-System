@@ -133,12 +133,13 @@ app.controller("edit_userCtrl", function ($scope, $http, $window, $route) {
 
 
 app.controller('clinicController', function ($scope, $http, $window) {
-    $scope.navOption1Link = "#!clinics";
-    $scope.navOption1 = "Clinic";
+    $scope.navOption1Link="#!clinics";
+    $scope.navOption1="Clinics";
+    $scope.navOption2Link = "#!/clinicUsers"
+    $scope.navOption2 = "Users"
     $scope.navOption3Link = "#!";
     $scope.navOption3 = "Logout";
     $scope.hide2 = "d-none";
-    $scope.hide = "d-none";
     console.log("run");
     $http({
 

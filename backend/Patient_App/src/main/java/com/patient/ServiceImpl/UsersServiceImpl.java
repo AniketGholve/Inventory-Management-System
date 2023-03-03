@@ -16,10 +16,8 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
 @Service
 public class UsersServiceImpl implements UsersService {
-	
 	@Autowired
 	private PasswordEncoder passwordEncoder;
-	
 	@Autowired
 	private EntityManager entityManager;
 	
@@ -29,6 +27,7 @@ public class UsersServiceImpl implements UsersService {
 	@Override
 	public Users addUsers(Users users) {
 		// TODO Auto-generated method stub
+		System.out.println(users);
 		long m=System.currentTimeMillis();
 		Date d=new Date(m);
 		users.setRole("CLP");
@@ -85,6 +84,8 @@ public class UsersServiceImpl implements UsersService {
 	
 	public List<Users> getUsersByLocationId(Integer locationId)
 	{
+		System.out.println(locationId.getClass());
+		System.out.println(locationId);
 		Query q=entityManager.createNativeQuery("select * from users where default_location_id=?");
 		q.setParameter(1, locationId);
 		List<Object[]> l=q.getResultList();

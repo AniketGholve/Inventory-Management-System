@@ -1,4 +1,8 @@
 <div ng-controller="updateUser">
+    <div ng-include="'view/header.html'"></div>
+    <div>
+        <h1 class="text-center">Update Clinic User</h1>
+    </div>
     <form ng-submit="updateUserFileds()">
         <div class="row g-3 form-control d-flex justify-content-between w-50 m-auto">
             <div class="col-auto d-flex justify-content-between w-50">
@@ -31,21 +35,11 @@
             </div>
             <div class="col-auto d-flex justify-content-between w-50">
                 <label for="">Mobile Number</label>
-                <input type="text" ng-model="updateUserData.mobilePhone" required>
+                <input type="text" ng-model="updateUserData.mobilePhone" required maxlength="10" pattern="[0-9]{10}">
             </div>
             <div class="col-auto d-flex justify-content-between w-50">
-                <label for="">password</label>
-                <input type="text" ng-model="updateUserData.password" required>
-            </div>
-            <div class="col-auto d-flex justify-content-between w-50">
-                <label for="">role</label>
-                <select ng-model="updateUserData.roleId" class="text-center" required>
-                    <option value="" class="d-none">Please Choose</option>
-                    <option value="ELP">ELP</option>
-                    <option value="MLP">MLP</option>
-                    <option value="ALP">ALP</option>
-                    <option value="CLP">CLP</option>
-                </select>
+                <label for="">Password</label>
+                <input type="password" ng-model="updateUserData.password" >
             </div>
             <input class="btn btn-primary" type="submit" name="updateUserData" value="Update User" />
         </div>
