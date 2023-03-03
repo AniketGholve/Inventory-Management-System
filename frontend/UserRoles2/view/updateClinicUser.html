@@ -35,11 +35,11 @@
             </div>
             <div class="col-auto d-flex justify-content-between w-50">
                 <label for="">Mobile Number</label>
-                <input type="text" ng-model="updateUserData.mobilePhone" required>
+                <input type="text" ng-model="updateUserData.mobilePhone" required maxlength="10" pattern="[0-9]{10}">
             </div>
             <div class="col-auto d-flex justify-content-between w-50">
-                <label for="">password</label>
-                <input type="text" ng-model="updateUserData.password" >
+                <label for="">Password</label>
+                <input type="password" ng-model="updateUserData.password" >
             </div>
             <input class="btn btn-primary" type="submit" name="updateUserData" value="Update User" />
         </div>
