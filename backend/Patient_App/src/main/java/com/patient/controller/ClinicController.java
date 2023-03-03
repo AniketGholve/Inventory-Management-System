@@ -72,7 +72,7 @@ public class ClinicController {
 	
 	
 	
-	@GetMapping("getClinicNames")
+	@GetMapping("/getClinicNames")
 	public ResponseEntity<List<Clinic>> getClinicNamesAndId()
 	{
 		List<Clinic> c=clinicServiceImpl.getClinicNamesAndId();

@@ -288,11 +288,7 @@ app.controller('registerController', function ($scope, $http,$window) {
     $scope.hideUser="d-none"
     
   
-    // $scope.validPassword =function( ){
-   
-
-    // };
-
+ 
     $scope.register = {};
     $scope.formData = () => {
         console.log($scope.register);
@@ -608,23 +604,23 @@ app.controller('allClinicsUsers', function ($scope, $http, $window) {
     }
 });
 
-app.controller('clinicSelect', function ($scope, $http) {
-    $scope.navOption3Link = "#!";
-    $scope.navOption3 = "Logout";
-    $scope.navOption1Link = "#!clinics";
-    $scope.navOption1 = "Clinics";
-    $scope.hide2 = "d-none";
-    $scope.hide = "d-none";
-    $scope.getClinicData = () => {
-        $http({
-            method: 'get',
-            url: "http://localhost:7890/getClinicNames",
-            headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") }
-        }).then((response) => {
-            $scope.clinicNames = response.data;
-        }, (error) => { })
-    }
-});
+// app.controller('clinicSelect', function ($scope, $http) {
+//     $scope.navOption3Link = "#!";
+//     $scope.navOption3 = "Logout";
+//     $scope.navOption1Link = "#!clinics";
+//     $scope.navOption1 = "Clinics";
+//     $scope.hide2 = "d-none";
+//     $scope.hide = "d-none";
+//     $scope.getClinicData = () => {
+//         $http({
+//             method: 'get',
+//             url: "http://localhost:7890/getClinicNames",
+//             headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") }
+//         }).then((response) => {
+//             $scope.clinicNames = response.data;
+//         }, (error) => { })
+//     }
+// });
 
 app.controller('registerUserFields', function ($scope, $window, $http, $routeParams) {
     $scope.navOption3Link = "#!";
