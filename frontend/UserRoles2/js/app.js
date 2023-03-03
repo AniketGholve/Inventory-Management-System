@@ -40,7 +40,7 @@ app.config(function ($routeProvider, $httpProvider) {
             templateUrl: "view/registration.html"
         })
         .when('/elp_users', {
-            templateUrl: "view/elp_users.html"
+            templateUrl: "view/success_orders.html"
         })
         .when('/mlp_users', {
             templateUrl: "view/mlp_users.html"
@@ -67,9 +67,15 @@ app.config(function ($routeProvider, $httpProvider) {
             templateUrl: "/view/edit_user.html"
         })
         .when("/updateClinic/:param1",
-            {
-                templateUrl: "/view/updateClinic.html"
-            })
+        {
+            templateUrl: "/view/updateClinic.html"
+        })
+        .when("/success_orders", {
+            templateUrl: "/view/success_orders.html"
+        })
+        .when("/error_orders", {
+            templateUrl: "/view/error_orders.html"
+        })
         .when("/insertClinic",
             {
                 templateUrl: "/view/insertClinic.html"
@@ -103,6 +109,7 @@ app.controller("loginCtrl", ($scope, $http, $window) => {
 
 
     $scope.getRequest = (v) => {
+        console.log($scope.submit)
         $http({
             method: 'POST',
             url: 'http://localhost:7890/login',
@@ -110,6 +117,8 @@ app.controller("loginCtrl", ($scope, $http, $window) => {
             headers: { 'Content-Type': 'application/json', 'Authorization': 'qweryui' }
         }).then((response) => {
             $scope.data = response.data;
+            console.log($scope.data)
+            console.log(response.data)
             sessionStorage.setItem("token", "Bearer " + $scope.data.token)
             if ($scope.data) {
                 sessionStorage.setItem("username", $scope.submit.username)
@@ -151,6 +160,8 @@ app.controller("clp", function ($scope, $http) {
     $scope.navOption3 = "Logout";
     $scope.navOption2Link = "#!inventory";
     $scope.navOption2 = "Inventory";
+    $scope.navOption5Link = "#!edit_user";
+    $scope.navOption5 = "My Account";
     $http({
         method: 'GET',
         url: 'http://localhost:7890/getScreen',
@@ -269,43 +280,42 @@ app.controller("clp", function ($scope, $http) {
 });
 
 
-app.controller('registerController', function ($scope, $http, $window) {
-    $scope.navOption1Link = "#!";
-    $scope.navOption1 = "Login";
-    $scope.navOption2Link = "#!register";
-    $scope.navOption2 = "Register";
-    $scope.hideUser = "d-none"
+app.controller('registerController', function ($scope, $http,$window) {
+    $scope.navOption1Link="#!";
+    $scope.navOption1="Login";
+    $scope.navOption2Link="#!register";
+    $scope.navOption2="Register";
+    $scope.hideUser="d-none"
+    
+  
+    // $scope.validPassword =function( ){
+   
 
+    // };
 
-    $scope.validPassword = function () {
-
-        if ($scope.register.confirmPassword == $scope.register.password) {
+    $scope.register = {};
+    $scope.formData = () => {
+        console.log($scope.register);
+        if($scope.register.confirmPassword === $scope.register.password){
             document.getElementById("valid").style.display = "block";
             document.getElementById("Invalid").style.display = "none";
-
         }
         else {
             document.getElementById("Invalid").style.display = "block";
             document.getElementById("valid").style.display = "none";
         }
-    };
-
-
-
-    $scope.register = {};
-    $scope.formData = () => {
-        console.log($scope.register);
-
-        $http({
-            method: 'Post',
-            url: "http://localhost:7890/api/addUser",
-            headers: { 'Content-Type': 'application/json' },
-            data: $scope.register
-        }).then((response) => {
-            $window.location.href = "#!";
-        }, (error) => {
-            console.log(error);
-        });
+        if(document.getElementById("valid").style.display === "block"){
+            $http({
+                method: 'Post',
+                url: "http://localhost:7890/api/addUser",
+                headers: { 'Content-Type': 'application/json' },
+                data: $scope.register
+            }).then((response) => {
+                $window.location.href = "#!";
+            }, (error) => {
+                console.log(error);
+            });
+        }
     };
 });
 
@@ -555,6 +565,21 @@ app.controller('updateClinic', function ($scope, $http, $window, $routeParams) {
     }
 });
 
+app.controller('clinicSelect',function($scope,$http){
+  
+
+        $http({
+            method: 'get',
+            url: "http://localhost:7890/getClinicNames",
+            headers: { 'Content-Type': 'application/json' ,'Authorization': sessionStorage.getItem("token")}
+        }).then((response)=>{
+            $scope.clinicNames=response.data;
+        },(error)=>{})
+
+});
+
+        
+    
 app.controller('allClinicsUsers', function ($scope, $http, $window) {
     $scope.navOption3Link = "#!";
     $scope.navOption3 = "Logout";

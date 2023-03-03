@@ -12,6 +12,7 @@ tr,
 th,
 td {
   border: 2px solid black;
+  
 }
 
 .nav_hover:hover {
@@ -96,10 +97,7 @@ td {
     border-radius: 3px;
 
   }
-  /* .icon{
-   color: white;
-   align-items: center;
-  } */
+
 
   .sub-menu{
     position:absolute;
@@ -158,14 +156,37 @@ td {
 
 
 .clinics{
-  background-color: rgb(14, 14, 44);
+  background-color: rgb(53, 154, 44);
   color: white;
 
 }
 
 .list{
+ 
   text-align: center;
   color: black;
+}
+
+label{
+  width: 200px;
+  display: inline-block;
+  margin: 0.2cm;
+  font-size: 16px;
+  font-weight: bold;
+}
+input{
+  padding: 5px;
+  margin:  5px;
+  font-size: 16px;
+  border-radius: 10px;
+  border: 1px solid;
+  width: 7cm;
+}
+/* .editUser{
+  background-color: #63aaf0;
+} */
+.mt-1{
+  border-color: black;
 }
 
 

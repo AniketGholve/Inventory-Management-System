@@ -7,37 +7,49 @@
         <form ng-submit="formData()" class="d-flex">
             <div class="mt-1">
                 <div class="mt-2">
-                    <input class="text-center" type="text" ng-model="register.firstName" required placeholder="First Name" />
+                    <label>First Name : </label>
+                    <input class="text-center" type="text" ng-model="register.firstName" required
+                        placeholder="First Name" />
                 </div>
                 <div class="mt-2">
-                    <input class="text-center" type="text" ng-model="register.lastName" required placeholder="Last Name" />
+                    <label>Last Name : </label>
+                    <input class="text-center" type="text" ng-model="register.lastName" required
+                        placeholder="Last Name" />
                 </div>
                 <div class="mt-2">
-                    <input class="text-center" type="email" ng-model="register.username" required placeholder="Username" />
+                    <label>Username : </label>
+                    <input class="text-center" type="email" ng-model="register.username" required
+                        placeholder="Username" />
                 </div>
                 <div class="mt-2">
-                    <input class="text-center" type="password" name="password" ng-model="register.password" required ng-init="password_error_show =0"
-                     placeholder="Password" />
+                    <label>Password : </label>
+                    <input class="text-center" type="password" name="password" ng-model="register.password" required
+                        ng-init="password_error_show =0" placeholder="Password" />
                 </div>
                 <!-- <div ng-show =" !passValidation && password_error_show > 0">
                     Please Enter password
                 </div> -->
                 <div class="mt-2">
-                    <input class="text-center" type="password" name="confirmPassword" ng-model="register.confirmPassword" required  ng-init= "confirmPassword_error_show =0"
-                    ng-change="validPassword()" 
-                     placeholder="Confirm Password" />
-                <span id="Invalid">Password Not Matched</span>
-                <span id="valid">Password Matched</span>
+                    <label>Confirm Password : </label>
+                    <input class="text-center" type="password" name="confirmPassword"
+                        ng-model="register.confirmPassword" required ng-init="confirmPassword_error_show =0"
+                        ng-change="validPassword()" placeholder="Confirm Password" />
+                    <span id="Invalid" style="display: none; color: red;">Password Not Matched</span>
+                    <span id="valid" style="display: none; color: green;">Password Matched</span>
                 </div>
                 <div class="mt-2">
-                    <input type = "date" class = "input6" ng-model = "register.dateofBirth" required placeholder="dateofBirth" />
+                    <label>D.O.B : </label>
+                    <input type="date" class="input6" ng-model="register.dateofBirth" required
+                        placeholder="dateofBirth" />
                 </div>
 
                 <div class="mt-2">
-                    <input type="tel" pattern="^\d{10}$" ng-model = "register.phoneNo" required placeholder="Mobile" />
+                    <label>Phone No. :</label>
+                    <input type="tel" pattern="^\d{10}$" ng-model="register.phoneNo" required placeholder="Mobile" />
                 </div>
 
-                <div class="mt-2 justify-content-center d-flex">
+                <div class="mt-2 ">
+                    <label>Roles :</label>
                     <select ng-model="register.role" class="text-center" required>
                         <option value="" class="d-none">Please Choose</option>
                         <option value="ELP">ELP</option>

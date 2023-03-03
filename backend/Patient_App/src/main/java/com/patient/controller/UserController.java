@@ -61,11 +61,13 @@ public class UserController {
 		return -1;
 	}
 
-
 	@PutMapping("/editUser")
 	public ResponseEntity<UserEntity> editUser(@RequestBody UserEntity user) {
-		UserEntity u = userEntityRepo.findByUsername(user.getUsername());
+		System.out.println("user");
+		System.out.println(user.toString());
 		
+		UserEntity u = userEntityRepo.findByUsername(user.getUsername());
+		System.out.println(u.toString());
 		if(user.getFirstName() != null) {
 			u.setFirstName(user.getFirstName());
 			System.out.println(user.getFirstName());	
@@ -118,3 +120,4 @@ public class UserController {
 
 	}
 }
+ 

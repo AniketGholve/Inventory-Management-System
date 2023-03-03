@@ -1,8 +1,8 @@
 <div style="height:30px;background-color : rgb(71, 16, 138)" ng-controller="clinicSelect">
     <form ng-submit="clinicSelect()" style="float:right">
-        <select id="">
-            <!-- <option ng-repeat="x in clinicNames" value="x">{{x}}</option> -->
-            <option>x</option>
+        <select id="clinics">
+            <option label="Please Select Below" class="d-none"></option>
+            <option ng-repeat="x in clinicNames" value="{{x.location_id}}">{{x.name}}</option>
         </select>
     </form>
 </div>

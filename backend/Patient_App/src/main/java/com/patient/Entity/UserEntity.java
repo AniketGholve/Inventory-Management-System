@@ -123,7 +123,10 @@ public class UserEntity implements UserDetails {
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		// TODO Auto-generated method stub
+		System.out.println("in authpority");
+		System.out.println(this.getRole());
 		List<SimpleGrantedAuthority> authorities=new ArrayList<>();
+		
 		authorities.add(new SimpleGrantedAuthority(this.getRole()));
 		System.out.println(authorities.toString());
 		return authorities;
