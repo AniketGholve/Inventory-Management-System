@@ -557,6 +557,8 @@ app.controller('updateClinic', function ($scope, $http, $window,$routeParams) {
 });
 
 app.controller('clinicSelect',function($scope,$http){
+  
+
         $http({
             method: 'get',
             url: "http://localhost:7890/getClinicNames",
@@ -564,6 +566,10 @@ app.controller('clinicSelect',function($scope,$http){
         }).then((response)=>{
             $scope.clinicNames=response.data;
         },(error)=>{})
+
+    
+
+        
     
 });
 

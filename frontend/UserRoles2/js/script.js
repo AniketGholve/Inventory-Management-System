@@ -123,7 +123,7 @@ app.controller("edit_userCtrl", function ($scope, $http, $window, $route) {
                 data: $scope.edit
             }).then((response) => {
                 console.log($scope.edit);
-                $window.location.href = "#!";
+                // $window.location.href = "#!";
             }, (error) => {
                 console.log(error);
             });
