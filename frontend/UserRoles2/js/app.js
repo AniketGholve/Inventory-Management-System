@@ -317,7 +317,8 @@ app.controller('registerController', function ($scope, $http,$window) {
                 headers: { 'Content-Type': 'application/json' },
                 data: $scope.register
             }).then((response) => {
-                $window.location.href = "#!";
+                //$window.location.href = "#!";
+                console.log(response.data)
             }, (error) => {
                 console.log(error);
             });
@@ -702,13 +703,12 @@ app.controller('updateUser', function ($scope, $window, $routeParams, $http) {
         $scope.navOption1 = "Clinics";
         $scope.hide2 = "d-none";
         $scope.hide = "d-none";
-        console.log($scope.updateUserData)
         if ($scope.updateUserData.password == null) {
             $scope.updateUserData.password = $scope.password;
         }
         $http({
             method: 'put',
-            url: "http://localhost:7890/api/editUsers/" + $routeParams.param1,
+            url: "http://localhost:7890/api/editUser/" + $routeParams.param1,
             headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") },
             data: $scope.updateUserData,
         }).then((response) => {

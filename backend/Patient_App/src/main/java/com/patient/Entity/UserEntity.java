@@ -10,24 +10,35 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-
 @Entity
+//@Builder
 //implements UserDetails
 public class UserEntity implements UserDetails {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	//@JsonProperty("id")
 	private Integer id;
+	//@JsonProperty("username")
 	private String username;
+	//@JsonProperty("password")
 	private String password;
+	//@JsonProperty("role")
 	private String role;
+	//@JsonProperty("firstName")
 	private String firstName;
+	//@JsonProperty("lastName")
 	private String lastName;
+	//@JsonProperty("dateofBirth")
 	private Date dateofBirth;
+	//@JsonProperty("phoneNo")
 	private String phoneNo;
 	
 	
@@ -122,12 +133,18 @@ public class UserEntity implements UserDetails {
 	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
+		
+		
 		// TODO Auto-generated method stub
 		System.out.println("in authpority");
-		System.out.println(this.getRole());
+		System.out.println("role"+this.getRole());
+		//System.out.println(this.getAuthorities().isEmpty());
+		//System.out.println(this.getAuthorities());
 		List<SimpleGrantedAuthority> authorities=new ArrayList<>();
-		
+		System.out.println("authorities");
+		System.out.println(authorities);
 		authorities.add(new SimpleGrantedAuthority(this.getRole()));
+		System.out.println("authorities");
 		System.out.println(authorities.toString());
 		return authorities;
 	}
