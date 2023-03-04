@@ -16,28 +16,28 @@
     <div class="container d-flex justify-content-center mt-5">
         <table id="patientDetailsTable" class="borderBlack ">
             <tr>
-                <th class="px-3">Id</th>
+                <!-- <th class="px-3">Id</th> -->
                 <th class="px-3">Patient Id</th>
                 <th class="px-3">First Name</th>
                 <th class="px-3">Last Name</th>
                 <th class="px-3">Middle Name</th>
                 <th class="px-3">Date Of Birth</th>
                 <th class="px-3">Patient Status</th>
-                <th class="px-3">Email</th>
+                <!-- <th class="px-3">Email</th> -->
                 <th class="px-3">Location Id</th>
-                <th class="px-3">Last Dispense Loc Id</th>
+                <!-- <th class="px-3">Last Dispense Loc Id</th> -->
                 <th class="px-3">Enterprise Id</th>
-                <th class="px-3">Payer Type</th>
+                <!-- <th class="px-3">Payer Type</th>
                 <th class="px-3">Pa Needed</th>
                 <th class="px-3">Independent Inventory</th>
-                <th class="px-3">Patient File</th>
-                <th class="px-3">Edit</th>
-                <th class="px-3">Delete</th>
+                <th class="px-3">Patient File</th> -->
+                <th class="px-3">Actions</th>
+                <!-- <th class="px-3">Delete</th> -->
             </tr>
-            <tr ng-repeat="x in allPatientData" ng-if="searchPatientData==null">
-                <td class="px-3">
+            <tr ng-repeat="x in patientData" ng-if="searchPatientData==null">
+                <!-- <td class="px-3">
                     {{ x.id }}
-                </td>
+                </td> -->
                 <td class="px-3">
                     {{ x.patientId }}
                 </td>
@@ -56,34 +56,33 @@
                 <td class="px-3">
                     {{ x.patientStatus}}
                 </td>
-                <td class="px-3">
+                <!-- <td class="px-3">
                     {{ x.patientEmail }}
-                </td>
+                </td> -->
                 <td class="px-3">
                     {{ x.patientLocationId }}
                 </td>
-                <td class="px-3">
+                <!-- <td class="px-3">
                     {{ x.patientLastDispenseId }}
-                </td>
+                </td> -->
                 <td class="px-3">
                     {{ x.patientEnterpriseId}}
                 </td>
-                <td class="px-3">
+                <!-- <td class="px-3">
                     {{ x.patientPayerType}}
-                </td>
-                <td class="px-3">
+                </td> -->
+                <!-- <td class="px-3">
                     {{ x.patientPaNeeded }}
                 </td>
                 <td class="px-3">
                     {{ x.independentInventory }}
-                </td>
+                </td> -->
                 <!-- href="http://localhost:7890/downloadFile?id={{x.patientFile[i].fileId}}" -->
-                <td>
+                <!-- <td>
                     <a class="d-block mb-2" href="" ng-repeat="j in range[$index]"
                         ng-click="fileDownload(x.patientFile[j].fileId)">{{x.patientFile[j].fileName}}</a>
-                </td>
-                <td><a href="#!updatePatient/{{x.patientId}}">edit</a></td>
-                <td><a href="" ng-click="deleteById(x.id)" onclick="reloadWindow()">delete</a></td>
+                </td> -->
+                <td><a href="#!updatePatient/{{x.patientId}}">Edit</a>&nbsp &nbsp<a href="" ng-click="deleteById(x.id)" onclick="reloadWindow()">Delete</a></td>
             </tr>
             
             <tr ng-if="searchPatientData!=null" ng-init="x=searchPatientData">

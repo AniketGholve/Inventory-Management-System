@@ -189,7 +189,7 @@ app.controller("clp", function ($scope, $http) {
         })
     }
     $scope.getExpired = (id) => {
-        $http({
+    $http({
             method: 'GET',
             url: "http://localhost:7890/getExpiredSerialDetails/" + id,
             headers: {
@@ -202,7 +202,7 @@ app.controller("clp", function ($scope, $http) {
             console.log(error)
         })
     }
-    $http({
+        $http({
         method: 'GET',
         url: "http://localhost:7890/getAllData",
         headers: {
@@ -277,6 +277,16 @@ app.controller("clp", function ($scope, $http) {
             window.open(fileURL);
         }, (error) => { console.log(error) })
     }
+    getPatientDetails=(data)=>{
+        $scope.patientData=data;
+        console.log($scope.patientData);
+        for (let index = 0; index < $scope.patientData.length; index++) {
+            localStorage.setItem("locationId"+$scope.patientData[index].id,$scope.patientData[index].patientLocationId);
+        }
+    }
+    getInventoryDetails=(data)=>{
+        $scope.invetoryData=data;
+    };
 });
 
 
@@ -561,9 +571,8 @@ app.controller('updateClinic', function ($scope, $http, $window, $routeParams) {
     }
 });
 
-app.controller('clinicSelect',function($scope,$http){
+app.controller('clinicSelect',function($scope,$http,$route){
   
-
         $http({
             method: 'get',
             url: "http://localhost:7890/getClinicNames",
@@ -571,6 +580,25 @@ app.controller('clinicSelect',function($scope,$http){
         }).then((response)=>{
             $scope.clinicNames=response.data;
         },(error)=>{})
+        
+        $scope.clinicName=(id)=>{
+            $http({
+                method: 'get',
+                url: "http://localhost:7890/getPatientByClinic/"+id,
+                headers: { 'Content-Type': 'application/json' ,'Authorization': sessionStorage.getItem("token")}
+            }).then((response)=>{
+                getPatientDetails(response.data);
+            },(error)=>{})
+
+            $http({
+                method: 'get',
+                url: "http://localhost:7890/getInventoryByClinic/"+id,
+                headers: { 'Content-Type': 'application/json' ,'Authorization': sessionStorage.getItem("token")}
+            }).then((response)=>{
+                getInventoryDetails(response.data);
+            },(error)=>{})
+        
+        }
 
 });
 

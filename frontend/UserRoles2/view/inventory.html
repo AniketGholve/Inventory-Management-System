@@ -15,7 +15,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="x in data">
+                    <tr ng-repeat="x in invetoryData">
                         <td class="capitalize">{{x.productName}}</td>
                         <td ng-click="getOnHand(x.productId)"><a data-bs-toggle="modal" data-bs-target="#ohHand"
                                 style="cursor: default;">{{x.onHand}}</a></td>

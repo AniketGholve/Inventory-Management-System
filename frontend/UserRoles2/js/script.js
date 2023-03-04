@@ -74,12 +74,6 @@ app.controller('logoutCtrl', function ($scope, $window) {
     }
 });
 
-
-
-
-
-
-
 app.controller("edit_userCtrl", function ($scope, $http, $window, $route) {
     $scope.navOption1Link = "#!";
     $scope.navOption1 = "Login";
