@@ -136,16 +136,16 @@ public class UserEntity implements UserDetails {
 		
 		
 		// TODO Auto-generated method stub
-		System.out.println("in authpority");
-		System.out.println("role"+this.getRole());
+//		System.out.println("in authpority");
+//		System.out.println("role"+this.getRole());
 		//System.out.println(this.getAuthorities().isEmpty());
 		//System.out.println(this.getAuthorities());
 		List<SimpleGrantedAuthority> authorities=new ArrayList<>();
-		System.out.println("authorities");
-		System.out.println(authorities);
+//		System.out.println("authorities");
+//		System.out.println(authorities);
 		authorities.add(new SimpleGrantedAuthority(this.getRole()));
-		System.out.println("authorities");
-		System.out.println(authorities.toString());
+//		System.out.println("authorities");
+//		System.out.println(authorities.toString());
 		return authorities;
 	}
 	
