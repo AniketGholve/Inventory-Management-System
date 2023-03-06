@@ -118,28 +118,21 @@ public class InventoryServiceImpl implements InventoryService {
 		return resultList;
 	}
 	
-	
+	//here
 	
 	public  List<Inventory> getInventoryByClinic(Integer clinicLocationId)
 	{
-		Query q=entityManager.createNativeQuery("select * from inventory where location_id=?");
+		Query q=entityManager.createNativeQuery("select i.product_id,p.product_name,i.expired,i.on_hand from inventory i inner join product p on i.product_id=p.product_id where i.location_id=?");
 		q.setParameter(1, clinicLocationId);
 		List<Object[]> l=q.getResultList();
 		List<Inventory> resultList=new ArrayList<>();
-		for(Object[] o:l)
+		for(Object[] result:l)
 		{
 			Inventory i=new Inventory();
-			i.setInventoryId((Integer)o[0]);
-			i.setCreatedOn((Date)o[1]);
-			i.setEnterpriseId((Integer)o[2]);
-			i.setExpiredQty((Integer)o[3]);
-			i.setInitial((String)o[4]);
-			i.setLocationId((Integer)o[5]);
-			i.setModifiedOn((Date)o[6]);
-			i.setOnHand((Integer)o[7]);
-			i.setOrderedQty((Integer)o[8]);
-			i.setOverDue((Date)o[9]);
-			i.setProductId((Integer)o[10]);
+			i.setProductId(result[0]==null?null:(Integer) result[0]);
+			i.setProductName(result[1]==null?null:(String) result[1]);
+			i.setExpiredQty(result[2]==null?null:(Integer) result[2]);
+			i.setOnHand(result[3]==null?null:(Integer) result[3]);
 			resultList.add(i);
 			
 		}
