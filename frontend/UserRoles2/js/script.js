@@ -140,7 +140,7 @@ app.controller('clinicController', function ($scope, $http, $window) {
     $http({
 
         method: 'GET',
-        url: 'http://localhost:7890/getAllEnterprise',
+        url: 'http://localhost:7890/getAllClinic',
         headers: {
             'Content-Type': 'application/json',
             'Authorization': sessionStorage.getItem("token")
@@ -165,7 +165,7 @@ app.controller('clinicController', function ($scope, $http, $window) {
         console.log(id);
         $http({
             method: 'DELETE',
-            url: 'http://localhost:7890/deleteEnterprise/' + id,
+            url: 'http://localhost:7890/deleteClinic/' + id,
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': sessionStorage.getItem("token")
