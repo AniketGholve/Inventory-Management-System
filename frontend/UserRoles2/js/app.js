@@ -196,6 +196,12 @@ app.controller("clp", function ($scope, $http, $window) {
     }
 
     if (sessionStorage.getItem("locationId") != undefined || sessionStorage.getItem("locationId") != null) {
+        document.getElementsByClassName("isDisabled")[0].style.opacity = 1;
+        document.getElementsByClassName("isDisabled")[0].style.pointerEvents = "all";
+        document.getElementsByClassName("isDisabled")[0].style.cursor = "default";
+        document.getElementsByClassName("isDisabled")[1].style.opacity = 1;
+        document.getElementsByClassName("isDisabled")[1].style.pointerEvents = "all";
+        document.getElementsByClassName("isDisabled")[1].style.cursor = "default";
         $http({
             method: 'get',
             url: "http://localhost:7890/getPatientByClinic/" + sessionStorage.getItem("locationId"),
@@ -321,6 +327,7 @@ app.controller("clp", function ($scope, $http, $window) {
         for (let index = 0; index < $scope.patientData.length; index++) {
             localStorage.setItem("locationId" + $scope.patientData[index].id, $scope.patientData[index].patientLocationId);
         }
+
     }
     getInventoryDetails = (data) => {
         $scope.invetoryData = data;
@@ -620,40 +627,40 @@ app.controller('updateClinic', function ($scope, $http, $window, $routeParams) {
     }
 });
 
-app.controller('clinicSelect', function ($scope, $http, $route) {
+// app.controller('clinicSelect', function ($scope, $http, $route) {
 
-    $http({
-        method: 'get',
-        url: "http://localhost:7890/getClinicNames",
-        headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") }
-    }).then((response) => {
-        $scope.clinicNames = response.data;
-    }, (error) => { })
+//     $http({
+//         method: 'get',
+//         url: "http://localhost:7890/getClinicNames",
+//         headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") }
+//     }).then((response) => {
+//         $scope.clinicNames = response.data;
+//     }, (error) => { })
 
-    $scope.clinicName = (id) => {
-        sessionStorage.setItem("locationId", id);
-        let locationId = sessionStorage.getItem("locationId");
-        console.log(locationId)
-        $http({
-            method: 'get',
-            url: "http://localhost:7890/getPatientByClinic/" + locationId,
-            headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") }
-        }).then((response) => {
-            console.log(response)
-            getPatientDetails(response.data);
-        }, (error) => { })
+//     $scope.clinicName = (id) => {
+//         sessionStorage.setItem("locationId", id);
+//         let locationId = sessionStorage.getItem("locationId");
+//         console.log(locationId)
+//         $http({
+//             method: 'get',
+//             url: "http://localhost:7890/getPatientByClinic/" + locationId,
+//             headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") }
+//         }).then((response) => {
+//             console.log(response)
+//             getPatientDetails(response.data);
+//         }, (error) => { })
 
-        $http({
-            method: 'get',
-            url: "http://localhost:7890/getInventoryByClinic/" + locationId,
-            headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") }
-        }).then((response) => {
-            getInventoryDetails(response.data);
-        }, (error) => { })
+//         $http({
+//             method: 'get',
+//             url: "http://localhost:7890/getInventoryByClinic/" + locationId,
+//             headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") }
+//         }).then((response) => {
+//             getInventoryDetails(response.data);
+//         }, (error) => { })
 
-    }
+//     }
 
-});
+// });
 
 
 
@@ -848,3 +855,4 @@ app.controller('clinicUserView', function ($scope, $window, $routeParams, $http)
         console.log(error);
     })
 });
+
