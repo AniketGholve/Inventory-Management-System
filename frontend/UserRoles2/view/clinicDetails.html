@@ -1,41 +1,59 @@
 <div ng-controller="clinicDetails">
     <div ng-include="'view/header.html'"></div>
     <h1 class="text-center">Clinic Details</h1>
-    <div class="container d-flex justify-content-center ">
-        <table class="table table-striped table-bordered text-center">
-            <thead class="clinics">
-                <tr>
-                    <th>Location Id</th>
-                    <th>Enterprise Id</th>
-                    <th>Clinic Name</th>
-                    <th>Clinic Number</th>
-                    <th>Email</th>
-                    <th>Address Line1</th>
-                    <th>Address Line2</th>
-                    <th>City</th>
-                    <th>State</th>
-                    <th>Country</th>
-                    <th>State Code</th>
-                    <th>Zipcode</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td class="p-3">{{clinicData.locationId}}</td>
-                    <td class="p-3">{{clinicData.enterpriseId}}</td>
-                    <td class="p-3">{{clinicData.name}}</td>
-                    <td class="p-3">{{clinicData.phone}}</td>
-                    <td class="p-3">{{clinicData.email}}</td>
-                    <td class="p-3">{{clinicData.addrLine1}}</td>
-                    <td class="p-3">{{clinicData.addrLine2}}</td>
-                    <td class="p-3">{{clinicData.city}}</td>
-                    <td class="p-3">{{clinicData.state}}</td>
-                    <td class="p-3">{{clinicData.country}}</td>
-                    <td class="p-3">{{clinicData.stateCode}}</td>
-                    <td class="p-3">{{clinicData.zipcode}}</td>
-                </tr>
-            </tbody>
-        </table>
+    <div class="row g-3 form-control d-flex justify-content-between w-50 m-auto">
+        <div class="col-auto d-flex justify-content-between w-50">
+            <label for="">Clinic Name: </label>
+            <input type="text" class="input1" ng-model="clinicData.name" disabled>
+        </div>
+        <div class="col-auto d-flex justify-content-between w-50">
+            <label for="">Clinic Email: </label>
+            <input type="email" class="input2" ng-model="clinicData.email" disabled>
+        </div>
+        <div class="col-auto d-flex justify-content-between w-50">
+            <label for="">Clinic Phone: </label>
+            <input type="text" class="input3" ng-model="clinicData.phone" disabled>
+        </div>
+        <div class="col-auto d-flex justify-content-between w-50">
+            <label for="">Address-1:</label>
+            <input type="text" class="input4" ng-model="clinicData.addrLine1" disabled>
+        </div>
+        <div class="col-auto d-flex justify-content-between w-50">
+            <label for="">Address-2:</label>
+            <input type="text" class="input5" ng-model="clinicData.addrLine2" disabled>
+        </div>
+        <div class="col-auto d-flex justify-content-between w-50">
+            <label for="">City:</label>
+            <input type="text" class="input6" ng-model="clinicData.city" disabled>
+        </div>
+        <div class="col-auto d-flex justify-content-between w-50">
+            <label for="">State:</label>
+            <input type="text" class="input7" ng-model="clinicData.state" disabled>
+        </div>
+        <div class="col-auto d-flex justify-content-between w-50">
+            <label for="">Country:</label>
+            <input type="text" class="input8" ng-model="clinicData.country" disabled>
+        </div>
+        <div class="col-auto d-flex justify-content-between w-50">
+            <label for="">StateCode:</label>
+            <input type="text" class="input9" ng-model="clinicData.stateCode" disabled>
+        </div>
+        <div class="col-auto d-flex justify-content-between w-50">
+            <label for="">Zipcode:</label>
+            <input type="text" class="input10" ng-model="clinicData.zipcode" disabled>
+        </div>
+        <div class="col-auto d-flex justify-content-between w-50">
+            <label for="">Active</label>
+            <input type="text" ng-model="clinicData.active" disabled>
+        </div>
+        <div class="col-auto d-flex justify-content-between w-50">
+            <label for="">Location Id</label>
+            <input type="text" ng-model="clinicData.locationId" disabled>
+        </div>
+        <div class="col-auto d-flex justify-content-between w-50">
+            <label for="">Enterprise Id</label>
+            <input type="text" ng-model="clinicData.enterpriseId" disabled>
+        </div>
     </div>
     <h1 class="text-center" class=""> <span class="mx-5">Clinic Users</span>
         <a href="#!addUser/{{clinicData.locationId}}" class="btn btn-primary">Add User</a>
@@ -71,7 +89,10 @@
                     <td class="p-3">{{x.mobilePhone}}</td>
                     <td class="p-3">{{x.defaultLocationId}}</td>
                     <td class="p-3">{{x.enterpriseId}}</td>
-                    <td class="p-3"><a href="#!/updateUser/{{x.userId}}">Edit</a>&nbsp;&nbsp;<a href="" ng-click="deleteUsers(x.userId)">Remove</a></td>
+                    <td class="p-2"><a href="#!/updateUser/{{x.userId}}">Edit</a>&nbsp;<a href=""
+                            ng-click="deleteUsers(x.userId)">Remove</a>&nbsp;<a
+                            href="#!/userDetails/{{x.userId}}">View</a>
+                    </td>
                 </tr>
             </tbody>
         </table>
