@@ -202,7 +202,9 @@ public class ClinicServiceImpl implements ClinicService {
 	public List<Clinic> getClinicNamesAndId(){
 		
 		
-		Query q=entityManager.createNativeQuery("select location_id,enterprise_id,name from clinic");
+		Query q=entityManager.createNativeQuery("select location_id,enterprise_id,name from clinic where deleted=? and active=?");
+		q.setParameter(1, 0);
+		q.setParameter(2, 1);
 		List<Object[]> l=q.getResultList();
 		List<Clinic> resultList=new ArrayList<>();
 		for(Object[] o:l)
