@@ -117,7 +117,7 @@ app.controller("edit_userCtrl", function ($scope, $http, $window, $route) {
                 data: $scope.edit
             }).then((response) => {
                 console.log($scope.edit);
-                // $window.location.href = "#!";
+                $window.location.href = "#!";
             }, (error) => {
                 console.log(error);
             });
@@ -183,6 +183,9 @@ app.controller("successController", ['$scope', '$http', function ($scope, $http)
     $scope.navOption1 = "Success Orders";
     $scope.navOption2Link = "#!error_orders";
     $scope.navOption2 = "Error Orders";
+    $scope.navOption5Link = "#!edit_user";
+    $scope.navOption5 = "My Account";
+    
     $scope.navOption3Link = "#!";
     $scope.navOption3 = "Logout";
     $http({
@@ -206,6 +209,8 @@ app.controller("errorController", ['$scope', '$http', function ($scope, $http) {
     $scope.navOption1 = "Success Orders";
     $scope.navOption2Link = "#!error_orders";
     $scope.navOption2 = "Error Orders";
+    $scope.navOption5Link = "#!edit_user";
+    $scope.navOption5 = "My Account";
     $scope.navOption3Link = "#!";
     $scope.navOption3 = "Logout";
     $http({

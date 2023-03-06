@@ -4,27 +4,27 @@
         <h1 class="text-center">Edit User Details</h1>
     </div>
 
-    <div class="container d-flex justify-content-center">
+    <div class="container d-flex justify-content-center form-control w-50">
         <form ng-submit="updatedData()" class="d-flex">
             <div class="mt-1">
                 <div class="mt-2">
-                    <label>First Name : </label>
-                    <input class="text-center" type="text" ng-model="edit.firstName" required
+                    <label class="label">First Name : </label>
+                    <input class="input0" type="text" ng-model="edit.firstName" required
                         placeholder="First Name" />
                 </div>
                 <div class="mt-2">
-                    <label>Last Name : </label>
-                    <input class="text-center" type="text" ng-model="edit.lastName" required placeholder="Last Name" />
+                    <label class="label">Last Name : </label>
+                    <input class="input0" type="text" ng-model="edit.lastName" required placeholder="Last Name" />
                 </div>
                 <div class="mt-2">
-                    <label>Password : </label>
-                    <input class="text-center" type="password" ng-model="edit.password" required
+                    <label class="label">Password : </label>
+                    <input class="input0" type="password" ng-model="edit.password" required
                         placeholder="Password" />
                 </div>
 
                 <div class="mt-2">
-                    <label>Confirm Password :</label>
-                    <input class="text-center" type="password" name="confirmPassword" ng-model="edit.confirmPassword"
+                    <label class="label">Confirm Password :</label>
+                    <input class="input0" type="password" name="confirmPassword" ng-model="edit.confirmPassword"
                         required ng-init="confirmPassword_error_show =0" ng-change="validPassword()"
                         placeholder="Confirm Password" />
 
@@ -32,13 +32,13 @@
                     <span id="valid" style="display: none; color: green;">Password Matched</span>
                 </div>
                 <div class="mt-2">
-                    <label>D.O.B : </label>
+                    <label class="label">D.O.B : </label>
                     <input type="date" class="input6" ng-model="edit.dateofBirth" required placeholder="DOB" />
                 </div>
 
                 <div class="mt-2">
-                    <label>Phone No. :</label>
-                    <input type="tel" pattern="^\d{10}$" ng-model="edit.phoneNo" required placeholder="Mobile" />
+                    <label class="label">Phone No. :</label>
+                    <input type="tel" class="input0" pattern="^\d{10}$" ng-model="edit.phoneNo" required placeholder="Mobile" />
                 </div>
 
                 <div class="mt-2 justify-content-center d-flex">
