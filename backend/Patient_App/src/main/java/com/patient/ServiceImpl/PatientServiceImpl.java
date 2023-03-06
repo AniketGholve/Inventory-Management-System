@@ -99,9 +99,6 @@ public class PatientServiceImpl implements PatientService {
 	public List<Patient> getPatientByLocationId(Integer clinicLocationId) {
 		// TODO Auto-generated method stub
 		Query q=entityManager.createQuery("select p from Patient p where p.patientLocationId=:u" );
-
-
-		
 		q.setParameter("u", clinicLocationId);
 		List<Patient> l=q.getResultList();
 		

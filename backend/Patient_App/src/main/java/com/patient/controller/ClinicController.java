@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.patient.Entity.Clinic;
-import com.patient.Entity.Enterprises;
 import com.patient.ServiceImpl.ClinicServiceImpl;
 
 

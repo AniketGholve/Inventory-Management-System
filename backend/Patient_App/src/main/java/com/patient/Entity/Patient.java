@@ -25,7 +25,6 @@ public class Patient {
 	@Convert(converter = AESEncryption.class)
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	
 	private Integer id;
 	@Convert(converter = AESEncryption.class)
 	@Column(name = "patient_id", unique = true)

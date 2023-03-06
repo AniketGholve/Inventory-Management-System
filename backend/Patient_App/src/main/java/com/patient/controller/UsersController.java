@@ -18,6 +18,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.patient.Entity.Users;
 import com.patient.ServiceImpl.UsersServiceImpl;
 
+
+
+
+
+
 @RestController
 @CrossOrigin
 @RequestMapping("/api")
@@ -74,8 +79,4 @@ public class UsersController {
 		return new ResponseEntity<Users>(u,HttpStatus.OK);
 
 	}
-	
-		
-	 
-	
 }
