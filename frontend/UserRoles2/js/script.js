@@ -144,8 +144,6 @@ app.controller('clinicController', function ($scope, $http, $window) {
         headers: {
             'Content-Type': 'application/json',
             'Authorization': sessionStorage.getItem("token")
-
-
         }
 
     }).then((response) => {

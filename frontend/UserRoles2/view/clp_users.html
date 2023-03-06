@@ -1,7 +1,7 @@
 <div ng-controller="clp">
-    <div ng-include="'view/header.html'"></div>
+    <div ng-include="'view/header.html'" class="isDisabled"></div>
     <div ng-include="'view/header2.html'"></div>
-    <h1 class="text-center">Patients</h1>
+    <h1 class="text-center" class="isDisabled">Patients</h1>
     <div>
         <form ng-submit="getById()" class="form-inline d-flex justify-content-center mt-3">
             <input type="text" id="patientId" placeholder="Search Patient Id" ng-model="variable" class="">
