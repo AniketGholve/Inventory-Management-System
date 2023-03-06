@@ -70,6 +70,7 @@ app.controller("elp", ['$scope', '$http', function ($scope, $http) {
 app.controller('logoutCtrl', function ($scope, $window) {
     $scope.logout = () => {
         sessionStorage.removeItem("token")
+        sessionStorage.removeItem("locationId")
         $window.location.href = "#!";
     }
 });
