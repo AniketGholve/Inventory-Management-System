@@ -55,7 +55,6 @@
             <input type="text" ng-model="clinicData.enterpriseId" disabled>
         </div>
     </div>
-    <!--  -->
     <h1 class="text-center" class=""> <span class="mx-5">Clinic Users</span>
         <a href="#!addUser/{{clinicData.locationId}}" class="btn btn-primary">Add User</a>
     </h1>
@@ -90,9 +89,10 @@
                     <td class="p-3">{{x.mobilePhone}}</td>
                     <td class="p-3">{{x.defaultLocationId}}</td>
                     <td class="p-3">{{x.enterpriseId}}</td>
-                    <td class="p-3"><a href="#!/updateUser/{{x.userId}}">Edit</a>&nbsp;&nbsp;<a href=""
-                            ng-click="deleteUsers(x.userId)">Remove</a>&nbsp;&nbsp;<a href=""
-                            ng-click="deleteUsers(x.userId)">View</a></td>
+                    <td class="p-2"><a href="#!/updateUser/{{x.userId}}">Edit</a>&nbsp;<a href=""
+                            ng-click="deleteUsers(x.userId)">Remove</a>&nbsp;<a
+                            href="#!/userDetails/{{x.userId}}">View</a>
+                    </td>
                 </tr>
             </tbody>
         </table>

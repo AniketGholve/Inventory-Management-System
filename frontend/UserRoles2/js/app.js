@@ -67,9 +67,9 @@ app.config(function ($routeProvider, $httpProvider) {
             templateUrl: "/view/edit_user.html"
         })
         .when("/updateClinic/:param1",
-        {
-            templateUrl: "/view/updateClinic.html"
-        })
+            {
+                templateUrl: "/view/updateClinic.html"
+            })
         .when("/success_orders", {
             templateUrl: "/view/success_orders.html"
         })
@@ -95,6 +95,10 @@ app.config(function ($routeProvider, $httpProvider) {
         .when("/clinicDetails/:param1",
             {
                 templateUrl: "/view/clinicDetails.html"
+            })
+        .when("/userDetails/:param1",
+            {
+                templateUrl: "/view/clinicUserView.html"
             });
     $httpProvider.interceptors.push('myInterceptor');
 });
@@ -189,7 +193,7 @@ app.controller("clp", function ($scope, $http) {
         })
     }
     $scope.getExpired = (id) => {
-    $http({
+        $http({
             method: 'GET',
             url: "http://localhost:7890/getExpiredSerialDetails/" + id,
             headers: {
@@ -202,7 +206,7 @@ app.controller("clp", function ($scope, $http) {
             console.log(error)
         })
     }
-        $http({
+    $http({
         method: 'GET',
         url: "http://localhost:7890/getAllData",
         headers: {
@@ -277,32 +281,32 @@ app.controller("clp", function ($scope, $http) {
             window.open(fileURL);
         }, (error) => { console.log(error) })
     }
-    getPatientDetails=(data)=>{
-        $scope.patientData=data;
+    getPatientDetails = (data) => {
+        $scope.patientData = data;
         console.log($scope.patientData);
         for (let index = 0; index < $scope.patientData.length; index++) {
-            localStorage.setItem("locationId"+$scope.patientData[index].id,$scope.patientData[index].patientLocationId);
+            localStorage.setItem("locationId" + $scope.patientData[index].id, $scope.patientData[index].patientLocationId);
         }
     }
-    getInventoryDetails=(data)=>{
-        $scope.invetoryData=data;
+    getInventoryDetails = (data) => {
+        $scope.invetoryData = data;
     };
 });
 
 
-app.controller('registerController', function ($scope, $http,$window) {
-    $scope.navOption1Link="#!";
-    $scope.navOption1="Login";
-    $scope.navOption2Link="#!register";
-    $scope.navOption2="Register";
-    $scope.hideUser="d-none"
-    
-  
- 
+app.controller('registerController', function ($scope, $http, $window) {
+    $scope.navOption1Link = "#!";
+    $scope.navOption1 = "Login";
+    $scope.navOption2Link = "#!register";
+    $scope.navOption2 = "Register";
+    $scope.hideUser = "d-none"
+
+
+
     $scope.register = {};
     $scope.formData = () => {
         console.log($scope.register);
-        if($scope.register.confirmPassword === $scope.register.password){
+        if ($scope.register.confirmPassword === $scope.register.password) {
             document.getElementById("valid").style.display = "block";
             document.getElementById("Invalid").style.display = "none";
         }
@@ -310,7 +314,7 @@ app.controller('registerController', function ($scope, $http,$window) {
             document.getElementById("Invalid").style.display = "block";
             document.getElementById("valid").style.display = "none";
         }
-        if(document.getElementById("valid").style.display === "block"){
+        if (document.getElementById("valid").style.display === "block") {
             $http({
                 method: 'Post',
                 url: "http://localhost:7890/api/addUser",
@@ -582,48 +586,49 @@ app.controller('updateClinic', function ($scope, $http, $window, $routeParams) {
     }
 });
 
-app.controller('clinicSelect',function($scope,$http,$route){
-  
+app.controller('clinicSelect', function ($scope, $http, $route) {
+
+    $http({
+        method: 'get',
+        url: "http://localhost:7890/getClinicNames",
+        headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") }
+    }).then((response) => {
+        $scope.clinicNames = response.data;
+    }, (error) => { })
+
+    $scope.clinicName = (id) => {
         $http({
             method: 'get',
-            url: "http://localhost:7890/getClinicNames",
-            headers: { 'Content-Type': 'application/json' ,'Authorization': sessionStorage.getItem("token")}
-        }).then((response)=>{
-            $scope.clinicNames=response.data;
-        },(error)=>{})
-        
-        $scope.clinicName=(id)=>{
-            $http({
-                method: 'get',
-                url: "http://localhost:7890/getPatientByClinic/"+id,
-                headers: { 'Content-Type': 'application/json' ,'Authorization': sessionStorage.getItem("token")}
-            }).then((response)=>{
-                getPatientDetails(response.data);
-            },(error)=>{})
+            url: "http://localhost:7890/getPatientByClinic/" + id,
+            headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") }
+        }).then((response) => {
+            getPatientDetails(response.data);
+        }, (error) => { })
 
-            $http({
-                method: 'get',
-                url: "http://localhost:7890/getInventoryByClinic/"+id,
-                headers: { 'Content-Type': 'application/json' ,'Authorization': sessionStorage.getItem("token")}
-            }).then((response)=>{
-                getInventoryDetails(response.data);
-            },(error)=>{})
-        
-        }
+        $http({
+            method: 'get',
+            url: "http://localhost:7890/getInventoryByClinic/" + id,
+            headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") }
+        }).then((response) => {
+            getInventoryDetails(response.data);
+        }, (error) => { })
+
+    }
 
 });
 
-        
-    
+
+
 app.controller('allClinicsUsers', function ($scope, $http, $window) {
-    $scope.navOption3Link = "#!";
-    $scope.navOption3 = "Logout";
-    $scope.navOption1Link = "#!clinics";
-    $scope.navOption1 = "Clinics";
+    $scope.navOption1Link="#!clinics";
+    $scope.navOption1="Clinics";
+    $scope.navOption2Link = "#!/clinicUsers"
+    $scope.navOption2 = "Users"
     $scope.navOption5Link = "#!edit_user";
     $scope.navOption5 = "My Account";
+    $scope.navOption3Link = "#!";
+    $scope.navOption3 = "Logout";
     $scope.hide2 = "d-none";
-    $scope.hide = "d-none";
     $http({
         method: 'get',
         url: "http://localhost:7890/api/getAllUsers",
@@ -664,14 +669,15 @@ app.controller('allClinicsUsers', function ($scope, $http, $window) {
 // });
 
 app.controller('registerUserFields', function ($scope, $window, $http, $routeParams) {
-    $scope.navOption3Link = "#!";
-    $scope.navOption3 = "Logout";
-    $scope.navOption1Link = "#!clinics";
-    $scope.navOption1 = "Clinics";
+    $scope.navOption1Link="#!clinics";
+    $scope.navOption1="Clinics";
+    $scope.navOption2Link = "#!/clinicUsers"
+    $scope.navOption2 = "Users"
     $scope.navOption5Link = "#!edit_user";
     $scope.navOption5 = "My Account";
+    $scope.navOption3Link = "#!";
+    $scope.navOption3 = "Logout";
     $scope.hide2 = "d-none";
-    $scope.hide = "d-none";
     $scope.addUserFields = () => {
         $scope.addUserData.defaultLocationId = $routeParams.param1;
         $http({
@@ -691,14 +697,15 @@ app.controller('registerUserFields', function ($scope, $window, $http, $routePar
 });
 
 app.controller('updateUser', function ($scope, $window, $routeParams, $http) {
-    $scope.navOption3Link = "#!";
-    $scope.navOption3 = "Logout";
-    $scope.navOption1Link = "#!clinics";
-    $scope.navOption1 = "Clinics";
+    $scope.navOption1Link="#!clinics";
+    $scope.navOption1="Clinics";
+    $scope.navOption2Link = "#!/clinicUsers"
+    $scope.navOption2 = "Users"
     $scope.navOption5Link = "#!edit_user";
     $scope.navOption5 = "My Account";
+    $scope.navOption3Link = "#!";
+    $scope.navOption3 = "Logout";
     $scope.hide2 = "d-none";
-    $scope.hide = "d-none";
     $scope.updateUserData = {};
     $http({
         method: 'get',
@@ -713,12 +720,15 @@ app.controller('updateUser', function ($scope, $window, $routeParams, $http) {
         console.log(error);
     })
     $scope.updateUserFileds = () => {
-        $scope.navOption3Link = "#!";
-        $scope.navOption3 = "Logout";
         $scope.navOption1Link = "#!clinics";
         $scope.navOption1 = "Clinics";
+        $scope.navOption2Link = "#!/clinicUsers"
+        $scope.navOption2 = "Users"
+        $scope.navOption5Link = "#!edit_user";
+        $scope.navOption5 = "My Account";
+        $scope.navOption3Link = "#!";
+        $scope.navOption3 = "Logout";
         $scope.hide2 = "d-none";
-        $scope.hide = "d-none";
         if ($scope.updateUserData.password == null) {
             $scope.updateUserData.password = $scope.password;
         }
@@ -740,12 +750,13 @@ app.controller('updateUser', function ($scope, $window, $routeParams, $http) {
 app.controller('clinicDetails', function ($scope, $window, $routeParams, $http) {
     $scope.navOption1Link = "#!clinics";
     $scope.navOption1 = "Clinics";
-    $scope.navOption3Link = "#!";
-    $scope.navOption3 = "Logout";
+    $scope.navOption2Link = "#!/clinicUsers"
+    $scope.navOption2 = "Users"
     $scope.navOption5Link = "#!edit_user";
     $scope.navOption5 = "My Account";
+    $scope.navOption3Link = "#!";
+    $scope.navOption3 = "Logout";
     $scope.hide2 = "d-none";
-    $scope.hide = "d-none";
     $scope.addUserData = {};
     $http({
         method: 'get',
@@ -776,4 +787,26 @@ app.controller('clinicDetails', function ($scope, $window, $routeParams, $http) 
             console.log(error);
         })
     }
+});
+
+app.controller('clinicUserView', function ($scope, $window, $routeParams, $http) {
+    $scope.navOption1Link = "#!clinics";
+    $scope.navOption1 = "Clinics";
+    $scope.navOption2Link = "#!/clinicUsers"
+    $scope.navOption2 = "Users"
+    $scope.navOption5Link = "#!edit_user";
+    $scope.navOption5 = "My Account";
+    $scope.navOption3Link = "#!";
+    $scope.navOption3 = "Logout";
+    $scope.hide2 = "d-none";
+    $scope.updateUserData = {};
+    $http({
+        method: 'get',
+        url: "http://localhost:7890/api/getUserByUserId/" + $routeParams.param1,
+        headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") },
+    }).then((response) => {
+        $scope.userDetails = response.data;
+    }, (error) => {
+        console.log(error);
+    })
 });
