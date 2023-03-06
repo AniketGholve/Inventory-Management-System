@@ -154,8 +154,8 @@ app.controller("clp", function ($scope, $http) {
     $scope.navOption1 = "Patients";
     $scope.navOption4Link = "#!/insertPatient";
     $scope.navOption4 = "Insert Patient";
-    $scope.navOption6Link = "#!/clinicUsers"
-    $scope.navOption6 = "Users"
+    // $scope.navOption6Link = "#!/clinicUsers"
+    // $scope.navOption6 = "Users"
     $scope.navOption3Link = "#!";
     $scope.navOption3 = "Logout";
     $scope.navOption2Link = "#!inventory";
@@ -317,7 +317,7 @@ app.controller('registerController', function ($scope, $http,$window) {
                 headers: { 'Content-Type': 'application/json' },
                 data: $scope.register
             }).then((response) => {
-                //$window.location.href = "#!";
+                $window.location.href = "#!";
                 console.log(response.data)
             }, (error) => {
                 console.log(error);
@@ -331,6 +331,10 @@ app.controller('registerController', function ($scope, $http,$window) {
 app.controller('updateController', function ($scope, $http, $routeParams, $window, $rootScope) {
     $scope.navOption1Link = "#!/clp_users";
     $scope.navOption1 = "Patients";
+    $scope.navOption5Link = "#!edit_user";
+    $scope.navOption5 = "My Account";
+    $scope.navOption3Link = "#!";
+    $scope.navOption3 = "Logout";
     $scope.hide = "d-none";
     $scope.hide2 = "d-none";
     $rootScope.dataFile = null;
@@ -438,6 +442,8 @@ app.controller('insertController', function ($scope, $http, $window, $rootScope)
     $scope.navOption1 = "Patients";
     $scope.navOption3Link = "#!";
     $scope.navOption3 = "Logout";
+    $scope.navOption5Link = "#!edit_user";
+    $scope.navOption5 = "My Account";
     $scope.hide2 = "d-none";
     $scope.hide = "d-none";
 
@@ -523,6 +529,8 @@ app.controller('insertClinic', function ($scope, $http, $window) {
     $scope.navOption1 = "Clinics";
     $scope.navOption3Link = "#!";
     $scope.navOption3 = "Logout";
+    $scope.navOption5Link = "#!edit_user";
+    $scope.navOption5 = "My Account";
     $scope.hide2 = "d-none";
     $scope.hide = "d-none";
     $scope.formDataFields = {};
@@ -546,6 +554,8 @@ app.controller('updateClinic', function ($scope, $http, $window, $routeParams) {
     $scope.navOption3 = "Logout";
     $scope.navOption1Link = "#!clinics";
     $scope.navOption1 = "Clinics";
+    $scope.navOption5Link = "#!edit_user";
+    $scope.navOption5 = "My Account";
     $scope.hide2 = "d-none";
     $scope.hide = "d-none";
     $http({
@@ -610,6 +620,8 @@ app.controller('allClinicsUsers', function ($scope, $http, $window) {
     $scope.navOption3 = "Logout";
     $scope.navOption1Link = "#!clinics";
     $scope.navOption1 = "Clinics";
+    $scope.navOption5Link = "#!edit_user";
+    $scope.navOption5 = "My Account";
     $scope.hide2 = "d-none";
     $scope.hide = "d-none";
     $http({
@@ -656,6 +668,8 @@ app.controller('registerUserFields', function ($scope, $window, $http, $routePar
     $scope.navOption3 = "Logout";
     $scope.navOption1Link = "#!clinics";
     $scope.navOption1 = "Clinics";
+    $scope.navOption5Link = "#!edit_user";
+    $scope.navOption5 = "My Account";
     $scope.hide2 = "d-none";
     $scope.hide = "d-none";
     $scope.addUserFields = () => {
@@ -681,6 +695,8 @@ app.controller('updateUser', function ($scope, $window, $routeParams, $http) {
     $scope.navOption3 = "Logout";
     $scope.navOption1Link = "#!clinics";
     $scope.navOption1 = "Clinics";
+    $scope.navOption5Link = "#!edit_user";
+    $scope.navOption5 = "My Account";
     $scope.hide2 = "d-none";
     $scope.hide = "d-none";
     $scope.updateUserData = {};
@@ -726,6 +742,8 @@ app.controller('clinicDetails', function ($scope, $window, $routeParams, $http) 
     $scope.navOption1 = "Clinics";
     $scope.navOption3Link = "#!";
     $scope.navOption3 = "Logout";
+    $scope.navOption5Link = "#!edit_user";
+    $scope.navOption5 = "My Account";
     $scope.hide2 = "d-none";
     $scope.hide = "d-none";
     $scope.addUserData = {};
