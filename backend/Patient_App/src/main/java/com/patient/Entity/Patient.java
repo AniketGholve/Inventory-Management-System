@@ -18,6 +18,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Transient;
 
 @Entity
 public class Patient {
@@ -63,6 +64,9 @@ public class Patient {
 	private Boolean independentInventory;
 	@Column(name = "src_id")
 	private Integer patientSrcId;
+	
+	@Transient
+	private String clinicName;
 
 	
 	
@@ -291,6 +295,31 @@ public class Patient {
 	public void setPatientFile(List<PatientFile> patientFile) {
 		this.patientFile = patientFile;
 	}
+	
+	public String getClinicName() {
+		return clinicName;
+	}
+
+
+
+	public void setClinicName(String clinicName) {
+		this.clinicName = clinicName;
+	}
+
+
+
+	@Override
+	public String toString() {
+		return "Patient [id=" + id + ", patientId=" + patientId + ", patientFirstName=" + patientFirstName
+				+ ", patientLastName=" + patientLastName + ", patientMiddleName=" + patientMiddleName + ", patientDob="
+				+ patientDob + ", patientStatus=" + patientStatus + ", patientEmail=" + patientEmail
+				+ ", patientCreatedOn=" + patientCreatedOn + ", patientModifiedOn=" + patientModifiedOn
+				+ ", patientLocationId=" + patientLocationId + ", patientLastDispenseId=" + patientLastDispenseId
+				+ ", patientEnterpriseId=" + patientEnterpriseId + ", patientPayerType=" + patientPayerType
+				+ ", patientPaNeeded=" + patientPaNeeded + ", independentInventory=" + independentInventory
+				+ ", patientSrcId=" + patientSrcId + ", clinicName=" + clinicName + ", patientFile=" + patientFile
+				+ "]";
+	}
 
 
 
@@ -298,7 +327,7 @@ public class Patient {
 			String patientMiddleName, Date patientDob, String patientStatus, String patientEmail, Date patientCreatedOn,
 			Date patientModifiedOn, Integer patientLocationId, Integer patientLastDispenseId,
 			Integer patientEnterpriseId, String patientPayerType, Boolean patientPaNeeded, Boolean independentInventory,
-			Integer patientSrcId, List<PatientFile> patientFile) {
+			Integer patientSrcId, String clinicName, List<PatientFile> patientFile) {
 		super();
 		this.id = id;
 		this.patientId = patientId;
@@ -317,6 +346,7 @@ public class Patient {
 		this.patientPaNeeded = patientPaNeeded;
 		this.independentInventory = independentInventory;
 		this.patientSrcId = patientSrcId;
+		this.clinicName = clinicName;
 		this.patientFile = patientFile;
 	}
 
@@ -327,20 +357,6 @@ public class Patient {
 		// TODO Auto-generated constructor stub
 	}
 
-
-
-	@Override
-	public String toString() {
-		return "Patient [id=" + id + ", patientId=" + patientId + ", patientFirstName=" + patientFirstName
-				+ ", patientLastName=" + patientLastName + ", patientMiddleName=" + patientMiddleName + ", patientDob="
-				+ patientDob + ", patientStatus=" + patientStatus + ", patientEmail=" + patientEmail
-				+ ", patientCreatedOn=" + patientCreatedOn + ", patientModifiedOn=" + patientModifiedOn
-				+ ", patientLocationId=" + patientLocationId + ", patientLastDispenseId=" + patientLastDispenseId
-				+ ", patientEnterpriseId=" + patientEnterpriseId + ", patientPayerType=" + patientPayerType
-				+ ", patientPaNeeded=" + patientPaNeeded + ", independentInventory=" + independentInventory
-				+ ", patientSrcId=" + patientSrcId + ", patientFile=" + patientFile + "]";
-	}
-	
 
 
 	
