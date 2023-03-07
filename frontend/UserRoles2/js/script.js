@@ -70,6 +70,7 @@ app.controller("elp", ['$scope', '$http', function ($scope, $http) {
 app.controller('logoutCtrl', function ($scope, $window) {
     $scope.logout = () => {
         sessionStorage.removeItem("token")
+        sessionStorage.removeItem("locationId")
         $window.location.href = "#!";
     }
 });
@@ -144,8 +145,6 @@ app.controller('clinicController', function ($scope, $http, $window) {
         headers: {
             'Content-Type': 'application/json',
             'Authorization': sessionStorage.getItem("token")
-
-
         }
 
     }).then((response) => {

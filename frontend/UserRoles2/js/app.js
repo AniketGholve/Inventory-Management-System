@@ -152,7 +152,7 @@ app.controller("loginCtrl", ($scope, $http, $window) => {
     }
 });
 
-app.controller("clp", function ($scope, $http) {
+app.controller("clp", function ($scope, $http, $window) {
 
     $scope.navOption1Link = "#!/clp_users";
     $scope.navOption1 = "Patients";
@@ -178,6 +178,46 @@ app.controller("clp", function ($scope, $http) {
     }, (error) => {
         console.log(error)
     })
+
+
+    $http({
+        method: 'get',
+        url: "http://localhost:7890/getClinicNames",
+        headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") }
+    }).then((response) => {
+        $scope.clinicNames = response.data;
+    }, (error) => { })
+
+    $scope.clinicName = (id) => {
+        let value1 = id.split(",")
+        sessionStorage.setItem("locationId", value1[0]);
+        sessionStorage.setItem("locationIdName", value1[1]);
+        $window.location.reload();
+    }
+
+    if (sessionStorage.getItem("locationId") != undefined || sessionStorage.getItem("locationId") != null) {
+        document.getElementsByClassName("isDisabled")[0].style.opacity = 1;
+        document.getElementsByClassName("isDisabled")[0].style.pointerEvents = "all";
+        document.getElementsByClassName("isDisabled")[0].style.cursor = "default";
+        document.getElementsByClassName("isDisabled")[1].style.opacity = 1;
+        document.getElementsByClassName("isDisabled")[1].style.pointerEvents = "all";
+        document.getElementsByClassName("isDisabled")[1].style.cursor = "default";
+        $http({
+            method: 'get',
+            url: "http://localhost:7890/getPatientByClinic/" + sessionStorage.getItem("locationId"),
+            headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") }
+        }).then((response) => {
+            getPatientDetails(response.data);
+        }, (error) => { })
+
+        $http({
+            method: 'get',
+            url: "http://localhost:7890/getInventoryByClinic/" + sessionStorage.getItem("locationId"),
+            headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") }
+        }).then((response) => {
+            getInventoryDetails(response.data);
+        }, (error) => { })
+    }
     $scope.getOnHand = (id) => {
         $http({
             method: 'GET',
@@ -287,6 +327,7 @@ app.controller("clp", function ($scope, $http) {
         for (let index = 0; index < $scope.patientData.length; index++) {
             localStorage.setItem("locationId" + $scope.patientData[index].id, $scope.patientData[index].patientLocationId);
         }
+
     }
     getInventoryDetails = (data) => {
         $scope.invetoryData = data;
@@ -586,42 +627,46 @@ app.controller('updateClinic', function ($scope, $http, $window, $routeParams) {
     }
 });
 
-app.controller('clinicSelect', function ($scope, $http, $route) {
+// app.controller('clinicSelect', function ($scope, $http, $route) {
 
-    $http({
-        method: 'get',
-        url: "http://localhost:7890/getClinicNames",
-        headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") }
-    }).then((response) => {
-        $scope.clinicNames = response.data;
-    }, (error) => { })
+//     $http({
+//         method: 'get',
+//         url: "http://localhost:7890/getClinicNames",
+//         headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") }
+//     }).then((response) => {
+//         $scope.clinicNames = response.data;
+//     }, (error) => { })
 
-    $scope.clinicName = (id) => {
-        $http({
-            method: 'get',
-            url: "http://localhost:7890/getPatientByClinic/" + id,
-            headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") }
-        }).then((response) => {
-            getPatientDetails(response.data);
-        }, (error) => { })
+//     $scope.clinicName = (id) => {
+//         sessionStorage.setItem("locationId", id);
+//         let locationId = sessionStorage.getItem("locationId");
+//         console.log(locationId)
+//         $http({
+//             method: 'get',
+//             url: "http://localhost:7890/getPatientByClinic/" + locationId,
+//             headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") }
+//         }).then((response) => {
+//             console.log(response)
+//             getPatientDetails(response.data);
+//         }, (error) => { })
 
-        $http({
-            method: 'get',
-            url: "http://localhost:7890/getInventoryByClinic/" + id,
-            headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") }
-        }).then((response) => {
-            getInventoryDetails(response.data);
-        }, (error) => { })
+//         $http({
+//             method: 'get',
+//             url: "http://localhost:7890/getInventoryByClinic/" + locationId,
+//             headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") }
+//         }).then((response) => {
+//             getInventoryDetails(response.data);
+//         }, (error) => { })
 
-    }
+//     }
 
-});
+// });
 
 
 
 app.controller('allClinicsUsers', function ($scope, $http, $window) {
-    $scope.navOption1Link="#!clinics";
-    $scope.navOption1="Clinics";
+    $scope.navOption1Link = "#!clinics";
+    $scope.navOption1 = "Clinics";
     $scope.navOption2Link = "#!/clinicUsers"
     $scope.navOption2 = "Users"
     $scope.navOption5Link = "#!edit_user";
@@ -669,8 +714,8 @@ app.controller('allClinicsUsers', function ($scope, $http, $window) {
 // });
 
 app.controller('registerUserFields', function ($scope, $window, $http, $routeParams) {
-    $scope.navOption1Link="#!clinics";
-    $scope.navOption1="Clinics";
+    $scope.navOption1Link = "#!clinics";
+    $scope.navOption1 = "Clinics";
     $scope.navOption2Link = "#!/clinicUsers"
     $scope.navOption2 = "Users"
     $scope.navOption5Link = "#!edit_user";
@@ -697,8 +742,8 @@ app.controller('registerUserFields', function ($scope, $window, $http, $routePar
 });
 
 app.controller('updateUser', function ($scope, $window, $routeParams, $http) {
-    $scope.navOption1Link="#!clinics";
-    $scope.navOption1="Clinics";
+    $scope.navOption1Link = "#!clinics";
+    $scope.navOption1 = "Clinics";
     $scope.navOption2Link = "#!/clinicUsers"
     $scope.navOption2 = "Users"
     $scope.navOption5Link = "#!edit_user";
@@ -810,3 +855,4 @@ app.controller('clinicUserView', function ($scope, $window, $routeParams, $http)
         console.log(error);
     })
 });
+
