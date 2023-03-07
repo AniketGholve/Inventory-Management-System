@@ -2,6 +2,7 @@ package com.patient.Entity;
 
 import java.sql.Date;
 
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -49,9 +50,120 @@ public class ClinicOrder {
 	private String orderType;
 	@Column(name = "src_id")
 	private int srcId;
+<<<<<<< HEAD
 	
 	public ClinicOrder() {}
 
+=======
+	public int getOrderId() {
+		return orderId;
+	}
+	public void setOrderId(int orderId) {
+		this.orderId = orderId;
+	}
+	public Date getOrderDatetime() {
+		return orderDatetime;
+	}
+	public void setOrderDatetime(Date orderDatetime) {
+		this.orderDatetime = orderDatetime;
+	}
+	public String getPoNumber() {
+		return poNumber;
+	}
+	public void setPoNumber(String poNumber) {
+		this.poNumber = poNumber;
+	}
+	public String getPersonInitial() {
+		return personInitial;
+	}
+	public void setPersonInitial(String personInitial) {
+		this.personInitial = personInitial;
+	}
+	public String getOrderNote() {
+		return orderNote;
+	}
+	public void setOrderNote(String orderNote) {
+		this.orderNote = orderNote;
+	}
+	public int getLocationId() {
+		return locationId;
+	}
+	public void setLocationId(int locationId) {
+		this.locationId = locationId;
+	}
+	public int getEnterpriseId() {
+		return enterpriseId;
+	}
+	public void setEnterpriseId(int enterpriseId) {
+		this.enterpriseId = enterpriseId;
+	}
+	public int getUserId() {
+		return userId;
+	}
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
+	public int getBilltoId() {
+		return billtoId;
+	}
+	public void setBilltoId(int billtoId) {
+		this.billtoId = billtoId;
+	}
+	public String getBilltoName() {
+		return billtoName;
+	}
+	public void setBilltoName(String billtoName) {
+		this.billtoName = billtoName;
+	}
+	public int getShiptoId() {
+		return shiptoId;
+	}
+	public void setShiptoId(int shiptoId) {
+		this.shiptoId = shiptoId;
+	}
+	public String getShiptoName() {
+		return shiptoName;
+	}
+	public void setShiptoName(String shiptoName) {
+		this.shiptoName = shiptoName;
+	}
+	public Date getActivityDate() {
+		return activityDate;
+	}
+	public void setActivityDate(Date activityDate) {
+		this.activityDate = activityDate;
+	}
+	public int getShipfromId() {
+		return shipfromId;
+	}
+	public void setShipfromId(int shipfromId) {
+		this.shipfromId = shipfromId;
+	}
+	public String getMeu() {
+		return meu;
+	}
+	public void setMeu(String meu) {
+		this.meu = meu;
+	}
+	public int getOrderStatusId() {
+		return orderStatusId;
+	}
+	public void setOrderStatusId(int orderStatusId) {
+		this.orderStatusId = orderStatusId;
+	}
+	public String getOrderType() {
+		return orderType;
+	}
+	public void setOrderType(String orderType) {
+		this.orderType = orderType;
+	}
+	public int getSrcId() {
+		return srcId;
+	}
+	public void setSrcId(int srcId) {
+		this.srcId = srcId;
+	}
+>>>>>>> 0121a42a2dc0a4331dacdf84226eb5802d790928
 	public ClinicOrder(int orderId, Date orderDatetime, String poNumber, String personInitial, String orderNote,
 			int locationId, int enterpriseId, int userId, int billtoId, String billtoName, int shiptoId,
 			String shiptoName, Date activityDate, int shipfromId, String meu, int orderStatusId, String orderType,
@@ -76,150 +188,16 @@ public class ClinicOrder {
 		this.orderType = orderType;
 		this.srcId = srcId;
 	}
-
-	public int getOrderId() {
-		return orderId;
+	public ClinicOrder() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
-
-	public void setOrderId(int orderId) {
-		this.orderId = orderId;
-	}
-
-	public Date getOrderDatetime() {
-		return orderDatetime;
-	}
-
-	public void setOrderDatetime(Date orderDatetime) {
-		this.orderDatetime = orderDatetime;
-	}
-
-	public String getPoNumber() {
-		return poNumber;
-	}
-
-	public void setPoNumber(String poNumber) {
-		this.poNumber = poNumber;
-	}
-
-	public String getPersonInitial() {
-		return personInitial;
-	}
-
-	public void setPersonInitial(String personInitial) {
-		this.personInitial = personInitial;
-	}
-
-	public String getOrderNote() {
-		return orderNote;
-	}
-
-	public void setOrderNote(String orderNote) {
-		this.orderNote = orderNote;
-	}
-
-	public int getLocationId() {
-		return locationId;
-	}
-
-	public void setLocationId(int locationId) {
-		this.locationId = locationId;
-	}
-
-	public int getEnterpriseId() {
-		return enterpriseId;
-	}
-
-	public void setEnterpriseId(int enterpriseId) {
-		this.enterpriseId = enterpriseId;
-	}
-
-	public int getUserId() {
-		return userId;
-	}
-
-	public void setUserId(int userId) {
-		this.userId = userId;
-	}
-
-	public int getBilltoId() {
-		return billtoId;
-	}
-
-	public void setBilltoId(int billtoId) {
-		this.billtoId = billtoId;
-	}
-
-	public String getBilltoName() {
-		return billtoName;
-	}
-
-	public void setBilltoName(String billtoName) {
-		this.billtoName = billtoName;
-	}
-
-	public int getShiptoId() {
-		return shiptoId;
-	}
-
-	public void setShiptoId(int shiptoId) {
-		this.shiptoId = shiptoId;
-	}
-
-	public String getShiptoName() {
-		return shiptoName;
-	}
-
-	public void setShiptoName(String shiptoName) {
-		this.shiptoName = shiptoName;
-	}
-
-	public Date getActivityDate() {
-		return activityDate;
-	}
-
-	public void setActivityDate(Date activityDate) {
-		this.activityDate = activityDate;
-	}
-
-	public int getShipfromId() {
-		return shipfromId;
-	}
-
-	public void setShipfromId(int shipfromId) {
-		this.shipfromId = shipfromId;
-	}
-
-	public String getMeu() {
-		return meu;
-	}
-
-	public void setMeu(String meu) {
-		this.meu = meu;
-	}
-
-	public int getOrderStatusId() {
-		return orderStatusId;
-	}
-
-	public void setOrderStatusId(int orderStatusId) {
-		this.orderStatusId = orderStatusId;
-	}
-
-	public String getOrderType() {
-		return orderType;
-	}
-
-	public void setOrderType(String orderType) {
-		this.orderType = orderType;
-	}
-
-	public int getSrcId() {
-		return srcId;
-	}
-
-	public void setSrcId(int srcId) {
-		this.srcId = srcId;
-	}
+	
+	
+<<<<<<< HEAD
+}
+=======
 	
 	
 }
+>>>>>>> 0121a42a2dc0a4331dacdf84226eb5802d790928
