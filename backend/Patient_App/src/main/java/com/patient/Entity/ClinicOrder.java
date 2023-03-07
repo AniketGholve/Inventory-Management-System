@@ -9,7 +9,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
-public class Order {
+public class ClinicOrder {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -50,9 +50,9 @@ public class Order {
 	@Column(name = "src_id")
 	private int srcId;
 	
-	public Order() {}
+	public ClinicOrder() {}
 
-	public Order(int orderId, Date orderDatetime, String poNumber, String personInitial, String orderNote,
+	public ClinicOrder(int orderId, Date orderDatetime, String poNumber, String personInitial, String orderNote,
 			int locationId, int enterpriseId, int userId, int billtoId, String billtoName, int shiptoId,
 			String shiptoName, Date activityDate, int shipfromId, String meu, int orderStatusId, String orderType,
 			int srcId) {
@@ -220,7 +220,6 @@ public class Order {
 	public void setSrcId(int srcId) {
 		this.srcId = srcId;
 	}
-	
 	
 	
 }
