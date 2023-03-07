@@ -44,56 +44,22 @@ public class UserController {
 	@Autowired
 	private OrdersRepository Orepo;
 
-	
 
 	@PostMapping("/addUser")
-	public Integer addUser(@RequestBody UserEntity user) {
-		System.out.println(user.toString());
-		String role = user.getRole();
-		String arr[] = { "CLP", "ELP", "ALP", "MLP" };
-		boolean result = Arrays.asList(arr).contains(role);
-		if (result) {
-			user.setPassword(passwordEncoder.encode(user.getPassword()));
-			userEntityRepo.save(user);
-			return 1;
-		}
-		return -1;
+	public ResponseEntity<UserEntity> addUser(@RequestBody UserEntity userEntity) 
+	{
+		userEntityServiceImpl.addUser(userEntity);
+		return new ResponseEntity<UserEntity>(HttpStatus.CREATED);
 	}
 
+	
 	@PutMapping("/editUser")
-	public ResponseEntity<UserEntity> editUser(@RequestBody UserEntity user) {
-		System.out.println("user");
-		System.out.println(user.toString());
-		
-		UserEntity u = userEntityRepo.findByUsername(user.getUsername());
-		//UserEntity u=userEntityServiceImpl.findByCustomUsername(user.getUsername());
-		System.out.println(u.toString());
-		if(user.getFirstName() != null) {
-			u.setFirstName(user.getFirstName());
-			System.out.println(user.getFirstName());	
-		}
-		if (user.getLastName()!= null) {
-			u.setLastName(user.getLastName());
-		}
-		if (user.getDateofBirth() != null) {
-			u.setDateofBirth(user.getDateofBirth());
-		}
-		if (user.getPhoneNo() != null) {
-			u.setPhoneNo(user.getPhoneNo());
-		}
-		if (user.getPassword() != null) {
-			u.setPassword(passwordEncoder.encode(user.getPassword()));
-		}
-		if (user.getUsername() != null) {
-			u.setUsername(user.getUsername());
-		}
-		if (user.getRole() != null) {
-			u.setRole(user.getRole());
-		}
-		
-		UserEntity editUser = userEntityRepo.save(u);
-		return ResponseEntity.ok(editUser);
- 	}
+	public ResponseEntity<UserEntity> editUser(@RequestBody UserEntity user) 
+	{
+		UserEntity editUser = userEntityServiceImpl.editUser(user);
+		return new ResponseEntity<UserEntity>(editUser,HttpStatus.OK);
+	}
+	
 	
 	@GetMapping("/getUserDetails/{username}")
 	public ResponseEntity<UserEntity> getByUsername(@PathVariable String username) {
