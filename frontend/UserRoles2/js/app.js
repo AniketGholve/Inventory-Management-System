@@ -18,6 +18,10 @@ app.factory('myInterceptor', function ($q) {
     return interceptor;
 });
 app.controller("headerController", ($scope, $http) => {
+    $scope.activeTab=sessionStorage.getItem("activeTab");
+    $scope.activeTabSetter=(activeTabValue)=>{
+        sessionStorage.setItem("activeTab",activeTabValue);
+    }
     if (sessionStorage.getItem("username") != undefined) {
         $http({
             method: 'GET',
@@ -146,7 +150,7 @@ app.config(function ($routeProvider, $httpProvider) {
             {
                 templateUrl: "/view/ordersInfo.html"
             })
-        .when('/orders', 
+        .when('/orders',
             {
                 templateUrl: "view/orders.html"
             });
@@ -216,25 +220,11 @@ app.controller("clp", function ($scope, $http, $window) {
     }, (error) => { })
 
     $scope.clinicName = (id) => {
-        let value1 = id.split(",")
-        sessionStorage.setItem("locationId", value1[0]);
-        sessionStorage.setItem("locationIdName", value1[1]);
-        var sessitem=sessionStorage.getItem("locationIdName");
-        //document.getElementById("clinics")[1].setAttribute("selected","none");
+        sessionStorage.setItem("locationId", id);    
         $window.location.reload();
-        var iid=document.getElementById("clinics"); 
-        iid.options[0].selected=true;
-        // for (var option of document.getElementById("clinics").options) {
-        //     var k=option.value.split(",");
-        //     if (option.value === k[1]) {
-        //         option.selected = true;
-        //         return;
-        //     }
-        // }
-    
-
     }
     if (sessionStorage.getItem("locationId") != undefined || sessionStorage.getItem("locationId") != null) {
+        $scope.id=sessionStorage.getItem("locationId");
         const elements = document.querySelectorAll(".isDisabled");
         for (let i = 0; i < elements.length; i++) {
             elements[i].classList.remove("isDisabled");
@@ -402,18 +392,18 @@ app.controller("alp", ($scope, $http, $window) => {
         })
     }
     //Order Controller
-    $http({
-        method: 'GET',
-        url: 'http://localhost:7890/getClinic',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': sessionStorage.getItem("token")
-        }
-    }).then((response) => {
-        $scope.orderData = response.data;
-    }, (error) => {
-        console.log(error);
-    });
+    // $http({
+    //     method: 'GET',
+    //     url: 'http://localhost:7890/getClinic',
+    //     headers: {
+    //         'Content-Type': 'application/json',
+    //         'Authorization': sessionStorage.getItem("token")
+    //     }
+    // }).then((response) => {
+    //     $scope.orderData = response.data;
+    // }, (error) => {
+    //     console.log(error);
+    // });
 });
 
 app.controller('registerController', function ($scope, $http, $window) {

@@ -4,26 +4,26 @@
             <a class="navbar-brand" href="">Inventory Management System</a>
             <div class="collapse navbar-collapse">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item nav_hover {{clp}}">
-                        <a class="nav-link" href="#!/clp_users">Patients</a>
+                    <li class="nav-item nav_hover {{clp}}" ng-class="{active: activeTab === 'patient'}">
+                        <a class="nav-link" href="#!/clp_users" ng-click="activeTabSetter('patient')">Patients</a>
                     </li>
-                    <li class="nav-item nav_hover {{clp}}">
-                        <a class="nav-link" href="#!inventory">Inventory</a>
+                    <li class="nav-item nav_hover {{clp}}" ng-class="{active: activeTab === 'inventory'}">
+                        <a class="nav-link" href="#!inventory" ng-click="activeTabSetter('inventory')">Inventory</a>
                     </li>
-                    <li class="nav-item nav_hover {{login}}">
-                        <a class="nav-link" href="#!">Login</a>
+                    <li class="nav-item nav_hover {{login}}" ng-class="{active: activeTab === 'login'}">
+                        <a class="nav-link" href="#!" ng-click="activeTabSetter('login')">Login</a>
                     </li>
-                    <li class="nav-item nav_hover {{login}}">
-                        <a class="nav-link" href="#!register">Register</a>
+                    <li class="nav-item nav_hover {{login}}" ng-class="{active: activeTab === 'register'}">
+                        <a class="nav-link" href="#!register" ng-click="activeTabSetter('register')">Register</a>
                     </li>
-                    <li class="nav-item nav_hover {{alp}}">
-                        <a class="nav-link" href="#!clinics">Clinics</a>
+                    <li class="nav-item nav_hover {{alp}}" ng-class="{active: activeTab === 'clinic'}">
+                        <a class="nav-link" href="#!clinics" ng-click="activeTabSetter('clinic')">Clinics</a>
                     </li>
-                    <li class="nav-item nav_hover {{alp}}">
-                        <a class="nav-link" href="#!/clinicUsers">Users</a>
+                    <li class="nav-item nav_hover {{alp}}" ng-class="{active: activeTab === 'user'}">
+                        <a class="nav-link" href="#!/clinicUsers" ng-click="activeTabSetter('user')">Users</a>
                     </li>
-                    <li class="nav-item nav_hover {{alp}}">
-                        <a class="nav-link" href="#!/ordersInfo">Order</a>
+                    <li class="nav-item nav_hover {{alp}}" ng-class="{active: activeTab === 'order'}">
+                        <a class="nav-link" href="#!/ordersInfo" ng-click="activeTabSetter('order')">Order</a>
                     </li>
                     <li class="nav-item nav_hover {{clp}}">
                         <a class="nav-link" href="#!/orders">Order</a>
