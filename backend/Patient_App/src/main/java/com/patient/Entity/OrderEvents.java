@@ -47,6 +47,35 @@ public class OrderEvents {
 	private int shiptoId;
 	@Transient
 	private String shiptoName;
+	@Transient
+	private String poNumber;
+	public OrderEvents() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	public OrderEvents(Integer orderEventId, Integer statusId, Date activityDate, Integer quantity, String eventDesc,
+			Integer orderId, Integer locationId, Integer productId, String packageType, Integer enterpriseId,
+			Integer deliveryOrderId, Integer shipmentTrackingId, Integer userId, Integer srcId, int shiptoId,
+			String shiptoName, String poNumber) {
+		super();
+		this.orderEventId = orderEventId;
+		this.statusId = statusId;
+		this.activityDate = activityDate;
+		this.quantity = quantity;
+		this.eventDesc = eventDesc;
+		this.orderId = orderId;
+		this.locationId = locationId;
+		this.productId = productId;
+		this.packageType = packageType;
+		this.enterpriseId = enterpriseId;
+		this.deliveryOrderId = deliveryOrderId;
+		this.shipmentTrackingId = shipmentTrackingId;
+		this.userId = userId;
+		this.srcId = srcId;
+		this.shiptoId = shiptoId;
+		this.shiptoName = shiptoName;
+		this.poNumber = poNumber;
+	}
 	public Integer getOrderEventId() {
 		return orderEventId;
 	}
@@ -143,48 +172,12 @@ public class OrderEvents {
 	public void setShiptoName(String shiptoName) {
 		this.shiptoName = shiptoName;
 	}
-	@Override
-	public String toString() {
-		return "OrderEvents [orderEventId=" + orderEventId + ", statusId=" + statusId + ", activityDate=" + activityDate
-				+ ", quantity=" + quantity + ", eventDesc=" + eventDesc + ", orderId=" + orderId + ", locationId="
-				+ locationId + ", productId=" + productId + ", packageType=" + packageType + ", enterpriseId="
-				+ enterpriseId + ", deliveryOrderId=" + deliveryOrderId + ", shipmentTrackingId=" + shipmentTrackingId
-				+ ", userId=" + userId + ", srcId=" + srcId + ", shiptoId=" + shiptoId + ", shiptoName=" + shiptoName
-				+ "]";
+	public String getPoNumber() {
+		return poNumber;
 	}
-	public OrderEvents(Integer orderEventId, Integer statusId, Date activityDate, Integer quantity, String eventDesc,
-			Integer orderId, Integer locationId, Integer productId, String packageType, Integer enterpriseId,
-			Integer deliveryOrderId, Integer shipmentTrackingId, Integer userId, Integer srcId, int shiptoId,
-			String shiptoName) {
-		super();
-		this.orderEventId = orderEventId;
-		this.statusId = statusId;
-		this.activityDate = activityDate;
-		this.quantity = quantity;
-		this.eventDesc = eventDesc;
-		this.orderId = orderId;
-		this.locationId = locationId;
-		this.productId = productId;
-		this.packageType = packageType;
-		this.enterpriseId = enterpriseId;
-		this.deliveryOrderId = deliveryOrderId;
-		this.shipmentTrackingId = shipmentTrackingId;
-		this.userId = userId;
-		this.srcId = srcId;
-		this.shiptoId = shiptoId;
-		this.shiptoName = shiptoName;
+	public void setPoNumber(String poNumber) {
+		this.poNumber = poNumber;
 	}
-	public OrderEvents() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-	
-	
-	
-	
-	
-	
-	
 	
 
 }

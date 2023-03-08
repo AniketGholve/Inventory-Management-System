@@ -46,9 +46,9 @@ public class OrderEventsController {
 	
 	
 	@PostMapping("changeStatus/{orderEventsId}")
-	public ResponseEntity<String> changeOrderStatus(@RequestParam("status") String status,@PathVariable Integer orderEventsId){
+	public ResponseEntity<String> changeOrderStatus(@PathVariable Integer orderEventsId){
 		
-		String result=orderEventsServiceImpl.changeOrderStatus(orderEventsId,status);
+		String result=orderEventsServiceImpl.changeOrderStatus(orderEventsId);
 		return new ResponseEntity<String>(result,HttpStatus.OK);
 	}
 	
@@ -57,6 +57,14 @@ public class OrderEventsController {
 	public ResponseEntity<String> cancelOrder(@PathVariable Integer orderEventId){
 		String result=orderEventsServiceImpl.cancelOrder(orderEventId);
 		return new ResponseEntity<String>(result,HttpStatus.OK);
+	}
+	
+	
+	@GetMapping("getOrderingScreen")
+	public ResponseEntity<List<OrderEvents>> getOrderingScreen()
+	{
+		List<OrderEvents> resultList=orderEventsServiceImpl.getOrderingScreen();
+		return new ResponseEntity<List<OrderEvents>>(resultList,HttpStatus.OK);
 	}
 	
 

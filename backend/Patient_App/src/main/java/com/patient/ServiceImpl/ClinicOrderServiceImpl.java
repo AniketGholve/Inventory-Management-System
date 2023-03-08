@@ -53,7 +53,7 @@ public class ClinicOrderServiceImpl implements ClinicOrderService {
 		clinicOrder.setShipfromId(0);
 		clinicOrder.setShiptoId(0);
 		clinicOrder.setShiptoName(null);
-		clinicOrder.setSrcId(10);
+		clinicOrder.setSrcId(123);
 		clinicOrder.setUserId(0);
 		ClinicOrder c=clinicOrderRepo.save(clinicOrder);
 		return c;

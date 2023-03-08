@@ -10,7 +10,7 @@ public interface OrderEventsService {
 	
 	public List<OrderEvents> getAllOrderDetails();
 	
-	public String changeOrderStatus(Integer orderEventsId, String status);
+	public String changeOrderStatus(Integer orderEventsId);
 	
 	public String cancelOrder(Integer orderEventId);
 	
