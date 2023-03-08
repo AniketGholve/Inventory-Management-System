@@ -35,9 +35,7 @@ public class PatientServiceImpl implements PatientService {
 		long m=System.currentTimeMillis();
 		Date d=new Date(m);
 		patient.setPatientCreatedOn(d);
-		
 		Patient p=patientRepo.save(patient);
-		
 		//Patient p=patientRepo.insertData(patient);
 		return p;
 	}
@@ -98,11 +96,23 @@ public class PatientServiceImpl implements PatientService {
 	@Override
 	public List<Patient> getPatientByLocationId(Integer clinicLocationId) {
 		// TODO Auto-generated method stub
-		Query q=entityManager.createQuery("select p from Patient p where p.patientLocationId=:u" );
+		Query q=entityManager.createQuery("select p.patientId,p.patientFirstName,p.patientLastName,p.patientMiddleName,p.patientDob,p.patientStatus,c.name,p.patientEnterpriseId from Patient p inner join Clinic c on p.patientLocationId=c.locationId where p.patientLocationId=:u" );
 		q.setParameter("u", clinicLocationId);
-		List<Patient> l=q.getResultList();
-		
-		return l;
+		List<Object[]> l=q.getResultList();
+		List<Patient> resultList=new ArrayList<>();
+		for(Object[] o:l) {
+			Patient p=new Patient();
+			p.setPatientId((String)o[0]);
+			p.setPatientFirstName((String)o[1]);
+			p.setPatientLastName((String)o[2]);
+			p.setPatientMiddleName((String)o[3]);
+			p.setPatientDob((Date)o[4]);
+			p.setPatientStatus((String)o[5]);
+			p.setClinicName((String)o[6]);
+			p.setPatientEnterpriseId((Integer)o[7]);
+			resultList.add(p);
+		}
+		return resultList;
 	}
 
 

@@ -145,6 +145,10 @@ app.config(function ($routeProvider, $httpProvider) {
         .when("/ordersInfo",
             {
                 templateUrl: "/view/ordersInfo.html"
+            })
+        .when('/orders', 
+            {
+                templateUrl: "view/orders.html"
             });
     $httpProvider.interceptors.push('myInterceptor');
 });
@@ -215,7 +219,20 @@ app.controller("clp", function ($scope, $http, $window) {
         let value1 = id.split(",")
         sessionStorage.setItem("locationId", value1[0]);
         sessionStorage.setItem("locationIdName", value1[1]);
+        var sessitem=sessionStorage.getItem("locationIdName");
+        //document.getElementById("clinics")[1].setAttribute("selected","none");
         $window.location.reload();
+        var iid=document.getElementById("clinics"); 
+        iid.options[0].selected=true;
+        // for (var option of document.getElementById("clinics").options) {
+        //     var k=option.value.split(",");
+        //     if (option.value === k[1]) {
+        //         option.selected = true;
+        //         return;
+        //     }
+        // }
+    
+
     }
     if (sessionStorage.getItem("locationId") != undefined || sessionStorage.getItem("locationId") != null) {
         const elements = document.querySelectorAll(".isDisabled");

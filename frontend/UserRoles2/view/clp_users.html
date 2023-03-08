@@ -27,7 +27,7 @@
                     <th class="px-3">Date Of Birth</th>
                     <th class="px-3">Patient Status</th>
                     <!-- <th class="px-3">Email</th> -->
-                    <th class="px-3">Location Id</th>
+                    <th class="px-3">Clinic Names</th>
                     <!-- <th class="px-3">Last Dispense Loc Id</th> -->
                     <th class="px-3">Enterprise Id</th>
                     <!-- <th class="px-3">Payer Type</th>
@@ -37,7 +37,7 @@
                     <th class="px-3">Actions</th>
                     <!-- <th class="px-3">Delete</th> -->
                 </tr>
-                <tr ng-repeat="x in patientData" ng-if="searchPatientData==null">
+                <tr ng-repeat="x in patientData | filter:variable" ng-if="searchPatientData==null">
                     <!-- <td class="px-3">
                         {{ x.id }}
                     </td> -->
@@ -63,7 +63,7 @@
                         {{ x.patientEmail }}
                     </td> -->
                     <td class="px-3">
-                        {{ x.patientLocationId }}
+                        {{ x.clinicName }}
                     </td>
                     <!-- <td class="px-3">
                         {{ x.patientLastDispenseId }}

@@ -3,7 +3,7 @@ body {
 }
 
 #patientDetailsTable,
-#inventoryDetailsTable ,#selectedTable{
+#inventoryDetailsTable ,#selectedTable,#orderTable{
   font-size: 15px;
 }
 
@@ -195,6 +195,13 @@ td {
   cursor: not-allowed;
   opacity: 0.5; 
   pointer-events: none;
+}
+
+
+#placeorder{
+margin-left: 45%;  
+
+
 }
 #clinics{
   border-radius: 10px;
