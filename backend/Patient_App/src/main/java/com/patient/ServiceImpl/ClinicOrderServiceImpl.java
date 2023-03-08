@@ -40,7 +40,7 @@ public class ClinicOrderServiceImpl implements ClinicOrderService {
 		clinicOrder.setActivityDate(d);
 		clinicOrder.setBilltoId(123);
 		clinicOrder.setBilltoName(clinic.getBillTo());
-		clinicOrder.setEnterpriseId(clinic.getEnterpriseId());
+		clinicOrder.setEnterpriseId(1);
 		clinicOrder.setLocationId(locationId);
 		clinicOrder.setMeu(null);
 		clinicOrder.setOrderDatetime(d);
@@ -53,7 +53,7 @@ public class ClinicOrderServiceImpl implements ClinicOrderService {
 		clinicOrder.setShipfromId(0);
 		clinicOrder.setShiptoId(0);
 		clinicOrder.setShiptoName(null);
-		clinicOrder.setSrcId(clinic.getSrc_id());
+		clinicOrder.setSrcId(10);
 		clinicOrder.setUserId(0);
 		ClinicOrder c=clinicOrderRepo.save(clinicOrder);
 		return c;

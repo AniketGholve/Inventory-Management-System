@@ -19,8 +19,8 @@ import com.patient.Entity.Inventory;
 import com.patient.Entity.OrderEvents;
 import com.patient.ServiceImpl.OrderEventsServiceImpl;
 
-@CrossOrigin
 @RestController
+@CrossOrigin
 public class OrderEventsController {
 	
 	@Autowired
