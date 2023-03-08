@@ -124,7 +124,7 @@ public class InventoryServiceImpl implements InventoryService {
 	{
 		Query q=entityManager.createNativeQuery("select i.product_id,p.product_name,i.expired,i.on_hand from inventory i inner join product p on i.product_id=p.product_id where i.location_id=?");
 		q.setParameter(1, clinicLocationId);
-		List<Object[]> l=q.getResultList();
+		List<Object[]> l=q.getResultList();	
 		List<Inventory> resultList=new ArrayList<>();
 		for(Object[] result:l)
 		{

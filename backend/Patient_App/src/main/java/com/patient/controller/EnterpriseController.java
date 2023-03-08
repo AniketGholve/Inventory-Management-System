@@ -32,7 +32,6 @@ public class EnterpriseController {
 	public ResponseEntity<Enterprises> createEnterprise(@RequestBody Enterprises enterprise)
 	{
 		Enterprises e=enterpriseserviceImpl.createEnterprises(enterprise);
-		
 		return new ResponseEntity<Enterprises>(e,HttpStatus.CREATED);
 	}
 
