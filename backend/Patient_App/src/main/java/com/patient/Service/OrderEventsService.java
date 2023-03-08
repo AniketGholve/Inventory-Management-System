@@ -18,4 +18,6 @@ public interface OrderEventsService {
 
 	
 	public List<OrderEvents> getOrderingScreen();
+	
+	public Inventory getinventoryByProductId(Integer productId,Integer locationId);
 }

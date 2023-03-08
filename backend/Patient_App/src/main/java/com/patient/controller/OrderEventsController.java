@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.patient.Entity.Inventory;
 import com.patient.Entity.OrderEvents;
+import com.patient.Repo.InventoryRepo;
+import com.patient.ServiceImpl.InventoryServiceImpl;
 import com.patient.ServiceImpl.OrderEventsServiceImpl;
 
 @RestController
@@ -25,6 +27,8 @@ public class OrderEventsController {
 	
 	@Autowired
 	private OrderEventsServiceImpl orderEventsServiceImpl;
+	
+	 
 	
 	
 	
@@ -65,6 +69,13 @@ public class OrderEventsController {
 	{
 		List<OrderEvents> resultList=orderEventsServiceImpl.getOrderingScreen();
 		return new ResponseEntity<List<OrderEvents>>(resultList,HttpStatus.OK);
+	}
+	
+	
+	@GetMapping("/getinventoryByProductId/{productId}/{locationId}")
+	public ResponseEntity<Inventory> getinventoryByProductId(@PathVariable Integer productId,@PathVariable Integer locationId ){
+		Inventory inventory =orderEventsServiceImpl.getinventoryByProductId(productId,locationId);
+		return new ResponseEntity<Inventory>(inventory,HttpStatus.OK);
 	}
 	
 

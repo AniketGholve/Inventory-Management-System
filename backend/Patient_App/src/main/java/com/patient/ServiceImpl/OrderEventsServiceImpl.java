@@ -90,7 +90,7 @@ public class OrderEventsServiceImpl implements OrderEventsService {
 	@Override
 	public List<OrderEvents> getOrderingScreen() {
 		// TODO Auto-generated method stub
-		Query q=entityManager.createNativeQuery("select oe.activity_date,oe.order_event_id,co.po_number,co.shipto_id,co.shipto_name,oe.event_desc,oe.quantity from order_events oe inner join clinic_order co on oe.order_id=co.order_id");
+		Query q=entityManager.createNativeQuery("select oe.activity_date,oe.order_event_id,co.po_number,co.shipto_id,co.shipto_name,oe.event_desc,oe.quantity,oe.product_id,oe.location_id from order_events oe inner join clinic_order co on oe.order_id=co.order_id");
 		List<Object[]> orderinglist=q.getResultList();
 		List<OrderEvents> orderEventList=new ArrayList<>();
 		for(Object [] o:orderinglist) {
@@ -102,9 +102,31 @@ public class OrderEventsServiceImpl implements OrderEventsService {
 			orderEvents.setShiptoName((String)o[4]);
 			orderEvents.setEventDesc((String)o[5]);
 			orderEvents.setQuantity((Integer)o[6]);
+			orderEvents.setProductId((Integer)o[7]);
+			orderEvents.setLocationId((Integer)o[8]);
 			orderEventList.add(orderEvents);
 		}
 		return orderEventList;
+	}
+
+
+	public Inventory getinventoryByProductId(Integer productId,Integer locationId) {
+		// TODO Auto-generated method stub
+		List<Inventory> resultList=new ArrayList<>();
+		Query q=entityManager.createNativeQuery("select i.product_id,p.product_name,i.expired,i.on_hand from inventory i inner join product p on i.product_id=p.product_id where i.location_id=? and i.product_id=?");
+		q.setParameter(1, locationId);
+		q.setParameter(2, productId);
+		System.out.println(q.getSingleResult());
+		Object[] l=(Object[]) q.getSingleResult();
+			Inventory i=new Inventory();
+			i.setProductId(l[0]==null?null:(Integer) l[0]);
+			i.setProductName(l[1]==null?null:(String) l[1]);
+			i.setExpiredQty(l[2]==null?null:(Integer) l[2]);
+			i.setOnHand(l[3]==null?null:(Integer) l[3]);
+			return i;
+			
+			
+		
 	}
 
 	
