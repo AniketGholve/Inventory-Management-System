@@ -27,6 +27,8 @@ public class ClinicOrderController {
 	}
 	
 	
+	
+	
 	@GetMapping("/getAllOrders/{locId}")
 	public List<ClinicOrder> getAllOrders(@PathVariable("locId") Integer locId)
 	{
