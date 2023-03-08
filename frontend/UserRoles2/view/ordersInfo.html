@@ -1,0 +1,53 @@
+<div ng-controller="alp">
+    <div ng-include="'view/header.html'"></div>
+    <h1 class="text-center">Orders</h1><br>
+    <div class="container">
+        <div class="container d-flex justify-content-center mt-5">
+            <table class="table table-striped table-bordered text-center">
+                <thead class="clinics">
+                    <tr>
+                        <th>Date and time</th>
+                        <th>Cust Order</th>
+                        <th>Purchase Order</th>
+                        <th>Ship-to-ID</th>
+                        <th>Ship-to Name</th>
+                        <th>Status</th>
+                        <th>Dose</th>
+                        <th>Process</th>
+                        <th>View Inventory</th>
+                        <th>Cancle</th>
+                        <!-- <th>Order Event Id</th>
+                        <th>Status Id</th>
+                        <th>Activity Date</th>
+                        <th>Quantity</th>
+                        <th>Event Desc</th>
+                        <th>Order Id</th>
+                        <th>Location Id</th>
+                        <th>Product Id</th>
+                        <th>Package Type</th>
+                        <th>Enterprise Id</th>
+                        <th>Delivery Order Id</th>
+                        <th>Shipment Tracking Id</th>
+                        <th>User Id</th>
+                        <th>Src Id</th> -->
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="x in clinic_data">
+                        <td class="p-3">{{x.order_datetime}}</td>
+                        <td class="p-3">{{x.order_id}}</td>
+                        <td class="p-3">{{x.po_number}}</td>
+                        <td class="p-3">{{x.shipto_id}}</td>
+                        <td class="p-3">{{x.shipto_name}}</td>
+                        <td class="p-3">{{x.order_status_id}}</td>
+                        <td class="p-3">0</td>
+                        <td class="p-3"><a href=""><i class="fa-regular fa-circle-check link-danger"></i></a></td>
+                        <td class="p-3"><a href=""><i class="fa-sharp fa-solid fa-box link-danger"></i></a></td>
+                        <td class="p-3"><a href=""><i class="fa-regular fa-circle-xmark link-danger"></i></a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

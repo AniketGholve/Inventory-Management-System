@@ -1,47 +1,46 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="">Inventory Management System</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item nav_hover {{hide1}}">
-                    <a class="nav-link" href="{{navOption1Link}}">{{navOption1}}</a>
-                </li>
-                <li class="nav-item nav_hover {{hide}}">
-                    <a class="nav-link" href="{{navOption2Link}}">{{navOption2}}</a>
-                </li>
-                <li class="nav-item nav_hover {{hide2}}">
-                    <a class="nav-link" href="{{navOption6Link}}">{{navOption6}}</a>
-                </li>
-
-                <li class="nav-item nav_hover ">
-                    <a class="nav-link" href="{{navOption7Link}}">{{navOption7}}</a>
-                </li>
-
-                <li class="nav-item nav_hover ">
-                    <a class="nav-link" href="{{navOption8Link}}">{{navOption8}}</a>
-                </li>
-                
-            </ul>
-
-            <div class="{{hideUser}}">
+<div id="topheader" ng-controller="headerController">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="">Inventory Management System</a>
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item nav_hover {{clp}}">
+                        <a class="nav-link" href="#!/clp_users">Patients</a>
+                    </li>
+                    <li class="nav-item nav_hover {{clp}}">
+                        <a class="nav-link" href="#!inventory">Inventory</a>
+                    </li>
+                    <li class="nav-item nav_hover {{login}}">
+                        <a class="nav-link" href="#!">Login</a>
+                    </li>
+                    <li class="nav-item nav_hover {{login}}">
+                        <a class="nav-link" href="#!register">Register</a>
+                    </li>
+                    <li class="nav-item nav_hover {{alp}}">
+                        <a class="nav-link" href="#!clinics">Clinics</a>
+                    </li>
+                    <li class="nav-item nav_hover {{alp}}">
+                        <a class="nav-link" href="#!/clinicUsers">Users</a>
+                    </li>
+                    <li class="nav-item nav_hover {{alp}}">
+                        <a class="nav-link" href="#!/ordersInfo">Order</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="{{userIcon}}">
                 <div class="icon">
                     <button onclick="myFunction()" class="btn1"> <i style="font-size:50px"
                             class="fa">&#xf2be;</i></button>
                 </div>
 
-                <div id="myDIV" class="sub-menu">
-                    <a class="sub-menu-link" href="{{navOption5Link}}">{{navOption5}}</a>
+                <div id="myDIV" class="sub-menu" >
+                    <a class="sub-menu-link" href="#!edit_user">My Account</a>
                     <hr class="hr">
-                    <div>
-                        <a class="sub-menu-link" ng-controller="logoutCtrl" ng-click="logout()"
-                            href="{{navOption3Link}}">{{navOption3}}</a>
+                    <div ng-controller="logoutCtrl">
+                        <a class="sub-menu-link"ng-click="logout()" href="#!">Logout</a>
                     </div>
                 </div>
             </div>
-
         </div>
-</nav>
+    </nav>
+</div>

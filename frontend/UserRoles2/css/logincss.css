@@ -196,3 +196,13 @@ td {
   opacity: 0.5; 
   pointer-events: none;
 }
+#clinics{
+  border-radius: 10px;
+  font-size: 18px;
+  text-align: center;
+}
+
+#topheader .navbar-nav li.active > a {
+  background-color: rgb(195, 73, 73);
+  color: white;
+}
