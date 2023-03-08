@@ -90,7 +90,7 @@ public class OrderEventsServiceImpl implements OrderEventsService {
 	@Override
 	public List<OrderEvents> getOrderingScreen() {
 		// TODO Auto-generated method stub
-		Query q=entityManager.createNativeQuery("select oe.activity_date,oe.order_event_id,co.po_number,co.shipto_id,co.shipto_name,oe.event_desc,oe.quantity from order_events oe inner join clinic_order co on oe.order_id=co.order_id");
+		Query q=entityManager.createNativeQuery("select oe.activity_date,oe.order_event_id,co.po_number,co.shipto_id,co.shipto_name,oe.event_desc,oe.quantity,oe.product_id,oe.location_id from order_events oe inner join clinic_order co on oe.order_id=co.order_id");
 		List<Object[]> orderinglist=q.getResultList();
 		List<OrderEvents> orderEventList=new ArrayList<>();
 		for(Object [] o:orderinglist) {
@@ -102,6 +102,8 @@ public class OrderEventsServiceImpl implements OrderEventsService {
 			orderEvents.setShiptoName((String)o[4]);
 			orderEvents.setEventDesc((String)o[5]);
 			orderEvents.setQuantity((Integer)o[6]);
+			orderEvents.setProductId((Integer)o[7]);
+			orderEvents.setLocationId((Integer)o[8]);
 			orderEventList.add(orderEvents);
 		}
 		return orderEventList;
