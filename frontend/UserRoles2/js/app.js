@@ -18,9 +18,8 @@ app.factory('myInterceptor', function ($q) {
     return interceptor;
 });
 app.controller("headerController", ($scope, $http) => {
-    $scope.activeTab=sessionStorage.getItem("activeTab");
-    $scope.activeTabSetter=(activeTabValue)=>{
-        sessionStorage.setItem("activeTab",activeTabValue);
+    $scope.activeTabSetter = (activeTabValue) => {
+        sessionStorage.setItem("activeTab", activeTabValue);
     }
     if (sessionStorage.getItem("username") != undefined) {
         $http({
@@ -59,7 +58,11 @@ app.controller("headerController", ($scope, $http) => {
         $scope.clp = "d-none";
         $scope.alp = "d-none";
         $scope.userIcon = "d-none";
+        if (sessionStorage.getItem("activeTab") == undefined) {
+            sessionStorage.setItem("activeTab", "login")
+        }
     }
+    $scope.activeTab = sessionStorage.getItem("activeTab");
 })
 
 app.directive("fileInput", function ($parse) {
@@ -220,11 +223,11 @@ app.controller("clp", function ($scope, $http, $window) {
     }, (error) => { })
 
     $scope.clinicName = (id) => {
-        sessionStorage.setItem("locationId", id);    
+        sessionStorage.setItem("locationId", id);
         $window.location.reload();
     }
     if (sessionStorage.getItem("locationId") != undefined || sessionStorage.getItem("locationId") != null) {
-        $scope.id=sessionStorage.getItem("locationId");
+        $scope.id = sessionStorage.getItem("locationId");
         const elements = document.querySelectorAll(".isDisabled");
         for (let i = 0; i < elements.length; i++) {
             elements[i].classList.remove("isDisabled");
