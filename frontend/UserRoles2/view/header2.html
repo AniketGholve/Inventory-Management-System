@@ -1,8 +1,8 @@
 <div class="{{clp}}">
-    <div style="height:30px;background-color : rgb(71, 16, 138)">
+    <div style="height:40px;background-color : rgb(71, 16, 138)">
         <select id="clinics" ng-model="id" ng-change="clinicName(id)" style="float: right;">
             <option label="Please Select Clinic" class="d-none"></option>
-            <option ng-repeat="x in clinicNames" value="{{x.locationId}},{{$index}}">{{x.name}}</option>
+            <option ng-repeat="x in clinicNames" value="{{x.locationId}}">{{x.name}}</option>
         </select>
     </div>
 </div>
