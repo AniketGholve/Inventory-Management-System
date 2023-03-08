@@ -50,11 +50,10 @@ public class ClinicOrder {
 	private String orderType;
 	@Column(name = "src_id")
 	private int srcId;
-<<<<<<< HEAD
+
 	
 	public ClinicOrder() {}
 
-=======
 	public int getOrderId() {
 		return orderId;
 	}
@@ -163,7 +162,7 @@ public class ClinicOrder {
 	public void setSrcId(int srcId) {
 		this.srcId = srcId;
 	}
->>>>>>> 0121a42a2dc0a4331dacdf84226eb5802d790928
+
 	public ClinicOrder(int orderId, Date orderDatetime, String poNumber, String personInitial, String orderNote,
 			int locationId, int enterpriseId, int userId, int billtoId, String billtoName, int shiptoId,
 			String shiptoName, Date activityDate, int shipfromId, String meu, int orderStatusId, String orderType,
@@ -188,16 +187,7 @@ public class ClinicOrder {
 		this.orderType = orderType;
 		this.srcId = srcId;
 	}
-	public ClinicOrder() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-	
-	
-<<<<<<< HEAD
 }
-=======
 	
 	
-}
->>>>>>> 0121a42a2dc0a4331dacdf84226eb5802d790928
+
