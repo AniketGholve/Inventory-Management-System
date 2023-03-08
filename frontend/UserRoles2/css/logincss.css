@@ -190,6 +190,13 @@ td {
   border-color: black;
 }
 
+#clinics{
+  border-radius: 10px;
+  font-size: 18px;
+  text-align: center;
+  padding: 3px;
+  
+}
 
 .isDisabled { 
   cursor: not-allowed;
