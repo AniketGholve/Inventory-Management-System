@@ -3,7 +3,7 @@ body {
 }
 
 #patientDetailsTable,
-#inventoryDetailsTable ,#selectedTable{
+#inventoryDetailsTable ,#selectedTable,#orderTable{
   font-size: 15px;
 }
 
@@ -192,14 +192,22 @@ td {
 
 #clinics{
   border-radius: 10px;
-  font-size: 18px;
+  font-size: 20px;
   text-align: center;
-  padding: 3px;
-  
+  margin-top: 12px;
+  margin-right: 30px;
 }
+
 
 .isDisabled { 
   cursor: not-allowed;
   opacity: 0.5; 
   pointer-events: none;
+}
+
+
+#placeorder{
+margin-left: 45%;  
+
+
 }

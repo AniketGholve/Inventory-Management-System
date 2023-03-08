@@ -99,6 +99,10 @@ app.config(function ($routeProvider, $httpProvider) {
         .when("/userDetails/:param1",
             {
                 templateUrl: "/view/clinicUserView.html"
+            })
+        .when('/orders', 
+            {
+                templateUrl: "view/orders.html"
             });
     $httpProvider.interceptors.push('myInterceptor');
 });
@@ -164,6 +168,8 @@ app.controller("clp", function ($scope, $http, $window) {
     $scope.navOption3 = "Logout";
     $scope.navOption2Link = "#!inventory";
     $scope.navOption2 = "Inventory";
+    $scope.navOption9Link = "#!orders";
+    $scope.navOption9 = "orders";
     $scope.navOption5Link = "#!edit_user";
     $scope.navOption5 = "My Account";
     $http({
@@ -186,15 +192,15 @@ app.controller("clp", function ($scope, $http, $window) {
         headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") }
     }).then((response) => {
         $scope.clinicNames = response.data;
+        // $window.location.reload();
+        console.log($scope.clinicNames);
     }, (error) => { })
 
-    $scope.clinicName = (id) => {
-        let value1 = id.split(",")
-        sessionStorage.setItem("locationId", value1[0]);
-        sessionStorage.setItem("locationIdName", value1[1]);
+    $scope.clinicName = (id) => {   
+        sessionStorage.setItem("locationId", id);    
         $window.location.reload();
-    }
-
+        console.log("$window.location.reload");
+        }
     if (sessionStorage.getItem("locationId") != undefined || sessionStorage.getItem("locationId") != null) {
         document.getElementsByClassName("isDisabled")[0].style.opacity = 1;
         document.getElementsByClassName("isDisabled")[0].style.pointerEvents = "all";
@@ -202,6 +208,7 @@ app.controller("clp", function ($scope, $http, $window) {
         document.getElementsByClassName("isDisabled")[1].style.opacity = 1;
         document.getElementsByClassName("isDisabled")[1].style.pointerEvents = "all";
         document.getElementsByClassName("isDisabled")[1].style.cursor = "default";
+        $scope.id=sessionStorage.getItem("locationId");
         $http({
             method: 'get',
             url: "http://localhost:7890/getPatientByClinic/" + sessionStorage.getItem("locationId"),
@@ -217,6 +224,7 @@ app.controller("clp", function ($scope, $http, $window) {
         }).then((response) => {
             getInventoryDetails(response.data);
         }, (error) => { })
+    
     }
     $scope.getOnHand = (id) => {
         $http({
@@ -324,13 +332,14 @@ app.controller("clp", function ($scope, $http, $window) {
     getPatientDetails = (data) => {
         $scope.patientData = data;
         console.log($scope.patientData);
-        for (let index = 0; index < $scope.patientData.length; index++) {
-            localStorage.setItem("locationId" + $scope.patientData[index].id, $scope.patientData[index].patientLocationId);
-        }
+        // for (let index = 0; index < $scope.patientData.length; index++) {
+        //     localStorage.setItem("locationId" + $scope.patientData[index].id, $scope.patientData[index].patientLocationId);
+        // }
 
     }
     getInventoryDetails = (data) => {
         $scope.invetoryData = data;
+        console.log($scope.invetoryData);
     };
 });
 

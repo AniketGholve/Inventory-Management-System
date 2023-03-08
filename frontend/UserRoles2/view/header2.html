@@ -1,8 +1,8 @@
-<div style="height:30px;background-color : rgb(71, 16, 138)">
+<div style="height:40px;background-color : rgb(71, 16, 138)">
     <form style="float:right">
         <select id="clinics" ng-model="id" ng-change="clinicName(id)">
             <option label="Please Select Clinic" class="d-none"></option>
-            <option ng-repeat="x in clinicNames" value="{{x.locationId}},{{$index}}">{{x.name}}</option>
+            <option ng-repeat="x in clinicNames" value="{{x.locationId}}">{{x.name}}</option>
         </select>
     </form>
 </div>

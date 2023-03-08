@@ -6,5 +6,8 @@ public interface UserEntityService {
 	
 	
 	public UserEntity findByCustomUsername(String username);
-
+	
+	public Integer addUser(UserEntity userEntity);
+	
+	public UserEntity editUser(UserEntity userEntity);
 }
