@@ -202,6 +202,36 @@ app.controller("loginCtrl", ($scope, $http, $window) => {
 });
 
 app.controller("clp", function ($scope, $http, $window) {
+    $scope.placeOrder=(inventoryData)=>{
+        $http({
+            method: 'POST',
+            url: 'http://localhost:7890/createOrder/'+sessionStorage.getItem("locationId"),
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': sessionStorage.getItem("token")
+            }
+        }).then((response) => {
+            $scope.createdOrderData = response.data;
+            console.log(inventoryData);
+
+            $http({
+                method: 'POST',
+                url: 'http://localhost:7890/createOrderEvent/'+$scope.createdOrderData.orderId,
+                data:inventoryData,
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': sessionStorage.getItem("token")
+                }
+            }).then((response)=>{
+              console.log(response);  
+            },(error)=>{
+                console.log(error);
+            })
+        }, (error) => {
+            console.log(error)
+        })
+    }
+    
     $http({
         method: 'GET',
         url: 'http://localhost:7890/getScreen',
@@ -394,10 +424,10 @@ app.controller("alp", ($scope, $http, $window) => {
             console.log(error);
         })
     }
-    //Order Controller
+    // Order Controller
     // $http({
     //     method: 'GET',
-    //     url: 'http://localhost:7890/getClinic',
+    //     url: 'http://localhost:7890/getOrderingScreen',
     //     headers: {
     //         'Content-Type': 'application/json',
     //         'Authorization': sessionStorage.getItem("token")
