@@ -21,8 +21,8 @@ import com.patient.Repo.InventoryRepo;
 import com.patient.ServiceImpl.InventoryServiceImpl;
 import com.patient.ServiceImpl.OrderEventsServiceImpl;
 
-@CrossOrigin
 @RestController
+@CrossOrigin
 public class OrderEventsController {
 	
 	@Autowired
@@ -50,9 +50,9 @@ public class OrderEventsController {
 	
 	
 	@PostMapping("changeStatus/{orderEventsId}")
-	public ResponseEntity<String> changeOrderStatus(@RequestParam("status") String status,@PathVariable Integer orderEventsId){
+	public ResponseEntity<String> changeOrderStatus(@PathVariable Integer orderEventsId){
 		
-		String result=orderEventsServiceImpl.changeOrderStatus(orderEventsId,status);
+		String result=orderEventsServiceImpl.changeOrderStatus(orderEventsId);
 		return new ResponseEntity<String>(result,HttpStatus.OK);
 	}
 	

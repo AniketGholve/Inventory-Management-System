@@ -71,11 +71,10 @@ public class OrderEventsServiceImpl implements OrderEventsService {
 	}
 
 	@Override
-	public String changeOrderStatus(Integer orderEventsId, String status) {
+	public String changeOrderStatus(Integer orderEventsId) {
 		// TODO Auto-generated method stub
 		OrderEvents orderEvents=orderEventsRepo.findById(orderEventsId).orElseThrow();
-		if(status=="process") orderEvents.setEventDesc("processes");
-		else if(status=="Submitted") orderEvents.setEventDesc("Submitted");
+		orderEvents.setEventDesc("processes");
 		orderEventsRepo.save(orderEvents);
 		return "status changes successfully";
 	}
@@ -91,14 +90,14 @@ public class OrderEventsServiceImpl implements OrderEventsService {
 	@Override
 	public List<OrderEvents> getOrderingScreen() {
 		// TODO Auto-generated method stub
-		Query q=entityManager.createNativeQuery("select oe.activity_date,oe.order_event_id,oe.delivery_order_id,co.shipto_id,co.shipto_name,oe.event_desc,oe.quantity from order_events oe inner join clinic_order co on oe.order_id=co.order_id");
+		Query q=entityManager.createNativeQuery("select oe.activity_date,oe.order_event_id,co.po_number,co.shipto_id,co.shipto_name,oe.event_desc,oe.quantity from order_events oe inner join clinic_order co on oe.order_id=co.order_id");
 		List<Object[]> orderinglist=q.getResultList();
 		List<OrderEvents> orderEventList=new ArrayList<>();
 		for(Object [] o:orderinglist) {
 			OrderEvents orderEvents=new OrderEvents();
 			orderEvents.setActivityDate((Date)o[0]);
 			orderEvents.setOrderEventId((Integer) o[1]);
-			orderEvents.setDeliveryOrderId((Integer)o[2]);
+			orderEvents.setPoNumber((String)o[2]);
 			orderEvents.setShiptoId((Integer)o[3]);
 			orderEvents.setShiptoName((String)o[4]);
 			orderEvents.setEventDesc((String)o[5]);

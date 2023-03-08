@@ -40,8 +40,7 @@ public class ClinicOrderServiceImpl implements ClinicOrderService {
 		clinicOrder.setActivityDate(d);
 		clinicOrder.setBilltoId(123);
 		clinicOrder.setBilltoName(clinic.getBillTo());
-		//System.out.println(clinic.getEnterpriseId());
-		clinicOrder.setEnterpriseId(123);
+		clinicOrder.setEnterpriseId(1);
 		clinicOrder.setLocationId(locationId);
 		clinicOrder.setMeu(null);
 		clinicOrder.setOrderDatetime(d);

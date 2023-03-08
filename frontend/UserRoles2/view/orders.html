@@ -9,28 +9,30 @@
         </div>
         <div>
             <div class="container d-flex justify-content-center">
-               
-                <table id="orderTable" class="borderBlack table">
-                    <thead>
-                        <tr>
-                            <th class="px-3 capitalize" scope="row">Doses</th>
-                            <th class="px-3 capitalize" scope="row">On Hand</th>
-                            <th class="px-3 capitalize" scope="row">Expired Doses</th>
-                            <th class="px-3 capitalize" scope="row">Order Qty</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr ng-repeat="x in invetoryData">
-                            <td class="capitalize">{{x.productName}}</td>
-                            <td ng-click="getOnHand(x.productId)"><a data-bs-toggle="modal" data-bs-target="#ohHand"
-                                    style="cursor: default;">{{x.onHand}}</a></td>
-                            <td ng-click="getExpired(x.productId)"><a data-bs-toggle="modal"
-                                    data-bs-target="#expiredDoses" style="cursor: default;">{{x.expiredQty}}</a></td>
-                            <td><input type="number" min="0"></td>
-                        </tr>
-                    </tbody>
-                </table>
-
+                <form ng-submit="placeOrder(invetoryData)">
+                    <table id="orderTable" class="borderBlack table">
+                        <thead>
+                            <tr>
+                                <th class="px-3 capitalize" scope="row">Doses</th>
+                                <th class="px-3 capitalize" scope="row">On Hand</th>
+                                <th class="px-3 capitalize" scope="row">Expired Doses</th>
+                                <th class="px-3 capitalize" scope="row">Order Qty</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="x in invetoryData">
+                                <td class="capitalize">{{x.productName}}</td>
+                                <td ng-click="getOnHand(x.productId)"><a data-bs-toggle="modal" data-bs-target="#ohHand"
+                                        style="cursor: default;">{{x.onHand}}</a></td>
+                                <td ng-click="getExpired(x.productId)"><a data-bs-toggle="modal"
+                                        data-bs-target="#expiredDoses" style="cursor: default;">{{x.expiredQty}}</a>
+                                </td>
+                                <td><input ng-model="x.orderedQty" type="number" min="0" required></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <button id="placeorder" type="submit" class="btn btn-primary">Place Order</button>
+                </form>
                 <!-- Modal -->
                 <div class="modal fade" id="ohHand" tabindex="-1" aria-labelledby="exampleModalLabel"
                     aria-hidden="true">
@@ -106,7 +108,7 @@
                     </div>
                 </div>
             </div>
-            <button id="placeorder" type="button" class="btn btn-primary">Place Order</button>
+
         </div>
     </div>
 </div>
