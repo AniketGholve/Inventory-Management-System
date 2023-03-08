@@ -828,3 +828,5 @@ app.controller('clinicUserView', function ($scope, $window, $routeParams, $http)
     })
 });
 
+
+

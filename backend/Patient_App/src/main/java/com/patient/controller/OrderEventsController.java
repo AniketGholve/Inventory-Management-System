@@ -59,5 +59,13 @@ public class OrderEventsController {
 		return new ResponseEntity<String>(result,HttpStatus.OK);
 	}
 	
+	
+	@GetMapping("getOrderingScreen")
+	public ResponseEntity<List<OrderEvents>> getOrderingScreen()
+	{
+		List<OrderEvents> resultList=orderEventsServiceImpl.getOrderingScreen();
+		return new ResponseEntity<List<OrderEvents>>(resultList,HttpStatus.OK);
+	}
+	
 
 }

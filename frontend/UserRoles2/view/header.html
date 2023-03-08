@@ -22,11 +22,11 @@
                     <li class="nav-item nav_hover {{alp}}" ng-class="{active: activeTab === 'user'}">
                         <a class="nav-link" href="#!/clinicUsers" ng-click="activeTabSetter('user')">Users</a>
                     </li>
-                    <li class="nav-item nav_hover {{alp}}" ng-class="{active: activeTab === 'order'}">
-                        <a class="nav-link" href="#!/ordersInfo" ng-click="activeTabSetter('order')">Order</a>
+                    <li class="nav-item nav_hover {{alp}}" ng-class="{active: activeTab === 'orderInfo'}">
+                        <a class="nav-link" href="#!/ordersInfo" ng-click="activeTabSetter('orderInfo')">orderInfo</a>
                     </li>
-                    <li class="nav-item nav_hover {{clp}}">
-                        <a class="nav-link" href="#!/orders">Order</a>
+                    <li class="nav-item nav_hover {{clp}}"  ng-class="{active: activeTab === 'order'}">
+                        <a class="nav-link" href="#!/orders" ng-click="activeTabSetter('order')">Order</a>
                     </li>
                 </ul>
             </div>

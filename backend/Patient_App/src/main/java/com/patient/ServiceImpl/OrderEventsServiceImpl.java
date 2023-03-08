@@ -44,9 +44,9 @@ public class OrderEventsServiceImpl implements OrderEventsService {
 			OrderEvents orderEvents=new OrderEvents();
 			orderEvents.setActivityDate(d);
 			orderEvents.setDeliveryOrderId(null);
-			orderEvents.setEnterpriseId(i.getEnterpriseId());
+			orderEvents.setEnterpriseId(clinicOrder.getEnterpriseId());
 			orderEvents.setEventDesc("Submitted");
-			orderEvents.setLocationId(i.getLoactionId());
+			orderEvents.setLocationId(clinicOrder.getLocationId());
 			orderEvents.setOrderId(clinicOrder.getOrderId());
 			orderEvents.setPackageType(null);
 			orderEvents.setProductId(i.getProductId());
