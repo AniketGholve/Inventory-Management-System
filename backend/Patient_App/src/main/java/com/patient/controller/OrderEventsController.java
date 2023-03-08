@@ -38,7 +38,7 @@ public class OrderEventsController {
 	}
 	
 	
-	@DeleteMapping("cancelOrder{orderEventId}")
+	@DeleteMapping("cancelOrder/{orderEventId}")
 	public ResponseEntity<String> cancelOrder(@PathVariable Integer orderEventId){
 		String result=orderEventsServiceImpl.cancelOrder(orderEventId);
 		return new ResponseEntity<String>(result,HttpStatus.OK);

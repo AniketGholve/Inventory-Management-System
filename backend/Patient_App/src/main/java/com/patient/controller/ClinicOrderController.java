@@ -18,10 +18,10 @@ public class ClinicOrderController {
 	@Autowired
 	private ClinicOrderServiceImpl clinicOrderServiceImpl;
 	
-	@PostMapping("/createOrder")
-	public ClinicOrder createOrder(ClinicOrder clinicOrder) 
+	@PostMapping("/createOrder/{locationId}")
+	public ClinicOrder createOrder(Integer locationId) 
 	{
-		return clinicOrderServiceImpl.createOrder(clinicOrder);
+		return clinicOrderServiceImpl.createOrder(locationId);
 	}
 	
 	

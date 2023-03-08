@@ -50,11 +50,6 @@ public class ClinicOrder {
 	private String orderType;
 	@Column(name = "src_id")
 	private int srcId;
-<<<<<<< HEAD
-	
-	public ClinicOrder() {}
-
-=======
 	public int getOrderId() {
 		return orderId;
 	}
@@ -163,7 +158,15 @@ public class ClinicOrder {
 	public void setSrcId(int srcId) {
 		this.srcId = srcId;
 	}
->>>>>>> 0121a42a2dc0a4331dacdf84226eb5802d790928
+	@Override
+	public String toString() {
+		return "ClinicOrder [orderId=" + orderId + ", orderDatetime=" + orderDatetime + ", poNumber=" + poNumber
+				+ ", personInitial=" + personInitial + ", orderNote=" + orderNote + ", locationId=" + locationId
+				+ ", enterpriseId=" + enterpriseId + ", userId=" + userId + ", billtoId=" + billtoId + ", billtoName="
+				+ billtoName + ", shiptoId=" + shiptoId + ", shiptoName=" + shiptoName + ", activityDate="
+				+ activityDate + ", shipfromId=" + shipfromId + ", meu=" + meu + ", orderStatusId=" + orderStatusId
+				+ ", orderType=" + orderType + ", srcId=" + srcId + "]";
+	}
 	public ClinicOrder(int orderId, Date orderDatetime, String poNumber, String personInitial, String orderNote,
 			int locationId, int enterpriseId, int userId, int billtoId, String billtoName, int shiptoId,
 			String shiptoName, Date activityDate, int shipfromId, String meu, int orderStatusId, String orderType,
@@ -194,10 +197,7 @@ public class ClinicOrder {
 	}
 	
 	
-<<<<<<< HEAD
-}
-=======
 	
 	
+ 	
 }
->>>>>>> 0121a42a2dc0a4331dacdf84226eb5802d790928

@@ -6,7 +6,7 @@ import com.patient.Entity.ClinicOrder;
 
 public interface ClinicOrderService {
 	
-	public ClinicOrder createOrder(ClinicOrder clinicOrder);
+	public ClinicOrder createOrder(Integer locationId);
 	
 	public List<ClinicOrder> getAllOrdersById(Integer locId);
 }
