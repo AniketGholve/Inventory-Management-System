@@ -42,12 +42,40 @@
                         <td class="p-3">{{x.shiptoName}}</td>
                         <td class="p-3">{{x.eventDesc}}</td>
                         <td class="p-3">{{x.quantity}}</td>
-                        <td class="p-3"><a href=""><i class="fa-regular fa-circle-check link-danger" ng-click="changeOrderStatus(x.orderEventId)"></i></a></td>
-                        <td class="p-3"><a href=""><i class="fa-sharp fa-solid fa-box link-danger" ng-click="viewInventory(x.productId,x.locationId)"></i></a></td>
-                        <td class="p-3"><a href=""><i class="fa-regular fa-circle-xmark link-danger" ng-click="cancleOrder(x.orderEventId)"></i></a></td>
+                        <td class="p-3"><a href=""><i class="fa-regular fa-circle-check link-danger"
+                                    ng-click="changeOrderStatus(x.orderEventId)"></i></a></td>
+                        <td class="p-3"><a data-bs-toggle="modal" data-bs-target="#orderInventoryData"><i class="fa-sharp fa-solid fa-box link-danger"
+                                    ng-click="viewInventory(x.productId,x.locationId)"></i></a></td>
+                        <td class="p-3"><a href=""><i class="fa-regular fa-circle-xmark link-danger"
+                                    ng-click="cancleOrder(x.orderEventId)"></i></a></td>
                     </tr>
                 </tbody>
             </table>
+            <div class="modal fade" id="orderInventoryData" tabindex="-1" aria-labelledby="orderInventoryDataLable" aria-hidden="true">
+                <div class="modal-dialog w-25">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="orderInventoryDataLable">Order Inventory</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <table id="orderInventory" class="borderBlack">
+                                <tr>
+                                    <th class="px-3">Product Name</th>
+                                    <th class="px-3">On Hand</th>
+                                    <th class="px-3">Expired</th>
+                                </tr>
+                                <tr ng-repeat="x in orderInventoryData">
+                                    <td ng-repeat="t in x">{{t}}</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
