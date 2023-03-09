@@ -19,8 +19,8 @@
                         <tr ng-repeat="x in invetoryData">
                             <td class="capitalize">{{x.productName}}</td>
                             <td ng-click="getOnHand(x.productId)"><a data-bs-toggle="modal" data-bs-target="#ohHand"
-                                    style="cursor: default;">{{x.onHand}}</a></td>
-                            <td ng-click="getExpired(x.productId)"><a data-bs-toggle="modal"
+                                    style="cursor: default;" >{{x.onHand}}</a></td>
+                            <td ng-click="getExpired(x.productId)"><a href="" ng-class="{'text-danger':x.expiredQty>0}" data-bs-toggle="modal"
                                     data-bs-target="#expiredDoses" style="cursor: default;">{{x.expiredQty}}</a></td>
                         </tr>
                     </tbody>

@@ -230,3 +230,10 @@ td {
   top: 40%;
   left: 50%;
 }
+.dropdownTab{
+  border-radius: 10px;
+  font-size: 17px;
+  text-align: center;
+  margin-top: 8px;
+  margin-right: 30px;
+}
