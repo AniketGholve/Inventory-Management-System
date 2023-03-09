@@ -8,16 +8,6 @@ function userFunction() {
     }
 }
 app.controller("elp", ['$scope', '$http', function ($scope, $http) {
-    $scope.navOption3Link = "#!";
-    $scope.navOption3 = "Logout";
-    $scope.navOption5Link = "#!edit_user";
-    $scope.navOption5 = "MyAccount";
-    $scope.navOption6Link = "#!clinics";
-    $scope.navOption6 = "Clinics";
-    $scope.navOption7Link = "#!success_orders";
-    $scope.navOption7 = "Success Orders";
-    $scope.navOption8Link = "#!error_orders";
-    $scope.navOption8 = "Error Orders";
     $scope.tabs = [{
         title: 'Success Orders',
         url: 'successOrders.html'
@@ -71,20 +61,12 @@ app.controller('logoutCtrl', function ($scope, $window) {
     $scope.logout = () => {
         sessionStorage.removeItem("token")
         sessionStorage.removeItem("locationId")
+        sessionStorage.removeItem("username")
         $window.location.href = "#!";
     }
 });
 
 app.controller("edit_userCtrl", function ($scope, $http, $window, $route) {
-    $scope.navOption1Link = "#!";
-    $scope.navOption1 = "Login";
-    $scope.navOption2Link = "#!register";
-    $scope.navOption2 = "Register";
-    $scope.navOption3Link = "#!";
-    $scope.navOption3 = "Logout";
-    $scope.navOption5Link = "#!edit_user";
-    $scope.navOption5 = "My Account";
-    
     $http({
         method: 'GET',
         url: "http://localhost:7890/api/getUserDetails/" + sessionStorage.getItem("username"),
@@ -126,67 +108,8 @@ app.controller("edit_userCtrl", function ($scope, $http, $window, $route) {
     };
 });
 
-
-app.controller('clinicController', function ($scope, $http, $window) {
-    $scope.navOption1Link="#!clinics";
-    $scope.navOption1="Clinics";
-    $scope.navOption2Link = "#!/clinicUsers"
-    $scope.navOption2 = "Users"
-    $scope.navOption5Link = "#!edit_user";
-    $scope.navOption5 = "My Account";
-    $scope.navOption3Link = "#!";
-    $scope.navOption3 = "Logout";
-    $scope.hide2 = "d-none";
-    console.log("run");
-    $http({
-
-        method: 'GET',
-        url: 'http://localhost:7890/getAllClinic',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': sessionStorage.getItem("token")
-        }
-
-    }).then((response) => {
-
-        console.log(response.data);
-
-        $scope.clinic_data = response.data;
-
-    },
-        (error) => {
-
-            console.log(error);
-        }
-    );
-    $scope.deleteClinic = (id) => {
-        console.log("delete");
-        console.log(id);
-        $http({
-            method: 'DELETE',
-            url: 'http://localhost:7890/deleteClinic/' + id,
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': sessionStorage.getItem("token")
-            }
-        }).then((response) => {
-            $window.location.reload();
-        }, (error) => {
-            console.log(error);
-        })
-    }
-});
-
 app.controller("successController", ['$scope', '$http', function ($scope, $http) {
-    $scope.navOption1Link = "#!success_orders";
-    $scope.navOption1 = "Success Orders";
-    $scope.navOption2Link = "#!error_orders";
-    $scope.navOption2 = "Error Orders";
-    $scope.navOption5Link = "#!edit_user";
-    $scope.navOption5 = "My Account";
     
-    $scope.navOption3Link = "#!";
-    $scope.navOption3 = "Logout";
     $http({
         method: 'GET',
         url: 'http://localhost:7890/api/SuccessOrders/1',
@@ -204,14 +127,6 @@ app.controller("successController", ['$scope', '$http', function ($scope, $http)
 }]);
 
 app.controller("errorController", ['$scope', '$http', function ($scope, $http) {
-    $scope.navOption1Link = "#!success_orders";
-    $scope.navOption1 = "Success Orders";
-    $scope.navOption2Link = "#!error_orders";
-    $scope.navOption2 = "Error Orders";
-    $scope.navOption5Link = "#!edit_user";
-    $scope.navOption5 = "My Account";
-    $scope.navOption3Link = "#!";
-    $scope.navOption3 = "Logout";
     $http({
         method: 'GET',
         url: 'http://localhost:7890/api/ErrorOrders/2',

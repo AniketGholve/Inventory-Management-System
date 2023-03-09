@@ -52,8 +52,6 @@ public class ClinicOrder {
 	private int srcId;
 
 	
-//	public ClinicOrder() {}
-	
 	public int getOrderId() {
 		return orderId;
 	}
@@ -162,6 +160,15 @@ public class ClinicOrder {
 	public void setSrcId(int srcId) {
 		this.srcId = srcId;
 	}
+	@Override
+	public String toString() {
+		return "ClinicOrder [orderId=" + orderId + ", orderDatetime=" + orderDatetime + ", poNumber=" + poNumber
+				+ ", personInitial=" + personInitial + ", orderNote=" + orderNote + ", locationId=" + locationId
+				+ ", enterpriseId=" + enterpriseId + ", userId=" + userId + ", billtoId=" + billtoId + ", billtoName="
+				+ billtoName + ", shiptoId=" + shiptoId + ", shiptoName=" + shiptoName + ", activityDate="
+				+ activityDate + ", shipfromId=" + shipfromId + ", meu=" + meu + ", orderStatusId=" + orderStatusId
+				+ ", orderType=" + orderType + ", srcId=" + srcId + "]";
+	}
 
 	public ClinicOrder(int orderId, Date orderDatetime, String poNumber, String personInitial, String orderNote,
 			int locationId, int enterpriseId, int userId, int billtoId, String billtoName, int shiptoId,
@@ -192,9 +199,14 @@ public class ClinicOrder {
 		// TODO Auto-generated constructor stub
 	}
 	
-	
+
 }
 
 
 	
 	
+
+	
+	
+ 	
+

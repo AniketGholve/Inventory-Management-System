@@ -211,3 +211,15 @@ margin-left: 45%;
 
 
 }
+#clinics{
+  border-radius: 10px;
+  font-size: 18px;
+  text-align: center;
+  margin-top: 8px;
+  margin-right: 30px;
+}
+
+#topheader .navbar-nav li.active > a {
+  background-color: rgb(195, 73, 73);
+  color: white;
+}
