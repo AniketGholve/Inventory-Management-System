@@ -239,6 +239,8 @@ app.controller("clp", function ($scope, $http, $window) {
                     'Authorization': sessionStorage.getItem("token")
                 }
             }).then((response) => {
+                alert("Order Placed Successfully")
+                $window.location.reload();
                 console.log(response);
             }, (error) => {
                 console.log(error);
