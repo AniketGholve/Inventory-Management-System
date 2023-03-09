@@ -3,6 +3,7 @@ package com.patient.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,19 +19,28 @@ public class ClinicOrderController {
 	@Autowired
 	private ClinicOrderServiceImpl clinicOrderServiceImpl;
 	
-	@PostMapping("/createOrder")
-	public ClinicOrder createOrder(ClinicOrder clinicOrder) 
+	@PostMapping("/createOrder/{locationId}")
+	public ResponseEntity<ClinicOrder> createOrder(@PathVariable Integer locationId) 
 	{
-		return clinicOrderServiceImpl.createOrder(clinicOrder);
+		ClinicOrder result=clinicOrderServiceImpl.createOrder(locationId);
+		return new ResponseEntity<ClinicOrder>(result,HttpStatus.OK);
 	}
 	
 	
-	
-//	@GetMapping("/getAllOrders/{locId}")
-//	public List<ClinicOrder> getAllOrders(@PathVariable("locId") Integer locId)
-//	{
-//		return clinicOrderServiceImpl.getAllOrdersById(locId);
-//	}
+//<<<<<<< HEAD
+//	
+////	@GetMapping("/getAllOrders/{locId}")
+////	public List<ClinicOrder> getAllOrders(@PathVariable("locId") Integer locId)
+////	{
+////		return clinicOrderServiceImpl.getAllOrdersById(locId);
+////	}
+//=======
+	@GetMapping("/getAllOrders/{locId}")
+	public List<ClinicOrder> getAllOrders(@PathVariable("locId") Integer locId)
+	{
+		return clinicOrderServiceImpl.getAllOrdersById(locId);
+	}
+//>>>>>>> c2d44e51a91e7042309a65f2637840cf593189e8
 		
 	
 }

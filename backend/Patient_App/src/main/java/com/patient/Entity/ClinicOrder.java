@@ -50,10 +50,13 @@ public class ClinicOrder {
 	private String orderType;
 	@Column(name = "src_id")
 	private int srcId;
-
-	
-	public ClinicOrder() {}
-
+//<<<<<<< HEAD
+//
+//	
+//	public ClinicOrder() {}
+//
+//=======
+//>>>>>>> c2d44e51a91e7042309a65f2637840cf593189e8
 	public int getOrderId() {
 		return orderId;
 	}
@@ -162,7 +165,19 @@ public class ClinicOrder {
 	public void setSrcId(int srcId) {
 		this.srcId = srcId;
 	}
-
+//<<<<<<< HEAD
+//
+//=======
+	@Override
+	public String toString() {
+		return "ClinicOrder [orderId=" + orderId + ", orderDatetime=" + orderDatetime + ", poNumber=" + poNumber
+				+ ", personInitial=" + personInitial + ", orderNote=" + orderNote + ", locationId=" + locationId
+				+ ", enterpriseId=" + enterpriseId + ", userId=" + userId + ", billtoId=" + billtoId + ", billtoName="
+				+ billtoName + ", shiptoId=" + shiptoId + ", shiptoName=" + shiptoName + ", activityDate="
+				+ activityDate + ", shipfromId=" + shipfromId + ", meu=" + meu + ", orderStatusId=" + orderStatusId
+				+ ", orderType=" + orderType + ", srcId=" + srcId + "]";
+	}
+//>>>>>>> c2d44e51a91e7042309a65f2637840cf593189e8
 	public ClinicOrder(int orderId, Date orderDatetime, String poNumber, String personInitial, String orderNote,
 			int locationId, int enterpriseId, int userId, int billtoId, String billtoName, int shiptoId,
 			String shiptoName, Date activityDate, int shipfromId, String meu, int orderStatusId, String orderType,
@@ -187,7 +202,20 @@ public class ClinicOrder {
 		this.orderType = orderType;
 		this.srcId = srcId;
 	}
-}
+//<<<<<<< HEAD
+//}
+//	
+//	
+//
+//=======
+	public ClinicOrder() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 	
 	
 
+
+ 	
+}
+//>>>>>>> c2d44e51a91e7042309a65f2637840cf593189e8
