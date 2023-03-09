@@ -2,7 +2,9 @@ function reloadWindow() {
     location.reload();
 }
 let app = angular.module("myApp", ['ngRoute']);
-
+window.onload=()=>{
+    document.querySelector("#preloader").style.display="none";
+}
 app.factory('myInterceptor', function ($q) {
     var interceptor = {
         responseError: function (rejection) {
@@ -30,6 +32,8 @@ app.controller("headerController", ($scope, $http, $location) => {
         case '/clp_users': $scope.activeTab = 'patient';
             break;
         case '/alp_users': $scope.activeTab = 'clinic';
+            break;
+        case '/clinics': $scope.activeTab = 'clinic';
             break;
         case '/clinicUsers': $scope.activeTab = 'user';
             break;

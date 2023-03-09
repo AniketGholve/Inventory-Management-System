@@ -219,3 +219,14 @@ td {
   border-radius: 15%;
   color: white;
 }
+#preloader{
+  height: 100vh;
+  width: 100%;
+  background-color:white;
+  z-index: 100;
+}
+#preloader img{
+  position: absolute;
+  top: 40%;
+  left: 50%;
+}
