@@ -37,7 +37,7 @@
                     <tr ng-repeat="x in orderData">
                         <td class="p-3">{{x.activityDate}}</td>
                         <td class="p-3">{{x.orderEventId}}</td>
-                        <td class="p-3">{{x.po_number}}</td>
+                        <td class="p-3">{{x.poNumber}}</td>
                         <td class="p-3">{{x.shiptoId}}</td>
                         <td class="p-3">{{x.shiptoName}}</td>
                         <td class="p-3">{{x.eventDesc}}</td>
@@ -65,9 +65,15 @@
                                     <th class="px-3">On Hand</th>
                                     <th class="px-3">Expired</th>
                                 </tr>
-                                <tr ng-repeat="x in orderInventoryData">
-                                    <td>{{x}}</td>
+                                <!-- <tr ng-repeat="x in orderInventoryData">
+                                    <td ng-repeat="t in x">{{x}}</td>
+                                </tr> -->
+                                <tr>
+                                    <td >{{orderInventoryData.productName}}</td>
+                                    <td >{{orderInventoryData.onHand}}</td>
+                                    <td >{{orderInventoryData.expiredQty}}</td>
                                 </tr>
+                                
                             </table>
                         </div>
                         <div class="modal-footer">
