@@ -65,9 +65,15 @@
                                     <th class="px-3">On Hand</th>
                                     <th class="px-3">Expired</th>
                                 </tr>
-                                <tr ng-repeat="x in orderInventoryData">
-                                    <td ng-repeat="t in x">{{t}}</td>
+                                <!-- <tr ng-repeat="x in orderInventoryData">
+                                    <td ng-repeat="t in x">{{x}}</td>
+                                </tr> -->
+                                <tr>
+                                    <td >{{orderInventoryData.productName}}</td>
+                                    <td >{{orderInventoryData.onHand}}</td>
+                                    <td >{{orderInventoryData.expiredQty}}</td>
                                 </tr>
+                                
                             </table>
                         </div>
                         <div class="modal-footer">

@@ -102,7 +102,7 @@ public class OrderEventsServiceImpl implements OrderEventsService {
 			orderEvents.setShiptoName((String)o[4]);
 			orderEvents.setEventDesc((String)o[5]);
 			orderEvents.setQuantity((Integer)o[6]);
-			orderEvents.setProductId((Integer)o[7]);
+			orderEvents.setProductId((Integer)o[7]);	
 			orderEvents.setLocationId((Integer)o[8]);
 			orderEventList.add(orderEvents);
 		}
@@ -118,12 +118,12 @@ public class OrderEventsServiceImpl implements OrderEventsService {
 		q.setParameter(2, productId);
 		System.out.println(q.getSingleResult());
 		Object[] l=(Object[]) q.getSingleResult();
-			Inventory i=new Inventory();
-			i.setProductId(l[0]==null?null:(Integer) l[0]);
-			i.setProductName(l[1]==null?null:(String) l[1]);
-			i.setExpiredQty(l[2]==null?null:(Integer) l[2]);
-			i.setOnHand(l[3]==null?null:(Integer) l[3]);
-			return i;
+		Inventory i=new Inventory();
+		i.setProductId(l[0]==null?null:(Integer) l[0]);
+		i.setProductName(l[1]==null?null:(String) l[1]);
+		i.setExpiredQty(l[2]==null?null:(Integer) l[2]);
+		i.setOnHand(l[3]==null?null:(Integer) l[3]);
+		return i;
 			
 			
 		
