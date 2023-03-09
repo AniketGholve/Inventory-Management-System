@@ -485,19 +485,18 @@ app.controller("alp", ($scope, $http, $window) => {
         });
     }
     $scope.viewInventory=(productId,locationId)=>{
-        console.log(productId +" "+locationId)
-        // $http({
-        //     method: 'GET',
-        //     url: 'http://localhost:7890/getinventoryByProductId/'+productId+"/"+locationId,
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //         'Authorization': sessionStorage.getItem("token")
-        //     }
-        // }).then((response) => {
-        //     $scope.orderInventoryData=response.data;
-        // }, (error) => {
-        //     console.log(error);
-        // });
+        $http({
+            method: 'GET',
+            url: 'http://localhost:7890/getinventoryByProductId/'+productId+"/"+locationId,
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': sessionStorage.getItem("token")
+            }
+        }).then((response) => {
+             $scope.orderInventoryData=response.data;
+         }, (error) => {
+            console.log(error);
+        });
     }
 });
 
