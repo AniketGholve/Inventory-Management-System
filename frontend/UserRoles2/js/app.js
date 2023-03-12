@@ -2,7 +2,9 @@ function reloadWindow() {
     location.reload();
 }
 let app = angular.module("myApp", ['ngRoute']);
-
+window.onload = () => {
+    document.querySelector("#preloader").style.display = "none";
+}
 app.factory('myInterceptor', function ($q) {
     var interceptor = {
         responseError: function (rejection) {
@@ -30,6 +32,8 @@ app.controller("headerController", ($scope, $http, $location) => {
         case '/clp_users': $scope.activeTab = 'patient';
             break;
         case '/alp_users': $scope.activeTab = 'clinic';
+            break;
+        case '/clinics': $scope.activeTab = 'clinic';
             break;
         case '/clinicUsers': $scope.activeTab = 'user';
             break;
@@ -172,7 +176,7 @@ app.config(function ($routeProvider, $httpProvider) {
     $httpProvider.interceptors.push('myInterceptor');
 });
 
-app.controller("loginCtrl", ($scope, $http, $window) => {
+app.controller("loginCtrl", ($scope, $http, $window,) => {
     $scope.getRequest = (v) => {
         console.log($scope.submit)
         $http({
@@ -213,7 +217,7 @@ app.controller("loginCtrl", ($scope, $http, $window) => {
     }
 });
 
-app.controller("clp", function ($scope, $http, $window) {
+app.controller("clp", function ($scope, $http, $window, $location) {
     $scope.placeOrder = (inventoryData) => {
         $http({
             method: 'POST',
@@ -235,6 +239,8 @@ app.controller("clp", function ($scope, $http, $window) {
                     'Authorization': sessionStorage.getItem("token")
                 }
             }).then((response) => {
+                alert("Order Placed Successfully")
+                $window.location.reload();
                 console.log(response);
             }, (error) => {
                 console.log(error);
@@ -268,8 +274,27 @@ app.controller("clp", function ($scope, $http, $window) {
         sessionStorage.setItem("locationId", id);
         $window.location.reload();
     }
+    $scope.screensName = (id) => {
+        sessionStorage.setItem("screensName", id);
+        if (sessionStorage.getItem("screensName") == "ordering") {
+            $window.location.href = "#!/orders";
+        }
+        else if (sessionStorage.getItem("screensName") == "inventory") {
+            $window.location.href = "#!/inventory";
+            $window.location.reload();
+        }
+    }
+    $scope.inventoryLocation=()=>{
+        let allPath=$location.path();
+        if(allPath==="/inventory" || allPath==="/orders")
+        {
+            return true;
+        }
+        return false;
+    }
     if (sessionStorage.getItem("locationId") != undefined || sessionStorage.getItem("locationId") != null) {
         $scope.id = sessionStorage.getItem("locationId");
+        $scope.selectedDropdownTab = sessionStorage.getItem("screensName");
         const elements = document.querySelectorAll(".isDisabled");
         for (let i = 0; i < elements.length; i++) {
             elements[i].classList.remove("isDisabled");
@@ -480,17 +505,17 @@ app.controller("alp", ($scope, $http, $window) => {
             console.log(error);
         });
     }
-    $scope.viewInventory=(productId,locationId)=>{
+    $scope.viewInventory = (productId, locationId) => {
         $http({
             method: 'GET',
-            url: 'http://localhost:7890/getinventoryByProductId/'+productId+"/"+locationId,
+            url: 'http://localhost:7890/getinventoryByProductId/' + productId + "/" + locationId,
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': sessionStorage.getItem("token")
             }
         }).then((response) => {
-             $scope.orderInventoryData=response.data;
-         }, (error) => {
+            $scope.orderInventoryData = response.data;
+        }, (error) => {
             console.log(error);
         });
     }

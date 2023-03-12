@@ -8,39 +8,26 @@
                     <tr>
                         <th>Date and time</th>
                         <th>Cust Order</th>
-                        <th>Purchase Order</th>
+                        <th>PO Number</th>
                         <th>Ship-to-ID</th>
-                        <th>Ship-to Name</th>
+                        <th>Bill-to Name</th>
                         <th>Status</th>
+                        <th>Product Name</th>
                         <th>Dose</th>
                         <th>Process</th>
                         <th>View Inventory</th>
-                        <th>Cancle</th>
-                        <!-- <th>Order Event Id</th>
-                        <th>Status Id</th>
-                        <th>Activity Date</th>
-                        <th>Quantity</th>
-                        <th>Event Desc</th>
-                        <th>Order Id</th>
-                        <th>Location Id</th>
-                        <th>Product Id</th>
-                        <th>Package Type</th>
-                        <th>Enterprise Id</th>
-                        <th>Delivery Order Id</th>
-                        <th>Shipment Tracking Id</th>
-                        <th>User Id</th>
-                        <th>Src Id</th> -->
-
+                        <th>Cancel</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr ng-repeat="x in orderData">
                         <td class="p-3">{{x.activityDate}}</td>
                         <td class="p-3">{{x.orderEventId}}</td>
-                        <td class="p-3">{{x.po_number}}</td>
+                        <td class="p-3">{{x.poNumber}}</td>
                         <td class="p-3">{{x.shiptoId}}</td>
                         <td class="p-3">{{x.shiptoName}}</td>
                         <td class="p-3">{{x.eventDesc}}</td>
+                        <td class="p-3"></td>
                         <td class="p-3">{{x.quantity}}</td>
                         <td class="p-3"><a href=""><i class="fa-regular fa-circle-check link-danger"
                                     ng-click="changeOrderStatus(x.orderEventId)"></i></a></td>

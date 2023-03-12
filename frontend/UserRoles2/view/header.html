@@ -13,12 +13,12 @@
                     <li class="nav-item nav_hover {{clp}}" ng-class="{active: activeTab === 'patient'}">
                         <a class="nav-link" href="#!/clp_users">Patients</a>
                     </li>
-                    <li class="nav-item nav_hover {{clp}}" ng-class="{active: activeTab === 'inventory'}">
-                        <a class="nav-link" href="#!inventory">Inventory</a>
+                    <li class="nav-item nav_hover {{clp}}" ng-class="{active: activeTab === 'inventory' || activeTab === 'order'}">
+                        <a class="nav-link" href="#!inventory" ng-click="screensName('inventory')">Inventory</a>
                     </li>
-                    <li class="nav-item nav_hover {{clp}}" ng-class="{active: activeTab === 'order'}">
-                        <a class="nav-link" href="#!/orders">Order</a>
-                    </li>
+                    <!-- <li class="nav-item nav_hover {{clp}}" ng-class="{active: activeTab === 'order'}">
+                        <a class="nav-link" href="#!/orders">Ordering</a>
+                    </li> -->
                     <li class="nav-item nav_hover {{alp}}" ng-class="{active: activeTab === 'clinic'}">
                         <a class="nav-link" href="#!clinics">Clinics</a>
                     </li>
@@ -26,7 +26,7 @@
                         <a class="nav-link" href="#!/clinicUsers">Users</a>
                     </li>
                     <li class="nav-item nav_hover {{alp}}" ng-class="{active: activeTab === 'orderInfo'}">
-                        <a class="nav-link" href="#!/ordersInfo">Order</a>
+                        <a class="nav-link" href="#!/ordersInfo">Orders</a>
                     </li>
                 </ul>
             </div>
