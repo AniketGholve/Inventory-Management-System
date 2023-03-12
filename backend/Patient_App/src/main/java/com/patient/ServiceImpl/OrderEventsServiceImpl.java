@@ -1,6 +1,8 @@
 package com.patient.ServiceImpl;
 
 import java.sql.Date;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,25 +40,29 @@ public class OrderEventsServiceImpl implements OrderEventsService {
 		// TODO Auto-generated method stub
 		long m=System.currentTimeMillis();
 		Date d=new Date(m);
+		LocalDateTime localDateTime = LocalDateTime.now();
 		ClinicOrder clinicOrder=clinicOrderRepo.findById(clinicOrderId).orElseThrow();
 		List<OrderEvents> orderEventsList=new ArrayList<>();
 		for(Inventory i:inventory) {
-			OrderEvents orderEvents=new OrderEvents();
-			orderEvents.setActivityDate(d);
-			orderEvents.setDeliveryOrderId(null);
-			orderEvents.setEnterpriseId(clinicOrder.getEnterpriseId());
-			orderEvents.setEventDesc("Submitted");
-			orderEvents.setLocationId(clinicOrder.getLocationId());
-			orderEvents.setOrderId(clinicOrder.getOrderId());
-			orderEvents.setPackageType(null);
-			orderEvents.setProductId(i.getProductId());
-			orderEvents.setQuantity(i.getOrderedQty());
-			orderEvents.setShipmentTrackingId(123);
-			orderEvents.setSrcId(clinicOrder.getSrcId());
-			orderEvents.setStatusId(clinicOrder.getOrderStatusId());
-			orderEvents.setUserId(clinicOrder.getUserId());
-			OrderEvents oe=orderEventsRepo.save(orderEvents);
-			orderEventsList.add(oe);
+			if(i.getOrderedQty()!=0) {
+				
+				OrderEvents orderEvents=new OrderEvents();
+				orderEvents.setActivityDate(d);
+				orderEvents.setDeliveryOrderId(null);
+				orderEvents.setEnterpriseId(clinicOrder.getEnterpriseId());
+				orderEvents.setEventDesc("Submitted");
+				orderEvents.setLocationId(clinicOrder.getLocationId());
+				orderEvents.setOrderId(clinicOrder);
+				orderEvents.setPackageType(null);
+				orderEvents.setProductId(i.getProductId());
+				orderEvents.setQuantity(i.getOrderedQty());
+				orderEvents.setShipmentTrackingId(123);
+				orderEvents.setSrcId(clinicOrder.getSrcId());
+				orderEvents.setStatusId(clinicOrder.getOrderStatusId());
+				orderEvents.setUserId(clinicOrder.getUserId());
+				OrderEvents oe=orderEventsRepo.save(orderEvents);
+				orderEventsList.add(oe);
+			}
 
 		}
 		return orderEventsList;
@@ -95,10 +101,11 @@ public class OrderEventsServiceImpl implements OrderEventsService {
 		List<OrderEvents> orderEventList=new ArrayList<>();
 		for(Object [] o:orderinglist) {
 			OrderEvents orderEvents=new OrderEvents();
-			orderEvents.setActivityDate((Date)o[0]);
+			//
+			orderEvents.setActivityDate((Date) o[0]);
 			orderEvents.setOrderEventId((Integer) o[1]);
 			orderEvents.setPoNumber((String)o[2]);
-			orderEvents.setShiptoId((Integer)o[3]);
+			orderEvents.setShiptoId((String)o[3]);
 			orderEvents.setShiptoName((String)o[4]);
 			orderEvents.setEventDesc((String)o[5]);
 			orderEvents.setQuantity((Integer)o[6]);
