@@ -1,0 +1,87 @@
+<div ng-controller="alp">
+    <div ng-include="'view/header.html'"></div>
+    <h1 class="text-center">Orders</h1><br>
+    <div class="container">
+        <div class="container d-flex justify-content-center mt-5">
+            <table class="table table-striped table-bordered text-center">
+                <thead class="clinics">
+                    <tr>
+                        <th>Date and time</th>
+                        <th>Cust Order</th>
+                        <th>Purchase Order</th>
+                        <th>Ship-to-ID</th>
+                        <th>Ship-to Name</th>
+                        <th>Status</th>
+                        <th>Dose</th>
+                        <th>Process</th>
+                        <th>View Inventory</th>
+                        <th>Cancle</th>
+                        <!-- <th>Order Event Id</th>
+                        <th>Status Id</th>
+                        <th>Activity Date</th>
+                        <th>Quantity</th>
+                        <th>Event Desc</th>
+                        <th>Order Id</th>
+                        <th>Location Id</th>
+                        <th>Product Id</th>
+                        <th>Package Type</th>
+                        <th>Enterprise Id</th>
+                        <th>Delivery Order Id</th>
+                        <th>Shipment Tracking Id</th>
+                        <th>User Id</th>
+                        <th>Src Id</th> -->
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="x in orderData">
+                        <td class="p-3">{{x.activityDate}}</td>
+                        <td class="p-3">{{x.orderEventId}}</td>
+                        <td class="p-3">{{x.po_number}}</td>
+                        <td class="p-3">{{x.shiptoId}}</td>
+                        <td class="p-3">{{x.shiptoName}}</td>
+                        <td class="p-3">{{x.eventDesc}}</td>
+                        <td class="p-3">{{x.quantity}}</td>
+                        <td class="p-3"><a href=""><i class="fa-regular fa-circle-check link-danger"
+                                    ng-click="changeOrderStatus(x.orderEventId)"></i></a></td>
+                        <td class="p-3"><a data-bs-toggle="modal" data-bs-target="#orderInventoryData"><i class="fa-sharp fa-solid fa-box link-danger"
+                                    ng-click="viewInventory(x.productId,x.locationId)"></i></a></td>
+                        <td class="p-3"><a href=""><i class="fa-regular fa-circle-xmark link-danger"
+                                    ng-click="cancleOrder(x.orderEventId)"></i></a></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="modal fade" id="orderInventoryData" tabindex="-1" aria-labelledby="orderInventoryDataLable" aria-hidden="true">
+                <div class="modal-dialog w-25">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="orderInventoryDataLable">Order Inventory</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <table id="orderInventory" class="borderBlack">
+                                <tr>
+                                    <th class="px-3">Product Name</th>
+                                    <th class="px-3">On Hand</th>
+                                    <th class="px-3">Expired</th>
+                                </tr>
+                                <!-- <tr ng-repeat="x in orderInventoryData">
+                                    <td ng-repeat="t in x">{{x}}</td>
+                                </tr> -->
+                                <tr>
+                                    <td >{{orderInventoryData.productName}}</td>
+                                    <td >{{orderInventoryData.onHand}}</td>
+                                    <td >{{orderInventoryData.expiredQty}}</td>
+                                </tr>
+                                
+                            </table>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

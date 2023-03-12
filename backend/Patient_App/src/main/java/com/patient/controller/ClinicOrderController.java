@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,6 +15,7 @@ import com.patient.Entity.ClinicOrder;
 import com.patient.ServiceImpl.ClinicOrderServiceImpl;
 
 @RestController
+@CrossOrigin
 public class ClinicOrderController {
 	
 	@Autowired
@@ -26,21 +28,11 @@ public class ClinicOrderController {
 		return new ResponseEntity<ClinicOrder>(result,HttpStatus.OK);
 	}
 	
-	
-//<<<<<<< HEAD
-//	
-////	@GetMapping("/getAllOrders/{locId}")
-////	public List<ClinicOrder> getAllOrders(@PathVariable("locId") Integer locId)
-////	{
-////		return clinicOrderServiceImpl.getAllOrdersById(locId);
-////	}
-//=======
+
 	@GetMapping("/getAllOrders/{locId}")
 	public List<ClinicOrder> getAllOrders(@PathVariable("locId") Integer locId)
 	{
 		return clinicOrderServiceImpl.getAllOrdersById(locId);
 	}
-//>>>>>>> c2d44e51a91e7042309a65f2637840cf593189e8
-		
-	
+
 }
