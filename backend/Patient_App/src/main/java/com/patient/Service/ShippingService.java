@@ -15,7 +15,7 @@ public interface ShippingService {
 	
 	public Clinic getShippingDataByShippingId(String shippingToId);
 	
-	public List<OrderEvents> getprocessedorderEvents();
+	public List<OrderEvents> getprocessedorderEvents(Integer locationId);
 	
 	public List<Serial> getSerialByProductId(Integer productId);
 	

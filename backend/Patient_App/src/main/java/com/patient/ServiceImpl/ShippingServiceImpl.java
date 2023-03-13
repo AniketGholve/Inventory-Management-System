@@ -73,10 +73,11 @@ public class ShippingServiceImpl implements ShippingService {
 
 
 	@Override
-	public List<OrderEvents> getprocessedorderEvents() {
+	public List<OrderEvents> getprocessedorderEvents(Integer locationId) {
 		// TODO Auto-generated method stub
-		Query q=entityManager.createQuery("select oe from OrderEvents oe where oe.eventDesc=:u");
+		Query q=entityManager.createQuery("select oe from OrderEvents oe where oe.eventDesc=:u and locationId=:v");
 		q.setParameter("u", "processes");
+		q.setParameter("v", locationId)
 		List<OrderEvents> orderEventList=q.getResultList();
 		return orderEventList;
 	}
