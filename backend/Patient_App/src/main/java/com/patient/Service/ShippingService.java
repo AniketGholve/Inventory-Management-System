@@ -19,5 +19,5 @@ public interface ShippingService {
 	
 	public List<Serial> getSerialByProductId(Integer productId);
 	
-	public List<ScannedShipmentDetails> getScannedShipmentDetails(Integer serialId,Integer productId);
+	public List<ScannedShipmentDetails> getScannedShipmentDetails(Integer serialId,Integer productId,Integer orderEventId);
 }
