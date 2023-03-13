@@ -25,6 +25,8 @@ app.controller("headerController", ($scope, $http, $location) => {
     switch (path) {
         case '/': $scope.activeTab = 'login';
             break;
+        case '/clp_users': $scope.activeTab = 'clpHome';
+            break;
         case '/register': $scope.activeTab = 'register';
             break;
         case '/inventory': $scope.activeTab = 'inventory';
@@ -116,6 +118,9 @@ app.config(function ($routeProvider, $httpProvider) {
             templateUrl: "view/inventory.html"
         })
         .when('/clp_users', {
+            templateUrl: "view/clp_home.html"
+        })
+        .when('/patient', {
             templateUrl: "view/clp_users.html"
         })
         .when('/alp_users', {
@@ -526,34 +531,46 @@ app.controller("alp", ($scope, $http, $window) => {
     }
 });
 app.controller("shipping", ($scope, $http, $window) => {
-    $scope.clinicName;
+    $scope.clinicShipToName;
     $http({
         method: 'Get',
         url: "http://localhost:7890/getAllShipToId",
-        headers: { 'Content-Type': 'application/json','Authorization': sessionStorage.getItem("token") }
+        headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") }
     }).then((response) => {
-        $scope.clinicDropdownName=response.data;
-        console.log(response.data)
+        $scope.clinicDropdownName = response.data;
+        $scope.orderIdFunction = () => {
+            console.log($scope.clinicShipToName)
+            $http({
+                method: 'Get',
+                url: "http://localhost:7890/getShippingDataByShippingId/" + $scope.clinicShipToName,
+                headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") }
+            }).then((response) => {
+                $scope.clinicShipToData = response.data;
+                $scope.demoVar = false;
+            }, (error) => {
+                console.log(error);
+            });
+        }
     }, (error) => {
         console.log(error);
     });
-    $scope.demoVar=true;
+    $scope.demoVar = true;
     $scope.orderIdFunction = () => {
         if ($scope.clinicName != undefined && $scope.clinicName != '') {
             $scope.orderId = 234;
-            if($scope.orderId != undefined && $scope.orderId != ''){
-                  $scope.name="Amanora";
-                  $scope.address="1234567";
-                  $scope.city="Maharashtra";
-                  $scope.demoVar=false;
+            if ($scope.orderId != undefined && $scope.orderId != '') {
+                $scope.name = "Amanora";
+                $scope.address = "1234567";
+                $scope.city = "Maharashtra";
+                $scope.demoVar = false;
             }
         }
         else {
             $scope.orderId = "";
-            $scope.name="";
-            $scope.address="";
-            $scope.city="";
-            $scope.demoVar=true;
+            $scope.name = "";
+            $scope.address = "";
+            $scope.city = "";
+            $scope.demoVar = true;
         }
     }
 });
