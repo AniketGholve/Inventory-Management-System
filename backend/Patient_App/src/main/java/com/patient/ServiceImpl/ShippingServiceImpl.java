@@ -102,7 +102,10 @@ public class ShippingServiceImpl implements ShippingService {
 	@Override
 	public List<ScannedShipmentDetails> getScannedShipmentDetails(Integer serialId, Integer productId,Integer orderEventId) {
 		// TODO Auto-generated method stub
-		Query q=entityManager.createNativeQuery("select p.product_name,oe.order_event_id from product p inner join order_events oe where p.product_id=oe.product_id and order_event_id=?");
+		Query q=entityManager.createNativeQuery("select p.product_name,oe.order_event_id,oe.event_desc from product p inner join order_events oe where p.product_id=oe.product_id and order_event_id=?");
+		OrderEvents orderEvent=orderEventsRepo.findById(orderEventId).orElseThrow();
+		orderEvent.setEventDesc("Shipped");
+		orderEventsRepo.save(orderEvent);
 		q.setParameter(1, orderEventId); 	 	
 		List<Object []> l=q.getResultList();
 		Integer k=1;
@@ -111,7 +114,7 @@ public class ShippingServiceImpl implements ShippingService {
 			ScannedShipmentDetails scannedShipmentDetails=new ScannedShipmentDetails();
 			scannedShipmentDetails.setDose((String)o[0]);
 			scannedShipmentDetails.setQuantity(k++);
-			scannedShipmentDetails.setStatus("Shipped");
+			scannedShipmentDetails.setStatus((String)o[2]);
 			list.add(scannedShipmentDetails);
 		}
 		return list;
