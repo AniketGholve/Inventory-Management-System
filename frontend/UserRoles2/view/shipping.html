@@ -15,7 +15,7 @@
             </div>
         </div>
         <div class="text-center mt-3">
-            <input type="submit" class="btn btn-danger" value="Continue">
+            <input type="button" ng-click="demoFunction()" class="btn btn-danger" value="Continue">
         </div>
     </div>
     <div class="container mt-3">
@@ -66,11 +66,8 @@
                 </tr>
             </thead>
             <tbody>
-                <tr class="text-center">
-                    <td>XYZ</td>
-                    <td>12345</td>
-                    <td>asdf</td>
-                    <td>12345</td>
+                <tr class="text-center"ng-repeat="singleShipmentData in shipmentDetails">
+                    <td  ng-repeat="x in singleShipmentData">{{x}}</td>
                 </tr>
             </tbody>
         </table>

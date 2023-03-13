@@ -559,7 +559,7 @@ app.controller("shipping", ($scope, $http, $window) => {
                 if ($scope.productIdAndOrderEventId != undefined) {
                     var productIdAndOrderEventId = $scope.productIdAndOrderEventId;
                     var productIdOrderEventId = productIdAndOrderEventId.split(",");
-                    $scope.orderEventId=productIdOrderEventId[1];
+                    $scope.orderEventId = productIdOrderEventId[1];
                     $scope.demoVar = false;
                     $http({
                         method: 'Get',
@@ -582,13 +582,15 @@ app.controller("shipping", ($scope, $http, $window) => {
         console.log(error);
     });
     $scope.selectSerialNumber = () => {
+
+    }
+    $scope.demoFunction = () => {
         if ($scope.scanShipmentDetails != undefined) {
             let scanShipmentDetails = $scope.scanShipmentDetails;
             let serialIdAndProductId = scanShipmentDetails.split(",");
-            console.log("http://localhost:7890/scannedShipmentDetails/" + serialIdAndProductId[0] + "/" + serialIdAndProductId[1]+"/"+$scope.orderEventId)
             $http({
                 method: 'Get',
-                url: "http://localhost:7890/scannedShipmentDetails/" + serialIdAndProductId[0] + "/" + serialIdAndProductId[1],
+                url: "http://localhost:7890/scannedShipmentDetails/" + serialIdAndProductId[0] + "/" + serialIdAndProductId[1] + "/" + $scope.orderEventId,
                 headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") }
             }).then((response) => {
                 $scope.shipmentDetails = response.data;
