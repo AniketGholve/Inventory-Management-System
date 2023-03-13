@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.patient.Entity.Clinic;
 import com.patient.Entity.OrderEvents;
+import com.patient.Entity.ScannedShipmentDetails;
 import com.patient.Entity.Serial;
 
 public interface ShippingService {
@@ -17,4 +18,6 @@ public interface ShippingService {
 	public List<OrderEvents> getprocessedorderEvents();
 	
 	public List<Serial> getSerialByProductId(Integer productId);
+	
+	public List<ScannedShipmentDetails> getScannedShipmentDetails(Integer serialId,Integer productId);
 }

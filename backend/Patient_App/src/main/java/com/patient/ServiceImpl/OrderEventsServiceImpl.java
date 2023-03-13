@@ -1,8 +1,6 @@
 package com.patient.ServiceImpl;
 
 import java.sql.Date;
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +14,7 @@ import com.patient.Repo.ClinicOrderRepo;
 import com.patient.Repo.OrderEventsRepo;
 import com.patient.Service.OrderEventsService;
 
+import io.jsonwebtoken.lang.Arrays;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
 
@@ -39,6 +38,9 @@ public class OrderEventsServiceImpl implements OrderEventsService {
 		Date d = new Date(m);
 		ClinicOrder clinicOrder = clinicOrderRepo.findById(clinicOrderId).orElseThrow();
 		List<OrderEvents> orderEventsList = new ArrayList<>();
+		List<Integer> l = new ArrayList<>();
+		l.add(1);
+		l.add(2);
 		for (Inventory i : inventory) {
 			if (i.getOrderedQty() != 0) {
 				OrderEvents orderEvents = new OrderEvents();
@@ -48,10 +50,7 @@ public class OrderEventsServiceImpl implements OrderEventsService {
 				orderEvents.setEnterpriseId(clinicOrder.getEnterpriseId());
 				orderEvents.setEventDesc("Submitted");
 				orderEvents.setLocationId(clinicOrder.getLocationId());
-
 				orderEvents.setOrderId(clinicOrder);
-
-				
 				orderEvents.setPackageType(null);
 				orderEvents.setProductId(i.getProductId());
 				orderEvents.setQuantity(i.getOrderedQty());
@@ -62,7 +61,6 @@ public class OrderEventsServiceImpl implements OrderEventsService {
 				OrderEvents oe=orderEventsRepo.save(orderEvents);
 				orderEventsList.add(oe);
 			}
-
 		}
 		return orderEventsList;
 	}
@@ -99,6 +97,9 @@ public class OrderEventsServiceImpl implements OrderEventsService {
 		for(Object [] o:orderinglist) {
 			OrderEvents orderEvents=new OrderEvents();
 			//
+			System.out.println("lllkkkkkkk");
+			System.out.println(o[6].getClass());
+			
 			orderEvents.setActivityDate((Date) o[0]);
 			orderEvents.setOrderEventId((Integer) o[1]);
 			orderEvents.setPoNumber((String)o[2]);
