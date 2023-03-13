@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.patient.Entity.Clinic;
 import com.patient.Entity.OrderEvents;
+import com.patient.Entity.ScannedShipmentDetails;
 import com.patient.Entity.Serial;
 import com.patient.ServiceImpl.ShippingServiceImpl;
 
@@ -53,5 +54,9 @@ public class ShippingController {
 		return new ResponseEntity<List<Serial>>(result,HttpStatus.OK);
 	}
 	
-	 
+	@GetMapping("/scannedShipmentDetails/{serialId}/{productId}")
+	private ResponseEntity<List<ScannedShipmentDetails>> getScannedShipmentDetails(@PathVariable Integer serialId,@PathVariable Integer productId){
+		List<ScannedShipmentDetails> result=shippingServiceImpl.getScannedShipmentDetails(serialId,productId);
+		return new ResponseEntity<List<ScannedShipmentDetails>>(result,HttpStatus.OK);	
+	}	 
 }

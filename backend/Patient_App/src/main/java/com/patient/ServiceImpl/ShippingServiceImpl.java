@@ -1,5 +1,6 @@
 package com.patient.ServiceImpl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.patient.Entity.Clinic;
 import com.patient.Entity.OrderEvents;
+import com.patient.Entity.ScannedShipmentDetails;
 import com.patient.Entity.Serial;
 import com.patient.Repo.ClinicRepo;
 import com.patient.Repo.OrderEventsRepo;
@@ -91,6 +93,33 @@ public class ShippingServiceImpl implements ShippingService {
 		List<Serial> result=q.getResultList();
 		return result;
 	}
+
+
+
+
+
+	@Override
+	public List<ScannedShipmentDetails> getScannedShipmentDetails(Integer serialId, Integer productId) {
+		// TODO Auto-generated method stub
+		Query q=entityManager.createNativeQuery("select p.product_name,oe.order_event_id from product p inner join order_events oe where p.product_id=oe.product_id");
+		List<Object []> l=q.getResultList();
+		Integer k=1;
+		List<ScannedShipmentDetails> list=new ArrayList<>();
+		for (Object[] o:l) {
+			ScannedShipmentDetails scannedShipmentDetails=new ScannedShipmentDetails();
+			scannedShipmentDetails.setDose((String)o[0]);
+			scannedShipmentDetails.setQuantity(k++);
+			scannedShipmentDetails.setStatus("Shipped");
+			list.add(scannedShipmentDetails);
+		}
+		return list;
+	}
+	
+	
+	
+	
+	
+	
 	
 	
 	
