@@ -21,7 +21,8 @@
         <div class="d-flex ">
             <div class="d-flex flex-column w-50">
                 <label for="" class="h5 m-0 mb-2">Ship to Customer</label>
-                <select ng-change="orderIdFunction()" ng-model="clinicName">
+                <select class="w-75" ng-change="orderIdFunction()" ng-model="clinicName">
+                    <option label="Select Shipping Clinic" class="d-none"></option>
                     <option value="{{x.name}}" ng-repeat="x in clinicDropdownName">{{x.name}}</option>
                 </select>
                 <label for="" class="h5 m-0 mt-2">Order Id</label>
