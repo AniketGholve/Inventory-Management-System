@@ -29,7 +29,9 @@ app.controller("headerController", ($scope, $http, $location) => {
             break;
         case '/inventory': $scope.activeTab = 'inventory';
             break;
-        case '/clp_users': $scope.activeTab = 'patient';
+        case '/clp_users': $scope.activeTab = 'clpHome';
+            break;
+        case '/patient': $scope.activeTab = 'patient';
             break;
         case '/alp_users': $scope.activeTab = 'clinic';
             break;
@@ -40,6 +42,12 @@ app.controller("headerController", ($scope, $http, $location) => {
         case '/ordersInfo': $scope.activeTab = 'orderInfo';
             break;
         case '/orders': $scope.activeTab = 'order';
+            break;
+        case '/elp_users': $scope.activeTab = 'successOrders' ;
+            break;
+        case '/error_orders': $scope.activeTab = 'errorOrders' ;
+            break;
+        case '/shipping': $scope.activeTab = 'shipping' ;
             break;
     }
     if (sessionStorage.getItem("username") != undefined) {
@@ -78,6 +86,7 @@ app.controller("headerController", ($scope, $http, $location) => {
     else {
         $scope.clp = "d-none";
         $scope.alp = "d-none";
+        $scope.elp = "d-none";
         $scope.userIcon = "d-none";
     }
 })
@@ -104,9 +113,6 @@ app.config(function ($routeProvider, $httpProvider) {
         .when('/register', {
             templateUrl: "view/registration.html"
         })
-        .when('/elp_users', {
-            templateUrl: "view/success_orders.html"
-        })
         .when('/mlp_users', {
             templateUrl: "view/mlp_users.html"
         })
@@ -114,6 +120,9 @@ app.config(function ($routeProvider, $httpProvider) {
             templateUrl: "view/inventory.html"
         })
         .when('/clp_users', {
+            templateUrl: "view/clp_home.html"
+        })
+        .when('/patient', {
             templateUrl: "view/clp_users.html"
         })
         .when('/alp_users', {
@@ -135,11 +144,11 @@ app.config(function ($routeProvider, $httpProvider) {
             {
                 templateUrl: "/view/updateClinic.html"
             })
-        .when("/success_orders", {
-            templateUrl: "/view/success_orders.html"
-        })
+        .when("/elp_users", {
+                templateUrl: "view/elp_users.html"
+            })
         .when("/error_orders", {
-            templateUrl: "/view/error_orders.html"
+            templateUrl: "view/error_orders.html"
         })
         .when("/insertClinic",
             {
@@ -172,7 +181,14 @@ app.config(function ($routeProvider, $httpProvider) {
         .when('/orders',
             {
                 templateUrl: "view/orders.html"
-            });
+            })
+        .when('/shipping' , {
+            templateUrl: "view/shipping.html"
+        })
+        .when('/home',
+        {
+                templateUrl: "view/home.html"
+        });
     $httpProvider.interceptors.push('myInterceptor');
 });
 
