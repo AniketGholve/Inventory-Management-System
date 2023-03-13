@@ -252,19 +252,47 @@ td {
 }
 
 
-.dispenseSection{
-  width: 50%;
-  
-  text-align: center;
+.dispense_section{
+
   /* background-color: rgba(65, 179, 122, 0.852); */
   display: flex;
+  font-size: 30px;
+  padding-left:200px ;
+  padding-right: 200px;
+  
  
 
   /* border: 2px solid black; */
 }
+
+.dispense_d{
+  background-color:rgba(245, 245, 245, 0.833);
+}
+.inventory_d{
+  background-color:rgba(245, 245, 245, 0.833);
+}
+.dispense_section a{
+text-decoration: none;
+color: black;
+text-align: center;
+}
+.inventory_section{
+  display: flex;
+  font-size: 30px;
+  padding-left:200px ;
+  padding-right: 200px;
+
+}
+.inventory_section a{
+text-decoration: none;
+color: black;
+text-align: center;
+
+}
+
 .clpHomeSection{
-  height: 40vh;
-  align-items: center;
+  background-color: rgb(79, 164, 198);
+
 }
 
 .btn2{
@@ -275,5 +303,12 @@ td {
 .shipped{
   background-color: rgb(96, 135, 192);
   color: white;
+}
   
+.dropdownTab{
+  border-radius: 10px;
+  font-size: 17px;
+  text-align: center;
+  margin-top: 8px;
+  margin-right: 30px;
 }
