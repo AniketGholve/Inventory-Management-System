@@ -237,3 +237,18 @@ td {
   margin-top: 8px;
   margin-right: 30px;
 }
+.shipInfo{
+  background-color: rgb(209, 208, 208);
+}
+.border-none{
+  border: none;
+}
+.background-lightBule{
+  background-color: #89CFF0;
+}
+.background-whiteSnow{
+  background-color: #F5F5F5;
+}
+.grey{
+  color: gray;
+}
