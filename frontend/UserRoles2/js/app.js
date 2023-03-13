@@ -41,6 +41,8 @@ app.controller("headerController", ($scope, $http, $location) => {
             break;
         case '/orders': $scope.activeTab = 'order';
             break;
+        case '/shipping': $scope.activeTab = 'shipping';
+            break;
     }
     if (sessionStorage.getItem("username") != undefined) {
         $http({
@@ -172,6 +174,10 @@ app.config(function ($routeProvider, $httpProvider) {
         .when('/orders',
             {
                 templateUrl: "view/orders.html"
+            })
+        .when('/shipping',
+            {
+                templateUrl: "view/shipping.html"
             });
     $httpProvider.interceptors.push('myInterceptor');
 });
@@ -284,10 +290,9 @@ app.controller("clp", function ($scope, $http, $window, $location) {
             $window.location.reload();
         }
     }
-    $scope.inventoryLocation=()=>{
-        let allPath=$location.path();
-        if(allPath==="/inventory" || allPath==="/orders")
-        {
+    $scope.inventoryLocation = () => {
+        let allPath = $location.path();
+        if (allPath === "/inventory" || allPath === "/orders") {
             return true;
         }
         return false;
@@ -518,6 +523,38 @@ app.controller("alp", ($scope, $http, $window) => {
         }, (error) => {
             console.log(error);
         });
+    }
+});
+app.controller("shipping", ($scope, $http, $window) => {
+    $scope.clinicName;
+    $http({
+        method: 'Get',
+        url: "http://localhost:7890/getAllShipToId",
+        headers: { 'Content-Type': 'application/json','Authorization': sessionStorage.getItem("token") }
+    }).then((response) => {
+        $scope.clinicDropdownName=response.data;
+        console.log(response.data)
+    }, (error) => {
+        console.log(error);
+    });
+    $scope.demoVar=true;
+    $scope.orderIdFunction = () => {
+        if ($scope.clinicName != undefined && $scope.clinicName != '') {
+            $scope.orderId = 234;
+            if($scope.orderId != undefined && $scope.orderId != ''){
+                  $scope.name="Amanora";
+                  $scope.address="1234567";
+                  $scope.city="Maharashtra";
+                  $scope.demoVar=false;
+            }
+        }
+        else {
+            $scope.orderId = "";
+            $scope.name="";
+            $scope.address="";
+            $scope.city="";
+            $scope.demoVar=true;
+        }
     }
 });
 
