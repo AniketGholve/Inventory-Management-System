@@ -2,11 +2,14 @@ package com.patient.Entity;
 
 import java.sql.Date;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Transient;
 
 @Entity
@@ -24,8 +27,6 @@ public class OrderEvents {
 	private Integer quantity;
 	@Column(name="event_desc")
 	private String eventDesc;
-	@Column(name="order_id")
-	private Integer orderId;
 	@Column(name="location_id")
 	private Integer locationId;
 	@Column(name="product_id")
@@ -43,39 +44,16 @@ public class OrderEvents {
 	@Column(name="src_id")
 	private Integer srcId;
 	
+	@ManyToOne
+	@JoinColumn(name="order_id")
+	private ClinicOrder orderId;
+	
 	@Transient
-	private int shiptoId;
+	private String shiptoId;
 	@Transient
 	private String shiptoName;
 	@Transient
 	private String poNumber;
-	public OrderEvents() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-	public OrderEvents(Integer orderEventId, Integer statusId, Date activityDate, Integer quantity, String eventDesc,
-			Integer orderId, Integer locationId, Integer productId, String packageType, Integer enterpriseId,
-			Integer deliveryOrderId, Integer shipmentTrackingId, Integer userId, Integer srcId, int shiptoId,
-			String shiptoName, String poNumber) {
-		super();
-		this.orderEventId = orderEventId;
-		this.statusId = statusId;
-		this.activityDate = activityDate;
-		this.quantity = quantity;
-		this.eventDesc = eventDesc;
-		this.orderId = orderId;
-		this.locationId = locationId;
-		this.productId = productId;
-		this.packageType = packageType;
-		this.enterpriseId = enterpriseId;
-		this.deliveryOrderId = deliveryOrderId;
-		this.shipmentTrackingId = shipmentTrackingId;
-		this.userId = userId;
-		this.srcId = srcId;
-		this.shiptoId = shiptoId;
-		this.shiptoName = shiptoName;
-		this.poNumber = poNumber;
-	}
 	public Integer getOrderEventId() {
 		return orderEventId;
 	}
@@ -105,12 +83,6 @@ public class OrderEvents {
 	}
 	public void setEventDesc(String eventDesc) {
 		this.eventDesc = eventDesc;
-	}
-	public Integer getOrderId() {
-		return orderId;
-	}
-	public void setOrderId(Integer orderId) {
-		this.orderId = orderId;
 	}
 	public Integer getLocationId() {
 		return locationId;
@@ -160,10 +132,16 @@ public class OrderEvents {
 	public void setSrcId(Integer srcId) {
 		this.srcId = srcId;
 	}
-	public int getShiptoId() {
+	public ClinicOrder getOrderId() {
+		return orderId;
+	}
+	public void setOrderId(ClinicOrder orderId) {
+		this.orderId = orderId;
+	}
+	public String getShiptoId() {
 		return shiptoId;
 	}
-	public void setShiptoId(int shiptoId) {
+	public void setShiptoId(String shiptoId) {
 		this.shiptoId = shiptoId;
 	}
 	public String getShiptoName() {
@@ -178,6 +156,47 @@ public class OrderEvents {
 	public void setPoNumber(String poNumber) {
 		this.poNumber = poNumber;
 	}
+	
+	
+	public OrderEvents(Integer orderEventId, Integer statusId, Date activityDate, Integer quantity, String eventDesc,
+			Integer locationId, Integer productId, String packageType, Integer enterpriseId, Integer deliveryOrderId,
+			Integer shipmentTrackingId, Integer userId, Integer srcId, ClinicOrder orderId, String shiptoId,
+			String shiptoName, String poNumber) {
+		super();
+		this.orderEventId = orderEventId;
+		this.statusId = statusId;
+		this.activityDate = activityDate;
+		this.quantity = quantity;
+		this.eventDesc = eventDesc;
+		this.locationId = locationId;
+		this.productId = productId;
+		this.packageType = packageType;
+		this.enterpriseId = enterpriseId;
+		this.deliveryOrderId = deliveryOrderId;
+		this.shipmentTrackingId = shipmentTrackingId;
+		this.userId = userId;
+		this.srcId = srcId;
+		this.orderId = orderId;
+		this.shiptoId = shiptoId;
+		this.shiptoName = shiptoName;
+		this.poNumber = poNumber;
+	}
+	public OrderEvents() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	@Override
+	public String toString() {
+		return "OrderEvents [orderEventId=" + orderEventId + ", statusId=" + statusId + ", activityDate=" + activityDate
+				+ ", quantity=" + quantity + ", eventDesc=" + eventDesc + ", locationId=" + locationId + ", productId="
+				+ productId + ", packageType=" + packageType + ", enterpriseId=" + enterpriseId + ", deliveryOrderId="
+				+ deliveryOrderId + ", shipmentTrackingId=" + shipmentTrackingId + ", userId=" + userId + ", srcId="
+				+ srcId + ", orderId=" + orderId + ", shiptoId=" + shiptoId + ", shiptoName=" + shiptoName
+				+ ", poNumber=" + poNumber + "]";
+	}
+	
+	
+	
 	
 
 }

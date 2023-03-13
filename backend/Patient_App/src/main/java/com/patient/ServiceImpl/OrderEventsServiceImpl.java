@@ -1,6 +1,8 @@
 package com.patient.ServiceImpl;
 
 import java.sql.Date;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,6 +34,7 @@ public class OrderEventsServiceImpl implements OrderEventsService {
 	@Override
 	public List<OrderEvents> createOrderEvent(List<Inventory> inventory, Integer clinicOrderId) {
 		// TODO Auto-generated method stub
+
 		long m = System.currentTimeMillis();
 		Date d = new Date(m);
 		ClinicOrder clinicOrder = clinicOrderRepo.findById(clinicOrderId).orElseThrow();
@@ -39,12 +42,16 @@ public class OrderEventsServiceImpl implements OrderEventsService {
 		for (Inventory i : inventory) {
 			if (i.getOrderedQty() != 0) {
 				OrderEvents orderEvents = new OrderEvents();
+
 				orderEvents.setActivityDate(d);
 				orderEvents.setDeliveryOrderId(null);
 				orderEvents.setEnterpriseId(clinicOrder.getEnterpriseId());
 				orderEvents.setEventDesc("Submitted");
 				orderEvents.setLocationId(clinicOrder.getLocationId());
-				orderEvents.setOrderId(clinicOrder.getOrderId());
+
+				orderEvents.setOrderId(clinicOrder);
+
+				
 				orderEvents.setPackageType(null);
 				orderEvents.setProductId(i.getProductId());
 				orderEvents.setQuantity(i.getOrderedQty());
@@ -52,7 +59,7 @@ public class OrderEventsServiceImpl implements OrderEventsService {
 				orderEvents.setSrcId(clinicOrder.getSrcId());
 				orderEvents.setStatusId(clinicOrder.getOrderStatusId());
 				orderEvents.setUserId(clinicOrder.getUserId());
-				OrderEvents oe = orderEventsRepo.save(orderEvents);
+				OrderEvents oe=orderEventsRepo.save(orderEvents);
 				orderEventsList.add(oe);
 			}
 
@@ -86,21 +93,21 @@ public class OrderEventsServiceImpl implements OrderEventsService {
 	@Override
 	public List<OrderEvents> getOrderingScreen() {
 		// TODO Auto-generated method stub
-		Query q = entityManager.createNativeQuery(
-				"select oe.activity_date,oe.order_event_id,co.po_number,co.shipto_id,co.shipto_name,oe.event_desc,oe.quantity,oe.product_id,oe.location_id from order_events oe inner join clinic_order co on oe.order_id=co.order_id");
-		List<Object[]> orderinglist = q.getResultList();
-		List<OrderEvents> orderEventList = new ArrayList<>();
-		for (Object[] o : orderinglist) {
-			OrderEvents orderEvents = new OrderEvents();
+		Query q=entityManager.createNativeQuery("select oe.activity_date,oe.order_event_id,co.po_number,co.shipto_id,co.shipto_name,oe.event_desc,oe.quantity,oe.product_id,oe.location_id from order_events oe inner join clinic_order co on oe.order_id=co.order_id");
+		List<Object[]> orderinglist=q.getResultList();
+		List<OrderEvents> orderEventList=new ArrayList<>();
+		for(Object [] o:orderinglist) {
+			OrderEvents orderEvents=new OrderEvents();
+			//
 			orderEvents.setActivityDate((Date) o[0]);
 			orderEvents.setOrderEventId((Integer) o[1]);
-			orderEvents.setPoNumber((String) o[2]);
-			orderEvents.setShiptoId((Integer) o[3]);
-			orderEvents.setShiptoName((String) o[4]);
-			orderEvents.setEventDesc((String) o[5]);
-			orderEvents.setQuantity((Integer) o[6]);
-			orderEvents.setProductId((Integer) o[7]);
-			orderEvents.setLocationId((Integer) o[8]);
+			orderEvents.setPoNumber((String)o[2]);
+			orderEvents.setShiptoId((String)o[3]);
+			orderEvents.setShiptoName((String)o[4]);
+			orderEvents.setEventDesc((String)o[5]);
+			orderEvents.setQuantity((Integer)o[6]);
+			orderEvents.setProductId((Integer)o[7]);	
+			orderEvents.setLocationId((Integer)o[8]);
 			orderEventList.add(orderEvents);
 		}
 		return orderEventList;

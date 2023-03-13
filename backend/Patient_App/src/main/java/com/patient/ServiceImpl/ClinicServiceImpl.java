@@ -54,11 +54,12 @@ public class ClinicServiceImpl implements ClinicService {
 		clinic.setSalesRep1(null);
 		clinic.setSalesRep2(null);
 		clinic.setShipmentMethod(null);
-		clinic.setShipTo(null);
 		clinic.setShipToName(null);
 		clinic.setSrc_id(null);
 		clinic.setTimeZone(null);
-		Clinic c=clinicRepo.save(clinic);
+		Clinic cli=clinicRepo.save(clinic);
+		cli.setShipTo(cli.getLocationId()+cli.getName());
+		Clinic c=clinicRepo.save(cli);
 		return c;
 		
 		
