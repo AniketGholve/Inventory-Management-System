@@ -240,29 +240,14 @@ td {
   left: 50%;
 }
 
-.inventorySection{
-  width: 50%;
-  
-  text-align: center;
-  /* background-color: rgb(205, 106, 205); */
-  display: flex;
- 
 
-  /* border: 2px solid black; */
-}
 
 
 .dispense_section{
-
-  /* background-color: rgba(65, 179, 122, 0.852); */
   display: flex;
   font-size: 30px;
   padding-left:200px ;
   padding-right: 200px;
-  
- 
-
-  /* border: 2px solid black; */
 }
 
 .dispense_d{
@@ -311,4 +296,19 @@ text-align: center;
   text-align: center;
   margin-top: 8px;
   margin-right: 30px;
+}
+.shipInfo{
+  background-color: rgb(209, 208, 208);
+}
+.border-none{
+  border: none;
+}
+.background-lightBule{
+  background-color: #89CFF0;
+}
+.background-whiteSnow{
+  background-color: #F5F5F5;
+}
+.grey{
+  color: gray;
 }

@@ -2,6 +2,8 @@ package com.patient.Entity;
 
 import java.sql.Date;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -45,6 +47,7 @@ public class OrderEvents {
 	private Integer srcId;
 	
 	@ManyToOne
+	@JsonBackReference
 	@JoinColumn(name="order_id")
 	private ClinicOrder orderId;
 	

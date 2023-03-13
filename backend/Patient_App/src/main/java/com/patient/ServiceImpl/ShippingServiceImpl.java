@@ -50,8 +50,17 @@ public class ShippingServiceImpl implements ShippingService {
 	public Clinic getShippingDataByShippingId(String shippingToId) {
 		// TODO Auto-generated method stub
 		Query q=entityManager.createQuery("select c from Clinic c where c.shipTo=:u");
-		q.setParameter("u",shippingToId );
-		Clinic clinic= (Clinic) q.getSingleResult();
+		System.out.println(shippingToId);
+		q.setParameter("u",shippingToId);
+		Clinic clinic;
+		try {
+			 clinic= (Clinic) q.getSingleResult();
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			return null;
+		}
+		
 		return clinic;
 	}
 
@@ -62,9 +71,32 @@ public class ShippingServiceImpl implements ShippingService {
 	@Override
 	public List<OrderEvents> getprocessedorderEvents() {
 		// TODO Auto-generated method stub
-		List<OrderEvents> orderEventList=orderEventsRepo.findAll();
+		Query q=entityManager.createQuery("select oe from OrderEvents oe where oe.eventDesc=:u");
+		q.setParameter("u", "processes");
+		List<OrderEvents> orderEventList=q.getResultList();
 		return orderEventList;
 	}
+
+
+
+
+
+	@Override
+	public List<Serial> getSerialByProductId(Integer productId) {
+		// TODO Auto-generated method stub
+		Query q=entityManager.createQuery("select s from Serial s where s.productId=:u");
+		q.setParameter("u", productId);
+		List<Serial> result=q.getResultList();
+		return result;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

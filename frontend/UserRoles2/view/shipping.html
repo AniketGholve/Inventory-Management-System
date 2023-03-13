@@ -1,4 +1,4 @@
-<div>
+<!-- <div>
     <div ng-include="'view/header.html'"></div>
     <div class="shipped">
         <form class="d-inline block">
@@ -63,8 +63,8 @@
 
             </div>
 
-        </div>
-        <div class="container d-flex justify-content-center mt-5">
+        </div> -->
+        <!-- <div class="container d-flex justify-content-center mt-5">
 
 
             <label for="">Scanned Shipment Details</label>
@@ -83,7 +83,80 @@
                         <td>No records found</td>
 
                     </tr>
-        </div>
+        </div> -->
 
+<div ng-controller="shipping" class="background-whiteSnow">
+    <div ng-include="'view/header.html'"></div>
+    <div class="p-5 background-lightBule" ng-class="{'d-none':demoVar==true}">
+        <div class="container">
+            <div class="d-flex flex-column">
+                <label for="" class="h5 text-center">Parent container Id (SSCC)</label>
+                <div class="text-center">
+                    <input type="text" class="w-50">
+                </div>
+                <label for="" class="h5 text-center">Please enter kit information</label>
+                <div class="text-center">
+                    <input type="text" class="w-75">
+                </div>
+            </div>
+        </div>
+        <div class="text-center mt-3">
+            <input type="submit" class="btn btn-danger" value="Continue">
+        </div>
+    </div>
+    
+    <div class="container mt-3">
+        <div class="d-flex ">
+            <div class="d-flex flex-column w-50">
+                <label for="" class="h5 m-0 mb-2">Ship to Customer</label>
+                <select class="w-75" ng-change="orderIdFunction()" ng-model="clinicShipToName">
+                    <option label="Select Shipping Clinic" class="d-none"></option>
+                    <option value="{{x.shipToName}}" ng-repeat="x in clinicDropdownName">{{x.shipToName}}</option>
+                </select>
+                <label for="" class="h5 m-0 mt-2">Order Id</label>
+                <input type="text" class="w-75" ng-model="orderId">
+            </div>
+            
+            <div class="w-50">
+                <label for="" class="h5">Ship-To</label>
+                <div class="form-control d-flex flex-column shipInfo">
+                    <div class="d-flex justify-content-between ">
+                        <label>Name</label>
+                        <input type="text" class="w-75 border-0" disabled value="{{clinicShipToData.name}}">
+                    </div>
+                    <div class="d-flex justify-content-between ">
+                        <label>Address</label>
+                        <input type="text" class="w-75 border-0" disabled value="{{clinicShipToData.addrLine1 + clinicShipToData.addrLine2 }}">
+                    </div>
+                    <div class="d-flex justify-content-between ">
+                        <label>City|State|Zip</label>
+                        <input type="text" class="w-75 border-0" disabled value="{{clinicShipToData.city +' '+ clinicShipToData.state +' '+ clinicShipToData.zipcode}}">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container mt-5">
+        <div>
+            <h3>Scanned Shipment Details</h3>
+        </div>
+        <table class="border-none">
+            <thead>
+                <tr class="bg-secondary text-center text-light bg-dark">
+                    <th class="w-25 ">Dose</th>
+                    <th class="">Quantity</th>
+                    <th class="w-25 ">Status</th>
+                    <th class="w-50 ">Batch</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="text-center">
+                    <td>XYZ</td>
+                    <td>12345</td>
+                    <td>asdf</td>
+                    <td>12345</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </div>
