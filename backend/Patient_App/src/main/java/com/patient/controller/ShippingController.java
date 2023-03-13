@@ -23,7 +23,7 @@ public class ShippingController {
 	private ShippingServiceImpl shippingServiceImpl;
 	
 	
-	@GetMapping("getAllShipToId")
+	@GetMapping("/getAllShipToId")
 	private ResponseEntity<List<Clinic>> getAllShipToId(){
 		
 		List<Clinic> result=shippingServiceImpl.getAllShipToId();
