@@ -38,7 +38,9 @@ public class ShippingServiceImpl implements ShippingService {
 	@Override
 	public List<Clinic> getAllShipToId() {
 		// TODO Auto-generated method stub
-		List<Clinic> clinicList=clinicRepo.findAll();
+		Query q=entityManager.createQuery("select c from Clinic c where c.deleted=:u");
+		q.setParameter("u", false);
+		List<Clinic> clinicList=q.getResultList();
 		return clinicList;
 	}
 
@@ -49,7 +51,7 @@ public class ShippingServiceImpl implements ShippingService {
 	@Override
 	public Clinic getShippingDataByShippingId(String shippingToId) {
 		// TODO Auto-generated method stub
-		Query q=entityManager.createQuery("select c from Clinic c where c.shipTo=:u");
+		Query q=entityManager.createQuery("select c from Clinic c where c.shipToName=:u");
 		System.out.println(shippingToId);
 		q.setParameter("u",shippingToId);
 		Clinic clinic;
