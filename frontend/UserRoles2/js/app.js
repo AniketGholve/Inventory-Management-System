@@ -546,7 +546,7 @@ app.controller("shipping", ($scope, $http, $window) => {
                 headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") }
             }).then((response) => {
                 $scope.clinicShipToData = response.data;
-                $scope.demoVar = false;
+                
             }, (error) => {
                 console.log(error);
             });
