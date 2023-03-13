@@ -527,6 +527,16 @@ app.controller("alp", ($scope, $http, $window) => {
 });
 app.controller("shipping", ($scope, $http, $window) => {
     $scope.clinicName;
+    $http({
+        method: 'Get',
+        url: "http://localhost:7890/getAllShipToId",
+        headers: { 'Content-Type': 'application/json','Authorization': sessionStorage.getItem("token") }
+    }).then((response) => {
+        $scope.clinicDropdownName=response.data;
+        console.log(response.data)
+    }, (error) => {
+        console.log(error);
+    });
     $scope.demoVar=true;
     $scope.orderIdFunction = () => {
         if ($scope.clinicName != undefined && $scope.clinicName != '') {
