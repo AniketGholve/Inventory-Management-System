@@ -539,14 +539,41 @@ app.controller("shipping", ($scope, $http, $window) => {
     }).then((response) => {
         $scope.clinicDropdownName = response.data;
         $scope.orderIdFunction = () => {
-            console.log($scope.clinicShipToName)
+            let clinicNameAndLocation = $scope.clinicNameAndLocation;
+            let nameAndLocation = clinicNameAndLocation.split(",");
             $http({
                 method: 'Get',
-                url: "http://localhost:7890/getShippingDataByShippingId/" + $scope.clinicShipToName,
+                url: "http://localhost:7890/getShippingDataByShippingId/" + nameAndLocation[0],
                 headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") }
             }).then((response) => {
                 $scope.clinicShipToData = response.data;
-                
+            }, (error) => {
+                console.log(error);
+            });
+            $http({
+                method: 'Get',
+                url: "http://localhost:7890/getprocessedorderEvents/" + nameAndLocation[1],
+                headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") }
+            }).then((response) => {
+                $scope.orderEventData = response.data;
+                if ($scope.productIdAndOrderEventId != undefined) {
+                    var productIdAndOrderEventId = $scope.productIdAndOrderEventId;
+                    var productIdOrderEventId = productIdAndOrderEventId.split(",");
+                    $scope.orderEventId=productIdOrderEventId[1];
+                    $scope.demoVar = false;
+                    $http({
+                        method: 'Get',
+                        url: "http://localhost:7890/getserialbyproductId/" + productIdOrderEventId[0],
+                        headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") }
+                    }).then((response) => {
+                        $scope.serialId = response.data;
+                    }, (error) => {
+                        console.log(error);
+                    });
+                }
+                else {
+                    $scope.demoVar = true;
+                }
             }, (error) => {
                 console.log(error);
             });
@@ -554,25 +581,24 @@ app.controller("shipping", ($scope, $http, $window) => {
     }, (error) => {
         console.log(error);
     });
-    $scope.demoVar = true;
-    $scope.orderIdFunction = () => {
-        if ($scope.clinicName != undefined && $scope.clinicName != '') {
-            $scope.orderId = 234;
-            if ($scope.orderId != undefined && $scope.orderId != '') {
-                $scope.name = "Amanora";
-                $scope.address = "1234567";
-                $scope.city = "Maharashtra";
-                $scope.demoVar = false;
-            }
-        }
-        else {
-            $scope.orderId = "";
-            $scope.name = "";
-            $scope.address = "";
-            $scope.city = "";
-            $scope.demoVar = true;
+    $scope.selectSerialNumber = () => {
+        if ($scope.scanShipmentDetails != undefined) {
+            let scanShipmentDetails = $scope.scanShipmentDetails;
+            let serialIdAndProductId = scanShipmentDetails.split(",");
+            console.log("http://localhost:7890/scannedShipmentDetails/" + serialIdAndProductId[0] + "/" + serialIdAndProductId[1]+"/"+$scope.orderEventId)
+            $http({
+                method: 'Get',
+                url: "http://localhost:7890/scannedShipmentDetails/" + serialIdAndProductId[0] + "/" + serialIdAndProductId[1],
+                headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") }
+            }).then((response) => {
+                $scope.shipmentDetails = response.data;
+                console.log($scope.shipmentDetails)
+            }, (error) => {
+                console.log(error);
+            });
         }
     }
+    $scope.demoVar = true;
 });
 
 app.controller('registerController', function ($scope, $http, $window) {
