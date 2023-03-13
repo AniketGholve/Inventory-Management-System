@@ -41,10 +41,10 @@ public class ShippingController {
 	}
 	
 	
-	@GetMapping("/getprocessedorderEvents")
-	private ResponseEntity<List<OrderEvents>> getprocessedorderEvents(){
+	@GetMapping("/getprocessedorderEvents/{locationId}")
+	private ResponseEntity<List<OrderEvents>> getprocessedorderEvents(@PathVariable Integer locationId){
 		
-		List<OrderEvents> result=shippingServiceImpl.getprocessedorderEvents();
+		List<OrderEvents> result=shippingServiceImpl.getprocessedorderEvents(locationId);
 		return new ResponseEntity<List<OrderEvents>>(result,HttpStatus.OK);
 	}
 	
