@@ -25,6 +25,8 @@ app.controller("headerController", ($scope, $http, $location) => {
     switch (path) {
         case '/': $scope.activeTab = 'login';
             break;
+        case '/clp_users': $scope.activeTab = 'clpHome';
+            break;
         case '/register': $scope.activeTab = 'register';
             break;
         case '/inventory': $scope.activeTab = 'inventory';
@@ -116,6 +118,9 @@ app.config(function ($routeProvider, $httpProvider) {
             templateUrl: "view/inventory.html"
         })
         .when('/clp_users', {
+            templateUrl: "view/clp_home.html"
+        })
+        .when('/patient', {
             templateUrl: "view/clp_users.html"
         })
         .when('/alp_users', {
@@ -541,7 +546,7 @@ app.controller("shipping", ($scope, $http, $window) => {
                 headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") }
             }).then((response) => {
                 $scope.clinicShipToData = response.data;
-                console.log($scope.clinicShipToData)
+                $scope.demoVar = false;
             }, (error) => {
                 console.log(error);
             });
