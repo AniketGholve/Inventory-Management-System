@@ -51,6 +51,8 @@ app.controller("headerController", ($scope, $http, $location) => {
             break;
         case '/shipping': $scope.activeTab = 'shipping' ;
             break;
+        case '/addToInventory': $scope.activeTab = 'clpHome';
+            break;
     }
     if (sessionStorage.getItem("username") != undefined) {
         $http({
@@ -184,13 +186,19 @@ app.config(function ($routeProvider, $httpProvider) {
             {
                 templateUrl: "view/orders.html"
             })
-        .when('/shipping' , {
-            templateUrl: "view/shipping.html"
-        })
         .when('/home',
         {
                 templateUrl: "view/home.html"
-        });
+        })
+        .when('/shipping',
+            {
+                templateUrl: "view/shipping.html"
+            })
+        .when('/addToInventory',
+            {
+                templateUrl: "view/addToInventory.html"
+            });
+
     $httpProvider.interceptors.push('myInterceptor');
 });
 
@@ -325,7 +333,6 @@ app.controller("clp", function ($scope, $http, $window, $location) {
         }).then((response) => {
             getPatientDetails(response.data);
         }, (error) => { })
-
         $http({
             method: 'get',
             url: "http://localhost:7890/getInventoryByClinic/" + sessionStorage.getItem("locationId"),
@@ -333,7 +340,15 @@ app.controller("clp", function ($scope, $http, $window, $location) {
         }).then((response) => {
             getInventoryDetails(response.data);
         }, (error) => { })
-    
+        $http({
+            method: 'get',
+            url: "http://localhost:7890/shippedInventoryDetails/" + sessionStorage.getItem("locationId"),
+            headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") },
+        }).then((response) => {
+            $scope.shippedDetails = response.data;
+        }, (error) => {
+            console.log(error);
+        })
     }
 
     $scope.getOnHand = (id) => {
@@ -1019,5 +1034,8 @@ app.controller('clinicUserView', function ($scope, $window, $routeParams, $http)
     })
 });
 
-
+app.controller('addToInventory', function ($scope, $http) {
+    // $scope.id = sessionStorage.getItem("locationId");
+    
+});
 

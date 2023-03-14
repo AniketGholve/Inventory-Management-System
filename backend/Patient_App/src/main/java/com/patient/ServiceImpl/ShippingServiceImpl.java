@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.patient.Entity.Clinic;
+import com.patient.Entity.Inventory;
 import com.patient.Entity.OrderEvents;
 import com.patient.Entity.ScannedShipmentDetails;
 import com.patient.Entity.Serial;
@@ -118,6 +119,15 @@ public class ShippingServiceImpl implements ShippingService {
 			list.add(scannedShipmentDetails);
 		}
 		return list;
+	}
+
+
+
+
+
+	public List<OrderEvents> shippedInventoryDetails(Integer locationId) {
+		List<OrderEvents> findByLocationIdAndEventDesc = orderEventsRepo.findByLocationIdAndEventDesc(locationId, "Shipped");
+		return findByLocationIdAndEventDesc;
 	}
 	
 	
