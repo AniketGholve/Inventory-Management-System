@@ -151,6 +151,8 @@ public class OrderEventsServiceImpl implements OrderEventsService {
 			}
 			
 		}
+		orderEvents.setQuantityMap(m);
+		orderEventList.add(orderEvents);
 		return orderEventList;
 	}
 
