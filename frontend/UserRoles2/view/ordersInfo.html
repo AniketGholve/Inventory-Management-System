@@ -35,7 +35,7 @@
                         <td class="p-3 bg-salt">{{x.quantityMap.itone +x.quantityMap.flexon+x.quantityMap['Cosmelite Cream'] }}</td>
                         <td class="p-3"><a href="" class="btn" ng-class="{'disabled':x.eventDesc!='Submitted'}"><i class="fa-regular fa-circle-check link-danger"
                                     ng-click="changeOrderStatus(x.orderEventId)"></i></a></td>
-                        <td class="p-3"><a data-bs-toggle="modal" data-bs-target="#orderInventoryData"><i class="fa-sharp fa-solid fa-box link-danger"
+                        <td class="p-4"><a data-bs-toggle="modal" data-bs-target="#orderInventoryData"><i class="fa-sharp fa-solid fa-box link-danger"
                                     ng-click="viewInventory(x.productId,x.locationId)"></i></a></td>
                         <td class="p-3"><a href="" class="btn" ng-class="{'disabled':x.eventDesc=='Cancelled'}"><i class="fa-regular fa-circle-xmark link-danger"
                                     ng-click="cancleOrder(x.orderEventId)"></i></a></td>
@@ -50,19 +50,16 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <table id="orderInventory" class="borderBlack">
+                            <table id="orderInventory" class="table table-striped table-bordered text-center ">
                                 <tr>
                                     <th class="px-3">Product Name</th>
                                     <th class="px-3">On Hand</th>
                                     <th class="px-3">Expired</th>
                                 </tr>
-                                <!-- <tr ng-repeat="x in orderInventoryData">
-                                    <td ng-repeat="t in x">{{x}}</td>
-                                </tr> -->
-                                <tr>
-                                    <td >{{orderInventoryData.productName}}</td>
-                                    <td >{{orderInventoryData.onHand}}</td>
-                                    <td >{{orderInventoryData.expiredQty}}</td>
+                                <tr ng-repeat="x in orderInventoryData">
+                                    <td >{{x.productName}}</td>
+                                    <td >{{x.onHand}}</td>
+                                    <td >{{x.expiredQty}}</td>
                                 </tr>
                                 
                             </table>
