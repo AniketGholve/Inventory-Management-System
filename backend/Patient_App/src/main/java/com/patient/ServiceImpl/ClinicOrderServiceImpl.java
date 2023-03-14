@@ -51,8 +51,8 @@ public class ClinicOrderServiceImpl implements ClinicOrderService {
 		clinicOrder.setPersonInitial(null);
 		clinicOrder.setPoNumber(clinic.getOrderPoNumber());
 		clinicOrder.setShipfromId(0);
-		clinicOrder.setShiptoId(0);
-		clinicOrder.setShiptoName(null);
+		clinicOrder.setShiptoId(clinic.getLocationId()+clinic.getName());
+		clinicOrder.setShiptoName(clinic.getName());
 		clinicOrder.setSrcId(123);
 		clinicOrder.setUserId(0);
 		ClinicOrder c=clinicOrderRepo.save(clinicOrder);
