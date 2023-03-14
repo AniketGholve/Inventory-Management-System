@@ -10,8 +10,11 @@
                     <li class="nav-item nav_hover {{login}}" ng-class="{active: activeTab === 'register'}">
                         <a class="nav-link" href="#!register">Register</a>
                     </li>
+                    <li class="nav-item nav_hover {{clp}}" ng-class="{active: activeTab === 'clpHome'}">
+                        <a class="nav-link" href="#!/clp_users">Home</a>
+                    </li>
                     <li class="nav-item nav_hover {{clp}}" ng-class="{active: activeTab === 'patient'}">
-                        <a class="nav-link" href="#!/clp_users">Patients</a>
+                        <a class="nav-link" href="#!/patient">Patients</a>
                     </li>
                     <li class="nav-item nav_hover {{clp}}" ng-class="{active: activeTab === 'inventory' || activeTab === 'order'}">
                         <a class="nav-link" href="#!inventory" ng-click="screensName('inventory')">Inventory</a>
@@ -27,6 +30,9 @@
                     </li>
                     <li class="nav-item nav_hover {{alp}}" ng-class="{active: activeTab === 'orderInfo'}">
                         <a class="nav-link" href="#!/ordersInfo">Orders</a>
+                    </li>
+                    <li class="nav-item nav_hover {{alp}}" ng-class="{active: activeTab === 'shipping'}">
+                        <a class="nav-link" href="#!/shipping">Shipping</a>
                     </li>
                 </ul>
             </div>

@@ -1,14 +1,19 @@
 package com.patient.Entity;
 
 import java.sql.Date;
+import java.util.List;
 
-import jakarta.persistence.CascadeType;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
+import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Transient;
 
@@ -45,6 +50,7 @@ public class OrderEvents {
 	private Integer srcId;
 	
 	@ManyToOne
+	@JsonBackReference
 	@JoinColumn(name="order_id")
 	private ClinicOrder orderId;
 	
@@ -156,8 +162,15 @@ public class OrderEvents {
 	public void setPoNumber(String poNumber) {
 		this.poNumber = poNumber;
 	}
-	
-	
+	@Override
+	public String toString() {
+		return "OrderEvents [orderEventId=" + orderEventId + ", statusId=" + statusId + ", activityDate=" + activityDate
+				+ ", quantity=" + quantity + ", eventDesc=" + eventDesc + ", locationId=" + locationId + ", productId="
+				+ productId + ", packageType=" + packageType + ", enterpriseId=" + enterpriseId + ", deliveryOrderId="
+				+ deliveryOrderId + ", shipmentTrackingId=" + shipmentTrackingId + ", userId=" + userId + ", srcId="
+				+ srcId + ", orderId=" + orderId + ", shiptoId=" + shiptoId + ", shiptoName=" + shiptoName
+				+ ", poNumber=" + poNumber + "]";
+	}
 	public OrderEvents(Integer orderEventId, Integer statusId, Date activityDate, Integer quantity, String eventDesc,
 			Integer locationId, Integer productId, String packageType, Integer enterpriseId, Integer deliveryOrderId,
 			Integer shipmentTrackingId, Integer userId, Integer srcId, ClinicOrder orderId, String shiptoId,
@@ -185,16 +198,12 @@ public class OrderEvents {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	@Override
-	public String toString() {
-		return "OrderEvents [orderEventId=" + orderEventId + ", statusId=" + statusId + ", activityDate=" + activityDate
-				+ ", quantity=" + quantity + ", eventDesc=" + eventDesc + ", locationId=" + locationId + ", productId="
-				+ productId + ", packageType=" + packageType + ", enterpriseId=" + enterpriseId + ", deliveryOrderId="
-				+ deliveryOrderId + ", shipmentTrackingId=" + shipmentTrackingId + ", userId=" + userId + ", srcId="
-				+ srcId + ", orderId=" + orderId + ", shiptoId=" + shiptoId + ", shiptoName=" + shiptoName
-				+ ", poNumber=" + poNumber + "]";
-	}
 	
+
+	
+	
+	
+
 	
 	
 	
