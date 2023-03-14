@@ -56,7 +56,9 @@ public class ClinicOrderServiceImpl implements ClinicOrderService {
 		clinicOrder.setSrcId(123);
 		clinicOrder.setUserId(0);
 		ClinicOrder c=clinicOrderRepo.save(clinicOrder);
-		c.setPoNumber(formatter.format(d)+"-"+c.getOrderId());
+		String formattedDate=formatter.format(d);
+		String[] a=formattedDate.split(" ");
+		c.setPoNumber(a[0]+"-"+c.getOrderId());
 		c=clinicOrderRepo.save(c);
 		return c;
  		

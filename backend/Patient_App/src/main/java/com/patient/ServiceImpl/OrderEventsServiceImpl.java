@@ -104,7 +104,6 @@ public class OrderEventsServiceImpl implements OrderEventsService {
 			//
 			System.out.println("lllkkkkkkk");
 			System.out.println(o[6].getClass());
-			
 			orderEvents.setActivityDate((String) o[0]);
 			orderEvents.setOrderEventId((Integer) o[1]);
 			orderEvents.setPoNumber((String)o[2]);
