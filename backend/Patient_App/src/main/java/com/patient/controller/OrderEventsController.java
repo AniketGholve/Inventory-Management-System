@@ -33,7 +33,7 @@ public class OrderEventsController {
 	
 	
 	
-	@PostMapping("createOrderEvent/{clinicOrderId}")
+	@PostMapping("/createOrderEvent/{clinicOrderId}")
 	public ResponseEntity<List<Inventory>> createOrderEvent(@RequestBody List<Inventory> inventory,@PathVariable Integer clinicOrderId){
 		orderEventsServiceImpl.createOrderEvent(inventory,clinicOrderId);
 		return null;
@@ -57,14 +57,14 @@ public class OrderEventsController {
 	}
 	
 	
-	@DeleteMapping("cancelOrder/{orderEventId}")
+	@DeleteMapping("/cancelOrder/{orderEventId}")
 	public ResponseEntity<String> cancelOrder(@PathVariable Integer orderEventId){
 		String result=orderEventsServiceImpl.cancelOrder(orderEventId);
 		return new ResponseEntity<String>(result,HttpStatus.OK);
 	}
 	
 	
-	@GetMapping("getOrderingScreen")
+	@GetMapping("/getOrderingScreen")
 	public ResponseEntity<List<OrderEvents>> getOrderingScreen()
 	{
 		List<OrderEvents> resultList=orderEventsServiceImpl.getOrderingScreen();
