@@ -156,21 +156,24 @@ public class OrderEventsServiceImpl implements OrderEventsService {
 		return orderEventList;
 	}
 
-	public Inventory getinventoryByProductId(Integer productId, Integer locationId) {
+	public List<Inventory> getinventoryByProductId(Integer productId, Integer locationId) {
 		// TODO Auto-generated method stub
 		List<Inventory> resultList = new ArrayList<>();
 		Query q = entityManager.createNativeQuery(
-				"select i.product_id,p.product_name,i.expired,i.on_hand from inventory i inner join product p on i.product_id=p.product_id where i.location_id=? and i.product_id=?");
+				"select i.product_id,p.product_name,i.expired,i.on_hand from inventory i inner join product p on i.product_id=p.product_id where i.location_id=?");
 		q.setParameter(1, locationId);
-		q.setParameter(2, productId);
-		System.out.println(q.getSingleResult());
-		Object[] l = (Object[]) q.getSingleResult();
-		Inventory i = new Inventory();
-		i.setProductId(l[0] == null ? null : (Integer) l[0]);
-		i.setProductName(l[1] == null ? null : (String) l[1]);
-		i.setExpiredQty(l[2] == null ? null : (Integer) l[2]);
-		i.setOnHand(l[3] == null ? null : (Integer) l[3]);
-		return i;
+		System.out.println(q);
+		List<Object[]> l = q.getResultList();
+		for(Object [] o:l)
+		{
+			Inventory i = new Inventory();
+			i.setProductId(o[0] == null ? null : (Integer) o[0]);
+			i.setProductName(o[1] == null ? null : (String) o[1]);
+			i.setExpiredQty(o[2] == null ? null : (Integer) o[2]);
+			i.setOnHand(o[3] == null ? null : (Integer) o[3]);
+			resultList.add(i);
+		}
+		return resultList;
 
 	}
 

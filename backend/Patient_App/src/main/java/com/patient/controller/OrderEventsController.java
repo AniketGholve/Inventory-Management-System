@@ -73,9 +73,9 @@ public class OrderEventsController {
 	
 	
 	@GetMapping("/getinventoryByProductId/{productId}/{locationId}")
-	public ResponseEntity<Inventory> getinventoryByProductId(@PathVariable Integer productId,@PathVariable Integer locationId ){
-		Inventory inventory =orderEventsServiceImpl.getinventoryByProductId(productId,locationId);
-		return new ResponseEntity<Inventory>(inventory,HttpStatus.OK);
+	public ResponseEntity<List<Inventory>> getinventoryByProductId(@PathVariable Integer productId,@PathVariable Integer locationId ){
+		List<Inventory> inventory =orderEventsServiceImpl.getinventoryByProductId(productId,locationId);
+		return new ResponseEntity<List<Inventory>>(inventory,HttpStatus.OK);
 	}
 	
 
