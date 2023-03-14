@@ -79,7 +79,7 @@ public class OrderEventsServiceImpl implements OrderEventsService {
 	public String changeOrderStatus(Integer orderEventsId) {
 		// TODO Auto-generated method stub
 		OrderEvents orderEvents = orderEventsRepo.findById(orderEventsId).orElseThrow();
-		orderEvents.setEventDesc("processes");
+		orderEvents.setEventDesc("Processed");
 		orderEventsRepo.save(orderEvents);
 		return "status changes successfully";
 	}
