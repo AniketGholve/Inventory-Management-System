@@ -1,6 +1,8 @@
 package com.patient.ServiceImpl;
 
 import java.sql.Date;
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,6 +38,7 @@ public class OrderEventsServiceImpl implements OrderEventsService {
 
 		long m = System.currentTimeMillis();
 		Date d = new Date(m);
+		Format formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		ClinicOrder clinicOrder = clinicOrderRepo.findById(clinicOrderId).orElseThrow();
 		List<OrderEvents> orderEventsList = new ArrayList<>();
 		List<Integer> l = new ArrayList<>();
@@ -45,7 +48,7 @@ public class OrderEventsServiceImpl implements OrderEventsService {
 			if (i.getOrderedQty() != 0) {
 				OrderEvents orderEvents = new OrderEvents();
 
-				orderEvents.setActivityDate(d);
+				orderEvents.setActivityDate(formatter.format(d));
 				orderEvents.setDeliveryOrderId(null);
 				orderEvents.setEnterpriseId(clinicOrder.getEnterpriseId());
 				orderEvents.setEventDesc("Submitted");
@@ -84,14 +87,17 @@ public class OrderEventsServiceImpl implements OrderEventsService {
 	@Override
 	public String cancelOrder(Integer orderEventId) {
 		// TODO Auto-generated method stub
-		orderEventsRepo.deleteById(orderEventId);
+		OrderEvents orderEvents=orderEventsRepo.findById(orderEventId).orElseThrow();
+		orderEvents.setEventDesc("Cancelled");
+		orderEventsRepo.save(orderEvents);
 		return "order cancel successfully";
 	}
 
 	@Override
 	public List<OrderEvents> getOrderingScreen() {
 		// TODO Auto-generated method stub
-		Query q=entityManager.createNativeQuery("select oe.activity_date,oe.order_event_id,co.po_number,co.shipto_id,co.shipto_name,oe.event_desc,oe.quantity,oe.product_id,oe.location_id from order_events oe inner join clinic_order co on oe.order_id=co.order_id");
+		Query q=entityManager.createNativeQuery("select t.activity_date,t.order_event_id,t.po_number,t.shipto_id,t.shipto_name,t.event_desc,t.quantity,t.product_id,t.location_id,p.product_name from (select oe.activity_date,oe.order_event_id,co.po_number,co.shipto_id,co.shipto_name,oe.event_desc,oe.quantity,oe.product_id,oe.location_id from order_events oe inner join clinic_order co on oe.order_id=co.order_id) T inner join product p where t.product_id=p.product_id and t.event_desc!=?;");
+		q.setParameter(1, "Cancelled");
 		List<Object[]> orderinglist=q.getResultList();
 		List<OrderEvents> orderEventList=new ArrayList<>();
 		for(Object [] o:orderinglist) {
@@ -100,7 +106,7 @@ public class OrderEventsServiceImpl implements OrderEventsService {
 			System.out.println("lllkkkkkkk");
 			System.out.println(o[6].getClass());
 			
-			orderEvents.setActivityDate((Date) o[0]);
+			orderEvents.setActivityDate((String) o[0]);
 			orderEvents.setOrderEventId((Integer) o[1]);
 			orderEvents.setPoNumber((String)o[2]);
 			orderEvents.setShiptoId((String)o[3]);
@@ -109,6 +115,7 @@ public class OrderEventsServiceImpl implements OrderEventsService {
 			orderEvents.setQuantity((Integer)o[6]);
 			orderEvents.setProductId((Integer)o[7]);	
 			orderEvents.setLocationId((Integer)o[8]);
+			orderEvents.setProductName((String)o[9]);
 			orderEventList.add(orderEvents);
 		}
 		return orderEventList;
