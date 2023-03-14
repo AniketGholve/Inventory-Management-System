@@ -2,11 +2,19 @@
     <div ng-include="'view/header.html'"></div>
     <div ng-include="'view/header2.html'"></div>
     <div class="isDisabled">
-        <div>
-            <h1 class="text-center">Product List</h1>
+        <div style="float: left;">
+            <label for="dropdownTab" class="mx-2" style="color: black;"><h5>Choose :</h5></label>
+            <select id="dropdownTab"class="dropdownTab" ng-model="selectedDropdownTab" ng-change="screensName(selectedDropdownTab)">
+                <option label="Select" class="d-none"></option>
+                <option class="text-center" value="inventory">Inventory Dashboard</option>
+                <option class="text-center" value="ordering">Ordering</option>
+            </select>
         </div>
         <div>
-            <div class="container d-flex justify-content-center">
+            <div class="container d-flex justify-content-center flex-column">
+                <div class="text-center">
+                    <h1>Inventory</h1>
+                </div>
                 <table id="patientDetailsTable" class="borderBlack table">
                     <thead>
                         <tr>
