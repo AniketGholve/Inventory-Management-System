@@ -58,5 +58,10 @@ public class ShippingController {
 	private ResponseEntity<List<ScannedShipmentDetails>> getScannedShipmentDetails(@PathVariable Integer serialId,@PathVariable Integer productId,@PathVariable Integer orderEventId){
 		List<ScannedShipmentDetails> result=shippingServiceImpl.getScannedShipmentDetails(serialId,productId,orderEventId);
 		return new ResponseEntity<List<ScannedShipmentDetails>>(result,HttpStatus.OK);	
-	}	 
+	}
+	@GetMapping("/shippedInventoryDetails/{locationId}")
+	private ResponseEntity<List<OrderEvents>>shippedInventoryDetails (@PathVariable Integer locationId){
+		List<OrderEvents> result=shippingServiceImpl.shippedInventoryDetails(locationId);
+		return new ResponseEntity<List<OrderEvents>>(result,HttpStatus.OK);	
+	}
 }
