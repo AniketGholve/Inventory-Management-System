@@ -96,8 +96,7 @@ public class OrderEventsServiceImpl implements OrderEventsService {
 	@Override
 	public List<OrderEvents> getOrderingScreen() {
 		// TODO Auto-generated method stub
-		Query q=entityManager.createNativeQuery("select t.activity_date,t.order_event_id,t.po_number,t.shipto_id,t.shipto_name,t.event_desc,t.quantity,t.product_id,t.location_id,p.product_name from (select oe.activity_date,oe.order_event_id,co.po_number,co.shipto_id,co.shipto_name,oe.event_desc,oe.quantity,oe.product_id,oe.location_id from order_events oe inner join clinic_order co on oe.order_id=co.order_id) T inner join product p where t.product_id=p.product_id and t.event_desc!=?;");
-		q.setParameter(1, "Cancelled");
+		Query q=entityManager.createNativeQuery("select t.activity_date,t.order_event_id,t.po_number,t.shipto_id,t.shipto_name,t.event_desc,t.quantity,t.product_id,t.location_id,p.product_name from (select oe.activity_date,oe.order_event_id,co.po_number,co.shipto_id,co.shipto_name,oe.event_desc,oe.quantity,oe.product_id,oe.location_id from order_events oe inner join clinic_order co on oe.order_id=co.order_id) T inner join product p where t.product_id=p.product_id;");
 		List<Object[]> orderinglist=q.getResultList();
 		List<OrderEvents> orderEventList=new ArrayList<>();
 		for(Object [] o:orderinglist) {
