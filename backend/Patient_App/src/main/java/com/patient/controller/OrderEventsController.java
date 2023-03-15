@@ -11,15 +11,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.patient.Entity.Inventory;
 import com.patient.Entity.OrderEvents;
-import com.patient.Repo.InventoryRepo;
-import com.patient.ServiceImpl.InventoryServiceImpl;
 import com.patient.ServiceImpl.OrderEventsServiceImpl;
+
+import jakarta.transaction.Transactional;
 
 @RestController
 @CrossOrigin
@@ -33,7 +31,7 @@ public class OrderEventsController {
 	
 	
 	
-	@PostMapping("createOrderEvent/{clinicOrderId}")
+	@PostMapping("/createOrderEvent/{clinicOrderId}")
 	public ResponseEntity<List<Inventory>> createOrderEvent(@RequestBody List<Inventory> inventory,@PathVariable Integer clinicOrderId){
 		orderEventsServiceImpl.createOrderEvent(inventory,clinicOrderId);
 		return null;
@@ -49,22 +47,24 @@ public class OrderEventsController {
 	
 	
 	
-	@PostMapping("changeStatus/{orderEventsId}")
-	public ResponseEntity<String> changeOrderStatus(@PathVariable Integer orderEventsId){
+	@PostMapping("changeStatus/{orderId}")
+	@Transactional
+	public ResponseEntity<String> changeOrderStatus(@PathVariable Integer orderId){
 		
-		String result=orderEventsServiceImpl.changeOrderStatus(orderEventsId);
+		String result=orderEventsServiceImpl.changeOrderStatus(orderId);
 		return new ResponseEntity<String>(result,HttpStatus.OK);
 	}
 	
 	
-	@DeleteMapping("cancelOrder/{orderEventId}")
-	public ResponseEntity<String> cancelOrder(@PathVariable Integer orderEventId){
-		String result=orderEventsServiceImpl.cancelOrder(orderEventId);
+	@DeleteMapping("/cancelOrder/{orderId}")
+	@Transactional
+	public ResponseEntity<String> cancelOrder(@PathVariable Integer orderId){
+		String result=orderEventsServiceImpl.cancelOrder(orderId);
 		return new ResponseEntity<String>(result,HttpStatus.OK);
 	}
 	
 	
-	@GetMapping("getOrderingScreen")
+	@GetMapping("/getOrderingScreen")
 	public ResponseEntity<List<OrderEvents>> getOrderingScreen()
 	{
 		List<OrderEvents> resultList=orderEventsServiceImpl.getOrderingScreen();
@@ -73,9 +73,9 @@ public class OrderEventsController {
 	
 	
 	@GetMapping("/getinventoryByProductId/{productId}/{locationId}")
-	public ResponseEntity<Inventory> getinventoryByProductId(@PathVariable Integer productId,@PathVariable Integer locationId ){
-		Inventory inventory =orderEventsServiceImpl.getinventoryByProductId(productId,locationId);
-		return new ResponseEntity<Inventory>(inventory,HttpStatus.OK);
+	public ResponseEntity<List<Inventory>> getinventoryByProductId(@PathVariable Integer productId,@PathVariable Integer locationId ){
+		List<Inventory> inventory =orderEventsServiceImpl.getinventoryByProductId(productId,locationId);
+		return new ResponseEntity<List<Inventory>>(inventory,HttpStatus.OK);
 	}
 	
 //	@GetMapping("/getSerialOrder")

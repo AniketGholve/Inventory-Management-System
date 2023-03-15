@@ -9,7 +9,7 @@
                 </div>
                 <label for="" class="h5 text-center">Please enter kit information</label>
                 <select class="text-center" ng-change="selectSerialNumber()" ng-model="scanShipmentDetails">
-                    <option label="Select Shipping Clinic" class="d-none"></option>
+                    <option label="Select Serial Number" class="d-none"></option>
                     <option class="text-center" value="{{x.serialId}},{{x.productId}}" ng-repeat="x in serialId">{{x.serialId}}</option>
                 </select>
             </div>
@@ -21,16 +21,16 @@
     <div class="container mt-3">
         <div class="d-flex ">
             <div class="d-flex flex-column w-50">
-                <label for="" class="h5 m-0 mb-2">Ship to Customer</label>
-                <select class="w-75" ng-change="orderIdFunction()" ng-model="clinicNameAndLocation">
-                    <option label="Select Shipping Clinic" class="d-none"></option>
-                    <option value="{{x.shipToName}},{{x.locationId}}" ng-repeat="x in clinicDropdownName">{{x.shipToName}}</option>
-                </select>
+                <label for="" class="h5 m-0 mb-2" >Ship to Customer</label>
+                <input ng-change="orderIdFunction()" ng-model="clinicNameAndLocation" list="clinicList" class="w-50"></input>
+                <datalist id="clinicList">
+                    <option ng-repeat="x in clinicDropdownName">{{x.shipToName}}</option>
+                </datalist>
                 <label for="" class="h5 m-0 mt-2">Order Id</label>
-                <select class="w-75" ng-change="orderIdFunction()" ng-model="productIdAndOrderEventId">
-                    <option label="Select Shipping Clinic" class="d-none"></option>
-                    <option value="{{x.productId}},{{x.orderEventId}}" ng-repeat="x in orderEventData">{{x.orderEventId}}</option>
-                </select>
+                <input class="w-50" ng-change="orderIdFunction()" ng-model="productIdAndOrderEventId" list="clinicOrderId">
+                <datalist id="clinicOrderId">
+                    <option ng-repeat="x in orderEventData">{{x.orderEventId}}</option>
+                </datalist>
             </div>
             
             <div class="w-50">
@@ -56,7 +56,7 @@
         <div>
             <h3>Scanned Shipment Details</h3>
         </div>
-        <table class="border-none">
+        <table class="table table-striped text-center">
             <thead>
                 <tr class="bg-secondary text-center text-light bg-dark">
                     <th class="w-25 ">Dose</th>
@@ -71,5 +71,8 @@
                 </tr>
             </tbody>
         </table>
+    </div>
+    <div class="text-center mt-3">
+        <input type="button" ng-click="demoFunction()" class="btn btn-danger" value="Shipped">
     </div>
 </div>

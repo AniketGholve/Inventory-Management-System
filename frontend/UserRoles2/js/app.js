@@ -554,7 +554,7 @@ app.controller("shipping", ($scope, $http, $window) => {
         $scope.clinicDropdownName = response.data;
         $scope.orderIdFunction = () => {
             let clinicNameAndLocation = $scope.clinicNameAndLocation;
-            let nameAndLocation = clinicNameAndLocation.split(",");
+            let nameAndLocation = clinicNameAndLocation.split("_");
             $http({
                 method: 'Get',
                 url: "http://localhost:7890/getShippingDataByShippingId/" + nameAndLocation[0],

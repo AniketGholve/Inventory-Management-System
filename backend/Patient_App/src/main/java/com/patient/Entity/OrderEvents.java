@@ -1,19 +1,16 @@
 package com.patient.Entity;
 
-import java.sql.Date;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
-import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
-import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Transient;
 
@@ -27,7 +24,7 @@ public class OrderEvents {
 	@Column(name="status_id")
 	private Integer statusId;
 	@Column(name="activity_date")
-	private Date activityDate;
+	private String activityDate;
 	@Column(name="quantity")
 	private Integer quantity;
 	@Column(name="event_desc")
@@ -60,6 +57,16 @@ public class OrderEvents {
 	private String shiptoName;
 	@Transient
 	private String poNumber;
+	@Transient
+	private String productName;
+	@Transient
+	private Map<String,Integer> quantityMap=new HashMap<>();
+	@Transient
+	private Integer displayId;
+	
+	
+	
+	
 	public Integer getOrderEventId() {
 		return orderEventId;
 	}
@@ -72,10 +79,10 @@ public class OrderEvents {
 	public void setStatusId(Integer statusId) {
 		this.statusId = statusId;
 	}
-	public Date getActivityDate() {
+	public String getActivityDate() {
 		return activityDate;
 	}
-	public void setActivityDate(Date activityDate) {
+	public void setActivityDate(String activityDate) {
 		this.activityDate = activityDate;
 	}
 	public Integer getQuantity() {
@@ -162,6 +169,24 @@ public class OrderEvents {
 	public void setPoNumber(String poNumber) {
 		this.poNumber = poNumber;
 	}
+	public String getProductName() {
+		return productName;
+	}
+	public void setProductName(String productName) {
+		this.productName = productName;
+	}
+	public Map<String, Integer> getQuantityMap() {
+		return quantityMap;
+	}
+	public void setQuantityMap(Map<String, Integer> quantityMap) {
+		this.quantityMap = quantityMap;
+	}
+	public Integer getDisplayId() {
+		return displayId;
+	}
+	public void setDisplayId(Integer displayId) {
+		this.displayId = displayId;
+	}
 	@Override
 	public String toString() {
 		return "OrderEvents [orderEventId=" + orderEventId + ", statusId=" + statusId + ", activityDate=" + activityDate
@@ -169,12 +194,14 @@ public class OrderEvents {
 				+ productId + ", packageType=" + packageType + ", enterpriseId=" + enterpriseId + ", deliveryOrderId="
 				+ deliveryOrderId + ", shipmentTrackingId=" + shipmentTrackingId + ", userId=" + userId + ", srcId="
 				+ srcId + ", orderId=" + orderId + ", shiptoId=" + shiptoId + ", shiptoName=" + shiptoName
-				+ ", poNumber=" + poNumber + "]";
+				+ ", poNumber=" + poNumber + ", productName=" + productName + ", quantityMap=" + quantityMap
+				+ ", displayId=" + displayId + "]";
 	}
-	public OrderEvents(Integer orderEventId, Integer statusId, Date activityDate, Integer quantity, String eventDesc,
+	public OrderEvents(Integer orderEventId, Integer statusId, String activityDate, Integer quantity, String eventDesc,
 			Integer locationId, Integer productId, String packageType, Integer enterpriseId, Integer deliveryOrderId,
 			Integer shipmentTrackingId, Integer userId, Integer srcId, ClinicOrder orderId, String shiptoId,
-			String shiptoName, String poNumber) {
+			String shiptoName, String poNumber, String productName, Map<String, Integer> quantityMap,
+			Integer displayId) {
 		super();
 		this.orderEventId = orderEventId;
 		this.statusId = statusId;
@@ -193,11 +220,22 @@ public class OrderEvents {
 		this.shiptoId = shiptoId;
 		this.shiptoName = shiptoName;
 		this.poNumber = poNumber;
+		this.productName = productName;
+		this.quantityMap = quantityMap;
+		this.displayId = displayId;
 	}
 	public OrderEvents() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
+	
+	
+	
+	
+	
+	
+	
 	
 
 	

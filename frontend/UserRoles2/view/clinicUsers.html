@@ -4,7 +4,7 @@
         <h1 class="text-center" class=""> <span class="mx-5">All Clinics Users</span>
         </h1>
         <div class="container">
-            <table class="table table-striped table-bordered text-center">
+            <table class="table table-striped text-center">
                 <thead class="clinics">
                     <tr>
                         <th>User Id</th>
@@ -34,9 +34,11 @@
                         <td class="p-3">{{x.mobilePhone}}</td>
                         <td class="p-3">{{x.defaultLocationId}}</td>
                         <td class="p-3">{{x.enterpriseId}}</td>
-                        <td class="p-3"><a href="#!/updateUser/{{x.userId}}"+>Edit</a>&nbsp;&nbsp;<a href="" ng-click="deleteUsers(x.userId)">Remove</a></td>
+                        <td class="p-3"><a href="#!/updateUser/{{x.userId}}" +>Edit</a>&nbsp;&nbsp;<a href=""
+                                ng-click="deleteUsers(x.userId)">Remove</a></td>
                     </tr>
                 </tbody>
             </table>
+        </div>
     </div>
 </div>
