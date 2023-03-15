@@ -77,7 +77,7 @@ public class ShippingServiceImpl implements ShippingService {
 	public List<OrderEvents> getprocessedorderEvents(Integer locationId) {
 		// TODO Auto-generated method stub
 		Query q=entityManager.createQuery("select oe from OrderEvents oe where oe.eventDesc=:u and locationId=:v");
-		q.setParameter("u", "processes");
+		q.setParameter("u", "Processed");
 		q.setParameter("v", locationId);
 		List<OrderEvents> orderEventList=q.getResultList();
 		return orderEventList;

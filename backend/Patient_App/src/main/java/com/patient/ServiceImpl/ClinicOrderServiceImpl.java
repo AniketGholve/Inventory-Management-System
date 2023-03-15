@@ -1,7 +1,8 @@
 package com.patient.ServiceImpl;
 
 import java.sql.Date;
-import java.util.ArrayList;
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,6 @@ import com.patient.Entity.ClinicOrder;
 import com.patient.Repo.ClinicOrderRepo;
 import com.patient.Repo.ClinicRepo;
 import com.patient.Service.ClinicOrderService;
-import com.patient.controller.ClinicController;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
@@ -33,6 +33,7 @@ public class ClinicOrderServiceImpl implements ClinicOrderService {
 	@Override
 	public ClinicOrder createOrder(Integer locationId) {
 		// TODO Auto-generated method stub
+		Format formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		long m=System.currentTimeMillis();
 		Date d=new Date(m);
 		Clinic clinic=clinicRepo.findById(locationId).orElseThrow();
@@ -49,13 +50,19 @@ public class ClinicOrderServiceImpl implements ClinicOrderService {
 		clinicOrder.setOrderStatusId(123);
 		clinicOrder.setOrderType(null);
 		clinicOrder.setPersonInitial(null);
-		clinicOrder.setPoNumber(clinic.getOrderPoNumber());
 		clinicOrder.setShipfromId(0);
 		clinicOrder.setShiptoId(clinic.getLocationId()+clinic.getName());
 		clinicOrder.setShiptoName(clinic.getName());
 		clinicOrder.setSrcId(123);
 		clinicOrder.setUserId(0);
 		ClinicOrder c=clinicOrderRepo.save(clinicOrder);
+		String formattedDate=formatter.format(d);
+		String[] a=formattedDate.split(" ");
+		String[] k=a[0].split("-");
+		String res="";
+		for(String i:k) res=res+i;
+		c.setPoNumber(res+"-"+c.getOrderId());
+		c=clinicOrderRepo.save(c);
 		return c;
  		
 	}
