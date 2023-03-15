@@ -561,9 +561,8 @@ app.controller("shipping", ($scope, $http, $window) => {
                 headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") }
             }).then((response) => {
                 $scope.clinicShipToData = response.data;
-                console.log($scope.clinicShipToData=="")
-                if($scope.clinicShipToData!="")
-                {
+                console.log($scope.clinicShipToData == "")
+                if ($scope.clinicShipToData != "") {
                     let nameAndLocation = clinicNameAndLocation.split("_");
                     $http({
                         method: 'Get',
@@ -573,15 +572,16 @@ app.controller("shipping", ($scope, $http, $window) => {
                         $scope.orderEventData = response.data;
                         if ($scope.productIdAndOrderEventId != undefined) {
                             var productIdAndOrderEventId = $scope.productIdAndOrderEventId;
-                            var productIdOrderEventId = productIdAndOrderEventId.split(",");
-                            $scope.orderEventId = productIdOrderEventId[1];
+                            // var productIdOrderEventId = productIdAndOrderEventId.split(",");
+                            $scope.orderEventId = $scope.productIdAndOrderEventId;
                             $scope.demoVar = false;
                             $http({
                                 method: 'Get',
-                                url: "http://localhost:7890/getserialbyproductId/" + productIdOrderEventId[0],
+                                url: "http://localhost:7890/getserialbyproductId/" + $scope.productIdAndOrderEventId,
                                 headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") }
                             }).then((response) => {
                                 $scope.serialId = response.data;
+                                console.log($scope.serialId)
                             }, (error) => {
                                 console.log(error);
                             });
