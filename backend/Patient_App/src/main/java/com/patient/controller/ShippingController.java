@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.patient.Entity.Clinic;
+import com.patient.Entity.ClinicOrder;
 import com.patient.Entity.OrderEvents;
 import com.patient.Entity.ScannedShipmentDetails;
 import com.patient.Entity.Serial;

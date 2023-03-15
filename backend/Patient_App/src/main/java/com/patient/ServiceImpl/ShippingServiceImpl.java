@@ -53,6 +53,7 @@ public class ShippingServiceImpl implements ShippingService {
 	@Override
 	public Clinic getShippingDataByShippingId(String shippingToId) {
 		// TODO Auto-generated method stub
+		if(shippingToId==null) return null;
 		Query q=entityManager.createQuery("select c from Clinic c where c.shipToName=:u");
 		System.out.println(shippingToId);
 		q.setParameter("u",shippingToId);
@@ -76,7 +77,7 @@ public class ShippingServiceImpl implements ShippingService {
 	@Override
 	public List<OrderEvents> getprocessedorderEvents(Integer locationId) {
 		// TODO Auto-generated method stub
-		Query q=entityManager.createQuery("select oe from OrderEvents oe where oe.eventDesc=:u and locationId=:v");
+		Query q=entityManager.createQuery("select co.orderId from OrderEvents oe inner join ClinicOrder co on co.orderId=oe.orderId where oe.eventDesc=:u and locationId=:v");
 		q.setParameter("u", "Processed");
 		q.setParameter("v", locationId);
 		List<OrderEvents> orderEventList=q.getResultList();
