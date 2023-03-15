@@ -1,0 +1,22 @@
+<div ng-controller="clp">
+    <div ng-include="'view/header.html'"></div>
+    <div ng-include="'view/header2.html'"></div>
+    <div class="container">
+        <h2 class="text-center">Dispense To Patient</h2>
+        <form ng-submit="" class="form-inline d-flex justify-content-left mt-3 w-50">
+            <div class="mt-1">
+                <div class="mt-2">
+                    <label for="">Serial Number :</label>
+                    <input type="text" id="serialNumber" placeholder="Serial Number"  class="">
+                </div> 
+                <div class=" mt-4 ">
+                    <label for="">Patient Name:</label>
+                    <input type="text" id="patientName" placeholder="Patient Name"  class="">
+
+                    <div>
+                    <a class="btn btn-primary mx-2 mt-4" href="#!/insertPatient">Add Patient</a>
+                </div>
+            </div>
+            </div>
+        </form>
+    </div>

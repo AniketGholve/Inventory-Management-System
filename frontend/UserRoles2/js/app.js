@@ -53,6 +53,10 @@ app.controller("headerController", ($scope, $http, $location) => {
             break;
         case '/addToInventory': $scope.activeTab = 'clpHome';
             break;
+        case'/dispenseToPatient': $scope.activeTab = 'clpHome';
+            break;
+        case'/administrator': $scope.activeTab = 'administrator';
+            break;
     }
     if (sessionStorage.getItem("username") != undefined) {
         $http({
@@ -197,6 +201,14 @@ app.config(function ($routeProvider, $httpProvider) {
         .when('/addToInventory',
             {
                 templateUrl: "view/addToInventory.html"
+            })
+        .when('/dispenseToPatient',
+            {
+                templateUrl: "view/dispenseToPatient.html"
+            })
+        .when('/administrator',
+            {
+                templateUrl: "view/administrator.html"
             });
 
     $httpProvider.interceptors.push('myInterceptor');
@@ -759,6 +771,23 @@ app.controller('updateController', function ($scope, $http, $routeParams, $windo
 });
 
 app.controller('insertController', function ($scope, $http, $window, $rootScope) {
+    $http({
+
+        method: 'get',
+
+        url: "http://localhost:7890/getClinicNames",
+
+        headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") }
+
+    }).then((response) => {
+
+        $scope.clinicNames = response.data;
+
+    }, (error) => { })
+
+    
+    $scope.id = sessionStorage.getItem("locationId");
+
 
     $scope.submit = {};
     $rootScope.dataFile = null;

@@ -50,7 +50,6 @@ public class ShippingServiceImpl implements ShippingService {
 
 
 
-
 	@Override
 	public Clinic getShippingDataByShippingId(String shippingToId) {
 		// TODO Auto-generated method stub
@@ -68,6 +67,7 @@ public class ShippingServiceImpl implements ShippingService {
 		
 		return clinic;
 	}
+
 
 
 

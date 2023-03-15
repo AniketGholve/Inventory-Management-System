@@ -86,6 +86,9 @@ app.controller("edit_userCtrl", function ($scope, $http, $window, $route) {
             }).then((response) => {
                 console.log($scope.edit);
                 $window.location.href = "#!";
+                sessionStorage.removeItem("token");
+                sessionStorage.removeItem("locationId");
+                sessionStorage.removeItem("username");
             }, (error) => {
                 console.log(error);
             });

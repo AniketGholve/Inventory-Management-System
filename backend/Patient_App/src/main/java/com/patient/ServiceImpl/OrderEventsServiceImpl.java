@@ -4,7 +4,9 @@ import java.sql.Date;
 import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,7 +18,6 @@ import com.patient.Repo.ClinicOrderRepo;
 import com.patient.Repo.OrderEventsRepo;
 import com.patient.Service.OrderEventsService;
 
-import io.jsonwebtoken.lang.Arrays;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
 
@@ -96,44 +97,83 @@ public class OrderEventsServiceImpl implements OrderEventsService {
 	@Override
 	public List<OrderEvents> getOrderingScreen() {
 		// TODO Auto-generated method stub
-		Query q=entityManager.createNativeQuery("select t.activity_date,t.order_event_id,t.po_number,t.shipto_id,t.shipto_name,t.event_desc,t.quantity,t.product_id,t.location_id,p.product_name from (select oe.activity_date,oe.order_event_id,co.po_number,co.shipto_id,co.shipto_name,oe.event_desc,oe.quantity,oe.product_id,oe.location_id from order_events oe inner join clinic_order co on oe.order_id=co.order_id) T inner join product p where t.product_id=p.product_id;");
+		Query q=entityManager.createNativeQuery("select t.activity_date,t.order_event_id,t.po_number,t.shipto_id,t.shipto_name,t.event_desc,t.quantity,t.product_id,t.location_id,p.product_name,t.order_id from (select oe.activity_date,oe.order_event_id,co.po_number,co.shipto_id,co.shipto_name,oe.event_desc,oe.quantity,oe.product_id,oe.location_id,oe.order_id from order_events oe inner join clinic_order co on oe.order_id=co.order_id) T inner join product p where t.product_id=p.product_id order by t.order_id;");
 		List<Object[]> orderinglist=q.getResultList();
 		List<OrderEvents> orderEventList=new ArrayList<>();
+		Integer k=-1,l;
+		 Map<String,Integer> m=new HashMap<>();
+		OrderEvents orderEvents=new OrderEvents();
 		for(Object [] o:orderinglist) {
-			OrderEvents orderEvents=new OrderEvents();
-			//
-			System.out.println("lllkkkkkkk");
-			System.out.println(o[6].getClass());
-			orderEvents.setActivityDate((String) o[0]);
-			orderEvents.setOrderEventId((Integer) o[1]);
-			orderEvents.setPoNumber((String)o[2]);
-			orderEvents.setShiptoId((String)o[3]);
-			orderEvents.setShiptoName((String)o[4]);
-			orderEvents.setEventDesc((String)o[5]);
-			orderEvents.setQuantity((Integer)o[6]);
-			orderEvents.setProductId((Integer)o[7]);	
-			orderEvents.setLocationId((Integer)o[8]);
-			orderEvents.setProductName((String)o[9]);
-			orderEventList.add(orderEvents);
+			
+			
+			
+			if(k==-1) {
+				orderEvents.setActivityDate((String) o[0]);
+				orderEvents.setOrderEventId((Integer) o[1]);
+				orderEvents.setPoNumber((String)o[2]);
+				orderEvents.setShiptoId((String)o[3]);
+				orderEvents.setShiptoName((String)o[4]);
+				orderEvents.setEventDesc((String)o[5]);
+				orderEvents.setQuantity((Integer)o[6]);
+				orderEvents.setProductId((Integer)o[7]);	
+				orderEvents.setLocationId((Integer)o[8]);
+				orderEvents.setProductName((String)o[9]);
+				m.put((String)o[9], (Integer)o[6]);
+				orderEvents.setDisplayId((Integer)o[10]);
+				k=((Integer)o[10]);
+			}
+			
+			else if(k==(Integer)o[10]){
+				
+				m.put((String)o[9], (Integer)o[6]);
+				
+				
+			}
+			else {
+				orderEvents.setQuantityMap(m);
+				orderEventList.add(orderEvents);
+				orderEvents=new OrderEvents();
+				m=new HashMap<>();
+				orderEvents.setActivityDate((String) o[0]);
+				orderEvents.setOrderEventId((Integer) o[1]);
+				orderEvents.setPoNumber((String)o[2]);
+				orderEvents.setShiptoId((String)o[3]);
+				orderEvents.setShiptoName((String)o[4]);
+				orderEvents.setEventDesc((String)o[5]);
+				orderEvents.setQuantity((Integer)o[6]);
+				orderEvents.setProductId((Integer)o[7]);	
+				orderEvents.setLocationId((Integer)o[8]);
+				orderEvents.setProductName((String)o[9]);
+				m.put((String)o[9], (Integer)o[6]);
+				orderEvents.setDisplayId((Integer)o[10]);
+				k=((Integer)o[10]);
+				
+			}
+			
 		}
+		orderEvents.setQuantityMap(m);
+		orderEventList.add(orderEvents);
 		return orderEventList;
 	}
 
-	public Inventory getinventoryByProductId(Integer productId, Integer locationId) {
+	public List<Inventory> getinventoryByProductId(Integer productId, Integer locationId) {
 		// TODO Auto-generated method stub
 		List<Inventory> resultList = new ArrayList<>();
 		Query q = entityManager.createNativeQuery(
-				"select i.product_id,p.product_name,i.expired,i.on_hand from inventory i inner join product p on i.product_id=p.product_id where i.location_id=? and i.product_id=?");
+				"select i.product_id,p.product_name,i.expired,i.on_hand from inventory i inner join product p on i.product_id=p.product_id where i.location_id=?");
 		q.setParameter(1, locationId);
-		q.setParameter(2, productId);
-		System.out.println(q.getSingleResult());
-		Object[] l = (Object[]) q.getSingleResult();
-		Inventory i = new Inventory();
-		i.setProductId(l[0] == null ? null : (Integer) l[0]);
-		i.setProductName(l[1] == null ? null : (String) l[1]);
-		i.setExpiredQty(l[2] == null ? null : (Integer) l[2]);
-		i.setOnHand(l[3] == null ? null : (Integer) l[3]);
-		return i;
+		System.out.println(q);
+		List<Object[]> l = q.getResultList();
+		for(Object [] o:l)
+		{
+			Inventory i = new Inventory();
+			i.setProductId(o[0] == null ? null : (Integer) o[0]);
+			i.setProductName(o[1] == null ? null : (String) o[1]);
+			i.setExpiredQty(o[2] == null ? null : (Integer) o[2]);
+			i.setOnHand(o[3] == null ? null : (Integer) o[3]);
+			resultList.add(i);
+		}
+		return resultList;
 
 	}
 

@@ -9,13 +9,6 @@ body {
   font-size: 15px;
 }
 
-table,
-tr,
-th,
-td {
-  border: 2px solid black;
-}
-
 .nav_hover:hover {
   background-color: rgb(195, 73, 73);
   border-radius: 15%;
@@ -298,4 +291,13 @@ td {
   text-decoration: none;
   color: black;
   text-align: center;
+}
+.bg-juniper{
+  background-color:#3A5311 !important;
+}
+.bg-salt{
+  background-color: #FFFADA !important;
+}
+.doctorTable{
+  width: 500px;
 }
