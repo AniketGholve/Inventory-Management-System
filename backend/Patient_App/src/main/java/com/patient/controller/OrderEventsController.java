@@ -78,5 +78,10 @@ public class OrderEventsController {
 		return new ResponseEntity<List<Inventory>>(inventory,HttpStatus.OK);
 	}
 	
+//	@GetMapping("/getSerialOrder")
+//	{
+//		
+//	}
+	
 
 }
