@@ -17,6 +17,8 @@ import com.patient.Entity.ScannedShipmentDetails;
 import com.patient.Entity.Serial;
 import com.patient.ServiceImpl.ShippingServiceImpl;
 
+import jakarta.transaction.Transactional;
+
 @RestController
 @CrossOrigin
 public class ShippingController {
@@ -26,7 +28,7 @@ public class ShippingController {
 	
 	
 	@GetMapping("/getAllShipToId")
-	private ResponseEntity<List<Clinic>> getAllShipToId(){
+	public ResponseEntity<List<Clinic>> getAllShipToId(){
 		
 		List<Clinic> result=shippingServiceImpl.getAllShipToId();
 		return new ResponseEntity<List<Clinic>>(result,HttpStatus.OK);
@@ -36,31 +38,33 @@ public class ShippingController {
 	}
 	
 	@GetMapping("getShippingDataByShippingId/{shippingId}")
-	private ResponseEntity<Clinic> getShippingDataByShippingId(@PathVariable String shippingId){
+	public ResponseEntity<Clinic> getShippingDataByShippingId(@PathVariable String shippingId){
 		Clinic result=shippingServiceImpl.getShippingDataByShippingId(shippingId);
 		return new ResponseEntity<Clinic>(result,HttpStatus.OK);
 	}
 	
 	
 	@GetMapping("/getprocessedorderEvents/{locationId}")
-	private ResponseEntity<List<ClinicOrder>> getprocessedorderEvents(@PathVariable Integer locationId){
+	public ResponseEntity<List<ClinicOrder>> getprocessedorderEvents(@PathVariable Integer locationId){
 		List<ClinicOrder> result=shippingServiceImpl.getprocessedorderEvents(locationId);
 		return new ResponseEntity<List<ClinicOrder>>(result,HttpStatus.OK);
 	}
 	
 	@GetMapping("/getserialbyproductId/{productId}")
-	private ResponseEntity<List<Serial>> getserialbyproductId(@PathVariable Integer productId){
+	public ResponseEntity<List<Serial>> getserialbyproductId(@PathVariable Integer productId){
 		List<Serial> result=shippingServiceImpl.getSerialByProductId(productId);
 		return new ResponseEntity<List<Serial>>(result,HttpStatus.OK);
 	}
 	
-	@GetMapping("/scannedShipmentDetails/{serialId}/{productId}/{orderEventId}")
-	private ResponseEntity<List<ScannedShipmentDetails>> getScannedShipmentDetails(@PathVariable Integer serialId,@PathVariable Integer productId,@PathVariable Integer orderEventId){
-		List<ScannedShipmentDetails> result=shippingServiceImpl.getScannedShipmentDetails(serialId,productId,orderEventId);
+	@GetMapping("/scannedShipmentDetails/{serialId}/{productId}/{orderId}")
+	@Transactional
+	public ResponseEntity<List<ScannedShipmentDetails>> getScannedShipmentDetails(@PathVariable Integer serialId,@PathVariable Integer productId,@PathVariable Integer orderId){
+		System.out.println("cccc");
+		List<ScannedShipmentDetails> result=shippingServiceImpl.getScannedShipmentDetails(serialId,productId,orderId);
 		return new ResponseEntity<List<ScannedShipmentDetails>>(result,HttpStatus.OK);	
 	}
 	@GetMapping("/shippedInventoryDetails/{locationId}")
-	private ResponseEntity<List<OrderEvents>>shippedInventoryDetails (@PathVariable Integer locationId){
+	public ResponseEntity<List<OrderEvents>>shippedInventoryDetails (@PathVariable Integer locationId){
 		List<OrderEvents> result=shippingServiceImpl.shippedInventoryDetails(locationId);
 		return new ResponseEntity<List<OrderEvents>>(result,HttpStatus.OK);	
 	}
