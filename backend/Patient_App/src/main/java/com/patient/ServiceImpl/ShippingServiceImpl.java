@@ -1,6 +1,7 @@
 package com.patient.ServiceImpl;
 
 import java.util.ArrayList;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import com.patient.Entity.ClinicOrder;
 import com.patient.Entity.OrderEvents;
 import com.patient.Entity.ScannedShipmentDetails;
 import com.patient.Entity.Serial;
+import com.patient.Repo.ClinicOrderRepo;
 import com.patient.Repo.ClinicRepo;
 import com.patient.Repo.OrderEventsRepo;
 import com.patient.Repo.SerialRepo;
@@ -30,6 +32,9 @@ public class ShippingServiceImpl implements ShippingService {
 	
 	@Autowired
 	private OrderEventsRepo orderEventsRepo;
+	
+	@Autowired
+	private ClinicOrderRepo clinicOrderRepo;
 	
 	@Autowired
 	private EntityManager entityManager;
@@ -119,21 +124,23 @@ public class ShippingServiceImpl implements ShippingService {
 
 
 	@Override
-	public List<ScannedShipmentDetails> getScannedShipmentDetails(Integer serialId, Integer productId,Integer orderEventId) {
+	public List<ScannedShipmentDetails> getScannedShipmentDetails(Integer serialId, Integer productId,Integer orderId) {
 		// TODO Auto-generated method stub
-		Query q=entityManager.createNativeQuery("select p.product_name,oe.order_event_id,oe.event_desc from product p inner join order_events oe where p.product_id=oe.product_id and order_event_id=?");
-		OrderEvents orderEvent=orderEventsRepo.findById(orderEventId).orElseThrow();
-		orderEvent.setEventDesc("Shipped");
-		orderEventsRepo.save(orderEvent);
-		q.setParameter(1, orderEventId); 	 	
-		List<Object []> l=q.getResultList();
+		System.out.println("llll");
+		Query q1=entityManager.createNativeQuery("update order_events set event_desc=? where order_id=?");
+		q1.setParameter(1, "Comissioned");
+		q1.setParameter(2, orderId);
+		q1.executeUpdate();
+		Query q2=entityManager.createNativeQuery("select p.product_name,p.active from product p where p.product_id=?");
+		q2.setParameter(1, productId); 	 	
+		List<Object []> l=q2.getResultList();
 		Integer k=1;
 		List<ScannedShipmentDetails> list=new ArrayList<>();
 		for (Object[] o:l) {
 			ScannedShipmentDetails scannedShipmentDetails=new ScannedShipmentDetails();
 			scannedShipmentDetails.setDose((String)o[0]);
 			scannedShipmentDetails.setQuantity(k++);
-			scannedShipmentDetails.setStatus((String)o[2]);
+			scannedShipmentDetails.setStatus("Comissioned");
 			list.add(scannedShipmentDetails);	
 		}
 		return list;
