@@ -603,6 +603,7 @@ app.controller("shipping", ($scope, $http, $window) => {
 
     $scope.demoFunction = () => {
         if ($scope.scanShipmentDetails != undefined) {
+            console.log($scope.scanShipmentDetails)
             let scanShipmentDetails = $scope.scanShipmentDetails;
             let serialIdAndProductId = scanShipmentDetails.split(",");
             $http({
