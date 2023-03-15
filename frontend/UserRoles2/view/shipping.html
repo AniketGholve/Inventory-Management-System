@@ -8,7 +8,7 @@
                     <input type="text" class="w-50">
                 </div>
                 <label for="" class="h5 text-center">Please enter kit information</label>
-                <select class="text-center" ng-change="selectSerialNumber()" ng-model="scanShipmentDetails">
+                <select class="text-center" ng-model="scanShipmentDetails">
                     <option label="Select Serial Number" class="d-none"></option>
                     <option class="text-center" value="{{x.serialId}},{{x.productId}}" ng-repeat="x in serialId">{{x.serialId}}</option>
                 </select>
@@ -26,10 +26,11 @@
                 <datalist id="clinicList">
                     <option ng-repeat="x in clinicDropdownName">{{x.shipToName}}</option>
                 </datalist>
+                <!-- <label for="" ng-change="clinicShipToData">please Enter valid Id</label> -->
                 <label for="" class="h5 m-0 mt-2">Order Id</label>
-                <input class="w-50" ng-change="orderIdFunction()" ng-model="productIdAndOrderEventId" list="clinicOrderId">
+                <input type="number" class="w-50" ng-change="orderIdFunction()" ng-model="productIdAndOrderEventId" list="clinicOrderId">
                 <datalist id="clinicOrderId">
-                    <option ng-repeat="x in orderEventData">{{x.orderEventId}}</option>
+                    <option ng-repeat="x in orderEventData">{{x.orderId}}</option>
                 </datalist>
             </div>
             

@@ -54,11 +54,13 @@ public class ClinicOrder {
 	private String orderType;
 	@Column(name = "src_id")
 	private int srcId;
+
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
 	@OneToMany(mappedBy = "orderId",cascade = CascadeType.ALL)
 	@JsonManagedReference
 
 	private List<OrderEvents> orderEvents;
+
 
 	public int getOrderId() {
 		return orderId;
@@ -204,6 +206,7 @@ public class ClinicOrder {
 		this.srcId = srcId;
 	}
 
+
 	public List<OrderEvents> getOrderEvents() {
 		return orderEvents;
 	}
@@ -250,13 +253,34 @@ public class ClinicOrder {
 				+ ", enterpriseId=" + enterpriseId + ", userId=" + userId + ", billtoId=" + billtoId + ", billtoName="
 				+ billtoName + ", shiptoId=" + shiptoId + ", shiptoName=" + shiptoName + ", activityDate="
 				+ activityDate + ", shipfromId=" + shipfromId + ", meu=" + meu + ", orderStatusId=" + orderStatusId
-				+ ", orderType=" + orderType + ", srcId=" + srcId + ", orderEvents=" + orderEvents + "]";
+
+				+ ", orderType=" + orderType + ", srcId=" + srcId + "]";
+	}
+//>>>>>>> c2d44e51a91e7042309a65f2637840cf593189e8
+	public ClinicOrder(int orderId, Date orderDatetime, String poNumber, String personInitial, String orderNote,
+			int locationId, int enterpriseId, int userId, int billtoId, String billtoName, String shiptoId,
+			String shiptoName, Date activityDate, int shipfromId, String meu, int orderStatusId, String orderType,
+			int srcId) {
+		super();
+		this.orderId = orderId;
+		this.orderDatetime = orderDatetime;
+		this.poNumber = poNumber;
+		this.personInitial = personInitial;
+		this.orderNote = orderNote;
+		this.locationId = locationId;
+		this.enterpriseId = enterpriseId;
+		this.userId = userId;
+		this.billtoId = billtoId;
+		this.billtoName = billtoName;
+		this.shiptoId = shiptoId;
+		this.shiptoName = shiptoName;
+		this.activityDate = activityDate;
+		this.shipfromId = shipfromId;
+		this.meu = meu;
+		this.orderStatusId = orderStatusId;
+		this.orderType = orderType;
+		this.srcId = srcId;
 	}
 	
-
-	
-	
-	
-	
- 	
 }
+//>>>>>>> c2d44e51a91e7042309a65f2637840cf593189e8

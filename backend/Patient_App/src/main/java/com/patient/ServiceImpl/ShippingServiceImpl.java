@@ -81,7 +81,6 @@ public class ShippingServiceImpl implements ShippingService {
 
 	@Override
 	public List<ClinicOrder> getprocessedorderEvents(Integer locationId) {
-		// TODO Auto-generated method stub
 		Query q=entityManager.createNativeQuery("select * from order_events oe inner join clinic_order co on co.order_id=oe.order_id where oe.event_desc=? and oe.location_id=? group by co.order_id;");
 		q.setParameter(1, "Processed");
 		q.setParameter(2, locationId);
@@ -110,7 +109,6 @@ public class ShippingServiceImpl implements ShippingService {
 		q1.setParameter(1, orderId);
 		List<Integer> productIdList=q1.getResultList();
  		for(Integer i:productIdList) {
-			
 			Query q2=entityManager.createQuery("select s from Serial s where s.productId=:u");
 			q2.setParameter("u", i);
 			List<Serial> r=q2.getResultList();
@@ -118,7 +116,6 @@ public class ShippingServiceImpl implements ShippingService {
 				result.add(s);
 			}
 		}
-		
 		return result;
 	}
 
