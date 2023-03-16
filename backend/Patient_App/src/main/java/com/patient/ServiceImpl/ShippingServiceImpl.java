@@ -1,8 +1,9 @@
 package com.patient.ServiceImpl;
 
 import java.util.ArrayList;
-
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,11 +11,13 @@ import org.springframework.stereotype.Service;
 import com.patient.Entity.Clinic;
 import com.patient.Entity.ClinicOrder;
 import com.patient.Entity.OrderEvents;
+import com.patient.Entity.Product;
 import com.patient.Entity.ScannedShipmentDetails;
 import com.patient.Entity.Serial;
 import com.patient.Repo.ClinicOrderRepo;
 import com.patient.Repo.ClinicRepo;
 import com.patient.Repo.OrderEventsRepo;
+import com.patient.Repo.ProductRepo;
 import com.patient.Repo.SerialRepo;
 import com.patient.Service.ShippingService;
 
@@ -39,6 +42,12 @@ public class ShippingServiceImpl implements ShippingService {
 	@Autowired
 	private EntityManager entityManager;
 	
+	@Autowired
+	private ProductRepo productRepo;
+	
+	
+	private Map<String,Integer> m=new HashMap<>();
+	private List<ScannedShipmentDetails> scannedShipmentDetailsList=new ArrayList<>();	
 	
 	
 	
@@ -127,23 +136,49 @@ public class ShippingServiceImpl implements ShippingService {
 	public List<ScannedShipmentDetails> getScannedShipmentDetails(Integer serialId, Integer productId,Integer orderId) {
 		// TODO Auto-generated method stub
 		System.out.println("llll");
+		Serial s=serialRepo.findById(serialId).orElseThrow();
 		Query q1=entityManager.createNativeQuery("update order_events set event_desc=? where order_id=?");
 		q1.setParameter(1, "Comissioned");
 		q1.setParameter(2, orderId);
 		q1.executeUpdate();
-		Query q2=entityManager.createNativeQuery("select p.product_name,p.active from product p where p.product_id=?");
-		q2.setParameter(1, productId); 	 	
-		List<Object []> l=q2.getResultList();
-		Integer k=1;
-		List<ScannedShipmentDetails> list=new ArrayList<>();
-		for (Object[] o:l) {
+		Product p=productRepo.findById(productId).orElseThrow();
+		if(!m.containsKey(p.getProductId().toString())) {
+			
+			m.put(p.getProductId().toString(), 1);
 			ScannedShipmentDetails scannedShipmentDetails=new ScannedShipmentDetails();
-			scannedShipmentDetails.setDose((String)o[0]);
-			scannedShipmentDetails.setQuantity(k++);
+			scannedShipmentDetails.setDose(p.getProductName());
+			scannedShipmentDetails.setQuantity(1);
 			scannedShipmentDetails.setStatus("Comissioned");
-			list.add(scannedShipmentDetails);	
+			scannedShipmentDetails.setProductId(productId);
+			scannedShipmentDetailsList.add(scannedShipmentDetails);
+			
+			
 		}
-		return list;
+		else {
+			Integer i=m.get(p.getProductId().toString());
+			m.put(p.getProductId().toString(), ++i);
+			for(int j=0;j<scannedShipmentDetailsList.size();j++)
+			{
+				if(scannedShipmentDetailsList.get(j).getProductId()==productId) {
+					Integer k=scannedShipmentDetailsList.get(j).getQuantity();
+					scannedShipmentDetailsList.get(j).setQuantity(++k);
+					
+				}
+			}
+		}
+//		Query q2=entityManager.createNativeQuery("select p.product_name,p.active from product p where p.product_id=?");
+//		q2.setParameter(1, productId); 	 	
+//		List<Object []> l=q2.getResultList();
+//		Integer k=1;
+//		List<ScannedShipmentDetails> list=new ArrayList<>();
+//		for (Object[] o:l) {
+//			ScannedShipmentDetails scannedShipmentDetails=new ScannedShipmentDetails();
+//			scannedShipmentDetails.setDose((String)o[0]);
+//			scannedShipmentDetails.setQuantity(k++);
+//			scannedShipmentDetails.setStatus("Comissioned");
+//			list.add(scannedShipmentDetails);	
+//		}
+		return scannedShipmentDetailsList;
 	}
 
 
