@@ -132,4 +132,17 @@ app.controller("edit_userCtrl", function ($scope, $http, $window, $route) {
 //         });
 // }]);
 
+// app.controller("addPhysicianNurseController", function ($scope, $http, $window, $route) {
+//    $scope.addPhysician() = function (){
+//     $http({
+//         method: 'POST',
+//         url: "http://localhost:7890/createPhysician" ,
+//         headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") },
+//         data: $scope.addPhysicianData
+//    }).then((response) => {
+       
+//    })
 
+
+//    }
+// });

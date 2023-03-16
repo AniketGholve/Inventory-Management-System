@@ -4,7 +4,7 @@
     </div>
     <div ng-include="'view/header2.html'"></div>
     <div class="isDisabled">
-        <div class="container">
+        <div class="container w-50">
             <h1>Administrator Settings</h1>
             <div class="container mt-2">
                 <div class="administrator d-flex justify-content-between p-2">
@@ -25,7 +25,7 @@
                             </thead>
                             <tbody>
                                 <tr ng-repeat="x in physician_data">
-                                    <td></td>
+                                    <td>{{x.firstName}}</td>
                                     <td><i class="fa-regular fa-pen-to-square link-danger"></i></td>
                                     <td><i class="fa-regular fa-circle-xmark link-danger"></i></td>
 
@@ -49,7 +49,7 @@
                             </thead>
                             <tbody>
                                 <tr ng-repeat="y in nurse_data">
-                                    <td></td>
+                                    <td>{{y.firstName}}</td>
                                     <td><i class="fa-regular fa-pen-to-square link-danger "></i></td>
                                     <td><i class="fa-regular fa-circle-xmark link-danger "></i></td>
                                 </tr>

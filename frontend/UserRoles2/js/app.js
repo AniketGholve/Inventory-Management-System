@@ -481,7 +481,7 @@ app.controller("clp", function ($scope, $http, $window, $location) {
 
     $http({
         method: 'GET',
-        url: "",
+        url: "http://localhost:7890/getAllPhysicians",
         headers:{
             'Content-Type': 'application/json',
             'Authorization': sessionStorage.getItem("token")
@@ -495,7 +495,7 @@ app.controller("clp", function ($scope, $http, $window, $location) {
 
     $http({
         method: 'GET',
-        url: "",
+        url: "http://localhost:7890/getAllNurse",
         headers:{
             'Content-Type': 'application/json',
             'Authorization': sessionStorage.getItem("token")
@@ -1112,4 +1112,59 @@ app.controller('addToInventory', function ($scope, $http) {
     // $scope.id = sessionStorage.getItem("locationId");
 
 });
+
+app.controller("addPhysicianNurseCtrl", function ($scope, $http, $window, $route) {
+    $http({
+
+        method: 'get',
+
+        url: "http://localhost:7890/getClinicNames",
+
+        headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") }
+
+    }).then((response) => {
+
+        $scope.clinicNames = response.data;
+
+    }, (error) => { })
+    $scope.clinicName = (id) => {
+
+        sessionStorage.setItem("locationId", id);
+
+        $window.location.reload();
+
+    }
+
+    $scope.id = sessionStorage.getItem("locationId");
+    $scope.addPhysician = function (){
+     $http({
+         method: 'POST',
+         url: "http://localhost:7890/createPhysician" ,
+         headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") },
+         data: $scope.addPhysicianData
+    }).then((response) => {
+        alert("Physicians Added Successfully");
+        $window.location.href="#!/administrator"
+    })
+ 
+ 
+    }
+
+    $scope.addNurse = function (){
+        $http({
+            method: 'POST',
+            url: "http://localhost:7890/createNurse" ,
+            headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") },
+            data: $scope.addNurseData
+       }).then((response) => {
+           alert("Nurse added Successfully");
+           $window.location.href="#!/administrator";
+       })
+    
+    
+       }
+
+
+    
+ });
 
