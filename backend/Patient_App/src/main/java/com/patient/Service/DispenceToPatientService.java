@@ -1,6 +1,9 @@
 package com.patient.Service;
 
-import com.patient.Entity.DispenceToPatient;
+import java.util.List;
+
+import com.patient.Entity.DispenseToPatient;
+import com.patient.Entity.Patient;
 import com.patient.Entity.Product;
 
 public interface DispenceToPatientService {
@@ -8,6 +11,12 @@ public interface DispenceToPatientService {
 	
 	public Product getProductBySerialId(Integer serialId);
 	
-	public DispenceToPatient createDispence(DispenceToPatient dispenceToPatient);
+	public DispenseToPatient createDispence(DispenseToPatient dispenceToPatient);
+	
+	public List<Patient> getPatientsByName(String paientName);
+	
+	
+	public DispenseToPatient addDispense(Integer Id,Integer nurseId,Integer physicianId,Integer productId,Integer serialId,Integer locationId);
+
 
 }
