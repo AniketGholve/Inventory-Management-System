@@ -19,16 +19,16 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="x in shippedSerialDetails">
-                    <td class="p-3">{{x.serialId}}</td>
-                    <td class="p-3">{{x.patientSpecific}}</td>
-                    <td class="p-3">{{x.serialNumber}}</td>
-                    <td class="p-3">{{x.productId}}</td>
-                    <td class="p-3">{{x.serialStatus}}</td>
+                <tr ng-class="{'d-none':shippedSerialDetails==null}">
+                    <td class="p-3">{{shippedSerialDetails.serialId}}</td>
+                    <td class="p-3">{{shippedSerialDetails.patientSpecific}}</td>
+                    <td class="p-3">{{shippedSerialDetails.serialNumber}}</td>
+                    <td class="p-3">{{shippedSerialDetails.productId}}</td>
+                    <td class="p-3">{{shippedSerialDetails.serialStatus}}</td>
                 </tr>
             </tbody>
         </table>
-        <div style="float: right;" ng-class="{'d-none':serialNumbersShipped==null}">
+        <div style="float: right;" ng-class="{'d-none':shippedSerialDetails==null}">
             <input type="button" class="btn btn-danger" value="Add To Inventory">
         </div>
     </div>

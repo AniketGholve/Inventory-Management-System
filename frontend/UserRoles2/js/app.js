@@ -345,6 +345,7 @@ app.controller("clp", function ($scope, $http, $window, $location) {
                 headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") },
             }).then((response) => {
                 $scope.shippedSerialDetails = response.data;
+                console.log($scope.shippedSerialDetails)
             }, (error) => {
                 console.log(error);
             })
