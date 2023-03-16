@@ -54,7 +54,7 @@ public class InventoryServiceImpl implements InventoryService {
 			s.setPatientSpecific((String) o[7]);
 			s.setProductId((Integer) o[8]);
 			s.setSerialNumber((Integer) o[9]);
-			s.setSerialStatus((Boolean) o[10]);
+			s.setSerialStatus((String) o[10]);
 			s.setSrcId((Integer) o[11]);
 			resultList.add(s);
 			
@@ -110,7 +110,7 @@ public class InventoryServiceImpl implements InventoryService {
 			s.setPatientSpecific((String) o[7]);
 			s.setProductId((Integer) o[8]);
 			s.setSerialNumber((Integer) o[9]);
-			s.setSerialStatus((Boolean) o[10]);
+			s.setSerialStatus((String) o[10]);
 			s.setSrcId((Integer) o[11]);
 			resultList.add(s);
 			
