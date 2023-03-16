@@ -2,31 +2,34 @@
     <div ng-include="'view/header.html'"></div>
     <div ng-include="'view/header2.html'"></div>
     <div class="container">
-        <h2 class="text-center">Shipping Details</h2>
-        <table class="table table-striped table-bordered text-center">
-            <thead class="clinics">
+        <h2 class="text-center">Add To Inventory</h2>
+        <label for="">Serial Number :</label>
+        <input type="number" ng-model="demodata" ng-change="shippedSerial()" id="serialNumbersInventory">
+        <!-- <datalist id="serialNumbersInventory">
+            <option ng-repeat="x in serialNumbersShipped">{{x.serialId}}</option>
+        </datalist> -->
+        <table class="table table-striped table-bordered text-center mt-5">
+            <thead class="clinics ">
                 <tr>
-                    <th>Order Id</th>
-                    <th>Date</th>
-                    <th>Enterprise Id</th>
-                    <th>Status</th>
+                    <th>Serial Id</th>
+                    <th>Patient Specification</th>
+                    <th>Serial Number</th>
                     <th>Product Id</th>
-                    <th>Quantity</th>
-                    <th>Shipment Tracking Id</th>
+                    <th>Serial Status</th>
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="x in shippedDetails">
-                    <td class="p-3">{{x.orderEventId}}</td>
-                    <td class="p-3">{{x.activityDate}}</td>
-                    <td class="p-3">{{x.enterpriseId}}</td>
-                    <td class="p-3">{{x.eventDesc}}</td>
-                    <td class="p-3">{{x.productId}}</td>
-                    <td class="p-3">{{x.quantity}}</td>
-                    <td class="p-3">{{x.shipmentTrackingId}}</td>
-                    </td>
+                <tr ng-class="{'d-none':shippedSerialDetails==null}">
+                    <td class="p-3">{{shippedSerialDetails.serialId}}</td>
+                    <td class="p-3">{{shippedSerialDetails.patientSpecific}}</td>
+                    <td class="p-3">{{shippedSerialDetails.serialNumber}}</td>
+                    <td class="p-3">{{shippedSerialDetails.productId}}</td>
+                    <td class="p-3">{{shippedSerialDetails.serialStatus}}</td>
                 </tr>
             </tbody>
         </table>
+        <div style="float: right;" ng-class="{'d-none':shippedSerialDetails==null}">
+            <input type="button" class="btn btn-danger" value="Add To Inventory">
+        </div>
     </div>
 </div>

@@ -48,6 +48,8 @@ public class ShippingServiceImpl implements ShippingService {
 	
 	private Map<String,Integer> m=new HashMap<>();
 	private List<ScannedShipmentDetails> scannedShipmentDetailsList=new ArrayList<>();	
+	private Integer oId=-1;
+	private List<Integer> serialIdList=new ArrayList<>();
 	
 	
 	
@@ -135,6 +137,14 @@ public class ShippingServiceImpl implements ShippingService {
 	@Override
 	public List<ScannedShipmentDetails> getScannedShipmentDetails(Integer serialId, Integer productId,Integer orderId) {
 		// TODO Auto-generated method stub
+		if(oId==-1) oId=orderId;
+		else if(oId!=orderId) {
+			System.out.println("llkj");
+			scannedShipmentDetailsList.clear();
+			m.clear();
+			serialIdList.clear();
+			oId=orderId;
+		}
 		Serial serial=serialRepo.findById(serialId).orElseThrow();
 		serial.setSerialStatus("Comissioned");
 		serialRepo.save(serial);
@@ -152,6 +162,7 @@ public class ShippingServiceImpl implements ShippingService {
 			scannedShipmentDetails.setStatus("Comissioned");
 			scannedShipmentDetails.setProductId(productId);
 			scannedShipmentDetailsList.add(scannedShipmentDetails);
+			serialIdList.add(serialId);
 			
 			
 		}
@@ -163,7 +174,7 @@ public class ShippingServiceImpl implements ShippingService {
 				if(scannedShipmentDetailsList.get(j).getProductId()==productId) {
 					Integer k=scannedShipmentDetailsList.get(j).getQuantity();
 					scannedShipmentDetailsList.get(j).setQuantity(++k);
-					
+					serialIdList.add(serialId);
 				}
 			}
 		}
@@ -182,14 +193,33 @@ public class ShippingServiceImpl implements ShippingService {
 		return scannedShipmentDetailsList;
 	}
 
-
-
-
-
 	public List<OrderEvents> shippedInventoryDetails(Integer locationId) {
 		List<OrderEvents> findByLocationIdAndEventDesc = orderEventsRepo.findByLocationIdAndEventDesc(locationId, "Shipped");
 		return findByLocationIdAndEventDesc;
 	}
+
+
+
+
+	@Override
+	public String changeSerialAndOrderStatus(Integer orderId) {
+		// TODO Auto-generated method stub
+		Query q1=entityManager.createNativeQuery("update order_events set event_desc=? where order_id=?");
+		q1.setParameter(1, "Shipped");
+		q1.setParameter(2, orderId);
+		q1.executeUpdate();
+		for(Integer serialId:serialIdList) {
+			Query q2=entityManager.createNativeQuery("update serial set serial_status=? where serial_id=?");
+			q2.setParameter(1, "Shipped");
+			q2.setParameter(2, serialId);
+			q2.executeUpdate();
+			
+		}
+		return "Status Changed Successfully";
+	}
+	
+	
+	
 	
 	
 	

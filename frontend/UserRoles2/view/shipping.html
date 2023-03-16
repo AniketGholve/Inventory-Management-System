@@ -1,90 +1,3 @@
-<!-- <div>
-    <div ng-include="'view/header.html'"></div>
-    <div class="shipped">
-        <form class="d-inline block">
-        <div>
-            <label for="">Parent container Id</label>
-            <input class="w-50" type="text">
-        </div>
-        <div>
-            <label for="">Please enter Kit Information</label>
-            <input class="w-75" type="text">
-        </div>
-    </form>
-    </div>
-    <br>
-    <br>
-    <div class="container">
-        <div class="d-flex ">
-
-            <div class="d-flex flex-column w-50">
-
-                <label for="" class="h5">Ship to Customer</label>
-
-                <input class="w-75" type="text">
-
-                <label for="" class="h5">Order Id</label>
-
-                <input type="text" class="w-75">
-
-            </div>
-
-            <div class="w-50">
-
-                <label for="" class="h5">Ship-To</label>
-
-                <div class="form-control d-flex flex-column shipInfo">
-
-                    <div class="d-flex justify-content-between m-1">
-
-                        <label>Name</label>
-
-                        <input type="text" class="w-75 border-0" disabled>
-
-                    </div>
-
-                    <div class="d-flex justify-content-between m-1">
-
-                        <label>Address</label>
-
-                        <input type="text" class="w-75 border-0" disabled>
-
-                    </div>
-
-                    <div class="d-flex justify-content-between m-1">
-
-                        <label>City|State|Zip</label>
-
-                        <input type="text" class="w-75 border-0" disabled>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div> -->
-        <!-- <div class="container d-flex justify-content-center mt-5">
-
-
-            <label for="">Scanned Shipment Details</label>
-
-            <table class="table table-striped table-bordered text-center">
-                <thead style="background-color: rgb(21, 21, 68);color: white;">
-                    <tr>
-                        <th>Dose</th>
-                        <th>Quantity</th>
-                        <th>Status</th>
-                        <th>Batch Id</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>No records found</td>
-
-                    </tr>
-        </div> -->
-
 <div ng-controller="shipping" class="background-whiteSnow">
     <div ng-include="'view/header.html'"></div>
     <div class="p-5 background-lightBule" ng-class="{'d-none':demoVar==true}">
@@ -155,12 +68,15 @@
             </thead>
             <tbody>
                 <tr class="text-center"ng-repeat="singleShipmentData in shipmentDetails">
-                    <td  ng-repeat="x in singleShipmentData">{{x}}</td>
+                    <td>{{singleShipmentData.dose}}</td>
+                    <td>{{singleShipmentData.quantity}}</td>
+                    <td>{{singleShipmentData.status}}</td>
+                    <td>{{singleShipmentData.batch}}</td>
                 </tr>
             </tbody>
         </table>
     </div>
     <div class="text-center mt-3">
-        <input type="button" ng-click="demoFunction()" class="btn btn-danger" value="Shipped">
+        <input type="button" ng-click="shipOrder()" class="btn btn-danger" value="Shipped">
     </div>
 </div>

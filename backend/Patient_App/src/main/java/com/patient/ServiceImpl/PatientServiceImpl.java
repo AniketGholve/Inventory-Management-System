@@ -116,6 +116,17 @@ public class PatientServiceImpl implements PatientService {
 	}
 
 
+	@Override
+	public List<Patient> getPatientsByName(String paientName) {
+		// TODO Auto-generated method stub
+		Query q=entityManager.createQuery("select p from Patient p where p.patientFirstName=:u");
+		q.setParameter("u", paientName);
+		List<Patient> result=q.getResultList();
+		if(result.size()==0) return null;
+		return result;
+	}
+
+
 
 
 }

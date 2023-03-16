@@ -68,4 +68,14 @@ public class ShippingController {
 		List<OrderEvents> result=shippingServiceImpl.shippedInventoryDetails(locationId);
 		return new ResponseEntity<List<OrderEvents>>(result,HttpStatus.OK);	
 	}
+	
+	
+	
+	@GetMapping("/changeSerialAndOrderStatusToShipped/{orderId}")
+	@Transactional
+	public ResponseEntity<String> changeSerialAndOrderStatus(@PathVariable Integer orderId){
+
+		String s=shippingServiceImpl.changeSerialAndOrderStatus(orderId);
+		return new ResponseEntity<String>("Status Changed Successfully",HttpStatus.OK);
+	}
 }

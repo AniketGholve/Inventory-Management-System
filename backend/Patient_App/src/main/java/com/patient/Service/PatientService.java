@@ -20,6 +20,8 @@ public interface PatientService {
 	
 	public List<Patient> getPatientByLocationId(Integer clinicLocationId);
 	
+	public List<Patient> getPatientsByName(String paientName);
+	
 	//public String getPatientByIdJPQL(int pid);
 	
 	//public List<Patient> getAllPatientByQuery();

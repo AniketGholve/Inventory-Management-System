@@ -31,7 +31,7 @@ app.controller("headerController", ($scope, $http, $location) => {
             break;
         case '/inventory': $scope.activeTab = 'inventory';
             break;
-        case '/clp_users': $scope.activeTab = 'clpHome';
+        case '/patient': $scope.activeTab = 'clpHome';
             break;
         case '/patient': $scope.activeTab = 'patient';
             break;
@@ -373,6 +373,25 @@ app.controller("clp", function ($scope, $http, $window, $location) {
         }, (error) => {
             console.log(error);
         })
+        $scope.shippedSerial=()=>{
+            if($scope.demodata!=null && sessionStorage.getItem("locationId")!=null )
+            {
+                $http({
+                    method: 'get',
+                    url: "http://localhost:7890/getSerialBySerialId/" + $scope.demodata +"/"+sessionStorage.getItem("locationId"),
+                    headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") },
+                }).then((response) => {
+                    $scope.shippedSerialDetails = response.data;
+                    console.log($scope.shippedSerialDetails)
+                }, (error) => {
+                    console.log(error);
+                })
+            }
+            else
+            {
+                $scope.shippedSerialDetails=null;
+            }
+        }
     }
 
     $scope.getOnHand = (id) => {
@@ -667,10 +686,25 @@ app.controller("shipping", ($scope, $http, $window) => {
         console.log(error);
     });
 
+    $scope.shipOrder=()=>{
+        $http({
+            method: 'Get',
+            url: "http://localhost:7890/changeSerialAndOrderStatusToShipped/" + $scope.orderEventId,
+            headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") }
+        }).then((response) => {
+            $scope.shipmentDetails = response.data;
+            alert("Ordered Shipped");
+            $window.location.href="#!/shipping";
+        }, (error) => {
+            console.log(error);
+        });
+    }
     $scope.demoFunction = () => {
         if ($scope.scanShipmentDetails != undefined) {
+            console.log($scope.scanShipmentDetails)
             let scanShipmentDetails = $scope.scanShipmentDetails;
             let serialIdAndProductId = scanShipmentDetails.split(",");
+            console.log($scope.orderEventId);
             $http({
                 method: 'Get',
                 url: "http://localhost:7890/scannedShipmentDetails/" + serialIdAndProductId[0] + "/" + serialIdAndProductId[1] + "/" + $scope.orderEventId,
