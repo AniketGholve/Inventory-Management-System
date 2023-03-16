@@ -3,9 +3,6 @@ package com.patient.Entity;
 import java.sql.Date;
 import java.util.List;
 
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
-
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.patient.encryption.AESEncryption;
 
@@ -18,6 +15,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Transient;
 
 @Entity
@@ -67,6 +65,10 @@ public class Patient {
 	
 	@Transient
 	private String clinicName;
+	
+	@Transient
+	@OneToOne(mappedBy = "id")
+	private DispenseToPatient dispenseId;
 
 	
 	

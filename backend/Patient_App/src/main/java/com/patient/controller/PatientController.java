@@ -80,12 +80,7 @@ public class PatientController {
 	}
 	
 	
-	@GetMapping("getPatientsByName/{patientName}")
-	public ResponseEntity<List<Patient>> getPatientsByName(@PathVariable String patientName){
-		
-		List<Patient> patientList=patientServiceImpl.getPatientsByName(patientName);
-		return new ResponseEntity<List<Patient>>(patientList,HttpStatus.OK);
-	}
+	
 	
 	
 	
