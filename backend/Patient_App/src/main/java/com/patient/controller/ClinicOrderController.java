@@ -28,14 +28,11 @@ public class ClinicOrderController {
 		return new ResponseEntity<ClinicOrder>(result,HttpStatus.OK);
 	}
 	
-	
-	
-	
+
 	@GetMapping("/getAllOrders/{locId}")
 	public List<ClinicOrder> getAllOrders(@PathVariable("locId") Integer locId)
 	{
 		return clinicOrderServiceImpl.getAllOrdersById(locId);
 	}
-		
-	
+
 }

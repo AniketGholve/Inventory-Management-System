@@ -29,16 +29,16 @@
                         <td class="p-3">{{x.shiptoId}}</td>
                         <td class="p-3">{{x.shiptoName}}</td>
                         <td class="p-3">{{x.eventDesc}}</td>
-                        <td class="p-3 bg-salt">{{x.quantityMap.itone}}</td>
+                        <td class="p-3 bg-salt">{{x.quantityMap['itone']}}</td>
                         <td class="p-3 bg-salt">{{x.quantityMap.flexon}}</td>
                         <td class="p-3 bg-salt">{{x.quantityMap['Cosmelite Cream']}}</td>
-                        <td class="p-3 bg-salt">{{x.quantityMap.itone +x.quantityMap.flexon+x.quantityMap['Cosmelite Cream'] }}</td>
+                        <td class="p-3 bg-salt">{{x.quantityMap['itone'] +x.quantityMap.flexon+x.quantityMap['Cosmelite Cream'] }}</td>
                         <td class="p-3"><a href="" class="btn" ng-class="{'disabled':x.eventDesc!='Submitted'}"><i class="fa-regular fa-circle-check link-danger"
-                                    ng-click="changeOrderStatus(x.orderEventId)"></i></a></td>
+                                    ng-click="changeOrderStatus(x.displayId)"></i></a></td>
                         <td class="p-4"><a data-bs-toggle="modal" data-bs-target="#orderInventoryData"><i class="fa-sharp fa-solid fa-box link-danger"
                                     ng-click="viewInventory(x.productId,x.locationId)"></i></a></td>
                         <td class="p-3"><a href="" class="btn" ng-class="{'disabled':x.eventDesc=='Cancelled'}"><i class="fa-regular fa-circle-xmark link-danger"
-                                    ng-click="cancleOrder(x.orderEventId)"></i></a></td>
+                                    ng-click="cancleOrder(x.displayId)"></i></a></td>
                     </tr>
                 </tbody>
             </table>

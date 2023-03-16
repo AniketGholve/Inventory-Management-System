@@ -77,20 +77,23 @@ public class OrderEventsServiceImpl implements OrderEventsService {
 	}
 
 	@Override
-	public String changeOrderStatus(Integer orderEventsId) {
+	public String changeOrderStatus(Integer orderId) {
 		// TODO Auto-generated method stub
-		OrderEvents orderEvents = orderEventsRepo.findById(orderEventsId).orElseThrow();
-		orderEvents.setEventDesc("Processed");
-		orderEventsRepo.save(orderEvents);
+		//OrderEvents orderEvents = orderEventsRepo.findById(orderEventsId).orElseThrow();
+		Query q=entityManager.createNativeQuery("update order_events set event_desc=? where order_id=?");
+		q.setParameter(1, "Processed");
+		q.setParameter(2, orderId);
+		q.executeUpdate();
 		return "status changes successfully";
 	}
 
 	@Override
-	public String cancelOrder(Integer orderEventId) {
+	public String cancelOrder(Integer orderId) {
 		// TODO Auto-generated method stub
-		OrderEvents orderEvents=orderEventsRepo.findById(orderEventId).orElseThrow();
-		orderEvents.setEventDesc("Cancelled");
-		orderEventsRepo.save(orderEvents);
+		Query q=entityManager.createNativeQuery("update order_events set event_desc=? where order_id=?");
+		q.setParameter(1, "Cancelled");
+		q.setParameter(2, orderId);
+		q.executeUpdate();
 		return "order cancel successfully";
 	}
 

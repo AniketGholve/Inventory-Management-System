@@ -10,9 +10,9 @@ public interface OrderEventsService {
 	
 	public List<OrderEvents> getAllOrderDetails();
 	
-	public String changeOrderStatus(Integer orderEventsId);
+	public String changeOrderStatus(Integer orderId);
 	
-	public String cancelOrder(Integer orderEventId);
+	public String cancelOrder(Integer orderId);
 	
 	public List<OrderEvents> createOrderEvent(List<Inventory> inventory,Integer clinicOrderId);
 
