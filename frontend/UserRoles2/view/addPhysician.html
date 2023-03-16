@@ -1,0 +1,48 @@
+<div ng-controller="addPhysicianNurseCtrl">
+    <div ng-include="'view/header.html'"></div>
+    <div ng-include="'view/header2.html'"></div>
+    <div>
+        <h1 class="text-center">Add Physician</h1>
+    </div>
+    <form ng-submit="addPhysician()">
+        <div class="row g-3 form-control d-flex justify-content-between w-50 m-auto">
+            <div class="col-auto d-flex justify-content-between w-50">
+                <label for=""> First Name </label>
+                <input type="text" ng-model="addPhysicianData.firstName" required>
+            </div>
+            <div class="col-auto d-flex justify-content-between w-50">
+                <label for=""> Last Name </label>
+                <input type="text" ng-model="addPhysicianData.lastName" required>
+            </div>
+            <div class="col-auto d-flex justify-content-between w-50">
+                <label for=""> Middle Name </label>
+                <input type="text" ng-model="addPhysicianData.middleName" required>
+            </div>
+            <div class="col-auto d-flex justify-content-between w-50">
+                <label for="">Occupation Type </label>
+                <input type="text" ng-model="addPhysicianData.occupationType" required>
+            </div>
+            <!-- <div class="col-auto d-flex justify-content-between w-50">
+                <label for="">Created On</label>
+                <input type="text" ng-model="addPhysicianData.createdOn" required>
+            </div> -->
+            <div class="col-auto d-flex justify-content-between w-50">
+                <label for="">Job Title</label>
+                <input type="text" ng-model="addPhysicianData.jobTitle" required>
+            </div>
+            <!-- <div class="col-auto d-flex justify-content-between w-50">
+                <label for="">Work Number</label>
+                <input type="text" ng-model="addPhysicianData.workPhone" required>
+            </div> -->
+            <!-- <div class="col-auto d-flex justify-content-between w-50">
+                <label for="">Mobile Number</label>
+                <input type="text" ng-model="addPhysicianData.mobilePhone" required>
+            </div> -->
+            <!-- <div class="col-auto d-flex justify-content-between w-50">
+                <label for="">Password</label>
+                <input type="password" ng-model="addPhysicianData.password" required>
+            </div> -->
+            <input class="btn btn-primary" type="submit" name="addPhysicianData" value="Add Physician"/>
+        </div>
+    </form>
+</div>

@@ -7,5 +7,12 @@
                 <option ng-repeat="x in clinicNames" value="{{x.locationId}}" class="text-center">{{x.name}}</option>
             </select>
         </div>
+        <div style="float: left;" ng-class="{'d-none': inventoryLocation()!=true}">
+            <label for="dropdownTab" class="text-white mx-2"><h5>Choose :</h5></label>
+            <select id="dropdownTab"class="dropdownTab" ng-model="selectedDropdownTab" ng-change="screensName(selectedDropdownTab)">
+                <option label="Select" class="d-none"></option>
+                <option class="text-center" value="inventory">Inventory Dashboard</option>
+                <option class="text-center" value="ordering">Ordering</option>
+            </select>
     </div>
 </div>

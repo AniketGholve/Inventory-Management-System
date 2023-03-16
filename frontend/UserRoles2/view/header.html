@@ -19,9 +19,10 @@
                     <li class="nav-item nav_hover {{clp}}" ng-class="{active: activeTab === 'inventory' || activeTab === 'order'}">
                         <a class="nav-link" href="#!inventory" ng-click="screensName('inventory')">Inventory</a>
                     </li>
-                    <!-- <li class="nav-item nav_hover {{clp}}" ng-class="{active: activeTab === 'order'}">
-                        <a class="nav-link" href="#!/orders">Ordering</a>
-                    </li> -->
+                    <li class="nav-item nav_hover {{clp}}" ng-class="{active: activeTab === 'administrator'}">
+                        <a class="nav-link" href="#!/administrator">Administrator</a>
+                    </li>
+                  
                     <li class="nav-item nav_hover {{alp}}" ng-class="{active: activeTab === 'clinic'}">
                         <a class="nav-link" href="#!clinics">Clinics</a>
                     </li>
@@ -34,11 +35,18 @@
                     <li class="nav-item nav_hover {{alp}}" ng-class="{active: activeTab === 'shipping'}">
                         <a class="nav-link" href="#!/shipping">Shipping</a>
                     </li>
+                    <li class="nav-item nav_hover {{elp}}" ng-class="{active: activeTab === 'successOrders'}">
+                        <a class="nav-link" href="#!/elp_users">Success Orders</a>
+                    </li>
+                    <li class="nav-item nav_hover {{elp}}" ng-class="{active: activeTab === 'errorOrders'}">
+                        <a class="nav-link" href="#!/error_orders">Error Orders</a>
+                    </li>
                 </ul>
             </div>
             <div class="{{userIcon}}">
                 <div class="icon">
-                    <button onclick="userFunction()" class="btn1"><i class="fa-solid fa-circle-user" style="font-size: 50px;"></i></button>
+                    <button onclick="userFunction()" class="btn1"><i class="fa-solid fa-circle-user"
+                            style="font-size: 50px;"></i></button>
                 </div>
                 <div id="userDropDown" class="sub-menu">
                     <a class="sub-menu-link" href="#!edit_user">My Account</a>

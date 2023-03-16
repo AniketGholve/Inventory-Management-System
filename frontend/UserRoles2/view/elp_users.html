@@ -1,149 +1,75 @@
-<h1>ELP USERS</h1>
 <div ng-controller="elp">
-
    <div ng-include="'view/header.html'"></div>
+   <h1 class="text-center"> Success Orders</h1>
 
-   <div class="tabs-holder">
+   <div>
+      <table class="table table-striped table-bordered">
 
-      <div id="tabs">
-         <ul class="tabs-nav">
+         <thead class="error">
 
-            <button class="btn" ng-repeat="tab in tabs" ng-class="{active:isActiveTab(tab.url)}" ng-click="onClickTab(tab)">
-               {{tab.title}}</button>
-         </ul>
-         <div id="tab-content">
-            <div ng-include="currentTab"></div>
-         </div>
-         
+            <tr>
 
-         <script type="text/ng-template" id="successOrders.html">
-             <div class="tab-content" id="1">
+               <th>Org ID</th>
 
-               <h1>Success Orders</h1>
+               <th>Org Name</th>
 
+               <th>Loc ID</th>
 
-               <table class="table table-striped table-bordered">
+               <th>Loc Name</th>
 
-                  <thead class="error" >
+               <th>Patient ID</th>
 
-                     <tr>
+               <th>First Name</th>
 
-                           <th>Org ID</th>
+               <th>Last Name</th>
 
-                           <th>Org Name</th>
+               <th>DOB</th>
 
-                           <th>Loc ID</th>
+               <th>Physician</th>
 
-                           <th>Loc Name</th>
+               <th>Status</th>
 
-                           <th>Patient ID</th>
+               <th>Order date</th>
 
-                           <th>First Name</th>
+               <th>Result date</th>
 
-                           <th>Last Name</th>
+            </tr>
 
-                           <th>DOB</th>
+         </thead>
 
-                           <th>Physician</th>
+         <tbody>
 
-                           <th>Status</th>
+            <tr ng-repeat="x in success_data">
 
-                           <th>Order date</th>
+               <td>{{x.provider_Org_id}}</td>
 
-                           <th>Result date</th>
+               <td>{{x.provider_Org_Name}}</td>
 
-                     </tr>
+               <td>{{x.provider_Org_Location_Id}}</td>
 
-                  </thead>
+               <td>{{x.provider_Org_Loc_Name}}</td>
 
-                  <tbody>
+               <td>{{x.patient_Id}}</td>
 
-                      <tr ng-repeat="x in success_data">
+               <td>{{x.patient_First_Name}}</td>
 
-                         <td>{{x.provider_Org_id}}</td>
+               <td>{{x.patient_Last_Name}}</td>
 
-                         <td>{{x.provider_Org_Name}}</td>
+               <td>{{x.patient_Dob}}</td>
 
-                         <td>{{x.provider_Org_Location_Id}}</td>
+               <td>{{x.ehr_Doc_Name}}</td>
 
-                         <td>{{x.provider_Org_Loc_Name}}</td>
+               <td>{{x.order_Status}}</td>
 
-                           <td>{{x.patient_Id}}</td>
+               <td>{{x.ehr_Order_Date}}</td>
 
-                           <td>{{x.patient_First_Name}}</td>
+               <td>{{x.ehr_Result_Date}}</td>
 
-                           <td>{{x.patient_Last_Name}}</td>
+            </tr>
 
-                           <td>{{x.patient_Dob}}</td>
+         </tbody>
 
-                           <td>{{x.ehr_Doc_Name}}</td>
-
-                           <td>{{x.order_Status}}</td>
-
-                           <td>{{x.ehr_Order_Date}}</td>
-
-                           <td>{{x.ehr_Result_Date}}</td>
-
-                     </tr>
-
-                  </tbody>
-
-               </table>
-
-    </div>
-
-  </script>
-
-         <script type="text/ng-template" id="errorOrders.html">
-
-            <div class="tab-content" id="2">
-
-               <h1>Error Orders</h1>
-
-
-
-               <table class="table table-striped table-bordered">
-
-                  <thead class="error" >
-
-                     <tr>
-
-                           <th>Org ID</th>
-
-                           <th>Org Name</th>
-
-                           <th>Order Date</th>
-
-                           <th>Order Status</th>
-
-                     </tr>
-
-                  </thead>
-
-                  <tbody>
-
-                     <tr ng-repeat="y in error_data">
-
-                           <td>{{y.provider_Org_id}}</td>
-
-                           <td>{{y.provider_Org_Name}}</td>
-
-                           <td>{{y.ehr_Order_Date}}</td>
-
-                           <td>{{y.order_Status}}</td>
-
-                     </tr>
-
-                  </tbody>
-
-               </table>
-
-    </div>
-
-  </script>
-
-      </div>
+      </table>
 
    </div>
-
 </div>

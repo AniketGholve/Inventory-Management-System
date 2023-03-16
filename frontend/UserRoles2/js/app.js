@@ -31,7 +31,9 @@ app.controller("headerController", ($scope, $http, $location) => {
             break;
         case '/inventory': $scope.activeTab = 'inventory';
             break;
-        case '/clp_users': $scope.activeTab = 'patient';
+        case '/clp_users': $scope.activeTab = 'clpHome';
+            break;
+        case '/patient': $scope.activeTab = 'patient';
             break;
         case '/alp_users': $scope.activeTab = 'clinic';
             break;
@@ -43,9 +45,21 @@ app.controller("headerController", ($scope, $http, $location) => {
             break;
         case '/orders': $scope.activeTab = 'order';
             break;
-        case '/shipping': $scope.activeTab = 'shipping';
+        case '/elp_users': $scope.activeTab = 'successOrders' ;
+            break;
+        case '/error_orders': $scope.activeTab = 'errorOrders' ;
+            break;
+        case '/shipping': $scope.activeTab = 'shipping' ;
             break;
         case '/addToInventory': $scope.activeTab = 'clpHome';
+            break;
+        case'/dispenseToPatient': $scope.activeTab = 'clpHome';
+            break;
+        case'/administrator': $scope.activeTab = 'administrator';
+            break;
+        case'/addPhysician': $scope.activeTab = 'administrator';
+            break;
+        case'/addNurse': $scope.activeTab = 'administrator';
             break;
     }
     if (sessionStorage.getItem("username") != undefined) {
@@ -84,6 +98,7 @@ app.controller("headerController", ($scope, $http, $location) => {
     else {
         $scope.clp = "d-none";
         $scope.alp = "d-none";
+        $scope.elp = "d-none";
         $scope.userIcon = "d-none";
     }
 })
@@ -109,9 +124,6 @@ app.config(function ($routeProvider, $httpProvider) {
         })
         .when('/register', {
             templateUrl: "view/registration.html"
-        })
-        .when('/elp_users', {
-            templateUrl: "view/success_orders.html"
         })
         .when('/mlp_users', {
             templateUrl: "view/mlp_users.html"
@@ -144,11 +156,11 @@ app.config(function ($routeProvider, $httpProvider) {
             {
                 templateUrl: "/view/updateClinic.html"
             })
-        .when("/success_orders", {
-            templateUrl: "/view/success_orders.html"
-        })
+        .when("/elp_users", {
+                templateUrl: "view/elp_users.html"
+            })
         .when("/error_orders", {
-            templateUrl: "/view/error_orders.html"
+            templateUrl: "view/error_orders.html"
         })
         .when("/insertClinic",
             {
@@ -182,6 +194,10 @@ app.config(function ($routeProvider, $httpProvider) {
             {
                 templateUrl: "view/orders.html"
             })
+        .when('/home',
+        {
+                templateUrl: "view/home.html"
+        })
         .when('/shipping',
             {
                 templateUrl: "view/shipping.html"
@@ -189,7 +205,24 @@ app.config(function ($routeProvider, $httpProvider) {
         .when('/addToInventory',
             {
                 templateUrl: "view/addToInventory.html"
+            })
+        .when('/dispenseToPatient',
+            {
+                templateUrl: "view/dispenseToPatient.html"
+            })
+        .when('/addPhysician' ,
+            {
+                templateUrl: "view/addPhysician.html"
+            })
+        .when('/addNurse' ,
+            {
+                templateUrl: "view/addNurse.html"
+            })
+        .when('/administrator',
+            {
+                templateUrl: "view/administrator.html"
             });
+
     $httpProvider.interceptors.push('myInterceptor');
 });
 
@@ -285,6 +318,8 @@ app.controller("clp", function ($scope, $http, $window, $location) {
         headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") }
     }).then((response) => {
         $scope.clinicNames = response.data;
+        // $window.location.reload();
+        console.log($scope.clinicNames);
     }, (error) => { })
 
     $scope.clinicName = (id) => {
@@ -443,6 +478,36 @@ app.controller("clp", function ($scope, $http, $window, $location) {
             window.open(fileURL);
         }, (error) => { console.log(error) })
     }
+
+    $http({
+        method: 'GET',
+        url: "http://localhost:7890/getAllPhysicians",
+        headers:{
+            'Content-Type': 'application/json',
+            'Authorization': sessionStorage.getItem("token")
+        }
+    }).then((response) => {
+        console.log(response.data);
+        $scope.physician_data=response.data;
+    }, (error) => {
+        console.log(error);
+    });
+
+    $http({
+        method: 'GET',
+        url: "http://localhost:7890/getAllNurse",
+        headers:{
+            'Content-Type': 'application/json',
+            'Authorization': sessionStorage.getItem("token")
+        }
+    }).then((response) => {
+        console.log(response.data);
+        $scope.nurse_data=response.data;
+    }, (error) => {
+        console.log(error);
+    });
+
+
     getPatientDetails = (data) => {
         $scope.patientData = data;
         for (let index = 0; index < $scope.patientData.length; index++) {
@@ -452,6 +517,7 @@ app.controller("clp", function ($scope, $http, $window, $location) {
     }
     getInventoryDetails = (data) => {
         $scope.invetoryData = data;
+        console.log($scope.invetoryData);
     };
 });
 
@@ -750,6 +816,23 @@ app.controller('updateController', function ($scope, $http, $routeParams, $windo
 });
 
 app.controller('insertController', function ($scope, $http, $window, $rootScope) {
+    $http({
+
+        method: 'get',
+
+        url: "http://localhost:7890/getClinicNames",
+
+        headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") }
+
+    }).then((response) => {
+
+        $scope.clinicNames = response.data;
+
+    }, (error) => { })
+
+    
+    $scope.id = sessionStorage.getItem("locationId");
+
 
     $scope.submit = {};
     $rootScope.dataFile = null;
@@ -925,23 +1008,6 @@ app.controller('allClinicsUsers', function ($scope, $http, $window) {
     }
 });
 
-// app.controller('clinicSelect', function ($scope, $http) {
-//     $scope.navOption3Link = "#!";
-//     $scope.navOption3 = "Logout";
-//     $scope.navOption1Link = "#!clinics";
-//     $scope.navOption1 = "Clinics";
-//     $scope.hide2 = "d-none";
-//     $scope.hide = "d-none";
-//     $scope.getClinicData = () => {
-//         $http({
-//             method: 'get',
-//             url: "http://localhost:7890/getClinicNames",
-//             headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") }
-//         }).then((response) => {
-//             $scope.clinicNames = response.data;
-//         }, (error) => { })
-//     }
-// });
 
 app.controller('registerUserFields', function ($scope, $window, $http, $routeParams) {
     $scope.addUserFields = () => {
@@ -1046,4 +1112,59 @@ app.controller('addToInventory', function ($scope, $http) {
     // $scope.id = sessionStorage.getItem("locationId");
 
 });
+
+app.controller("addPhysicianNurseCtrl", function ($scope, $http, $window, $route) {
+    $http({
+
+        method: 'get',
+
+        url: "http://localhost:7890/getClinicNames",
+
+        headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") }
+
+    }).then((response) => {
+
+        $scope.clinicNames = response.data;
+
+    }, (error) => { })
+    $scope.clinicName = (id) => {
+
+        sessionStorage.setItem("locationId", id);
+
+        $window.location.reload();
+
+    }
+
+    $scope.id = sessionStorage.getItem("locationId");
+    $scope.addPhysician = function (){
+     $http({
+         method: 'POST',
+         url: "http://localhost:7890/createPhysician" ,
+         headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") },
+         data: $scope.addPhysicianData
+    }).then((response) => {
+        alert("Physicians Added Successfully");
+        $window.location.href="#!/administrator"
+    })
+ 
+ 
+    }
+
+    $scope.addNurse = function (){
+        $http({
+            method: 'POST',
+            url: "http://localhost:7890/createNurse" ,
+            headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") },
+            data: $scope.addNurseData
+       }).then((response) => {
+           alert("Nurse added Successfully");
+           $window.location.href="#!/administrator";
+       })
+    
+    
+       }
+
+
+    
+ });
 

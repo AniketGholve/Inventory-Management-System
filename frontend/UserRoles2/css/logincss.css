@@ -156,6 +156,7 @@ body {
   margin: 0.2cm;
   font-size: 16px;
   font-weight: bold;
+ 
 }
 
 .input0 {
@@ -173,6 +174,14 @@ body {
 } */
 .mt-1 {
   border-color: black;
+}
+
+#clinics{
+  border-radius: 10px;
+  font-size: 20px;
+  text-align: center;
+  margin-top: 12px;
+  margin-right: 30px;
 }
 
 
@@ -288,4 +297,16 @@ body {
 }
 .bg-salt{
   background-color: #FFFADA !important;
+}
+.doctorTable{
+  width: 500px;
+}
+
+.dispense_input{
+  padding: 5px;
+  margin: 5px;
+  width: 7cm;
+  border: 1px solid black;
+  font-size: 16px;
+ 
 }
