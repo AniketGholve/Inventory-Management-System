@@ -6,6 +6,13 @@ public class ScannedShipmentDetails {
 	private Integer quantity;
 	private String status;
 	private String batch;
+	private Integer productId;
+	public Integer getProductId() {
+		return productId;
+	}
+	public void setProductId(Integer productId) {
+		this.productId = productId;
+	}
 	public String getDose() {
 		return dose;
 	}
@@ -33,14 +40,15 @@ public class ScannedShipmentDetails {
 	@Override
 	public String toString() {
 		return "ScannedShipmentDetails [dose=" + dose + ", quantity=" + quantity + ", status=" + status + ", batch="
-				+ batch + "]";
+				+ batch + ", productId=" + productId + "]";
 	}
-	public ScannedShipmentDetails(String dose, Integer quantity, String status, String batch) {
+	public ScannedShipmentDetails(String dose, Integer quantity, String status, String batch, Integer productId) {
 		super();
 		this.dose = dose;
 		this.quantity = quantity;
 		this.status = status;
 		this.batch = batch;
+		this.productId = productId;
 	}
 	public ScannedShipmentDetails() {
 		super();
