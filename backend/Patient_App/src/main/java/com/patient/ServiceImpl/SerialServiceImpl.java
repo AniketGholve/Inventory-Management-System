@@ -54,7 +54,7 @@ public class SerialServiceImpl implements SerialService{
 		Query q=entityManager.createQuery("select s from Serial s where s.locationId=:u and s.serialStatus=:v and s.serialId=:w");
 		q.setParameter("u", locationId);
 		q.setParameter("v", "Shipped");
-		q.setParameter("w", locationId);
+		q.setParameter("w", serialId);
 		Serial s;
 		try {
 			 s=(Serial) q.getSingleResult();
