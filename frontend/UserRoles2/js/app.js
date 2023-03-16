@@ -374,16 +374,23 @@ app.controller("clp", function ($scope, $http, $window, $location) {
             console.log(error);
         })
         $scope.shippedSerial=()=>{
-            $http({
-                method: 'get',
-                url: "http://localhost:7890/getSerialBySerialId/" + $scope.demodata +"/"+sessionStorage.getItem("locationId"),
-                headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") },
-            }).then((response) => {
-                $scope.shippedSerialDetails = response.data;
-                console.log($scope.shippedSerialDetails)
-            }, (error) => {
-                console.log(error);
-            })
+            if($scope.demodata!=null && sessionStorage.getItem("locationId")!=null )
+            {
+                $http({
+                    method: 'get',
+                    url: "http://localhost:7890/getSerialBySerialId/" + $scope.demodata +"/"+sessionStorage.getItem("locationId"),
+                    headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") },
+                }).then((response) => {
+                    $scope.shippedSerialDetails = response.data;
+                    console.log($scope.shippedSerialDetails)
+                }, (error) => {
+                    console.log(error);
+                })
+            }
+            else
+            {
+                $scope.shippedSerialDetails=null;
+            }
         }
     }
 
@@ -686,7 +693,8 @@ app.controller("shipping", ($scope, $http, $window) => {
             headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") }
         }).then((response) => {
             $scope.shipmentDetails = response.data;
-            console.log($scope.shipmentDetails)
+            alert("Ordered Shipped");
+            $window.location.href="#!/shipping";
         }, (error) => {
             console.log(error);
         });
