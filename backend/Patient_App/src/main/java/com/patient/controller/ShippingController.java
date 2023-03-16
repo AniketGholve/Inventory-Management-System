@@ -68,4 +68,6 @@ public class ShippingController {
 		List<OrderEvents> result=shippingServiceImpl.shippedInventoryDetails(locationId);
 		return new ResponseEntity<List<OrderEvents>>(result,HttpStatus.OK);	
 	}
+	
+	
 }
