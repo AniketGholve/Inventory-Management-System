@@ -26,7 +26,7 @@ public class Serial {
 	@Column(name="expiry_date")
 	private Date expiryDate;
 	@Column(name="serial_status")
-	private Boolean serialStatus;
+	private String serialStatus;
 	@Column(name="created_on")
 	private Date createdOn;
 	@Column(name="enterprise_id")
@@ -69,10 +69,10 @@ public class Serial {
 	public void setExpiryDate(Date expiryDate) {
 		this.expiryDate = expiryDate;
 	}
-	public Boolean getSerialStatus() {
+	public String getSerialStatus() {
 		return serialStatus;
 	}
-	public void setSerialStatus(Boolean serialStatus) {
+	public void setSerialStatus(String serialStatus) {
 		this.serialStatus = serialStatus;
 	}
 	public Date getCreatedOn() {
@@ -119,7 +119,7 @@ public class Serial {
 				+ ", patientSpecific=" + patientSpecific + ", srcId=" + srcId + "]";
 	}
 	public Serial(Integer serialId, Integer serialNumber, Integer ndc, Integer lot, Date expiryDate,
-			Boolean serialStatus, Date createdOn, Integer enterpriseId, Integer locationId, Integer productId,
+			String serialStatus, Date createdOn, Integer enterpriseId, Integer locationId, Integer productId,
 			String patientSpecific, Integer srcId) {
 		super();
 		this.serialId = serialId;
@@ -139,6 +139,8 @@ public class Serial {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
+	
 	
 	
 	
