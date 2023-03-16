@@ -49,7 +49,7 @@ public class ShippingServiceImpl implements ShippingService {
 	private Map<String,Integer> m=new HashMap<>();
 	private List<ScannedShipmentDetails> scannedShipmentDetailsList=new ArrayList<>();	
 	private Integer oId=-1;
-	private List<Integer> serialIdList;
+	private List<Integer> serialIdList=new ArrayList<>();
 	
 	
 	
