@@ -31,7 +31,7 @@ app.controller("headerController", ($scope, $http, $location) => {
             break;
         case '/inventory': $scope.activeTab = 'inventory';
             break;
-        case '/clp_users': $scope.activeTab = 'patient';
+        case '/patient': $scope.activeTab = 'patient';
             break;
         case '/alp_users': $scope.activeTab = 'clinic';
             break;
@@ -606,6 +606,7 @@ app.controller("shipping", ($scope, $http, $window) => {
             console.log($scope.scanShipmentDetails)
             let scanShipmentDetails = $scope.scanShipmentDetails;
             let serialIdAndProductId = scanShipmentDetails.split(",");
+            console.log($scope.orderEventId);
             $http({
                 method: 'Get',
                 url: "http://localhost:7890/scannedShipmentDetails/" + serialIdAndProductId[0] + "/" + serialIdAndProductId[1] + "/" + $scope.orderEventId,
