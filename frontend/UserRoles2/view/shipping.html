@@ -28,7 +28,7 @@
                 </datalist>
                 <!-- <label for="" ng-change="clinicShipToData">please Enter valid Id</label> -->
                 <label for="" class="h5 m-0 mt-2">Order Id</label>
-                <input type="text" class="w-50" ng-change="orderIdFunction()" ng-model="productIdAndOrderEventId" list="clinicOrderId">
+                <input type="number" class="w-50" ng-change="orderIdFunction()" ng-model="productIdAndOrderEventId" list="clinicOrderId">
                 <datalist id="clinicOrderId">
                     <option ng-repeat="x in orderEventData">{{x.orderId}}</option>
                 </datalist>
@@ -68,7 +68,10 @@
             </thead>
             <tbody>
                 <tr class="text-center"ng-repeat="singleShipmentData in shipmentDetails">
-                    <td  ng-repeat="x in singleShipmentData">{{x}}</td>
+                    <td>{{singleShipmentData.dose}}</td>
+                    <td>{{singleShipmentData.quantity}}</td>
+                    <td>{{singleShipmentData.status}}</td>
+                    <td>{{singleShipmentData.batch}}</td>
                 </tr>
             </tbody>
         </table>

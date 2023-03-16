@@ -338,6 +338,15 @@ app.controller("clp", function ($scope, $http, $window, $location) {
         }, (error) => {
             console.log(error);
         })
+        // $http({
+        //     method: 'get',
+        //     url: "http://localhost:7890/getProductBySerialId/" + $scope.demodata,
+        //     headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") },
+        // }).then((response) => {
+        //     $scope.shippedDetails = response.data;
+        // }, (error) => {
+        //     console.log(error);
+        // })
     }
 
     $scope.getOnHand = (id) => {
