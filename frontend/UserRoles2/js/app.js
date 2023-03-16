@@ -554,39 +554,44 @@ app.controller("shipping", ($scope, $http, $window) => {
         $scope.clinicDropdownName = response.data;
         $scope.orderIdFunction = () => {
             let clinicNameAndLocation = $scope.clinicNameAndLocation;
-            let nameAndLocation = clinicNameAndLocation.split("_");
+
             $http({
                 method: 'Get',
-                url: "http://localhost:7890/getShippingDataByShippingId/" + nameAndLocation[0],
+                url: "http://localhost:7890/getShippingDataByShippingId/" + clinicNameAndLocation,
                 headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") }
             }).then((response) => {
                 $scope.clinicShipToData = response.data;
-            }, (error) => {
-                console.log(error);
-            });
-            $http({
-                method: 'Get',
-                url: "http://localhost:7890/getprocessedorderEvents/" + nameAndLocation[1],
-                headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") }
-            }).then((response) => {
-                $scope.orderEventData = response.data;
-                if ($scope.productIdAndOrderEventId != undefined) {
-                    var productIdAndOrderEventId = $scope.productIdAndOrderEventId;
-                    var productIdOrderEventId = productIdAndOrderEventId.split(",");
-                    $scope.orderEventId = productIdOrderEventId[1];
-                    $scope.demoVar = false;
+                console.log($scope.clinicShipToData == "")
+                if ($scope.clinicShipToData != "") {
+                    let nameAndLocation = clinicNameAndLocation.split("_");
                     $http({
                         method: 'Get',
-                        url: "http://localhost:7890/getserialbyproductId/" + productIdOrderEventId[0],
+                        url: "http://localhost:7890/getprocessedorderEvents/" + nameAndLocation[1],
                         headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") }
                     }).then((response) => {
-                        $scope.serialId = response.data;
+                        $scope.orderEventData = response.data;
+                        if ($scope.productIdAndOrderEventId != undefined) {
+                            var productIdAndOrderEventId = $scope.productIdAndOrderEventId;
+                            // var productIdOrderEventId = productIdAndOrderEventId.split(",");
+                            $scope.orderEventId = $scope.productIdAndOrderEventId;
+                            $scope.demoVar = false;
+                            $http({
+                                method: 'Get',
+                                url: "http://localhost:7890/getserialbyproductId/" + $scope.productIdAndOrderEventId,
+                                headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") }
+                            }).then((response) => {
+                                $scope.serialId = response.data;
+                                console.log($scope.serialId)
+                            }, (error) => {
+                                console.log(error);
+                            });
+                        }
+                        else {
+                            $scope.demoVar = true;
+                        }
                     }, (error) => {
                         console.log(error);
                     });
-                }
-                else {
-                    $scope.demoVar = true;
                 }
             }, (error) => {
                 console.log(error);
@@ -595,9 +600,7 @@ app.controller("shipping", ($scope, $http, $window) => {
     }, (error) => {
         console.log(error);
     });
-    $scope.selectSerialNumber = () => {
 
-    }
     $scope.demoFunction = () => {
         if ($scope.scanShipmentDetails != undefined) {
             let scanShipmentDetails = $scope.scanShipmentDetails;
@@ -1041,6 +1044,6 @@ app.controller('clinicUserView', function ($scope, $window, $routeParams, $http)
 
 app.controller('addToInventory', function ($scope, $http) {
     // $scope.id = sessionStorage.getItem("locationId");
-    
+
 });
 
