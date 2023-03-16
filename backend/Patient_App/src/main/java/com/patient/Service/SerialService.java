@@ -9,4 +9,6 @@ public interface SerialService {
 	public Serial createSerial(Serial serial);
 	
 	public List<Serial> getSerialByLocationId(Integer locationId);
+	
+	public Serial getSerialBySerialId(Integer serialId,Integer locationId);
 }

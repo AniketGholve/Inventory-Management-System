@@ -135,7 +135,9 @@ public class ShippingServiceImpl implements ShippingService {
 	@Override
 	public List<ScannedShipmentDetails> getScannedShipmentDetails(Integer serialId, Integer productId,Integer orderId) {
 		// TODO Auto-generated method stub
-		System.out.println("llll");
+		Serial serial=serialRepo.findById(serialId).orElseThrow();
+		serial.setSerialStatus("Comissioned");
+		serialRepo.save(serial);
 		Serial s=serialRepo.findById(serialId).orElseThrow();
 		Query q1=entityManager.createNativeQuery("update order_events set event_desc=? where order_id=?");
 		q1.setParameter(1, "Comissioned");
@@ -143,7 +145,6 @@ public class ShippingServiceImpl implements ShippingService {
 		q1.executeUpdate();
 		Product p=productRepo.findById(productId).orElseThrow();
 		if(!m.containsKey(p.getProductId().toString())) {
-			
 			m.put(p.getProductId().toString(), 1);
 			ScannedShipmentDetails scannedShipmentDetails=new ScannedShipmentDetails();
 			scannedShipmentDetails.setDose(p.getProductName());

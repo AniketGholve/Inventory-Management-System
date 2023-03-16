@@ -48,4 +48,22 @@ public class SerialServiceImpl implements SerialService{
 		return serialList;
 	}
 
+	@Override
+	public Serial getSerialBySerialId(Integer serialId, Integer locationId) {
+		// TODO Auto-generated method stub
+		Query q=entityManager.createQuery("select s from Serial s where s.locationId=:u and s.serialStatus=:v and s.serialId=:w");
+		q.setParameter("u", locationId);
+		q.setParameter("v", "Shipped");
+		q.setParameter("w", locationId);
+		Serial s;
+		try {
+			 s=(Serial) q.getSingleResult();
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			return null;
+		}
+		return s;
+	}
+
 }
