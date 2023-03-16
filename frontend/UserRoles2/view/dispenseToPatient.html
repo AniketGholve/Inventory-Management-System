@@ -1,22 +1,24 @@
 <div ng-controller="clp">
-    <div class="isDisabled">
-        <div ng-include="'view/header.html'"></div>
-    </div>
+    <div ng-include="'view/header.html'"></div>
     <div ng-include="'view/header2.html'"></div>
-    <!-- <div>Please Select a Clinic </div> -->
-    <div class="isDisabled">
-        <h1 class="text-center">Patients</h1>
-        <div>
-            <form ng-submit="getById()" class="form-inline d-flex justify-content-center mt-3">
-                <input type="text" id="patientId" placeholder="Search Patient Id" ng-model="variable" class="">
-                <button type="submit" class="btn btn-outline-success my-2 my-sm-0">Search</button>
-            </form>
-        </div>
-        <br>
-        <div>
-            <a class="insert" href="#!/insertPatient">Add Patient</a>
-        </div>
-        <br>
+    <div class="container">
+        <h2 class="text-center">Dispense To Patient</h2>
+        <form ng-submit="" class="form-inline d-flex justify-content-left  mt-3 w-50">
+            <div class="mt-1">
+                <div class="mt-2">
+                    <label for="">Serial Number :</label>
+                    <input class="dispense_input" type="text"  placeholder="Serial Number" >
+                </div>
+                <div class="mt-2">
+                    <label for="">Patient Name:</label>
+                    <input class="dispense_input" type="text"  placeholder="Patient Name" ng-model="variable">
+                    <div>
+                        <a class="btn btn-primary mx-2 mt-3" href="#!/insertPatient">Add Patient</a>
+                    </div>
+                </div>
+            </div>
+        </form>
+
         <div class="container d-flex justify-content-center mt-5">
             <table id="patientDetailsTable" class="table table-striped text-center table-bordered border-dark">
                 <thead class="clinics">
@@ -29,7 +31,7 @@
                         <th class="px-3">Date Of Birth</th>
                         <th class="px-3">Patient Status</th>
                         <th class="px-3">Clinic Name</th>
-                        <th class="px-3">Actions</th>
+
                     </tr>
                 </thead>
                 <tr ng-repeat="x in patientData | filter:variable" ng-if="searchPatientData==null">
@@ -54,11 +56,9 @@
                     <td class="px-3">
                         {{ x.clinicName}}
                     </td>
-                    <td><a href="#!updatePatient/{{x.patientId}}">Edit</a>&nbsp &nbsp<a href=""
-                            ng-click="deleteById(x.id)" onclick="reloadWindow()">Delete</a></td>
                 </tr>
 
-                <tr ng-if="searchPatientData!=null" ng-init="x=searchPatientData">
+                <tr ng-if="searchPatientData !=null">
                     <td class="px-3">
                         {{ x.id }}
                     </td>
@@ -106,11 +106,7 @@
                             ng-repeat="j in searchedPatientFileRange(0,x.patientFile.length) "
                             ng-click="fileDownload(x.patientFile[j].fileId)">{{x.patientFile[j].fileName}}</a>
                     </td>
-                    <td><a href="#!updatePatient/{{x.patientId}}">edit</a></td>
-                    <td> <a href="" ng-click="deleteById(x.id)" onclick="reloadWindow()">delete</a></td>
                 </tr>
             </table>
         </div>
-
     </div>
-</div>

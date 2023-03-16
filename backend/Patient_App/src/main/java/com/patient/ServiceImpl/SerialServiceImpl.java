@@ -51,6 +51,7 @@ public class SerialServiceImpl implements SerialService{
 	@Override
 	public Serial getSerialBySerialId(Integer serialId, Integer locationId) {
 		// TODO Auto-generated method stub
+		if(serialId==null || locationId==null) return null;
 		Query q=entityManager.createQuery("select s from Serial s where s.locationId=:u and s.serialStatus=:v and s.serialId=:w");
 		q.setParameter("u", locationId);
 		q.setParameter("v", "Shipped");
