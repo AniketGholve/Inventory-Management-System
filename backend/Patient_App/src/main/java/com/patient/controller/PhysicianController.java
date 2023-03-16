@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -30,6 +32,26 @@ public class PhysicianController {
 	public ResponseEntity<List<Physician>> getAllPhysicians(){
 		List<Physician> list = physicianServiceImpl.getAllPhysicians();
 		return new ResponseEntity<List<Physician>>(list,HttpStatus.ACCEPTED);
+		
+	}
+	
+	@PostMapping("/deletePhysician/{id}")
+	public String deletePhysician(@PathVariable int id) {
+		physicianServiceImpl.deletePhysician(id);
+		return "Deleted Succesfully";
+	}
+	
+	@PutMapping("/EditPhysician")
+	public ResponseEntity<Physician> EditPhysician(@RequestBody Physician physician){
+		Physician ph = physicianServiceImpl.EditPhysician(physician);
+		return new ResponseEntity<Physician>(ph,HttpStatus.OK);
+		
+	}
+	
+	@GetMapping("/getPhysician")
+	public ResponseEntity<Physician> getPhysician(@PathVariable int id){
+		Physician p = physicianServiceImpl.getPhysician(id);
+		return new ResponseEntity<Physician>(p,HttpStatus.OK);
 		
 	}
 }
