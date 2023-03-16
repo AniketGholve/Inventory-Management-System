@@ -3,18 +3,19 @@
     <div ng-include="'view/header2.html'"></div>
     <div class="container">
         <h2 class="text-center">Dispense To Patient</h2>
-        <form ng-submit="" class="form-inline d-flex justify-content-left  mt-3 w-50">
+        <form ng-submit="" class="form-inline d-flex justify-content-left form-control  mt-3 w-50">
             <div class="mt-1">
-                <div class="mt-2">
+                <div class="mt-2 col-auto w-100 d-flex justify-content-between">
                     <label for="">Serial Number :</label>
                     <input class="dispense_input" type="text"  placeholder="Serial Number" >
                 </div>
-                <div class="mt-2">
+                <div class="mt-2 col-auto w-100 d-flex justify-content-between">
                     <label for="">Patient Name:</label>
                     <input class="dispense_input" type="text"  placeholder="Patient Name" ng-model="variable">
-                    <div>
-                        <a class="btn btn-primary mx-2 mt-3" href="#!/insertPatient">Add Patient</a>
-                    </div>
+                    
+                </div>
+                <div>
+                    <a class="btn btn-primary mx-2 mt-3" href="#!/insertPatient">Add Patient</a>
                 </div>
             </div>
         </form>
