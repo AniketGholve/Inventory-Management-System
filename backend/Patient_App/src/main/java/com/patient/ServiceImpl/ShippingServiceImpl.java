@@ -48,6 +48,7 @@ public class ShippingServiceImpl implements ShippingService {
 	
 	private Map<String,Integer> m=new HashMap<>();
 	private List<ScannedShipmentDetails> scannedShipmentDetailsList=new ArrayList<>();	
+	private Integer oId=-1;
 	
 	
 	
@@ -135,6 +136,8 @@ public class ShippingServiceImpl implements ShippingService {
 	@Override
 	public List<ScannedShipmentDetails> getScannedShipmentDetails(Integer serialId, Integer productId,Integer orderId) {
 		// TODO Auto-generated method stub
+		if(oId==-1) oId=orderId;
+		else if(oId!=orderId) scannedShipmentDetailsList.clear();
 		Serial serial=serialRepo.findById(serialId).orElseThrow();
 		serial.setSerialStatus("Comissioned");
 		serialRepo.save(serial);
