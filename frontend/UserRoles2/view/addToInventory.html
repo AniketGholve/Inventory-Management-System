@@ -1,0 +1,35 @@
+<div ng-controller="clp">
+    <div ng-include="'view/header.html'"></div>
+    <div ng-include="'view/header2.html'"></div>
+    <div class="container">
+        <h2 class="text-center">Add To Inventory</h2>
+        <label for="">Serial Number :</label>
+        <input type="number" ng-model="demodata" ng-change="shippedSerial()" id="serialNumbersInventory">
+        <!-- <datalist id="serialNumbersInventory">
+            <option ng-repeat="x in serialNumbersShipped">{{x.serialId}}</option>
+        </datalist> -->
+        <table class="table table-striped  text-center mt-5">
+            <thead class="thead">
+                <tr>
+                    <th>Serial Id</th>
+                    <th>Patient Specification</th>
+                    <th>Serial Number</th>
+                    <th>Product Id</th>
+                    <th>Serial Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-class="{'d-none':shippedSerialDetails==null}">
+                    <td class="p-3">{{shippedSerialDetails.serialId}}</td>
+                    <td class="p-3">{{shippedSerialDetails.patientSpecific}}</td>
+                    <td class="p-3">{{shippedSerialDetails.serialNumber}}</td>
+                    <td class="p-3">{{shippedSerialDetails.productId}}</td>
+                    <td class="p-3">{{shippedSerialDetails.serialStatus}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <div style="float: right;" ng-class="{'d-none':shippedSerialDetails==null}">
+            <input type="button" class="btn btn-danger" value="Add To Inventory">
+        </div>
+    </div>
+</div>

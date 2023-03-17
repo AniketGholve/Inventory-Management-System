@@ -1,7 +1,7 @@
 <div ng-controller="clp">
     <div ng-include="'view/header.html'"></div>
     <div ng-include="'view/header2.html'"></div>
-    <div class="container">
+    <!-- <div class="container">
         <h2 class="text-center">Dispense To Patient</h2>
         <form ng-submit="" class="form-inline d-flex justify-content-left form-control  mt-3 w-50">
             <div class="mt-1">
@@ -24,8 +24,8 @@
             <table id="patientDetailsTable" class="table table-striped text-center table-bordered border-dark">
                 <thead class="clinics">
                     <tr>
-                        <!-- <th class="px-3">Id</th> -->
-                        <th class="px-3">Patient Id</th>
+                        <th class="px-3">Id</th> -->
+    <!-- <th class="px-3">Patient Id</th>
                         <th class="px-3">First Name</th>
                         <th class="px-3">Last Name</th>
                         <th class="px-3">Middle Name</th>
@@ -110,4 +110,25 @@
                 </tr>
             </table>
         </div>
+    </div> -->
+
+    <div class="container">
+
+        <h2 class="text-center">Dispense To Patient</h2>
+        <div class="container mt-3">
+        <label for="">Serial Id:</label>
+        <input ng-change="" list="serialList" class="w-25"></input>
+        <datalist id="serialList">
+            <!-- <option ng-repeat="x in clinicDropdownName">{{x.shipToName}}</option> -->
+        </datalist>
+        <table class="table table-striped  text-center mt-5">
+            <thead class="thead">
+                <tr>
+                    <th>Serial Id</th>
+                    
+                </tr>
+            </thead>
+        </div>
+
     </div>
+</div>

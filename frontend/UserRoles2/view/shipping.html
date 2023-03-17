@@ -1,6 +1,6 @@
 <div ng-controller="shipping" class="background-whiteSnow">
     <div ng-include="'view/header.html'"></div>
-    <div class="p-5 background-lightBule" ng-class="{'d-none':demoVar==true}">
+    <div class="p-5 shippingScreen" ng-class="{'d-none':demoVar==true}">
         <div class="container">
             <div class="d-flex flex-column">
                 <label for="" class="h5 text-center">Parent container Id (SSCC)</label>
@@ -8,12 +8,12 @@
                     <input type="text" class="w-50">
                 </div>
                 <label for="" class="h5 text-center">Please enter kit information</label>
-                <div>
+               
                 <select class="text-center " ng-model="scanShipmentDetails">
                     <option label="Select Serial Number" class="d-none"></option>
                     <option class="text-center" value="{{x.serialId}},{{x.productId}}" ng-repeat="x in serialId">{{x.serialId}}</option>
                 </select>
-            </div>
+           
             </div>
         </div>
         <div class="text-center mt-3">
@@ -60,8 +60,8 @@
             <h3>Scanned Shipment Details</h3>
         </div>
         <table class="table table-striped text-center">
-            <thead>
-                <tr class="bg-secondary text-center text-light bg-dark">
+            <thead class="thead">
+                <tr class="">
                     <th class="w-25 ">Dose</th>
                     <th class="">Quantity</th>
                     <th class="w-25 ">Status</th>

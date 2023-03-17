@@ -138,9 +138,9 @@ body {
 
 
 
-.clinics {
-  background-color: rgb(53, 154, 44);
-  color: white;
+.thead {
+  background-color:  rgb(62, 62, 112);
+  color: rgba(248, 248, 248, 0.975);
 
 }
 
@@ -308,5 +308,9 @@ body {
   
   border: 1px solid black;
   font-size: 16px;
- 
+}
+
+.shippingScreen{
+  background-color: rgba(65, 139, 192, 0.989);
+  color: white;
 }
