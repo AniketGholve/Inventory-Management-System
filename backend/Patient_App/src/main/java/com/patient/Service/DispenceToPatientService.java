@@ -16,7 +16,11 @@ public interface DispenceToPatientService {
 	public List<Patient> getPatientsByName(String paientName);
 	
 	
-	public DispenseToPatient addDispense(Integer Id,Integer nurseId,Integer physicianId,Integer productId,Integer serialId,Integer locationId);
+	public DispenseToPatient addDispense(Integer Id,Integer nurseId,Integer physicianId,Integer productId,Integer serialId,Integer locationId,String injectionSite);
+
+	public Product getProductBySerialNo(Integer serialNo);
+
+	
 
 
 }

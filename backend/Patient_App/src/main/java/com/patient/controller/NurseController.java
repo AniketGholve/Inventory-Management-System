@@ -42,4 +42,11 @@ public class NurseController {
 		nurseServiceImpl.deleteNurse(id);
 		return "Deleted Succesfully";
 	}
+	
+	@GetMapping("/getAllNurseByLocId/{locationId}")
+	public ResponseEntity<List<Nurse>> getAllNurseByLocId(@PathVariable int locationId){
+		List<Nurse> list = nurseServiceImpl.getAllNurseByLocId(locationId);
+		return new ResponseEntity<List<Nurse>>(list,HttpStatus.OK);
+		
+	}
 }

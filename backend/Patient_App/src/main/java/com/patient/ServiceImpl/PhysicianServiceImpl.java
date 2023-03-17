@@ -9,11 +9,17 @@ import org.springframework.stereotype.Service;
 import com.patient.Entity.Physician;
 import com.patient.Repo.PhysicianRepo;
 import com.patient.Service.PhysicianService;
+
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.Query;
 @Service
 public class PhysicianServiceImpl implements PhysicianService{
 	
 	@Autowired
 	PhysicianRepo physicianRepo;
+	
+	@Autowired
+	EntityManager entityManager;
 
 	@Override
 	public Physician createPhysician(Physician physician) {
@@ -55,6 +61,15 @@ public class PhysicianServiceImpl implements PhysicianService{
 	public Physician getPhysician(int id) {
 		Physician p = physicianRepo.findById(id).orElseThrow();
 		return p;
+	}
+
+	@Override
+	public List<Physician> getPhysicianByLocationId(int locationId) {
+		// TODO Auto-generated method stub
+		Query q= entityManager.createNativeQuery("select c from clinic c where location_id=?");
+		q.setParameter(1,locationId);
+		List<Physician> l = q.getResultList();
+		return l;
 	}
 
 }
