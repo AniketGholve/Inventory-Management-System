@@ -31,8 +31,6 @@ app.controller("headerController", ($scope, $http, $location) => {
             break;
         case '/inventory': $scope.activeTab = 'inventory';
             break;
-        case '/patient': $scope.activeTab = 'clpHome';
-            break;
         case '/patient': $scope.activeTab = 'patient';
             break;
         case '/alp_users': $scope.activeTab = 'clinic';
