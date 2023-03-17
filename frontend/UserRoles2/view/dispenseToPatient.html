@@ -1,15 +1,15 @@
-<div ng-controller="clp">
+    <div ng-controller="clp">
     <div ng-include="'view/header.html'"></div>
     <div ng-include="'view/header2.html'"></div>
     <div class="container">
         <h2 class="text-center">Dispense To Patient</h2>
         <div class="container mt-3">
             <label for="">Serial Id:</label>
-            <input ng-change="" list="serialList" class="w-25" placeholder="Serial Id"></input>
+            <input list="serialList" class="w-25" placeholder="Serial Id" ng-model="serialNumber"></input>
             <!-- <datalist id="serialList">
                 <option ng-repeat="x in clinicDropdownName">{{x.shipToName}}</option>
             </datalist> -->
-            <table class="table table-striped  text-center mt-5">
+            <table class="table table-striped  text-center mt-5" ng-class="{'d-none':serialNumber==''||serialNumber==null}">
                 <thead class="thead">
                     <tr>
                         <th>Serial Id</th>
@@ -19,52 +19,61 @@
                 </thead>
                 <tbody>
                     <tr ng-repeat="x in serialData">
-                        <td>{{x.serialId}}</td>
+                        <td class="d-none" ng-model="dispance.productId"></td>
+                        <td class="d-none" ng-model="dispance.locationId"></td>
+                        <td class="d-none" ng-model="dispance.enterpriseId"></td>
+                        <td ng-model="dispance.serialId">{{x.serialId}}</td>
                         <td>{{x.serialStatus}}</td>
-                        <td>{{x.productId}}</td>
+                        <td ng-model="dispance.productId">{{x.productId}}</td>
                     </tr>
                 </tbody>
             </table>
-            <label for="">Patient Name:</label>
-            <input class="dispense_input" type="text" placeholder="Patient Name" ng-model="variable.patientFirstName">
-            <div class="container d-flex justify-content-center mt-5">
-                <table id="patientDetailsTable" class="table table-striped text-center table-bordered border-dark">
-                    <thead class="thead">
-                        <tr>
-                            <th class="px-3">Id</th>
-                            <th class="px-3">Patient Id</th>
-                            <th class="px-3">First Name</th>
-                            <th class="px-3">Last Name</th>
-                            <th class="px-3">Middle Name</th>
-                            <th class="px-3">Date Of Birth</th>
-                            <th class="px-3">Patient Status</th>
-                            <th class="px-3">Clinic Name</th>
+            <div ng-class="{'d-none':dispance.serialId==null}">
+                <div class="mt-5 my-2">
+                    <label for="">Patient Name:</label>
+                    <input class="dispense_input" type="text" placeholder="Patient Name" ng-model="search.patientFirstName">
+                    <a class="btn btn-primary mx-5" href="#!/insertPatient">Add Patient</a>
+                </div>
+                <div class="container d-flex justify-content-center">
+                    <table id="patientDetailsTable" class=" table table-striped text-center">
+                        <thead class="thead">
+                            <tr>
+                                <th class="px-3">Patient Id</th>
+                                <th class="px-3">First Name</th>
+                                <th class="px-3">Last Name</th>
+                                <th class="px-3">Middle Name</th>
+                                <th class="px-3">Date Of Birth</th>
+                                <th class="px-3">Patient Status</th>
+                                <th class="px-3">Clinic Name</th>
+                                <th class="px-3">Actions</th>
+                            </tr>
+                        </thead>
+                        <tr ng-repeat="x in patientData | filter:search:strict" ng-if="searchPatientData==null">
+                            <td class="px-3">
+                                {{ x.patientId }}
+                            </td>
+                            <td class="px-3">
+                                {{ x.patientFirstName }}
+                            </td>
+                            <td class="px-3">
+                                {{ x.patientLastName }}
+                            </td>
+                            <td class="px-3">
+                                {{ x.patientMiddleName }}
+                            </td>
+                            <td class="px-3">
+                                {{ x.patientDob}}
+                            </td>
+                            <td class="px-3">
+                                {{ x.patientStatus}}
+                            </td>
+                            <td class="px-3">
+                                {{ x.clinicName}}
+                            </td>
+                            <td><a href="" ng-click="dispancePatientDetials(x)"><i class="fa-sharp fa-solid fa-circle-check text-danger"></i></a></td>
                         </tr>
-                    </thead>
-                    <tr ng-repeat="x in patientData | filter:variable" ng-if="searchPatientData==null">
-                        <td class="px-3">
-                            {{ x.patientId }}
-                        </td>
-                        <td class="px-3">
-                            {{ x.patientFirstName }}
-                        </td>
-                        <td class="px-3">
-                            {{ x.patientLastName }}
-                        </td>
-                        <td class="px-3">
-                            {{ x.patientMiddleName }}
-                        </td>
-                        <td class="px-3">
-                            {{ x.patientDob}}
-                        </td>
-                        <td class="px-3">
-                            {{ x.patientStatus}}
-                        </td>
-                        <td class="px-3">
-                            {{ x.clinicName}}
-                        </td>
-                    </tr>
-                </table>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

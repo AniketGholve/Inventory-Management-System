@@ -266,6 +266,10 @@ app.controller("loginCtrl", ($scope, $http, $window,) => {
 });
 
 app.controller("clp", function ($scope, $http, $window, $location) {
+    $scope.dispance={}
+    $scope.dispancePatientDetials=(x)=>{
+        $scope.dispance.patientId=x.patientId;
+    }
     $scope.placeOrder = (inventoryData) => {
         $http({
             method: 'POST',
