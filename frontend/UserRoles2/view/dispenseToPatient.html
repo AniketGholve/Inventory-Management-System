@@ -4,8 +4,8 @@
     <div class="container">
         <h2 class="text-center">Dispense To Patient</h2>
         <div class="container mt-3">
-            <label for="">Serial Id:</label>
-            <input list="serialList" class="w-25" placeholder="Serial Id" ng-model="serialNumber"></input>
+            <label for="">Serial Number:</label>
+            <input type="number" list="serialList" class="w-25" placeholder="Serial Number" ng-model="serialNumber" ng-change="serialDataFunction()"></input>
             <!-- <datalist id="serialList">
                 <option ng-repeat="x in clinicDropdownName">{{x.shipToName}}</option>
             </datalist> -->
@@ -18,23 +18,20 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="x in serialData">
-                        <td class="d-none" ng-model="dispance.productId"></td>
-                        <td class="d-none" ng-model="dispance.locationId"></td>
-                        <td class="d-none" ng-model="dispance.enterpriseId"></td>
-                        <td ng-model="dispance.serialId">{{x.serialId}}</td>
-                        <td>{{x.serialStatus}}</td>
-                        <td ng-model="dispance.productId">{{x.productId}}</td>
+                    <tr>
+                        <td>{{serialData.serialId}}</td>
+                        <td>{{serialData.serialStatus}}</td>
+                        <td>{{serialData.productId}}</td>
                     </tr>
                 </tbody>
             </table>
-            <div ng-class="{'d-none':dispance.serialId==null}">
-                <div class="mt-5 my-2">
+            <div ng-class="{'d-none':dispance.serialId==null || serialNumber=='' || serialNumber==null}">
+                <div class="mt-5 my-2" ng-class="{'d-none':serialNumber=='' || serialNumber==null}">
                     <label for="">Patient Name:</label>
                     <input class="dispense_input" type="text" placeholder="Patient Name" ng-model="search.patientFirstName">
                     <a class="btn btn-primary mx-5" href="#!/insertPatient">Add Patient</a>
                 </div>
-                <div class="container d-flex justify-content-center">
+                <div class="container d-flex justify-content-center" ng-class="{'d-none':search.patientFirstName==null || search.patientFirstName==''}">
                     <table id="patientDetailsTable" class=" table table-striped text-center">
                         <thead class="thead">
                             <tr>

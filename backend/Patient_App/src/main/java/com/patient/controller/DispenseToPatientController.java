@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.patient.Entity.DispenseToPatient;
 import com.patient.Entity.Patient;
 import com.patient.Entity.Product;
+import com.patient.Entity.Serial;
 import com.patient.ServiceImpl.DispenceToPatientServiceImpl;
 import com.patient.ServiceImpl.PatientServiceImpl;
 @RestController
@@ -29,12 +30,10 @@ public class DispenseToPatientController {
 	
 	
 	
-	@GetMapping("/getProductBySerialId/{serialId}")
-	public ResponseEntity<Product> getProductBySerialId(@PathVariable Integer serialId) {
-		
-		Product p=dispenceToPatientServiceImpl.getProductBySerialId(serialId);
-		return new ResponseEntity<Product>(p,HttpStatus.OK);
-		
+	@GetMapping("/getProductBySerialNo/{serialNo}")
+	public ResponseEntity<Serial> getProductBySerialNo(@PathVariable Integer serialNo) {
+		Serial p=dispenceToPatientServiceImpl.getProductBySerialNo(serialNo);
+		return new ResponseEntity<Serial>(p,HttpStatus.OK);
 	}
 	
 	@PostMapping("/createDispense")
@@ -52,9 +51,9 @@ public class DispenseToPatientController {
 		return new ResponseEntity<List<Patient>>(patientList,HttpStatus.OK);
 	}
 	
-	@PostMapping("/addDispense/{Id}/{nurseId}/{physicianId}/{productId}/{serialId}/{locationId}")
-	private ResponseEntity<DispenseToPatient> addDispense(@PathVariable Integer Id,@PathVariable Integer nurseId,@PathVariable Integer physicianId,@PathVariable Integer productId,@PathVariable Integer serialId,@PathVariable Integer locationId) {
-		DispenseToPatient dispensetoPatient=dispenceToServiceImpl.addDispense(Id,nurseId,physicianId,productId,serialId,locationId);
+	@PostMapping("/addDispense/{Id}/{nurseId}/{physicianId}/{productId}/{serialId}/{locationId}/{injectionSite}")
+	private ResponseEntity<DispenseToPatient> addDispense(@PathVariable Integer Id,@PathVariable Integer nurseId,@PathVariable Integer physicianId,@PathVariable Integer productId,@PathVariable Integer serialId,@PathVariable Integer locationId,@PathVariable String injectionSite) {
+		DispenseToPatient dispensetoPatient=dispenceToServiceImpl.addDispense(Id,nurseId,physicianId,productId,serialId,locationId,injectionSite);
 		return new ResponseEntity<DispenseToPatient>(dispensetoPatient,HttpStatus.CREATED);
 	}
 	

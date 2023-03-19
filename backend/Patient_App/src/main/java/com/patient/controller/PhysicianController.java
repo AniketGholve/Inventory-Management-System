@@ -56,4 +56,11 @@ public class PhysicianController {
 		return new ResponseEntity<Physician>(p,HttpStatus.OK);
 		
 	}
+	
+	@GetMapping("/getAllPhysiciansByLocId/{locationId}")
+	public ResponseEntity<List<Physician>> getAllPhysiciansByLocId(@PathVariable int locationId){
+		List<Physician> list = physicianServiceImpl.getPhysicianByLocationId(locationId);
+		return new ResponseEntity<List<Physician>>(list,HttpStatus.OK);
+		
+	}
 }
