@@ -2,9 +2,16 @@ function reloadWindow() {
     location.reload();
 }
 let app = angular.module("myApp", ['ngRoute']);
+
 window.onload = () => {
     document.querySelector("#preloader").style.display = "none";
 }
+// angular.module('myApp', ['ngMaterial'])
+// .config(function($mdThemingProvider) {
+//   $mdThemingProvider.theme('default')
+//     .primaryPalette('pink')
+//     .accentPalette('orange');
+// });
 app.factory('myInterceptor', function ($q) {
     var interceptor = {
         responseError: function (rejection) {
@@ -224,6 +231,7 @@ app.config(function ($routeProvider, $httpProvider) {
             });
 
     $httpProvider.interceptors.push('myInterceptor');
+    
 });
 
 app.controller("loginCtrl", ($scope, $http, $window,) => {
