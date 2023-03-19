@@ -17,4 +17,6 @@ public interface PhysicianService {
 	public Physician EditPhysician(Physician physician);
 	
 	public Physician getPhysician(int id);
+	
+	public List<Physician> getPhysicianByLocationId(int locationId);
 }

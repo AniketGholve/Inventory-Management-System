@@ -29,10 +29,10 @@ public class DispenseToPatientController {
 	
 	
 	
-	@GetMapping("/getProductBySerialId/{serialId}")
-	public ResponseEntity<Product> getProductBySerialId(@PathVariable Integer serialId) {
+	@GetMapping("/getProductBySerialNo/{serialNo}")
+	public ResponseEntity<Product> getProductBySerialNo(@PathVariable Integer serialNo) {
 		
-		Product p=dispenceToPatientServiceImpl.getProductBySerialId(serialId);
+		Product p=dispenceToPatientServiceImpl.getProductBySerialNo(serialNo);
 		return new ResponseEntity<Product>(p,HttpStatus.OK);
 		
 	}
@@ -52,9 +52,9 @@ public class DispenseToPatientController {
 		return new ResponseEntity<List<Patient>>(patientList,HttpStatus.OK);
 	}
 	
-	@PostMapping("/addDispense/{Id}/{nurseId}/{physicianId}/{productId}/{serialId}/{locationId}")
-	private ResponseEntity<DispenseToPatient> addDispense(@PathVariable Integer Id,@PathVariable Integer nurseId,@PathVariable Integer physicianId,@PathVariable Integer productId,@PathVariable Integer serialId,@PathVariable Integer locationId) {
-		DispenseToPatient dispensetoPatient=dispenceToServiceImpl.addDispense(Id,nurseId,physicianId,productId,serialId,locationId);
+	@PostMapping("/addDispense/{Id}/{nurseId}/{physicianId}/{productId}/{serialId}/{locationId}/{injectionSite}")
+	private ResponseEntity<DispenseToPatient> addDispense(@PathVariable Integer Id,@PathVariable Integer nurseId,@PathVariable Integer physicianId,@PathVariable Integer productId,@PathVariable Integer serialId,@PathVariable Integer locationId,@PathVariable String injectionSite) {
+		DispenseToPatient dispensetoPatient=dispenceToServiceImpl.addDispense(Id,nurseId,physicianId,productId,serialId,locationId,injectionSite);
 		return new ResponseEntity<DispenseToPatient>(dispensetoPatient,HttpStatus.CREATED);
 	}
 	

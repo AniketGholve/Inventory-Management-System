@@ -38,9 +38,9 @@ public class DispenceToPatientServiceImpl implements DispenceToPatientService{
 	private DispenseRepo dispenseRepo;
 
 	@Override
-	public Product getProductBySerialId(Integer serialId) {
+	public Product getProductBySerialNo(Integer serialNo) {
 		// TODO Auto-generated method stub
-		Serial s=serialRepo.findById(serialId).orElseThrow();
+		Serial s=serialRepo.findBySerialNumber(serialNo);
 		Product p=productRepo.findById(s.getProductId()).orElseThrow();
 		return p;
 	}
@@ -65,7 +65,7 @@ public class DispenceToPatientServiceImpl implements DispenceToPatientService{
 
 	@Override
 	public DispenseToPatient addDispense(Integer Id, Integer nurseId, Integer physicianId, Integer productId,
-			Integer serialId,Integer locationId) {
+			Integer serialId,Integer locationId,String injectionSite) {
 		// TODO Auto-generated method stub
 		DispenseToPatient dispenseToPatient=new DispenseToPatient();
 		Patient p=patientRepo.findById(Id).orElseThrow();
@@ -78,7 +78,7 @@ public class DispenceToPatientServiceImpl implements DispenceToPatientService{
 		dispenseToPatient.setExpType(null);
 		dispenseToPatient.setId(p);
 		dispenseToPatient.setInitial(null);
-		dispenseToPatient.setInjectionSite(null);
+		dispenseToPatient.setInjectionSite(injectionSite);
 		dispenseToPatient.setLocationId(locationId);
 		dispenseToPatient.setModifiedOn(null);
 		dispenseToPatient.setNotes(null);
@@ -97,6 +97,13 @@ public class DispenceToPatientServiceImpl implements DispenceToPatientService{
 		dispenseToPatient.setUserId(1);
 		DispenseToPatient dtp=dispenseRepo.save(dispenseToPatient);
 		return dtp;
+	}
+
+
+	@Override
+	public Product getProductBySerialId(Integer serialId) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 

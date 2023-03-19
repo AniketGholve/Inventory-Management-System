@@ -15,4 +15,6 @@ public interface NurseService {
 	public Nurse editNurse(Nurse nurse);
 	
 	public Nurse getNurse(int id);
+	
+	public List<Nurse> getAllNurseByLocId(int locationId);
 }

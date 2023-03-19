@@ -8,5 +8,5 @@ import com.patient.Entity.Nurse;
 
 public interface NurseRepo extends JpaRepository<Nurse, Integer> {
 
-	
+
 }
