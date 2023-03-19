@@ -40,7 +40,7 @@ public class InventoryServiceImpl implements InventoryService {
 		q.setParameter(1, productId);
 		List<Object[]> l=q.getResultList();
 		List<Serial> resultList=new ArrayList<>();
-		System.out.println(l.get(0));
+		
 		for (Object[] o:l)
 		{
 			Serial s=new Serial();
