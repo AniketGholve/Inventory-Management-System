@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.patient.Entity.DispenseToPatient;
 import com.patient.Entity.Patient;
 import com.patient.Entity.Product;
+import com.patient.Entity.Serial;
 import com.patient.ServiceImpl.DispenceToPatientServiceImpl;
 import com.patient.ServiceImpl.PatientServiceImpl;
 @RestController
@@ -30,11 +31,9 @@ public class DispenseToPatientController {
 	
 	
 	@GetMapping("/getProductBySerialNo/{serialNo}")
-	public ResponseEntity<Product> getProductBySerialNo(@PathVariable Integer serialNo) {
-		
-		Product p=dispenceToPatientServiceImpl.getProductBySerialNo(serialNo);
-		return new ResponseEntity<Product>(p,HttpStatus.OK);
-		
+	public ResponseEntity<Serial> getProductBySerialNo(@PathVariable Integer serialNo) {
+		Serial p=dispenceToPatientServiceImpl.getProductBySerialNo(serialNo);
+		return new ResponseEntity<Serial>(p,HttpStatus.OK);
 	}
 	
 	@PostMapping("/createDispense")

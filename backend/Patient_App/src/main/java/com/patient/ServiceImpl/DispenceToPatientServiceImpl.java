@@ -38,12 +38,22 @@ public class DispenceToPatientServiceImpl implements DispenceToPatientService{
 	private DispenseRepo dispenseRepo;
 
 	@Override
-	public Product getProductBySerialNo(Integer serialNo) {
+	public Serial getProductBySerialNo(Integer serialNo) {
 		// TODO Auto-generated method stub
-		Serial s=serialRepo.findBySerialNumber(serialNo);
-		Product p=productRepo.findById(s.getProductId()).orElseThrow();
-		return p;
-	}
+		if(serialNo==null)return null;
+		Query q=entityManager.createQuery("select s from Serial s where s.serialNumber=:u and s.serialStatus=:v");
+		q.setParameter("u", serialNo);
+		q.setParameter("v", "Available");
+		Serial s;
+		try {
+			 s=(Serial) q.getSingleResult();
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			return null;
+		}
+		return s;
+	}	
 	
 
 	@Override
