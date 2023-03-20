@@ -272,14 +272,25 @@ app.controller("clp", function ($scope, $http, $window, $location) {
     $scope.dispance = {}
     $scope.dispancePatientDetials = (x) => {
         $scope.dispance.patientId= x.id;
-        console.log(patientData);
+        $scope.dispensePatientData = {};
+        $scope.dispensePatientData.firstName = x.patientFirstName;
+        $scope.dispensePatientData.lastName = x.patientLastName;
+        $scope.dispensePatientData.middleName = x.patientMiddleName;
     }
     $scope.dispancePhysicianDetials = (x) => {
         $scope.dispance.physicianId = x.id;
+        $scope.dispensePhysicianData = {};
+        $scope.dispensePhysicianData.firstName = x.firstName;
+        $scope.dispensePhysicianData.lastName = x.lastName;
     }
     $scope.dispanceNurseDetials = (x) => {
         $scope.dispance.nurseId = x.id;
-        $scope.dispance.injectionSite = "xyz";
+        $scope.dispenseNurseData = {};
+        $scope.dispenseNurseData.firstName = x.firstName;
+        $scope.dispenseNurseData.lastName = x.lastName;
+        
+
+        
     }
     
 
