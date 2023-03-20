@@ -8,7 +8,7 @@
         <h1 class="text-center">Patients</h1>
         <div>
             <form ng-submit="getById()" class="form-inline d-flex justify-content-center mt-3">
-                <input type="text" id="patientId" placeholder="Search Patient Id" ng-model="variable" class="">
+                <input type="text" id="patientId" placeholder="Search Patient Id" ng-model="search.patientFirstName" class="">
                 <button type="submit" class="btn btn-outline-success my-2 my-sm-0">Search</button>
             </form>
         </div>
@@ -32,7 +32,7 @@
                         <th class="px-3">Actions</th>
                     </tr>
                 </thead>
-                <tr ng-repeat="x in patientData | filter:variable" ng-if="searchPatientData==null">
+                <tr ng-repeat="x in patientData | filter:search:strict" ng-if="searchPatientData==null">
                     <td class="px-3">
                         {{ x.patientId }}
                     </td>

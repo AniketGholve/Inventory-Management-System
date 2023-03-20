@@ -4,7 +4,7 @@
     <div>
         <h1 class="text-center">Add Nurse</h1>
     </div>
-    <form ng-submit="addNurse()">
+    <!-- <form ng-submit="addNurse()">
         <div class="row g-3 form-control  justify-content-between w-50 m-auto">
             <div class="flex-column w-50">
                 <label for=""> First Name </label>
@@ -20,6 +20,24 @@
             </div>
             
             <input class="btn btn-primary text-center" type="submit" name="addNurseData" value="Add Nurse"/>
+        </div>
+    </form> -->
+    <form ng-submit="addNurse()">
+        <div class="row g-3 form-control d-flex flex-column justify-content-center w-25 m-auto">
+            <div class="col-auto d-flex justify-content-between ">
+                <label for=""> First Name </label>
+                <input type="text" ng-model="addNurseData.firstName" required>
+            </div>
+            <div class="col-auto d-flex justify-content-between ">
+                <label for=""> Last Name </label>
+                <input type="text" ng-model="addNurseData.lastName" required>
+            </div>
+            <div class="col-auto d-flex justify-content-between ">
+                <label for=""> Middle Name </label>
+                <input type="text" ng-model="addNurseData.middleName" required>
+            </div>
+           
+            <input class="btn btn-primary" type="submit" name="addNurseData" value="Add Nurse"/>
         </div>
     </form>
 </div>

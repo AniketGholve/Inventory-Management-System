@@ -5,16 +5,16 @@
         <h1 class="text-center">Add Physician</h1>
     </div>
     <form ng-submit="addPhysician()">
-        <div class="row g-3 form-control d-flex justify-content-between w-50 m-auto">
-            <div class="col-auto d-flex justify-content-between w-50">
+        <div class="row g-3 form-control d-flex flex-column justify-content-center w-25 m-auto">
+            <div class="col-auto d-flex justify-content-between ">
                 <label for=""> First Name </label>
                 <input type="text" ng-model="addPhysicianData.firstName" required>
             </div>
-            <div class="col-auto d-flex justify-content-between w-50">
+            <div class="col-auto d-flex justify-content-between ">
                 <label for=""> Last Name </label>
                 <input type="text" ng-model="addPhysicianData.lastName" required>
             </div>
-            <div class="col-auto d-flex justify-content-between w-50">
+            <div class="col-auto d-flex justify-content-between ">
                 <label for=""> Middle Name </label>
                 <input type="text" ng-model="addPhysicianData.middleName" required>
             </div>

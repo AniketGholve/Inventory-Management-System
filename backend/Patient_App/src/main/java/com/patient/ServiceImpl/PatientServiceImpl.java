@@ -96,7 +96,7 @@ public class PatientServiceImpl implements PatientService {
 	@Override
 	public List<Patient> getPatientByLocationId(Integer clinicLocationId) {
 		// TODO Auto-generated method stub
-		Query q=entityManager.createQuery("select p.patientId,p.patientFirstName,p.patientLastName,p.patientMiddleName,p.patientDob,p.patientStatus,c.name,p.patientEnterpriseId from Patient p inner join Clinic c on p.patientLocationId=c.locationId where p.patientLocationId=:u" );
+		Query q=entityManager.createQuery("select p.patientId,p.patientFirstName,p.patientLastName,p.patientMiddleName,p.patientDob,p.patientStatus,c.name,p.patientEnterpriseId,p.id from Patient p inner join Clinic c on p.patientLocationId=c.locationId where p.patientLocationId=:u" );
 		q.setParameter("u", clinicLocationId);
 		List<Object[]> l=q.getResultList();
 		List<Patient> resultList=new ArrayList<>();
@@ -110,6 +110,7 @@ public class PatientServiceImpl implements PatientService {
 			p.setPatientStatus((String)o[5]);
 			p.setClinicName((String)o[6]);
 			p.setPatientEnterpriseId((Integer)o[7]);
+			p.setId((Integer)o[8]);
 			resultList.add(p);
 		}
 		return resultList;
