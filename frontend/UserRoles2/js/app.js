@@ -2,9 +2,11 @@ function reloadWindow() {
     location.reload();
 }
 let app = angular.module("myApp", ['ngRoute']);
+
 window.onload = () => {
     document.querySelector("#preloader").style.display = "none";
 }
+
 app.factory('myInterceptor', function ($q) {
     var interceptor = {
         responseError: function (rejection) {
@@ -222,6 +224,7 @@ app.config(function ($routeProvider, $httpProvider) {
             });
 
     $httpProvider.interceptors.push('myInterceptor');
+    
 });
 
 app.controller("loginCtrl", ($scope, $http, $window,) => {
@@ -268,8 +271,36 @@ app.controller("loginCtrl", ($scope, $http, $window,) => {
 app.controller("clp", function ($scope, $http, $window, $location) {
     $scope.dispance = {}
     $scope.dispancePatientDetials = (x) => {
-        $scope.dispance.patientId = x.patientId;
+        $scope.dispance.patientId= x.id;
+        console.log(patientData);
     }
+    $scope.dispancePhysicianDetials = (x) => {
+        $scope.dispance.physicianId = x.id;
+    }
+    $scope.dispanceNurseDetials = (x) => {
+        $scope.dispance.nurseId = x.id;
+        $scope.dispance.injectionSite = "xyz";
+    }
+    
+
+    $scope.dispenseToPatient =() => {
+        console.log($scope.dispance)
+        $http ({
+            method: 'POST',
+            url: 'http://localhost:7890/createDispense',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': sessionStorage.getItem("token")
+            },
+            data : $scope.dispance
+
+            }).then((response)=> {
+                alert("Dispensed Successfully");
+                
+
+            })
+        }
+    
     $scope.serialDataFunction = () => {
         if ($scope.serialNumber != null) {
             $http({
@@ -286,6 +317,34 @@ app.controller("clp", function ($scope, $http, $window, $location) {
                 $scope.dispance.locationId = $scope.serialData.locationId;
                 $scope.dispance.enterpriseId = $scope.serialData.enterpriseId;
                 $scope.dispance.serialId = $scope.serialData.serialId;
+                $http({
+                    method: 'GET',
+                    url: "http://localhost:7890/getAllPhysicians",
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': sessionStorage.getItem("token")
+                    }
+                }).then((response) => {
+                    console.log(response.data);
+                    $scope.physician_data = response.data;
+                }, (error) => {
+                    console.log(error);
+                });
+
+                $http({
+                    method: 'GET',
+                    url: "http://localhost:7890/getAllNurse",
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': sessionStorage.getItem("token")
+                    }
+                }).then((response) => {
+                    console.log(response.data);
+                    $scope.nurse_data = response.data;
+                }, (error) => {
+                    console.log(error);
+                });
+                
             }, (error) => {
                 console.log(error)
             })

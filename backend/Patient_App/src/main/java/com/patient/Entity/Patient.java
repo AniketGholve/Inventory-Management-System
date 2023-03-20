@@ -66,9 +66,9 @@ public class Patient {
 	@Transient
 	private String clinicName;
 	
-	@Transient
-	@OneToOne(mappedBy = "id")
-	private DispenseToPatient dispenseId;
+//	@Transient
+//	@OneToOne(mappedBy = "id")
+//	private DispenseToPatient dispenseId;
 
 	
 	

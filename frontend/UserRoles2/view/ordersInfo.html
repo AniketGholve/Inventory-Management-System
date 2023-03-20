@@ -22,6 +22,7 @@
                     </tr>
                 </thead>
                 <tbody>
+                    
                     <tr ng-repeat="x in orderData">
                         <td class="p-3">{{x.activityDate}}</td>
                         <td class="p-3">{{x.displayId}}</td>
@@ -31,8 +32,13 @@
                         <td class="p-3">{{x.eventDesc}}</td>
                         <td class="p-3 bg-salt">{{x.quantityMap['vicks']}}</td>
                         <td class="p-3 bg-salt">{{x.quantityMap.flexon}}</td>
+<<<<<<< HEAD
                         <td class="p-3 bg-salt">{{x.quantityMap['itone eye drop']}}</td>
                         <td class="p-3 bg-salt">{{x.quantityMap['vicks'] +x.quantityMap.flexon+x.quantityMap['itone eye drop'] }}</td>
+=======
+                        <td class="p-3 bg-salt">{{x.quantityMap['cosmelite cream']}}</td>
+                        <td class="p-3 bg-salt">{{x.quantityMap['itone'] +x.quantityMap.flexon+x.quantityMap['Cosmelite Cream'] }}</td>
+>>>>>>> f9d74a57bae7d06cc1351858e1d604b224a86bab
                         <td class="p-3"><a href="" class="btn" ng-class="{'disabled':x.eventDesc!='Submitted'}"><i class="fa-regular fa-circle-check link-danger"
                                     ng-click="changeOrderStatus(x.displayId)"></i></a></td>
                         <td class="p-4"><a data-bs-toggle="modal" data-bs-target="#orderInventoryData"><i class="fa-sharp fa-solid fa-box link-danger"
