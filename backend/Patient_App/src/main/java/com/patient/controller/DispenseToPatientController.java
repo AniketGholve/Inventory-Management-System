@@ -51,9 +51,15 @@ public class DispenseToPatientController {
 		return new ResponseEntity<List<Patient>>(patientList,HttpStatus.OK);
 	}
 	
-	@PostMapping("/addDispense/{Id}/{nurseId}/{physicianId}/{productId}/{serialId}/{locationId}/{injectionSite}")
-	private ResponseEntity<DispenseToPatient> addDispense(@PathVariable Integer Id,@PathVariable Integer nurseId,@PathVariable Integer physicianId,@PathVariable Integer productId,@PathVariable Integer serialId,@PathVariable Integer locationId,@PathVariable String injectionSite) {
-		DispenseToPatient dispensetoPatient=dispenceToServiceImpl.addDispense(Id,nurseId,physicianId,productId,serialId,locationId,injectionSite);
+//	@PostMapping("/addDispense/{Id}/{nurseId}/{physicianId}/{productId}/{serialId}/{locationId}/{injectionSite}")
+//	private ResponseEntity<DispenseToPatient> addDispense(@PathVariable Integer Id,@PathVariable Integer nurseId,@PathVariable Integer physicianId,@PathVariable Integer productId,@PathVariable Integer serialId,@PathVariable Integer locationId,@PathVariable String injectionSite) {
+//		DispenseToPatient dispensetoPatient=dispenceToServiceImpl.addDispense(Id,nurseId,physicianId,productId,serialId,locationId,injectionSite);
+//		return new ResponseEntity<DispenseToPatient>(dispensetoPatient,HttpStatus.CREATED);
+//	}
+	
+	@PostMapping("/addDispense")
+	private ResponseEntity<DispenseToPatient> addDispense(@RequestBody DispenseToPatient dispenseToPatient) {
+		DispenseToPatient dispensetoPatient=dispenceToServiceImpl.addDispense(dispenseToPatient.getPatientId(),dispenseToPatient.getNurseId(),dispenseToPatient.getPhysicianId(),dispenseToPatient.getProductId(),dispenseToPatient.getSerialId(),dispenseToPatient.getLocationId(),dispenseToPatient.getInjectionSite());
 		return new ResponseEntity<DispenseToPatient>(dispensetoPatient,HttpStatus.CREATED);
 	}
 	
