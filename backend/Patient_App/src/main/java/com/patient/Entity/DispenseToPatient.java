@@ -63,9 +63,12 @@ public class DispenseToPatient {
 	@Column(name ="src_id")
 	private Integer srcId;
 	
-	@OneToOne
-	@JoinColumn(name = "patientId")
-	private Patient id;
+//	@OneToOne
+//	@JoinColumn(name = "patientId")
+//	private Patient id;
+	
+	@Column(name = "patient_id")
+	private Integer patientId;
 
 	public Integer getDispenseId() {
 		return dispenseId;
@@ -259,31 +262,31 @@ public class DispenseToPatient {
 		this.srcId = srcId;
 	}
 
-	public Patient getId() {
-		return id;
+	public Integer getPatientId() {
+		return patientId;
 	}
 
-	public void setId(Patient id) {
-		this.id = id;
+	public void setPatientId(Integer patientId) {
+		this.patientId = patientId;
 	}
 
 	@Override
 	public String toString() {
-		return "DispenceToPatient [dispenseId=" + dispenseId + ", productId=" + productId + ", nurseId=" + nurseId
+		return "DispenseToPatient [dispenseId=" + dispenseId + ", productId=" + productId + ", nurseId=" + nurseId
 				+ ", physicianId=" + physicianId + ", dispenseDate=" + dispenseDate + ", injectionSite=" + injectionSite
 				+ ", notes=" + notes + ", initial=" + initial + ", serialId=" + serialId + ", userId=" + userId
 				+ ", readerId=" + readerId + ", createdOn=" + createdOn + ", modifiedOn=" + modifiedOn
 				+ ", serialEventId=" + serialEventId + ", locationId=" + locationId + ", enterprise_id=" + enterprise_id
 				+ ", expType=" + expType + ", expMessage=" + expMessage + ", orderNum=" + orderNum + ", paymentStatus="
 				+ paymentStatus + ", revisionNotes=" + revisionNotes + ", revisionInitial=" + revisionInitial
-				+ ", revesionEmail=" + revesionEmail + ", srcId=" + srcId + ", id=" + id + "]";
+				+ ", revesionEmail=" + revesionEmail + ", srcId=" + srcId + ", patientId=" + patientId + "]";
 	}
 
 	public DispenseToPatient(Integer dispenseId, Integer productId, Integer nurseId, Integer physicianId,
 			Date dispenseDate, String injectionSite, String notes, String initial, Integer serialId, Integer userId,
 			Integer readerId, Date createdOn, Date modifiedOn, Integer serialEventId, Integer locationId,
 			Integer enterprise_id, String expType, String expMessage, Integer orderNum, String paymentStatus,
-			String revisionNotes, String revisionInitial, String revesionEmail, Integer srcId, Patient id) {
+			String revisionNotes, String revisionInitial, String revesionEmail, Integer srcId, Integer patientId) {
 		super();
 		this.dispenseId = dispenseId;
 		this.productId = productId;
@@ -309,7 +312,7 @@ public class DispenseToPatient {
 		this.revisionInitial = revisionInitial;
 		this.revesionEmail = revesionEmail;
 		this.srcId = srcId;
-		this.id = id;
+		this.patientId = patientId;
 	}
 
 	public DispenseToPatient() {
@@ -317,7 +320,7 @@ public class DispenseToPatient {
 		// TODO Auto-generated constructor stub
 	}
 
-
+	
 	
 	
 	

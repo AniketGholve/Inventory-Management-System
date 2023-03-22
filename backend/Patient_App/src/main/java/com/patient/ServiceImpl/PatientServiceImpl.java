@@ -102,6 +102,7 @@ public class PatientServiceImpl implements PatientService {
 		List<Patient> resultList=new ArrayList<>();
 		for(Object[] o:l) {
 			Patient p=new Patient();
+
 			p.setPatientId((String)o[0]);
 			p.setPatientFirstName((String)o[1]);
 			p.setPatientLastName((String)o[2]);
