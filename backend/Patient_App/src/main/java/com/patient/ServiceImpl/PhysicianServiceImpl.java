@@ -66,7 +66,7 @@ public class PhysicianServiceImpl implements PhysicianService{
 	@Override
 	public List<Physician> getPhysicianByLocationId(int locationId) {
 		// TODO Auto-generated method stub
-		Query q= entityManager.createNativeQuery("select c from clinic c where location_id=?");
+		Query q= entityManager.createNativeQuery("select c from clinic c where c.location_id=?");
 		q.setParameter(1,locationId);
 		List<Physician> l = q.getResultList();
 		return l;
