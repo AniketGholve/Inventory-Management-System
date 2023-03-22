@@ -1,5 +1,6 @@
 package com.patient.Entity;
 
+import java.sql.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,7 +25,7 @@ public class OrderEvents {
 	@Column(name="status_id")
 	private Integer statusId;
 	@Column(name="activity_date")
-	private String activityDate;
+	private Date activityDate;
 	@Column(name="quantity")
 	private Integer quantity;
 	@Column(name="event_desc")
@@ -79,10 +80,10 @@ public class OrderEvents {
 	public void setStatusId(Integer statusId) {
 		this.statusId = statusId;
 	}
-	public String getActivityDate() {
+	public Date getActivityDate() {
 		return activityDate;
 	}
-	public void setActivityDate(String activityDate) {
+	public void setActivityDate(Date activityDate) {
 		this.activityDate = activityDate;
 	}
 	public Integer getQuantity() {
@@ -197,7 +198,7 @@ public class OrderEvents {
 				+ ", poNumber=" + poNumber + ", productName=" + productName + ", quantityMap=" + quantityMap
 				+ ", displayId=" + displayId + "]";
 	}
-	public OrderEvents(Integer orderEventId, Integer statusId, String activityDate, Integer quantity, String eventDesc,
+	public OrderEvents(Integer orderEventId, Integer statusId, Date activityDate, Integer quantity, String eventDesc,
 			Integer locationId, Integer productId, String packageType, Integer enterpriseId, Integer deliveryOrderId,
 			Integer shipmentTrackingId, Integer userId, Integer srcId, ClinicOrder orderId, String shiptoId,
 			String shiptoName, String poNumber, String productName, Map<String, Integer> quantityMap,

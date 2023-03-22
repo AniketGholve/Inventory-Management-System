@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import com.patient.Entity.ClinicOrder;
@@ -20,7 +22,8 @@ import com.patient.Service.OrderEventsService;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
-
+import jakarta.transaction.Transactional;
+@EnableScheduling
 @Service
 public class OrderEventsServiceImpl implements OrderEventsService {
 
@@ -49,7 +52,7 @@ public class OrderEventsServiceImpl implements OrderEventsService {
 			if (i.getOrderedQty() != 0) {
 				OrderEvents orderEvents = new OrderEvents();
 
-				orderEvents.setActivityDate(formatter.format(d));
+				orderEvents.setActivityDate(d);
 				orderEvents.setDeliveryOrderId(null);
 				orderEvents.setEnterpriseId(clinicOrder.getEnterpriseId());
 				orderEvents.setEventDesc("Submitted");
@@ -111,7 +114,7 @@ public class OrderEventsServiceImpl implements OrderEventsService {
 			
 			
 			if(k==-1) {
-				orderEvents.setActivityDate((String) o[0]);
+				orderEvents.setActivityDate((Date) o[0]);
 				orderEvents.setOrderEventId((Integer) o[1]);
 				orderEvents.setPoNumber((String)o[2]);
 				orderEvents.setShiptoId((String)o[3]);
@@ -137,7 +140,7 @@ public class OrderEventsServiceImpl implements OrderEventsService {
 				orderEventList.add(orderEvents);
 				orderEvents=new OrderEvents();
 				m=new HashMap<>();
-				orderEvents.setActivityDate((String) o[0]);
+				orderEvents.setActivityDate((Date) o[0]);
 				orderEvents.setOrderEventId((Integer) o[1]);
 				orderEvents.setPoNumber((String)o[2]);
 				orderEvents.setShiptoId((String)o[3]);
@@ -178,6 +181,19 @@ public class OrderEventsServiceImpl implements OrderEventsService {
 		}
 		return resultList;
 
+	}
+
+	@Override
+	@Transactional
+	@Scheduled(cron = "0 26 12 * * MON-FRI")
+	public void checkProcessedEvents() {
+		Date twoDaysAgo = new Date(System.currentTimeMillis()-(2*24*60*60*1000));
+		List<OrderEvents> ordersToCancel = orderEventsRepo.findByEventDescAndActivityDateBefore("Processed", twoDaysAgo);
+		System.out.print(twoDaysAgo);
+		for(OrderEvents event:ordersToCancel) {
+			event.setEventDesc("Cancelled");
+			orderEventsRepo.save(event);
+		}
 	}
 
 }

@@ -38,9 +38,10 @@ public class DispenseToPatientController {
 	
 	@PostMapping("/createDispense")
 	public ResponseEntity<DispenseToPatient> createDispense(@RequestBody DispenseToPatient dispenceToPatient){
+		System.out.print(dispenceToPatient);
 		DispenseToPatient dp = dispenceToPatientServiceImpl.createDispence(dispenceToPatient);
 		return new ResponseEntity<DispenseToPatient>(dp,HttpStatus.CREATED);
-		
+//		System.out.print(false)
 	}
 	
 	

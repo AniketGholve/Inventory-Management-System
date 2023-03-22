@@ -34,5 +34,8 @@ public class ClinicOrderController {
 	{
 		return clinicOrderServiceImpl.getAllOrdersById(locId);
 	}
+	
+//	@PostMapping("/deleteByTime")
+//	public ClinicOrder deleteOrderById()
 
 }
