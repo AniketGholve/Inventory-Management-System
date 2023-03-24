@@ -3,6 +3,8 @@ package com.patient.ServiceImpl;
 import java.sql.Date;
 import java.text.Format;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -22,6 +24,7 @@ import com.patient.Service.OrderEventsService;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
+import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
 @EnableScheduling
 @Service
@@ -52,7 +55,7 @@ public class OrderEventsServiceImpl implements OrderEventsService {
 			if (i.getOrderedQty() != 0) {
 				OrderEvents orderEvents = new OrderEvents();
 
-				orderEvents.setActivityDate(d);
+				orderEvents.setActivityDate(formatter.format(d));
 				orderEvents.setDeliveryOrderId(null);
 				orderEvents.setEnterpriseId(clinicOrder.getEnterpriseId());
 				orderEvents.setEventDesc("Submitted");
@@ -114,7 +117,7 @@ public class OrderEventsServiceImpl implements OrderEventsService {
 			
 			
 			if(k==-1) {
-				orderEvents.setActivityDate((Date) o[0]);
+				orderEvents.setActivityDate((String) o[0]);
 				orderEvents.setOrderEventId((Integer) o[1]);
 				orderEvents.setPoNumber((String)o[2]);
 				orderEvents.setShiptoId((String)o[3]);
@@ -140,7 +143,7 @@ public class OrderEventsServiceImpl implements OrderEventsService {
 				orderEventList.add(orderEvents);
 				orderEvents=new OrderEvents();
 				m=new HashMap<>();
-				orderEvents.setActivityDate((Date) o[0]);
+				orderEvents.setActivityDate((String) o[0]);
 				orderEvents.setOrderEventId((Integer) o[1]);
 				orderEvents.setPoNumber((String)o[2]);
 				orderEvents.setShiptoId((String)o[3]);
@@ -182,10 +185,25 @@ public class OrderEventsServiceImpl implements OrderEventsService {
 		return resultList;
 
 	}
+//		for(ClinicOrder c:clinicOrderList) {
+//
+//String d=c.getActivityDate();
+//
+//LocalDateTime dateTime = LocalDateTime.parse(d);
+//
+//System.out.println(dateTime);
+//
+//System.out.println(dateTime.getHour());
+//
+//// LocalDateTime currdaDateTime=
+//
+// 
+//
+//}
 
 	@Override
 	@Transactional
-	@Scheduled(cron = "0 26 12 * * MON-FRI")
+	@Scheduled(cron = "0 29 11 * * MON-FRI")
 	public void checkProcessedEvents() {
 		Date twoDaysAgo = new Date(System.currentTimeMillis()-(2*24*60*60*1000));
 		List<OrderEvents> ordersToCancel = orderEventsRepo.findByEventDescAndActivityDateBefore("Processed", twoDaysAgo);
