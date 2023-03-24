@@ -10,7 +10,7 @@ body {
 }
 
 .nav_hover:hover {
-  background-color: rgb(195, 73, 73);
+  background-color: black;
   border-radius: 15%;
 }
 
@@ -56,7 +56,7 @@ body {
 }
 
 .tabs-nav .active {
-  color: red;
+  color: black;
 }
 
 #uplodeSuccessSign {
@@ -99,7 +99,7 @@ body {
   font-family: "Poppins", sans-serif;
   letter-spacing: 2px;
   border-radius: 3px;
-  background: grey;
+  background:  #0e0e0e;
   /* overflow: hidden;
     transition: max-height 0.5s; */
 
@@ -107,17 +107,24 @@ body {
 
 
 .sub-menu-link {
-  color: white;
+  color: rgb(228, 228, 228);
   font-weight: 500;
   text-decoration: none;
 }
-
+.btn3{
+  background-color: #3b953b;
+  border: none;
+  float: right;
+  margin-right: 20px;
+  font-size: 30px;
+  
+}
 .hr {
   color: white;
 }
 
 .btn1 {
-  background-color: #212529;
+  background-color:#3b953b;
   color: white;
   border: none;
 }
@@ -139,7 +146,7 @@ body {
 
 
 .thead {
-  background-color:  rgb(62, 62, 112);
+  background-color: rgba(59, 150, 55, 0.881);
   color: rgba(248, 248, 248, 0.975);
 
 }
@@ -192,11 +199,7 @@ body {
 }
 
 
-#placeorder {
-  margin-left: 45%;
 
-
-}
 
 #clinics {
   border-radius: 10px;
@@ -207,9 +210,11 @@ body {
 }
 
 #topheader .navbar-nav li.active>a {
-  background-color: rgb(195, 73, 73);
+  background-color: transparent;
   border-radius: 15%;
   color: white;
+  border-bottom: solid 3px white;
+  /* opacity: 0.5; */
 }
 
 #preloader {
@@ -254,7 +259,7 @@ body {
 }
 
 .clpHomeSection {
-  background-color: rgb(79, 164, 198);
+  background-color: rgb(234, 183, 106);
 }
 
 .dispense_section {
@@ -305,12 +310,41 @@ body {
 .dispense_input{
   padding: 5px;
   margin: 15px;
-  width: 25%;
+  width: 200px;
   border: 1px solid black;
   font-size: 16px;
+  height: 40px;
 }
 
 .shippingScreen{
-  background-color: rgba(65, 139, 192, 0.989);
+  background-color: rgba(80, 212, 175, 0.989);
   color: white;
+}
+.header2{
+  height: 40px;
+  background-color: rgb(115, 202, 111);
+
+}
+nav{
+  background-color: #3b953b;
+}
+
+.btn2{
+  background-color: #7dd6cd;
+  border: groove 3px #7dd6cd;
+  border-radius: 3px;
+
+}
+
+.qucikLinks{
+  width: max-content;
+  box-shadow: 10px 10px 5px black;
+  
+}
+.shadow{
+  box-shadow: 10px 10px grey;
+}
+.d{
+  justify-self: center;
+  align-items: center;
 }

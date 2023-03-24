@@ -1,5 +1,5 @@
 <div id="topheader" ng-controller="headerController">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
         <div class="container-fluid">
             <a class="navbar-brand" href="">Inventory Management System</a>
             <div class="collapse navbar-collapse">
@@ -41,7 +41,11 @@
                     <li class="nav-item nav_hover {{elp}}" ng-class="{active: activeTab === 'errorOrders'}">
                         <a class="nav-link" href="#!/error_orders">Error Orders</a>
                     </li>
+
                 </ul>
+            </div>
+            <div style="border:0cap;">
+                <button onclick="theme()" class="btn3" ><i id ="themeIcon"class="fa-sharp fa-solid fa-sun" ></i></button>
             </div>
             <div class="{{userIcon}}">
                 <div class="icon">

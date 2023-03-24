@@ -86,7 +86,7 @@ public class DispenceToPatientServiceImpl implements DispenceToPatientService{
 		dispenseToPatient.setEnterprise_id(1);
 		dispenseToPatient.setExpMessage(null);
 		dispenseToPatient.setExpType(null);
-		dispenseToPatient.setId(p);
+		dispenseToPatient.setPatientId(Id);
 		dispenseToPatient.setInitial(null);
 		dispenseToPatient.setInjectionSite(injectionSite);
 		dispenseToPatient.setLocationId(locationId);

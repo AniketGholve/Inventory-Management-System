@@ -1,6 +1,26 @@
 function reloadWindow() {
-    location.reload();
+    location.reload();  
+    var lnk=document.getElementById("themeChange");
+    if(lnk.getAttribute("href")==="css/themecss.css"){
+        themeIcon.setAttribute("class","fa-sharp fa-solid fa-moon")
+    }else if(lnk.getAttribute("href")==="css/logincss.css"){
+        themeIcon.setAttribute("class","fa-sharp fa-solid fa-sun")
+    } 
 }
+theme=()=>{
+    var lnk=document.getElementById("themeChange");
+    var themeIcon = document.getElementById("themeIcon")
+    if(lnk.getAttribute("href")==="css/logincss.css"){
+        lnk.setAttribute("href","css/themecss.css")
+        themeIcon.setAttribute("class","fa-sharp fa-solid fa-moon")
+
+    }else if(lnk.getAttribute("href")==="css/themecss.css"){
+        lnk.setAttribute("href","css/logincss.css")
+        themeIcon.setAttribute("class","fa-sharp fa-solid fa-sun")
+    }
+    console.log(lnk);
+}
+
 let app = angular.module("myApp", ['ngRoute']);
 
 window.onload = () => {
@@ -117,7 +137,7 @@ app.directive("fileInput", function ($parse) {
     }
 });
 
-app.config(function ($routeProvider, $httpProvider) {
+app.config(function ($routeProvider, $httpProvider ) {
     $routeProvider
         .when('/', {
             templateUrl: "view/login.html",
@@ -385,7 +405,10 @@ app.controller("clp", function ($scope, $http, $window, $location) {
                     'Authorization': sessionStorage.getItem("token")
                 }
             }).then((response) => {
-                alert("Order Placed Successfully")
+                
+                check=true
+                //alert("Order Placed Successfully")
+
                 $window.location.reload();
                 console.log(response);
             }, (error) => {
