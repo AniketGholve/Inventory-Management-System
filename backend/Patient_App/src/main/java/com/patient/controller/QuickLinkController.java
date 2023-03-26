@@ -49,4 +49,11 @@ public class QuickLinkController {
 		String q = quickLinkServiceImpl.deleteQuickLink(id);
 		return q;
 	}
+	
+	@GetMapping("/getQuickLink/{id}")
+	public ResponseEntity<QuickLink> getQuickLInk(@PathVariable int id)
+	{
+		QuickLink q = quickLinkServiceImpl.getQuickLink(id);
+		return new ResponseEntity<QuickLink>(q,HttpStatus.OK);
+	}
 }

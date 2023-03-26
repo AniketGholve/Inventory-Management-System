@@ -185,21 +185,7 @@ public class OrderEventsServiceImpl implements OrderEventsService {
 		return resultList;
 
 	}
-//		for(ClinicOrder c:clinicOrderList) {
-//
-//String d=c.getActivityDate();
-//
-//LocalDateTime dateTime = LocalDateTime.parse(d);
-//
-//System.out.println(dateTime);
-//
-//System.out.println(dateTime.getHour());
-//
-//// LocalDateTime currdaDateTime=
-//
-// 
-//
-//}
+
 
 	@Override
 	@Transactional
@@ -213,5 +199,19 @@ public class OrderEventsServiceImpl implements OrderEventsService {
 			orderEventsRepo.save(event);
 		}
 	}
+
+	@Override
+	public String changeShipToRecieve(Integer orderId) {
+		// TODO Auto-generated method stub
+		Query q=entityManager.createNativeQuery("update order_events set event_desc=? where event_desc=? AND orderId=?");
+		q.setParameter(1, "Recieved");
+		q.setParameter(2, "Shipped");
+		q.setParameter(3, orderId);
+		q.executeUpdate();
+		return "status changes successfully";
+		
+	}
+
+	
 
 }

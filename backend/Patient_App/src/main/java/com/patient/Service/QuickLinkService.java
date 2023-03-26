@@ -13,4 +13,6 @@ public interface QuickLinkService {
 	public String deleteQuickLink(int id);
 	
 	public QuickLink updateQuickLink(QuickLink quickLink);
+	
+	public QuickLink getQuickLink(int id);
 }
