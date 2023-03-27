@@ -43,5 +43,12 @@ public class SerialController {
 		Serial result=serialServiceImpl.getSerialBySerialId(serialId,locationId);
 		return new ResponseEntity<Serial>(result,HttpStatus.OK);
 	}
+	
+	@PostMapping("/changeStatus/{serialId}/{locationId}")
+	public String changeStatus(@PathVariable("serialId") int serialId,@PathVariable("locationId") int locationId) {
+		String s = serialServiceImpl.changeSerialStatus(serialId, locationId);
+		return s;
+		
+	}
 
 }

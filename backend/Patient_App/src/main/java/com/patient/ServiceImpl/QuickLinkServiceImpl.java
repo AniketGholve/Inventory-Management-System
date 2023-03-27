@@ -55,4 +55,11 @@ public class QuickLinkServiceImpl implements QuickLinkService {
 		return link;
 	}
 
+	@Override
+	public QuickLink getQuickLink(int id) {
+		// TODO Auto-generated method stub
+		QuickLink q = quickLinkRepo.findById(id);
+		return q;
+	}
+
 }
