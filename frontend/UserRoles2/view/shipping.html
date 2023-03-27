@@ -8,8 +8,8 @@
                     <input type="text" class="w-50">
                 </div>
                 <label for="" class="h5 text-center">Please enter kit information</label>
-               
-                <select class="text-center " ng-model="scanShipmentDetails">
+                 
+                <select class="text-center pt-2 " ng-model="scanShipmentDetails">
                     <option label="Select Serial Number" class="d-none"></option>
                     <option class="text-center" value="{{x.serialId}},{{x.productId}}" ng-repeat="x in serialId">{{x.serialId}}</option>
                 </select>

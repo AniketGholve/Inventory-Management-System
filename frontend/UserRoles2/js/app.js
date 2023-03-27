@@ -1,6 +1,26 @@
 function reloadWindow() {
-    location.reload();
+    location.reload();  
+    var lnk=document.getElementById("themeChange");
+    if(lnk.getAttribute("href")==="css/themecss.css"){
+        themeIcon.setAttribute("class","fa-sharp fa-solid fa-moon")
+    }else if(lnk.getAttribute("href")==="css/logincss.css"){
+        themeIcon.setAttribute("class","fa-sharp fa-solid fa-sun")
+    } 
 }
+theme=()=>{
+    var lnk=document.getElementById("themeChange");
+    var themeIcon = document.getElementById("themeIcon")
+    if(lnk.getAttribute("href")==="css/logincss.css"){
+        lnk.setAttribute("href","css/themecss.css")
+        themeIcon.setAttribute("class","fa-sharp fa-solid fa-moon")
+
+    }else if(lnk.getAttribute("href")==="css/themecss.css"){
+        lnk.setAttribute("href","css/logincss.css")
+        themeIcon.setAttribute("class","fa-sharp fa-solid fa-sun")
+    }
+    console.log(lnk);
+}
+
 let app = angular.module("myApp", ['ngRoute']);
 
 window.onload = () => {
@@ -61,6 +81,9 @@ app.controller("headerController", ($scope, $http, $location) => {
             break;
         case '/addNurse': $scope.activeTab = 'administrator';
             break;
+        case '/reports': $scope.activeTab = 'reports';
+            break;
+        
     }
     if (sessionStorage.getItem("username") != undefined) {
         $http({
@@ -117,7 +140,7 @@ app.directive("fileInput", function ($parse) {
     }
 });
 
-app.config(function ($routeProvider, $httpProvider) {
+app.config(function ($routeProvider, $httpProvider ) {
     $routeProvider
         .when('/', {
             templateUrl: "view/login.html",
@@ -221,6 +244,10 @@ app.config(function ($routeProvider, $httpProvider) {
         .when('/administrator',
             {
                 templateUrl: "view/administrator.html"
+            })
+        .when('/reports',
+            {
+                templateUrl: "view/reports.html"
             });
 
     $httpProvider.interceptors.push('myInterceptor');
@@ -272,14 +299,25 @@ app.controller("clp", function ($scope, $http, $window, $location) {
     $scope.dispance = {}
     $scope.dispancePatientDetials = (x) => {
         $scope.dispance.patientId= x.id;
-        console.log(patientData);
+        $scope.dispensePatientData = {};
+        $scope.dispensePatientData.firstName = x.patientFirstName;
+        $scope.dispensePatientData.lastName = x.patientLastName;
+        $scope.dispensePatientData.middleName = x.patientMiddleName;
     }
     $scope.dispancePhysicianDetials = (x) => {
         $scope.dispance.physicianId = x.id;
+        $scope.dispensePhysicianData = {};
+        $scope.dispensePhysicianData.firstName = x.firstName;
+        $scope.dispensePhysicianData.lastName = x.lastName;
     }
     $scope.dispanceNurseDetials = (x) => {
         $scope.dispance.nurseId = x.id;
-        $scope.dispance.injectionSite = "xyz";
+        $scope.dispenseNurseData = {};
+        $scope.dispenseNurseData.firstName = x.firstName;
+        $scope.dispenseNurseData.lastName = x.lastName;
+        
+
+        
     }
     
 
@@ -374,7 +412,10 @@ app.controller("clp", function ($scope, $http, $window, $location) {
                     'Authorization': sessionStorage.getItem("token")
                 }
             }).then((response) => {
-                alert("Order Placed Successfully")
+                
+                check=true
+                //alert("Order Placed Successfully")
+
                 $window.location.reload();
                 console.log(response);
             }, (error) => {
@@ -428,6 +469,91 @@ app.controller("clp", function ($scope, $http, $window, $location) {
         }
         return false;
     }
+    
+
+    $scope.reportName = (id) => {
+        sessionStorage.setItem("reportName", id);
+        if (sessionStorage.getItem("reportName") == "addPatient") {
+            $window.location.href = "#!/insertPatient";
+        }
+        else if (sessionStorage.getItem("reportName") == "addPhysician") {
+            $window.location.href = "#!addPhysician";    
+        }
+        else if (sessionStorage.getItem("reportName") == "addNurse") {
+            $window.location.href = "#!addNurse";    
+        }
+        else if (sessionStorage.getItem("reportName") == "orders") {
+            $window.location.href = "#!orders";    
+        }
+    }
+    $scope.reportLocation = () => {
+        let thePath = $location.path();
+        if (thePath === "/reports" ) {
+            return true;
+        }
+        return false;
+    }
+    $scope.linkData ={};
+    $scope.saveLinks = () =>{
+        $http({
+            method: 'post',
+            url: "http://localhost:7890/addLink",
+            headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") },
+            data : $scope.linkData
+        }).then((response) => {
+            $window.location.reload()
+            
+        }, (error) => { })     
+    }
+    $http({
+        method: 'get',
+        url: "http://localhost:7890/getAllQuickLink",
+        headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") },
+        
+    }).then((response) => {
+        $scope.getLinksData=response.data;
+        console.log(response)
+        
+    }, (error) => { })  
+    
+    $scope.deleteLinks= (id) =>{
+        $http({
+            method: 'delete',
+            url: "http://localhost:7890/deleteQucikLink/" + id,
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': sessionStorage.getItem("token")
+            }
+        }).then((response) => {$window.location.reload() }, (error) => { })
+    }
+    $scope.updateLinkData={};
+    $scope.updateLinks = () =>{
+        $http({
+            method: 'put',
+            url: "http://localhost:7890/updateQuickLink" ,
+            headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") },
+            data : $scope.updateLinkData
+        }).then((response) => {
+            $window.location.reload()
+            
+        }, (error) => { })     
+    }
+    
+    $scope.getQuickLinkData = (id) =>{
+        console.log()
+        $http({
+            method: 'get',
+            url: "http://localhost:7890/getQuickLink/" + id,
+            headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") }
+        }).then((response) => {
+            $scope.updateLinkData = response.data;
+            
+        }, (error) => { })     
+        
+    }
+
+
+    
     if (sessionStorage.getItem("locationId") != undefined || sessionStorage.getItem("locationId") != null) {
         $scope.id = sessionStorage.getItem("locationId");
         $scope.selectedDropdownTab = sessionStorage.getItem("screensName");
@@ -621,6 +747,9 @@ app.controller("clp", function ($scope, $http, $window, $location) {
         $scope.invetoryData = data;
         console.log($scope.invetoryData);
     };
+
+
+
 });
 
 app.controller("alp", ($scope, $http, $window) => {
