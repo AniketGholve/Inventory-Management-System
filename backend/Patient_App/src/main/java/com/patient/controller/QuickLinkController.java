@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.patient.Entity.QuickLink;
 import com.patient.ServiceImpl.QuickLinkServiceImpl;
 
+@CrossOrigin
 @RestController
 public class QuickLinkController {
 	
@@ -43,7 +46,7 @@ public class QuickLinkController {
 		return new ResponseEntity<QuickLink>(q,HttpStatus.OK);
 	}
 	
-	@PostMapping("/deleteQucikLink/{id}")
+	@DeleteMapping("/deleteQucikLink/{id}")
 	public String deleteQuickLink(@PathVariable("id") int id)
 	{
 		String q = quickLinkServiceImpl.deleteQuickLink(id);

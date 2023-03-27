@@ -493,6 +493,67 @@ app.controller("clp", function ($scope, $http, $window, $location) {
         }
         return false;
     }
+    $scope.linkData ={};
+    $scope.saveLinks = () =>{
+        $http({
+            method: 'post',
+            url: "http://localhost:7890/addLink",
+            headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") },
+            data : $scope.linkData
+        }).then((response) => {
+            $window.location.reload()
+            
+        }, (error) => { })     
+    }
+    $http({
+        method: 'get',
+        url: "http://localhost:7890/getAllQuickLink",
+        headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") },
+        
+    }).then((response) => {
+        $scope.getLinksData=response.data;
+        console.log(response)
+        
+    }, (error) => { })  
+    
+    $scope.deleteLinks= (id) =>{
+        $http({
+            method: 'delete',
+            url: "http://localhost:7890/deleteQucikLink/" + id,
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': sessionStorage.getItem("token")
+            }
+        }).then((response) => {$window.location.reload() }, (error) => { })
+    }
+    $scope.updateLinkData={};
+    $scope.updateLinks = () =>{
+        $http({
+            method: 'put',
+            url: "http://localhost:7890/updateQuickLink" ,
+            headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") },
+            data : $scope.updateLinkData
+        }).then((response) => {
+            $window.location.reload()
+            
+        }, (error) => { })     
+    }
+    
+    $scope.getQuickLinkData = (id) =>{
+        console.log()
+        $http({
+            method: 'get',
+            url: "http://localhost:7890/getQuickLink/" + id,
+            headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") }
+        }).then((response) => {
+            $scope.updateLinkData = response.data;
+            
+        }, (error) => { })     
+        
+    }
+
+
+    
     if (sessionStorage.getItem("locationId") != undefined || sessionStorage.getItem("locationId") != null) {
         $scope.id = sessionStorage.getItem("locationId");
         $scope.selectedDropdownTab = sessionStorage.getItem("screensName");
