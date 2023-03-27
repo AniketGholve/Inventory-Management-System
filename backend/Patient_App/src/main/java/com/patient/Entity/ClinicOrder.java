@@ -43,7 +43,7 @@ public class ClinicOrder {
 	@Column(name = "shipto_name")
 	private String shiptoName;
 	@Column(name = "activity_date")
-	private Date activityDate;
+	private String activityDate;
 	@Column(name = "shipfrom_id")
 	private int shipfromId;
 	@Column(name = "meu")
@@ -66,141 +66,176 @@ public class ClinicOrder {
 		return orderId;
 	}
 
+
 	public void setOrderId(int orderId) {
 		this.orderId = orderId;
 	}
+
 
 	public Date getOrderDatetime() {
 		return orderDatetime;
 	}
 
+
 	public void setOrderDatetime(Date orderDatetime) {
 		this.orderDatetime = orderDatetime;
 	}
+
 
 	public String getPoNumber() {
 		return poNumber;
 	}
 
+
 	public void setPoNumber(String poNumber) {
 		this.poNumber = poNumber;
 	}
+
 
 	public String getPersonInitial() {
 		return personInitial;
 	}
 
+
 	public void setPersonInitial(String personInitial) {
 		this.personInitial = personInitial;
 	}
+
 
 	public String getOrderNote() {
 		return orderNote;
 	}
 
+
 	public void setOrderNote(String orderNote) {
 		this.orderNote = orderNote;
 	}
+
 
 	public int getLocationId() {
 		return locationId;
 	}
 
+
 	public void setLocationId(int locationId) {
 		this.locationId = locationId;
 	}
+
 
 	public int getEnterpriseId() {
 		return enterpriseId;
 	}
 
+
 	public void setEnterpriseId(int enterpriseId) {
 		this.enterpriseId = enterpriseId;
 	}
+
 
 	public int getUserId() {
 		return userId;
 	}
 
+
 	public void setUserId(int userId) {
 		this.userId = userId;
 	}
+
 
 	public int getBilltoId() {
 		return billtoId;
 	}
 
+
 	public void setBilltoId(int billtoId) {
 		this.billtoId = billtoId;
 	}
+
 
 	public String getBilltoName() {
 		return billtoName;
 	}
 
+
 	public void setBilltoName(String billtoName) {
 		this.billtoName = billtoName;
 	}
+
 
 	public String getShiptoId() {
 		return shiptoId;
 	}
 
+
 	public void setShiptoId(String shiptoId) {
 		this.shiptoId = shiptoId;
 	}
+
 
 	public String getShiptoName() {
 		return shiptoName;
 	}
 
+
 	public void setShiptoName(String shiptoName) {
 		this.shiptoName = shiptoName;
 	}
 
-	public Date getActivityDate() {
+
+	public String getActivityDate() {
 		return activityDate;
 	}
 
-	public void setActivityDate(Date activityDate) {
+
+	public void setActivityDate(String activityDate) {
 		this.activityDate = activityDate;
 	}
+
 
 	public int getShipfromId() {
 		return shipfromId;
 	}
 
+
 	public void setShipfromId(int shipfromId) {
 		this.shipfromId = shipfromId;
 	}
+
 
 	public String getMeu() {
 		return meu;
 	}
 
+
 	public void setMeu(String meu) {
 		this.meu = meu;
 	}
+
 
 	public int getOrderStatusId() {
 		return orderStatusId;
 	}
 
+
 	public void setOrderStatusId(int orderStatusId) {
 		this.orderStatusId = orderStatusId;
 	}
+
 
 	public String getOrderType() {
 		return orderType;
 	}
 
+
 	public void setOrderType(String orderType) {
 		this.orderType = orderType;
 	}
 
+
 	public int getSrcId() {
 		return srcId;
 	}
+
 
 	public void setSrcId(int srcId) {
 		this.srcId = srcId;
@@ -211,13 +246,26 @@ public class ClinicOrder {
 		return orderEvents;
 	}
 
+
 	public void setOrderEvents(List<OrderEvents> orderEvents) {
 		this.orderEvents = orderEvents;
 	}
 
+
+	@Override
+	public String toString() {
+		return "ClinicOrder [orderId=" + orderId + ", orderDatetime=" + orderDatetime + ", poNumber=" + poNumber
+				+ ", personInitial=" + personInitial + ", orderNote=" + orderNote + ", locationId=" + locationId
+				+ ", enterpriseId=" + enterpriseId + ", userId=" + userId + ", billtoId=" + billtoId + ", billtoName="
+				+ billtoName + ", shiptoId=" + shiptoId + ", shiptoName=" + shiptoName + ", activityDate="
+				+ activityDate + ", shipfromId=" + shipfromId + ", meu=" + meu + ", orderStatusId=" + orderStatusId
+				+ ", orderType=" + orderType + ", srcId=" + srcId + ", orderEvents=" + orderEvents + "]";
+	}
+
+
 	public ClinicOrder(int orderId, Date orderDatetime, String poNumber, String personInitial, String orderNote,
 			int locationId, int enterpriseId, int userId, int billtoId, String billtoName, String shiptoId,
-			String shiptoName, Date activityDate, int shipfromId, String meu, int orderStatusId, String orderType,
+			String shiptoName, String activityDate, int shipfromId, String meu, int orderStatusId, String orderType,
 			int srcId, List<OrderEvents> orderEvents) {
 		super();
 		this.orderId = orderId;
@@ -241,46 +289,12 @@ public class ClinicOrder {
 		this.orderEvents = orderEvents;
 	}
 
+	
+
 	public ClinicOrder() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-
-	@Override
-	public String toString() {
-		return "ClinicOrder [orderId=" + orderId + ", orderDatetime=" + orderDatetime + ", poNumber=" + poNumber
-				+ ", personInitial=" + personInitial + ", orderNote=" + orderNote + ", locationId=" + locationId
-				+ ", enterpriseId=" + enterpriseId + ", userId=" + userId + ", billtoId=" + billtoId + ", billtoName="
-				+ billtoName + ", shiptoId=" + shiptoId + ", shiptoName=" + shiptoName + ", activityDate="
-				+ activityDate + ", shipfromId=" + shipfromId + ", meu=" + meu + ", orderStatusId=" + orderStatusId
-
-				+ ", orderType=" + orderType + ", srcId=" + srcId + "]";
-	}
-//>>>>>>> c2d44e51a91e7042309a65f2637840cf593189e8
-	public ClinicOrder(int orderId, Date orderDatetime, String poNumber, String personInitial, String orderNote,
-			int locationId, int enterpriseId, int userId, int billtoId, String billtoName, String shiptoId,
-			String shiptoName, Date activityDate, int shipfromId, String meu, int orderStatusId, String orderType,
-			int srcId) {
-		super();
-		this.orderId = orderId;
-		this.orderDatetime = orderDatetime;
-		this.poNumber = poNumber;
-		this.personInitial = personInitial;
-		this.orderNote = orderNote;
-		this.locationId = locationId;
-		this.enterpriseId = enterpriseId;
-		this.userId = userId;
-		this.billtoId = billtoId;
-		this.billtoName = billtoName;
-		this.shiptoId = shiptoId;
-		this.shiptoName = shiptoName;
-		this.activityDate = activityDate;
-		this.shipfromId = shipfromId;
-		this.meu = meu;
-		this.orderStatusId = orderStatusId;
-		this.orderType = orderType;
-		this.srcId = srcId;
-	}
-	
 }
-//>>>>>>> c2d44e51a91e7042309a65f2637840cf593189e8
+
+

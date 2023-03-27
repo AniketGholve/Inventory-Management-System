@@ -1,5 +1,6 @@
 package com.patient.Service;
 
+import java.text.ParseException;
 import java.util.List;
 
 import com.patient.Entity.ClinicOrder;
@@ -21,5 +22,7 @@ public interface OrderEventsService {
 	
 	public List<Inventory> getinventoryByProductId(Integer productId,Integer locationId);
 	
-	public void checkProcessedEvents();
+	public void checkProcessedEvents() throws ParseException;
+	
+	public void AutoOrder();
 }
