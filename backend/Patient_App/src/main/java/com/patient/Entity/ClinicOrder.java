@@ -1,6 +1,6 @@
 package com.patient.Entity;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -43,7 +43,7 @@ public class ClinicOrder {
 	@Column(name = "shipto_name")
 	private String shiptoName;
 	@Column(name = "activity_date")
-	private Date activityDate;
+	private String activityDate;
 	@Column(name = "shipfrom_id")
 	private int shipfromId;
 	@Column(name = "meu")
@@ -74,8 +74,8 @@ public class ClinicOrder {
 		return orderDatetime;
 	}
 
-	public void setOrderDatetime(Date orderDatetime) {
-		this.orderDatetime = orderDatetime;
+	public void setOrderDatetime(Date d) {
+		this.orderDatetime = d;
 	}
 
 	public String getPoNumber() {
@@ -158,11 +158,11 @@ public class ClinicOrder {
 		this.shiptoName = shiptoName;
 	}
 
-	public Date getActivityDate() {
+	public String getActivityDate() {
 		return activityDate;
 	}
 
-	public void setActivityDate(Date activityDate) {
+	public void setActivityDate(String activityDate) {
 		this.activityDate = activityDate;
 	}
 
@@ -217,7 +217,7 @@ public class ClinicOrder {
 
 	public ClinicOrder(int orderId, Date orderDatetime, String poNumber, String personInitial, String orderNote,
 			int locationId, int enterpriseId, int userId, int billtoId, String billtoName, String shiptoId,
-			String shiptoName, Date activityDate, int shipfromId, String meu, int orderStatusId, String orderType,
+			String shiptoName, String activityDate, int shipfromId, String meu, int orderStatusId, String orderType,
 			int srcId, List<OrderEvents> orderEvents) {
 		super();
 		this.orderId = orderId;
@@ -259,7 +259,7 @@ public class ClinicOrder {
 //>>>>>>> c2d44e51a91e7042309a65f2637840cf593189e8
 	public ClinicOrder(int orderId, Date orderDatetime, String poNumber, String personInitial, String orderNote,
 			int locationId, int enterpriseId, int userId, int billtoId, String billtoName, String shiptoId,
-			String shiptoName, Date activityDate, int shipfromId, String meu, int orderStatusId, String orderType,
+			String shiptoName, String activityDate, int shipfromId, String meu, int orderStatusId, String orderType,
 			int srcId) {
 		super();
 		this.orderId = orderId;

@@ -12,7 +12,7 @@
             </datalist> -->
             <div>
             <div class="shadow">
-                <table class="table  table striped text-center mt-5">
+                <table class="table  table striped text-center mt-5"ng-class="{'d-none':serialNumber==''||serialNumber==null}">
                     <thead class="d-flex d">
                         <tr class="d-flex">
                             <th>Dose</th>
@@ -37,9 +37,9 @@
                 </table>
 
 
-            </div>
-            <div>
-                <table class="table  table striped text-center mt-5">
+            </div >
+            <div class="shadow">
+                <table class="table  table striped text-center mt-5" ng-class="{'d-none':serialNumber==''||serialNumber==null}">
                     <thead>
                         <tr>
                             <th>Serial Number</th>

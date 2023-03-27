@@ -21,5 +21,5 @@ public interface OrderEventsService {
 	
 	public List<Inventory> getinventoryByProductId(Integer productId,Integer locationId);
 	
-	
+	public void checkProcessedEvents();
 }

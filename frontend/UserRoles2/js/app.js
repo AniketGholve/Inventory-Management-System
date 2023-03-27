@@ -81,6 +81,9 @@ app.controller("headerController", ($scope, $http, $location) => {
             break;
         case '/addNurse': $scope.activeTab = 'administrator';
             break;
+        case '/reports': $scope.activeTab = 'reports';
+            break;
+        
     }
     if (sessionStorage.getItem("username") != undefined) {
         $http({
@@ -241,6 +244,10 @@ app.config(function ($routeProvider, $httpProvider ) {
         .when('/administrator',
             {
                 templateUrl: "view/administrator.html"
+            })
+        .when('/reports',
+            {
+                templateUrl: "view/reports.html"
             });
 
     $httpProvider.interceptors.push('myInterceptor');
@@ -462,6 +469,30 @@ app.controller("clp", function ($scope, $http, $window, $location) {
         }
         return false;
     }
+    
+
+    $scope.reportName = (id) => {
+        sessionStorage.setItem("reportName", id);
+        if (sessionStorage.getItem("reportName") == "addPatient") {
+            $window.location.href = "#!/insertPatient";
+        }
+        else if (sessionStorage.getItem("reportName") == "addPhysician") {
+            $window.location.href = "#!addPhysician";    
+        }
+        else if (sessionStorage.getItem("reportName") == "addNurse") {
+            $window.location.href = "#!addNurse";    
+        }
+        else if (sessionStorage.getItem("reportName") == "orders") {
+            $window.location.href = "#!orders";    
+        }
+    }
+    $scope.reportLocation = () => {
+        let thePath = $location.path();
+        if (thePath === "/reports" ) {
+            return true;
+        }
+        return false;
+    }
     if (sessionStorage.getItem("locationId") != undefined || sessionStorage.getItem("locationId") != null) {
         $scope.id = sessionStorage.getItem("locationId");
         $scope.selectedDropdownTab = sessionStorage.getItem("screensName");
@@ -655,6 +686,9 @@ app.controller("clp", function ($scope, $http, $window, $location) {
         $scope.invetoryData = data;
         console.log($scope.invetoryData);
     };
+
+
+
 });
 
 app.controller("alp", ($scope, $http, $window) => {

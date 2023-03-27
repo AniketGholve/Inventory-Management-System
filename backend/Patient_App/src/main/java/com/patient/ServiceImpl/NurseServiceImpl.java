@@ -57,7 +57,7 @@ public class NurseServiceImpl implements NurseService {
 	@Override
 	public List<Nurse> getAllNurseByLocId(int locationId) {
 		// TODO Auto-generated method stub
-		Query q= entityManager.createNativeQuery("select n from Nurse n where location_id=?");
+		Query q= entityManager.createNativeQuery("select n from Nurse n where n.location_id=?");
 		q.setParameter(1, locationId);
 		List<Nurse> list = q.getResultList();
 		return list;

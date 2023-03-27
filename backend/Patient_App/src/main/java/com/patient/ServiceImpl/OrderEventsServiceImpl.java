@@ -3,12 +3,16 @@ package com.patient.ServiceImpl;
 import java.sql.Date;
 import java.text.Format;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import com.patient.Entity.ClinicOrder;
@@ -20,7 +24,9 @@ import com.patient.Service.OrderEventsService;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
-
+import jakarta.persistence.TypedQuery;
+import jakarta.transaction.Transactional;
+@EnableScheduling
 @Service
 public class OrderEventsServiceImpl implements OrderEventsService {
 
@@ -178,6 +184,34 @@ public class OrderEventsServiceImpl implements OrderEventsService {
 		}
 		return resultList;
 
+	}
+//		for(ClinicOrder c:clinicOrderList) {
+//
+//String d=c.getActivityDate();
+//
+//LocalDateTime dateTime = LocalDateTime.parse(d);
+//
+//System.out.println(dateTime);
+//
+//System.out.println(dateTime.getHour());
+//
+//// LocalDateTime currdaDateTime=
+//
+// 
+//
+//}
+
+	@Override
+	@Transactional
+	@Scheduled(cron = "0 29 11 * * MON-FRI")
+	public void checkProcessedEvents() {
+		Date twoDaysAgo = new Date(System.currentTimeMillis()-(2*24*60*60*1000));
+		List<OrderEvents> ordersToCancel = orderEventsRepo.findByEventDescAndActivityDateBefore("Processed", twoDaysAgo);
+		System.out.print(twoDaysAgo);
+		for(OrderEvents event:ordersToCancel) {
+			event.setEventDesc("Cancelled");
+			orderEventsRepo.save(event);
+		}
 	}
 
 }
