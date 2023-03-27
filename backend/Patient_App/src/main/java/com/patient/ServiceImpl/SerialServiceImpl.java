@@ -105,6 +105,16 @@ public class SerialServiceImpl implements SerialService{
 		Query q2=entityManager.createQuery("");
 		return null;
 	}
+
+	@Override
+	public List<Serial> getSerialShipped(Integer locationId,Integer serialNo) {
+		// TODO Auto-generated method stub
+		Query q = entityManager.createNativeQuery("select s from serial where serail_no=? and location_id=?");
+		q.setParameter(1, serialNo);
+		q.setParameter(2, locationId);
+		List<Serial> list = q.getResultList();
+		return list;
+	}
 	
 	
 

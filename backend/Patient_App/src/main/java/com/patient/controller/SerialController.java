@@ -50,5 +50,13 @@ public class SerialController {
 		return s;
 		
 	}
+	
+	@GetMapping("/getSerialareShipped/{serialNo}/{locationId}")
+	public ResponseEntity<List<Serial>> getSerialareShipped(@PathVariable Integer serialNo,@PathVariable Integer locationId){
+		List<Serial> list = serialServiceImpl.getSerialShipped(locationId, serialNo);
+		return new ResponseEntity<List<Serial>>(list,HttpStatus.OK);
+		
+	}
+	
 
 }
