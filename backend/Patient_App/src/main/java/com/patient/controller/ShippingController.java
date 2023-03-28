@@ -38,7 +38,9 @@ public class ShippingController {
 	}
 	
 	@GetMapping("getShippingDataByShippingId/{shippingId}")
+	@Transactional
 	public ResponseEntity<Clinic> getShippingDataByShippingId(@PathVariable String shippingId){
+		System.out.println(shippingId);
 		Clinic result=shippingServiceImpl.getShippingDataByShippingId(shippingId);
 		return new ResponseEntity<Clinic>(result,HttpStatus.OK);
 	}
