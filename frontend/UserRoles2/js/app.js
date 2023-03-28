@@ -340,7 +340,21 @@ app.controller("clp", function ($scope, $http, $window, $location) {
         }
     
     $scope.serialDataFunction = () => {
+
         if ($scope.serialNumber != null) {
+            $http({
+                method: 'GET',
+                url: 'http://localhost:7890/getSerialBySerialNo/' + $scope.serialNumber+"/"+sessionStorage.getItem("locationId"),
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': sessionStorage.getItem("token")
+                }
+            }).then((response) => {
+                $scope.dispenseSerial
+
+            }),(error) => {
+                console.log(error);
+            };
             $http({
                 method: 'GET',
                 url: 'http://localhost:7890/getProductBySerialNo/' + $scope.serialNumber,
@@ -747,6 +761,24 @@ app.controller("clp", function ($scope, $http, $window, $location) {
         $scope.invetoryData = data;
         console.log($scope.invetoryData);
     };
+
+    $scope.inventoryStatusAvailable=()=>{
+        $scope.shippedSerialDetails;
+        $http({
+            method: 'POST',
+            url: 'http://localhost:7890/changeStatusAvailable/' +$scope.shippedSerialDetails.serialId +"/"+$scope.shippedSerialDetails.locationId, 
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': sessionStorage.getItem("token")
+            }
+        }).then((response) => {
+            alert("Status Changed Successfully");
+            $window.location.reload();
+           
+        }, (error) => {
+            console.log(error);
+        });
+    }
 
 
 

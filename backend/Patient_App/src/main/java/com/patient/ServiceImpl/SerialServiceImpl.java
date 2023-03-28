@@ -51,13 +51,13 @@ public class SerialServiceImpl implements SerialService{
 	}
 
 	@Override
-	public Serial getSerialBySerialId(Integer serialId, Integer locationId) {
+	public Serial getSerialBySerialId(Integer serialNo, Integer locationId) {
 		// TODO Auto-generated method stub
-		if(serialId==null || locationId==null) return null;
-		Query q=entityManager.createQuery("select s from Serial s where s.locationId=:u and s.serialStatus=:v and s.serialId=:w");
+		if(serialNo==null || locationId==null) return null;
+		Query q=entityManager.createQuery("select s from Serial s where s.locationId=:u and s.serialStatus=:v and s.serialNumber=:w");
 		q.setParameter("u", locationId);
-		q.setParameter("v", "Recieved");
-		q.setParameter("w", serialId);
+		q.setParameter("v", "Shipped");
+		q.setParameter("w", serialNo);
 		Serial s;
 		try {
 			 s=(Serial) q.getSingleResult();
@@ -78,7 +78,7 @@ public class SerialServiceImpl implements SerialService{
 		System.out.println(locationId);
 		Query q = entityManager.createQuery("update Serial set serialStatus=:a where serialStatus=:b AND serialId=:c");
 		q.setParameter("a", "Received");
-		q.setParameter("b", "Available");
+		q.setParameter("b", "Shipped");
 		q.setParameter("c", serialId);
 		q.executeUpdate();
 		
@@ -104,6 +104,26 @@ public class SerialServiceImpl implements SerialService{
 		// TODO Auto-generated method stub
 		Query q2=entityManager.createQuery("");
 		return null;
+	}
+
+	@Override
+	public Serial getSerialBySerialNo(Integer serialNo, Integer locationId) {
+		// TODO Auto-generated method stub
+		if(serialNo==null || locationId==null) return null;
+		Query q=entityManager.createQuery("select s from Serial s where s.locationId=:u and s.serialStatus=:v and s.serialNumber=:w");
+		q.setParameter("u", locationId);
+		q.setParameter("v", "Received");
+		q.setParameter("w", serialNo);
+		Serial s;
+		try {
+			 s=(Serial) q.getSingleResult();
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			return null;
+		}
+		return s;
+		
 	}
 	
 	

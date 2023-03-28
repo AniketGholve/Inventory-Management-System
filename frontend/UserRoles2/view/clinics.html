@@ -3,9 +3,11 @@
     <h1 class="list">Clinics</h1><br>
     <div class="text-center">
         <a class="btn btn-info" href="#!insertClinic">Add Patient</a>
+       
     </div>
     <div class="container">
         <div>
+            <a class="btn btn-primary p-2" style="float: right;" data-bs-toggle="modal" data-bs-target="#downloadfile" >Download</a>
             <div class="container d-flex justify-content-center mt-5">
                 <table class="table table-striped text-center">
                     <thead class="thead">
@@ -40,4 +42,24 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" id="downloadfile" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Serial Numbers</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body d-flex">
+                            <button class=" btn btn-info w-25 ">Excel</button>
+                            <button class="btn btn-danger w-25 mx-3">Pdf</button>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-info" data-bs-dismiss="modal">Download</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
 </div>

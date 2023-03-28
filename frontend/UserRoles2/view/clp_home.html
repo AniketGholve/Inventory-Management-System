@@ -116,12 +116,12 @@
         <div class="container mt-4">
             <div class="d-flex ">
             <h1>Quick Links</h1>
-             <button data-bs-toggle="modal" data-bs-target="#quickLinks" class=" btn btn-primary mx-5"> + Add QuickLinks</button>
+             <button data-bs-toggle="modal" data-bs-target="#quickLinks" class=" btn btn-primary mx-5"> + Add Quick Links</button>
             </div>
           
             <div class=" row row-cols-3 mt-5">
                 <span class="d-flex align-items-center bg-warning mx-3"ng-repeat="x in getLinksData"><a  href="{{x.url}}" class="btn btn-warning w-75 mx-5 my-2">{{x.title}}</a>  
-                    <i class="fa-regular fa-pen-to-square link-danger mx-3" data-bs-toggle="modal" data-bs-target="#editQuickLinks" ng-click="getQuickLinkData(x.id)"></i>
+                    <i class="fa-regular fa-pen-to-square link-danger mx-5" data-bs-toggle="modal" data-bs-target="#editQuickLinks" ng-click="getQuickLinkData(x.id)"></i>
                     <i class="fa-regular fa-circle-xmark link-danger " ng-click="deleteLinks(x.id)"></i></span>
             </div>
             <div class="modal fade" id="quickLinks" tabindex="-1" aria-labelledby="exampleModalLabel"
@@ -136,14 +136,14 @@
                             <form>
                                 <div class="form-group d-flex justify-content-between">
                                     <label for="recipient-name" class="col-form-label">Link Name:</label>
-                                    <input type="text" class="" style="height: 50px; width: 82%;"  id="recipient-name"  ng-model="linkData.title">
+                                    <input type="text" class="text-center" style="height: 50px; width: 82%;"  id="recipient-name"  ng-model="linkData.title">
                                 </div>
                                 <div class="form-group mt-3 d-flex justify-content-between">
                                     <label for="dropdownTab" class="text-dark mx-1">
                                         Link:
                                     </label>
                                     <select class="" style="height: 50px; width: 82%;" ng-model="linkData.url">
-                                        <option label="Select a Link" class="d-none"></option>
+                                        <option label="Select a Link" class="d-none "></option>
                                         <option class="text-center" value="#!insertPatient">Add Patient</option>
                                         <option class="text-center" value="#!orders">Ordering</option>
                                         <option class="text-center" value="#!addPhysician">Add Physician</option>
@@ -154,7 +154,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary" ng-click="saveLinks()" data-bs-dismiss="modal">Save</button>
+                            <button type="button" class="btn btn-success" ng-click="saveLinks()" data-bs-dismiss="modal">Save</button>
                         </div>
 
                     </div>
@@ -162,7 +162,7 @@
             </div>
               <div class="modal fade" id="editQuickLinks" tabindex="-1" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
-                <div class="modal-dialog w-25">
+                <div class="modal-dialog w-50">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="exampleModalLabel">Quick Links</h5>
@@ -170,15 +170,15 @@
                         </div>
                         <div class="modal-body">
                             <form>
-                                <div class="form-group d-flex">
+                                <div class="form-group d-flex justify-content-between">
                                     <label for="recipient-name" class="col-form-label">Link Name :</label>
-                                    <input type="text" class="form-control w-" id="recipient-name"  ng-model="updateLinkData.title">
+                                    <input type="text" class="text-center " style="height: 50px; width: 82%;"  id="recipient-name"ng-model="updateLinkData.title">
                                 </div>
-                                <div class="form-group mt-3">
+                                <div class="form-group mt-3 d-flex justify-content-between">
                                     <label for="dropdownTab" class="text-dark mx-1">
-                                        <h5>Link :</h5>
+                                       Link :
                                     </label>
-                                    <select class="" ng-model="updateLinkData.url">
+                                    <select class="" style="height: 50px; width: 82%; "ng-model="updateLinkData.url">
                                         <option label="Select a Link" class="d-none"></option>
                                         <option class="text-center" value="#!insertPatient">Add Patient</option>
                                         <option class="text-center" value="#!orders">Ordering</option>
@@ -190,7 +190,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close </button>
-                            <button type="button" class="btn btn-primary" ng-click="updateLinks()" data-bs-dismiss="modal">Update</button>
+                            <button type="button" class="btn btn-success" ng-click="updateLinks()" data-bs-dismiss="modal">Update</button>
                         </div>
 
                     </div>
