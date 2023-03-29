@@ -127,6 +127,7 @@ public class ClinicServiceImpl implements ClinicService {
 			c.setzipcode((String)o[41]);
 			c.setLastOrderDate((Timestamp)o[42]);
 			c.setLastDispence((Timestamp)o[43]);
+			
 			resultList.add(c);
 		}
 		 

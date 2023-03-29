@@ -6,7 +6,8 @@ public interface ProductService {
 	
 	public Product createProduct(Product product) throws Exception;
 	
-	public Product getDoseName(Integer productId);
+	public Product getDoseName(Integer productId , Integer serialNo);
+	
 
 
 }

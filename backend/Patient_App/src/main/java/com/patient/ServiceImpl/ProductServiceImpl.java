@@ -29,11 +29,12 @@ public class ProductServiceImpl {
 		return productRepo.save(product);
 	}
 	
-	public Product getDoseName(Integer productId) {
+	public Product getDoseName(Integer productId , Integer serialNumber) {
 		// TODO Auto-generated method stub
 		//Dose,Quantity,Status from quantity and event_desc from order_events
-		Query q1=entityManager.createQuery("select p.productId,p.active,p.createdOn,p.enterpriseId,p.gtin,p.manufacturer,p.modifiedOn,p.ndc,p.packageType,p.productName,oe.quantity,oe.eventDesc from Product p inner join OrderEvents oe on oe.productId = p.productId where p.productId=:a");
+		Query q1=entityManager.createQuery("select p.productId,p.active,p.createdOn,p.enterpriseId,p.gtin,p.manufacturer,p.modifiedOn,p.ndc,p.packageType,p.productName,oe.quantity,oe.eventDesc from Product p inner join OrderEvents oe on oe.productId = p.productId inner join Serial s on s.productId = oe.productId where p.productId=:a and s.serialNumber=:b");
 		q1.setParameter("a",productId);
+		q1.setParameter("b", serialNumber);
 		List<Object[]> l = q1.getResultList();
 		Product p = new Product();
 		for(Object[] o:l) {

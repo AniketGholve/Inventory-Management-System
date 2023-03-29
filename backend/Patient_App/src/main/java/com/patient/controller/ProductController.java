@@ -28,10 +28,10 @@ public class ProductController {
 		return new ResponseEntity<Product>(createdProduct,HttpStatus.OK);
 	}
 	
-	@GetMapping("/getDoseName/{productId}")
-	public Product getDoseName(@PathVariable int productId)
+	@GetMapping("/getDoseName/{productId}/{serialNo}")
+	public Product getDoseName(@PathVariable("productId") int productId,@PathVariable("serialNo") int serialNo)
 	{
-		Product p = productServiceImpl.getDoseName(productId);
+		Product p = productServiceImpl.getDoseName(productId,serialNo);
 		return p;
 	}
 

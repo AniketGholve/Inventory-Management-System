@@ -41,9 +41,10 @@ public class DispenceToPatientServiceImpl implements DispenceToPatientService{
 	public Serial getProductBySerialNo(Integer serialNo) {
 		// TODO Auto-generated method stub
 		if(serialNo==null)return null;
-		Query q=entityManager.createQuery("select s from Serial s where s.serialNumber=:u and s.serialStatus=:v");
+		Query q=entityManager.createQuery("select s from Serial s where s.serialNumber=:u and s.serialStatus IN (:v,:y) ");
 		q.setParameter("u", serialNo);
 		q.setParameter("v", "Available");
+		q.setParameter("y", "Received");
 		Serial s;
 		try {
 			 s=(Serial) q.getSingleResult();
