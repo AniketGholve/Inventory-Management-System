@@ -1,6 +1,7 @@
 package com.patient.controller;
 
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -26,6 +27,7 @@ import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+import com.patient.Entity.DisplayClinic;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -39,45 +41,71 @@ public class DownloadController {
 	@PersistenceContext
 	private EntityManager entityManager;
 	
+	@Autowired
+	private DisplayClinic displayClinic;
+	
 	@GetMapping(value = "/excel", produces = "application/vnd.ms-excel")
 	public ResponseEntity<byte[]> downloadExcel() throws IOException{
 		
-		List<Object[]> rows = entityManager.createNativeQuery("select * from Clinic").getResultList();
+		 
+		Query q = entityManager.createQuery("select c.country,c.name,c.phone,c.city,c.state,c.zipcode,DATE_FORMAT(max(co.orderDatetime),'%Y-%m-%d %T.%f') as lastOrderDate,DATE_FORMAT(max(dp.createdOn),'%Y-%m-%d %T.%f') as lastDispense from Clinic c inner join ClinicOrder co on c.locationId=co.locationId inner join DispenseToPatient dp on dp.locationId=co.locationId where c.deleted=:u and c.active=:v group by c.locationId");
+		q.setParameter("u", false);
+		q.setParameter("v", true);
+		List<Object[]> rows = q.getResultList();
 		System.out.println(Arrays.toString(rows.get(0)));
 		
-		Query q = entityManager.createNativeQuery("desc clinic");
-		List<Object[]> col = q.getResultList();
+		
+//		List<DisplayClinic> list = 
+//		Query q = entityManager.createNativeQuery("desc clinic");
+//		List<Object[]> col = q.getResultList();
 		
 		Workbook workbook = new XSSFWorkbook();
 		Sheet sheet = workbook.createSheet("ListOfClinics");
 		
 		//create header row
 		Row header = sheet.createRow(0);
-		int colNum = 0;
-		for(Object[] column : col) {
-	
-			System.out.println((String)column[0]);
-			Cell cell = header.createCell(colNum);
-			colNum++;
-			cell.setCellValue((String) column[0]);
-			
-		}
+		
+		Cell cell = header.createCell(0);
+		cell.setCellValue("Territory");
+		Cell cell1 = header.createCell(1);
+		cell1.setCellValue("clinicName");
+		Cell cell2 = header.createCell(2);
+		cell2.setCellValue("clinicNumber");
+		Cell cell3 = header.createCell(3);
+		cell3.setCellValue("city");
+		Cell cell4 = header.createCell(4);
+		cell4.setCellValue("state");
+		Cell cell5 = header.createCell(5);
+		cell5.setCellValue("zipcode");
+//		Cell cell6 = header.createCell(6);
+//		cell6.setCellValue("Facility Count");
+		Cell cell7 = header.createCell(6);
+		cell7.setCellValue("lastOrderDate");
+		Cell cell8 = header.createCell(7);
+		cell8.setCellValue("lastDispense");
+		
+//		int colNum = 0;
+//		for(Object[] column : col) {
+//	
+//			System.out.println((String)column[0]);
+//			Cell cell = header.createCell(colNum);
+//			colNum++;
+//			cell.setCellValue((String) column[0]);
+//			
+//		}
 		
 		//create Data rows
 		int rowNum = 1;
 		for(Object[] row:rows) {
 			Row dataRow = sheet.createRow(rowNum++);
-			colNum =0;
+			int colNum =0;
 			for(Object value:row) {
-				Cell cell = dataRow.createCell(colNum++);
+				Cell cells = dataRow.createCell(colNum++);
 				if(value instanceof String) {
-					cell.setCellValue((String)value);
+					cells.setCellValue((String)value);
 				}
 				else if(value instanceof Integer) {
-					cell.setCellValue((Integer)value);
-				}
-				else if(value instanceof Date) {
-					cell.setCellValue((Date)value);
+					cells.setCellValue((Integer)value);
 				}
 			}
 		}
@@ -93,10 +121,12 @@ public class DownloadController {
 	@GetMapping(value = "/pdf", produces = "application/pdf")
 	public ResponseEntity<byte[]> downloadPdf() throws IOException, DocumentException {
 	
-	List<Object[]> rows = entityManager.createNativeQuery("SELECT * FROM clinic").getResultList();
+		Query q = entityManager.createQuery("select c.country,c.name,c.phone,c.city,c.state,c.zipcode,max(co.orderDatetime) as lastOrderDate,max(dp.createdOn) as lastDispense from Clinic c inner join ClinicOrder co on c.locationId=co.locationId inner join DispenseToPatient dp on dp.locationId=co.locationId where c.deleted=:u and c.active=:v group by c.locationId");
+		q.setParameter("u", false);
+		q.setParameter("v", true);
+		List<Object[]> rows = q.getResultList();
+		System.out.println(Arrays.toString(rows.get(0)));
 	
-	Query q = entityManager.createNativeQuery("desc clinic");
-	List<Object[]> col = q.getResultList();
 	
 	Document document = new Document();
 	ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -105,15 +135,32 @@ public class DownloadController {
 	document.open();
 
 	// Create table
-	PdfPTable table = new PdfPTable(rows.get(0).length);
-	for (Object[] column : col) {
-			PdfPCell cell = new PdfPCell(new Phrase((String) column[0]));
-			table.addCell(cell);	
-		}
+	PdfPTable table = new PdfPTable(8);
+	PdfPCell cell0 = new PdfPCell(new Phrase("Territory"));
+	table.addCell(cell0);
+	PdfPCell cell1 = new PdfPCell(new Phrase("clinicName"));
+	table.addCell(cell1);
+	PdfPCell cell2 = new PdfPCell(new Phrase("clinicNumber"));
+	table.addCell(cell2);
+	PdfPCell cell3 = new PdfPCell(new Phrase("city"));
+	table.addCell(cell3);
+	PdfPCell cell4 = new PdfPCell(new Phrase("state"));
+	table.addCell(cell4);
+	PdfPCell cell5 = new PdfPCell(new Phrase("zipcode"));
+	table.addCell(cell5);
+	PdfPCell cell6 = new PdfPCell(new Phrase("lastOrderDate"));
+	table.addCell(cell6);
+	PdfPCell cell7 = new PdfPCell(new Phrase("lastDispense"));
+	table.addCell(cell7);
+//	table.addCell(cell);
+//	for (Object[] column : col) {
+//			PdfPCell cell = new PdfPCell(new Phrase((String) column[0]));
+//			table.addCell(cell);	
+//		}
 	for (Object[] row : rows) {
 		for (Object value : row) {
-			PdfPCell cell = new PdfPCell(new Phrase(String.valueOf(value)));
-			table.addCell(cell);
+			PdfPCell cells = new PdfPCell(new Phrase(String.valueOf(value)));
+			table.addCell(cells);
 		}
 	}
 
