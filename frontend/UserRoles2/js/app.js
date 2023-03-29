@@ -872,6 +872,7 @@ app.controller("alp", ($scope, $http, $window) => {
             console.log(error);
         });
     }
+
 });
 app.controller("shipping", ($scope, $http, $window) => {
     $scope.clinicShipToName;

@@ -107,6 +107,7 @@ public class SerialServiceImpl implements SerialService{
 	}
 
 	@Override
+
 	public Serial getSerialBySerialNo(Integer serialNo, Integer locationId) {
 		// TODO Auto-generated method stub
 		if(serialNo==null || locationId==null) return null;
@@ -123,7 +124,16 @@ public class SerialServiceImpl implements SerialService{
 			return null;
 		}
 		return s;
-		
+	}
+
+	public List<Serial> getSerialShipped(Integer locationId,Integer serialNo) {
+		// TODO Auto-generated method stub
+		Query q = entityManager.createNativeQuery("select s from serial where serail_no=? and location_id=?");
+		q.setParameter(1, serialNo);
+		q.setParameter(2, locationId);
+		List<Serial> list = q.getResultList();
+		return list;
+
 	}
 	
 	

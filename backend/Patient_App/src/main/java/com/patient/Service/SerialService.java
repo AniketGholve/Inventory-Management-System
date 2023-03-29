@@ -23,4 +23,6 @@ public interface SerialService {
 	public Product getDoseName(Integer productId);
 	
 	public OrderEvents getQuantity(Integer productId,Integer locationId);
+	
+	public List<Serial> getSerialShipped(Integer locationId,Integer serialNo);
 }

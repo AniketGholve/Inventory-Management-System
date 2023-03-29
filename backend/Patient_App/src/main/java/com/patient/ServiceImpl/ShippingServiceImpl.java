@@ -81,7 +81,7 @@ public class ShippingServiceImpl implements ShippingService {
 			// TODO: handle exception
 			return null;
 		}
-		
+		System.out.println(clinic);
 		return clinic;
 	}
 
