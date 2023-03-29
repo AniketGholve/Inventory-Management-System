@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,6 +26,13 @@ public class ProductController {
 	{
 		Product createdProduct=productServiceImpl.createProduct(product);
 		return new ResponseEntity<Product>(createdProduct,HttpStatus.OK);
+	}
+	
+	@GetMapping("/getDoseName/{productId}")
+	public Product getDoseName(@PathVariable int productId)
+	{
+		Product p = productServiceImpl.getDoseName(productId);
+		return p;
 	}
 
 }

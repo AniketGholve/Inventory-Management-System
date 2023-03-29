@@ -20,6 +20,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
+
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
@@ -82,5 +89,41 @@ public class DownloadController {
 		return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=clinic.xlsx").body(baos.toByteArray());
 		
 	}
+	
+	@GetMapping(value = "/pdf", produces = "application/pdf")
+	public ResponseEntity<byte[]> downloadPdf() throws IOException, DocumentException {
+	
+	List<Object[]> rows = entityManager.createNativeQuery("SELECT * FROM clinic").getResultList();
+	
+	Query q = entityManager.createNativeQuery("desc clinic");
+	List<Object[]> col = q.getResultList();
+	
+	Document document = new Document();
+	ByteArrayOutputStream baos = new ByteArrayOutputStream();
+	PdfWriter.getInstance(document, baos);
+
+	document.open();
+
+	// Create table
+	PdfPTable table = new PdfPTable(rows.get(0).length);
+	for (Object[] column : col) {
+			PdfPCell cell = new PdfPCell(new Phrase((String) column[0]));
+			table.addCell(cell);	
+		}
+	for (Object[] row : rows) {
+		for (Object value : row) {
+			PdfPCell cell = new PdfPCell(new Phrase(String.valueOf(value)));
+			table.addCell(cell);
+		}
+	}
+
+	document.add(table);
+	document.close();
+
+	return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=clinics.pdf")
+	.body(baos.toByteArray());
+	}
+	
+	
 	
 }

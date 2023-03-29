@@ -19,8 +19,8 @@
                             <th>State</th>
                             <th>Zipcode</th>
                             <th>Facility Count</th>
-                            <th>Order</th>
-                            <th>Inventory</th>
+                            <th>Last Order</th>
+                            <th>Last Dispense</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -42,17 +42,16 @@
             </div>
         </div>
     </div>
-    <div class="modal fade" id="downloadfile" tabindex="-1" aria-labelledby="exampleModalLabel"
+    <div class="modal fade " id="downloadfile" tabindex="-1" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Serial Numbers</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <div class="modal-body d-flex">
-                            <a class=" btn btn-info w-25 " href="http://localhost:7890/download/excel">Excel</a>
-                            <a class="btn btn-danger w-25 mx-3" href="http://localhost:7890/download/pdf" >Pdf</a>
+                        <div class="modal-body d-flex justify-content-center">
+                            <a class="btn btn-info w-25 text-center " href="http://localhost:7890/download/excel">Excel</a>
+                            <a class="btn btn-danger w-25 mx-3 text-center" href="http://localhost:7890/download/pdf" >Pdf</a>
                         </div>
                         
                     </div>

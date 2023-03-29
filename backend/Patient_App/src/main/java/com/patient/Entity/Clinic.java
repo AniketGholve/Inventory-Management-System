@@ -1,12 +1,18 @@
 package com.patient.Entity;
 
 import java.sql.Date;
+import java.sql.Timestamp;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
+import jakarta.persistence.Transient;
 
 @Entity
 public class Clinic {
@@ -98,6 +104,28 @@ public class Clinic {
 	private Boolean deleted;
 	@Column(name = "src_id")
 	private Integer src_id;
+	@Transient
+	@Temporal(TemporalType.TIMESTAMP)
+	private Timestamp lastOrderDate;
+	@Transient
+	@Temporal(TemporalType.TIMESTAMP)
+	private Timestamp lastDispence;
+	
+	
+	
+	
+	public Timestamp getLastOrderDate() {
+		return lastOrderDate;
+	}
+	public void setLastOrderDate(Timestamp lastOrderDate) {
+		this.lastOrderDate = lastOrderDate;
+	}
+	public Timestamp getLastDispence() {
+		return lastDispence;
+	}
+	public void setLastDispence(Timestamp lastDispence) {
+		this.lastDispence = lastDispence;
+	}
 	public Integer getLocationId() {
 		return locationId;
 	}
@@ -350,6 +378,7 @@ public class Clinic {
 	public void setSrc_id(Integer src_id) {
 		this.src_id = src_id;
 	}
+	
 	public Clinic(Integer locationId, Integer enterpriseId, String name, String locTypeId, String customerNumber,
 			String email, String addrLine1, String addrLine2, String city, String state, String stateCode,
 			String country, String fax, String phone, String zipcode, String billTo, String shipTo, String billToName,
@@ -357,7 +386,8 @@ public class Clinic {
 			String orderPoNumber, String forecastMeu, String timeZone, String shipmentMethod, String createdBy,
 			String modifiedBy, Date createdOn, Date modifiedOn, String ehrEnabled, String ediEnabled,
 			String beepEnabled, Boolean active, String salesRep1, String salesRep2, String divisionManager,
-			String regionalManager, String overrideRep, Boolean deleted, Integer src_id) {
+			String regionalManager, String overrideRep, Boolean deleted, Integer src_id, Timestamp lastOrderDate,
+			Timestamp lastDispence) {
 		super();
 		this.locationId = locationId;
 		this.enterpriseId = enterpriseId;
@@ -401,6 +431,8 @@ public class Clinic {
 		this.overrideRep = overrideRep;
 		this.deleted = deleted;
 		this.src_id = src_id;
+		this.lastOrderDate = lastOrderDate;
+		this.lastDispence = lastDispence;
 	}
 	@Override
 	public String toString() {
