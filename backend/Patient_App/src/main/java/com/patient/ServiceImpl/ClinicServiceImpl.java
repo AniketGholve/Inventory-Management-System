@@ -1,10 +1,12 @@
 package com.patient.ServiceImpl;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Service;
 
 import com.patient.Entity.Clinic;
@@ -70,7 +72,7 @@ public class ClinicServiceImpl implements ClinicService {
 	@Override
 	public List<Clinic> getAllClinic() {
 		// TODO Auto-generated method stub
-		Query q=entityManager.createNativeQuery("select * from clinic where deleted=? and active=?");
+		Query q=entityManager.createNativeQuery("select c.location_id,c.account_notes,c.account_status,c.active,c.addr_line_1,c.addr_line_2,c.beep_enabled,c.bill_to,c.bill_to_name,c.city,c.contract_pricing,c.country,c.created_by,c.created_on,c.customer_number,c.deleted,c.division_manager,c.edi_enabled,c.ehr_enabled,c.email,c.enterprise_id,c.fax,c.forecast_meu,c.gln,c.loc_type_id,c.modified_by,c.modified_on,c.name,c.order_po_number,c.override_rep,c.phone,c.regional_manager,c.sales_rep1,c.sales_rep2,c.ship_to,c.ship_to_name,c.shipment_method,c.src_id,c.state,c.state_code,c.timezone,c.zipcode,max(STR_TO_DATE(co.activity_date,'%Y-%m-%dT%H:%i:%s.%f')) as lastOrderDate,max(str_to_date(dp.created_on,'%Y-%m-%dT%H:%i:%s.%f')) as lastDispense from clinic c inner join clinic_order co on c.location_id=co.location_id inner join dispense_to_patient dp on dp.location_id=co.location_id where c.deleted=? and c.active=? group by c.location_id");
 		q.setParameter(1, 0);
 		q.setParameter(2, 1);
 		List<Object[]> l=q.getResultList();
@@ -123,6 +125,8 @@ public class ClinicServiceImpl implements ClinicService {
 			c.setStateCode((String)o[39]);
 			c.setTimeZone((String)o[40]);
 			c.setzipcode((String)o[41]);
+			c.setLastOrderDate((Timestamp)o[42]);
+			c.setLastDispence((Timestamp)o[43]);
 			resultList.add(c);
 		}
 		 

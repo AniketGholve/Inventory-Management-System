@@ -91,15 +91,6 @@ public class SerialServiceImpl implements SerialService{
 	}
 
 	@Override
-	public Product getDoseName(Integer productId) {
-		// TODO Auto-generated method stub
-		Query q1=entityManager.createQuery("select p from product p where p.productId=:a");
-		q1.setParameter("a",productId);
-		Product p = (Product)q1.getResultList();
-		return p;
-	}
-
-	@Override
 	public OrderEvents getQuantity(Integer productId, Integer locationId) {
 		// TODO Auto-generated method stub
 		Query q2=entityManager.createQuery("");

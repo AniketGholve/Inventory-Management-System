@@ -58,7 +58,9 @@ public class DispenceToPatientServiceImpl implements DispenceToPatientService{
 
 	@Override
 	public DispenseToPatient createDispence(DispenseToPatient dispenceToPatient) {
-		DispenseToPatient d = dispenseRepo.save(dispenceToPatient);
+		Date date = new Date(System.currentTimeMillis());
+		dispenceToPatient.setCreatedOn(date);
+		DispenseToPatient d = dispenseRepo.save(dispenceToPatient);	
 		return d;
 	}
 	

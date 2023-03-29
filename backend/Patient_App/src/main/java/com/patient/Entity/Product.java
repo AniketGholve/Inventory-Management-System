@@ -7,6 +7,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Transient;
 
 @Entity
 public class Product {
@@ -34,9 +35,24 @@ public class Product {
 	private Date modifiedOn;
 	@Column(name="gtin")
 	private String gtin;
+	@Transient
+	private Integer quantity;
+	@Transient
+	private String Status;
 	
 	
-	
+	public Integer getQuantity() {
+		return quantity;
+	}
+	public void setQuantity(Integer quantity) {
+		this.quantity = quantity;
+	}
+	public String getStatus() {
+		return Status;
+	}
+	public void setStatus(String status) {
+		Status = status;
+	}
 	public Integer getProductId() {
 		return productId;
 	}
@@ -97,8 +113,10 @@ public class Product {
 	public void setGtin(String gtin) {
 		this.gtin = gtin;
 	}
+	
 	public Product(Integer productId, String productName, Integer enterpriseId, Boolean active, Integer ndc,
-			String packageType, String manufacturer, Date createdOn, Date modifiedOn, String gtin) {
+			String packageType, String manufacturer, Date createdOn, Date modifiedOn, String gtin, Integer quantity,
+			String status) {
 		super();
 		this.productId = productId;
 		this.productName = productName;
@@ -110,6 +128,8 @@ public class Product {
 		this.createdOn = createdOn;
 		this.modifiedOn = modifiedOn;
 		this.gtin = gtin;
+		this.quantity = quantity;
+		Status = status;
 	}
 	public Product() {
 		super();
