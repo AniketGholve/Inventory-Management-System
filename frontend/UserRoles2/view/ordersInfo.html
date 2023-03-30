@@ -1,6 +1,6 @@
 <div ng-controller="alp">
     <div ng-include="'view/header.html'"></div>
-    <h1 class="text-center">Orders</h1><br>
+    <h1 class="text-center mt-3">Orders</h1>
     <div class="container">
         <div class="container d-flex justify-content-center mt-5">
             <table class="table table-striped text-center">
@@ -12,9 +12,9 @@
                         <th>Ship-to-ID</th>
                         <th>Bill-to Name</th>
                         <th>Status</th>
-                        <th class="bg-juniper">vicks</th>
+                        <th class="bg-juniper">Itone</th>
                         <th class="bg-juniper">Flexon</th>
-                        <th class="bg-juniper">itone eye drop</th>
+                        <th class="bg-juniper">Cosmelite Cream</th>
                         <th class="bg-juniper">Dose</th>
                         <th>Process</th>
                         <th>View Inventory</th>
@@ -30,15 +30,10 @@
                         <td class="p-3">{{x.shiptoId}}</td>
                         <td class="p-3">{{x.shiptoName}}</td>
                         <td class="p-3">{{x.eventDesc}}</td>
-                        <td class="p-3 bg-salt">{{x.quantityMap['vicks']}}</td>
-                        <td class="p-3 bg-salt">{{x.quantityMap.flexon}}</td>
-<<<<<<< HEAD
-                        <td class="p-3 bg-salt">{{x.quantityMap['itone eye drop']}}</td>
-                        <td class="p-3 bg-salt">{{x.quantityMap['vicks'] +x.quantityMap.flexon+x.quantityMap['itone eye drop'] }}</td>
-=======
-                        <td class="p-3 bg-salt">{{x.quantityMap['cosmelite cream']}}</td>
-                        <td class="p-3 bg-salt">{{x.quantityMap['itone'] +x.quantityMap.flexon+x.quantityMap['Cosmelite Cream'] }}</td>
->>>>>>> f9d74a57bae7d06cc1351858e1d604b224a86bab
+                        <td class="p-3 bg-salt">{{x.quantityMap['Itone']}}</td>
+                        <td class="p-3 bg-salt">{{x.quantityMap.Flexon}}</td>
+                        <td class="p-3 bg-salt">{{x.quantityMap['Cosemelite']}}</td>
+                        <td class="p-3 bg-salt">{{x.quantityMap['Itone'] +x.quantityMap.Flexon+x.quantityMap['Cosemelite'] }}</td>
                         <td class="p-3"><a href="" class="btn" ng-class="{'disabled':x.eventDesc!='Submitted'}"><i class="fa-regular fa-circle-check link-danger"
                                     ng-click="changeOrderStatus(x.displayId)"></i></a></td>
                         <td class="p-4"><a data-bs-toggle="modal" data-bs-target="#orderInventoryData"><i class="fa-sharp fa-solid fa-box link-danger"

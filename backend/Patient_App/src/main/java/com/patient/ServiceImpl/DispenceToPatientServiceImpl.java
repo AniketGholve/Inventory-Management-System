@@ -41,9 +41,10 @@ public class DispenceToPatientServiceImpl implements DispenceToPatientService{
 	public Serial getProductBySerialNo(Integer serialNo) {
 		// TODO Auto-generated method stub
 		if(serialNo==null)return null;
-		Query q=entityManager.createQuery("select s from Serial s where s.serialNumber=:u and s.serialStatus=:v");
+		Query q=entityManager.createQuery("select s from Serial s where s.serialNumber=:u and s.serialStatus IN (:v,:y) ");
 		q.setParameter("u", serialNo);
 		q.setParameter("v", "Available");
+		q.setParameter("y", "Received");
 		Serial s;
 		try {
 			 s=(Serial) q.getSingleResult();
@@ -58,7 +59,9 @@ public class DispenceToPatientServiceImpl implements DispenceToPatientService{
 
 	@Override
 	public DispenseToPatient createDispence(DispenseToPatient dispenceToPatient) {
-		DispenseToPatient d = dispenseRepo.save(dispenceToPatient);
+		Date date = new Date(System.currentTimeMillis());
+		dispenceToPatient.setCreatedOn(date);
+		DispenseToPatient d = dispenseRepo.save(dispenceToPatient);	
 		return d;
 	}
 	
@@ -88,6 +91,7 @@ public class DispenceToPatientServiceImpl implements DispenceToPatientService{
 		dispenseToPatient.setExpType(null);
 		dispenseToPatient.setPatientId(Id);
 //		dispenseToPatient.setId(p);
+
 		dispenseToPatient.setInitial(null);
 		dispenseToPatient.setInjectionSite(injectionSite);
 		dispenseToPatient.setLocationId(locationId);

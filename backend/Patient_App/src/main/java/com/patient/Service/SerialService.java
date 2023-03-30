@@ -12,11 +12,19 @@ public interface SerialService {
 	
 	public List<Serial> getSerialByLocationId(Integer locationId);
 	
-	public Serial getSerialBySerialId(Integer serialId,Integer locationId);
+	public Serial getSerialBySerialId(Integer serialNo,Integer locationId);
+	
+	public Serial getSerialBySerialNo(Integer serialNo,Integer locationId);
+	
 	
 	public String changeSerialStatus(Integer serialId,Integer locationId);
 	
+
+	
 	public Product getDoseName(Integer productId);
 	
+
 	public OrderEvents getQuantity(Integer productId,Integer locationId);
+	
+	public List<Serial> getSerialShipped(Integer locationId,Integer serialNo);
 }

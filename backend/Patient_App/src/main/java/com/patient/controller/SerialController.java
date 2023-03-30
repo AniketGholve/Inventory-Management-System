@@ -38,17 +38,33 @@ public class SerialController {
 		return new ResponseEntity<List<Serial>>(result,HttpStatus.OK);
 	}
 	
-	@GetMapping("/getSerialBySerialId/{serialId}/{locationId}")
-	public ResponseEntity<Serial> getSerialBySerialId(@PathVariable Integer serialId,@PathVariable Integer locationId){
-		Serial result=serialServiceImpl.getSerialBySerialId(serialId,locationId);
+	@GetMapping("/getSerialBySerialId/{serialNo}/{locationId}")
+	public ResponseEntity<Serial> getSerialBySerialId(@PathVariable Integer serialNo,@PathVariable Integer locationId){
+		Serial result=serialServiceImpl.getSerialBySerialId(serialNo,locationId);
 		return new ResponseEntity<Serial>(result,HttpStatus.OK);
 	}
 	
-	@PostMapping("/changeStatus/{serialId}/{locationId}")
+	@GetMapping("/getSerialBySerialNo/{serialNo}/{locationId}")
+	public ResponseEntity<Serial> getSerialBySerialNo(@PathVariable Integer serialNo,@PathVariable Integer locationId){
+		Serial result=serialServiceImpl.getSerialBySerialNo(serialNo,locationId);
+		return new ResponseEntity<Serial>(result,HttpStatus.OK);
+	}
+	
+	@PostMapping("/changeStatusAvailable/{serialId}/{locationId}")
 	public String changeStatus(@PathVariable("serialId") int serialId,@PathVariable("locationId") int locationId) {
 		String s = serialServiceImpl.changeSerialStatus(serialId, locationId);
+		System.out.println("Hello Ship ");
 		return s;
 		
+		
 	}
+	
+	@GetMapping("/getSerialareShipped/{serialNo}/{locationId}")
+	public ResponseEntity<List<Serial>> getSerialareShipped(@PathVariable Integer serialNo,@PathVariable Integer locationId){
+		List<Serial> list = serialServiceImpl.getSerialShipped(locationId, serialNo);
+		return new ResponseEntity<List<Serial>>(list,HttpStatus.OK);
+		
+	}
+	
 
 }
