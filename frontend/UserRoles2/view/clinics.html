@@ -8,10 +8,17 @@
     <div class="container">
         <div>
             <div class="d-grid " style="float: right;">
-                <a class="btn btn-primary p-2 mx-2 my-1 row" ng-click="downloadfiles()">Download</a>
+                <a class="btn btn-warning p-2 mx-2 my-1 row" onclick="downloadFunction()">Download</a>
 
-                
-                
+                <div id="downloadDropdown" class="downloadMenu">
+                    <a class="downloadMenuLink" href="">XLS</a>
+                    <hr class="hr1">
+                    
+                    <a class="downloadMenuLink" href="">PDF</a>
+                    </div>
+
+
+
 
                 <!-- <select ng-model="selectedOption" class="downloadclinics m-2 col-3" ng-class="{'d-none': closeDropDown == false }" ng-change="openUrl()">
                     <option value="">Select an option</option>
