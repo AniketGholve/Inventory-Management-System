@@ -189,7 +189,7 @@ public class OrderEventsServiceImpl implements OrderEventsService {
 
 	@Override
 	@Transactional
-	@Scheduled(cron = "0 29 11 * * MON-FRI")
+	@Scheduled(cron = "0 0 12 * * MON-FRI")
 	public void checkProcessedEvents() {
 		Date twoDaysAgo = new Date(System.currentTimeMillis()-(2*24*60*60*1000));
 		List<OrderEvents> ordersToCancel = orderEventsRepo.findByEventDescAndActivityDateBefore("Processed", twoDaysAgo);
