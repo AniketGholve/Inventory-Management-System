@@ -65,10 +65,17 @@ public class ProductServiceImpl implements ProductService{
 	}
 
 	@Override
-	public Product editProduct(Product product) {
+	public List<Product> editProduct(List<Product> products) {
 		// TODO Auto-generated method stub
-		Product p = productRepo.findById(product.getProductId()).orElseThrow();
-		p.setMinimumDays(product.getMinimumDays());
-		return p;
+		List<Product> list = productRepo.findAll();
+		int i=0;
+		int length =products.size();
+		for(Product p :list) {
+			if(i<length) {
+				p.setMinimumDays(products.get(i).getMinimumDays());
+				i=i+1;	
+			}	
+		}
+		return list;
 	}
 }

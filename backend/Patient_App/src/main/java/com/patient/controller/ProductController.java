@@ -45,8 +45,8 @@ public class ProductController {
 	}
 	
 	@PutMapping("/editProduct")
-	public Product editProduct(@RequestBody Product product) {
-		Product pr = productServiceImpl.editProduct(product);
+	public List<Product> editProduct(@RequestBody List<Product> products) {
+		List<Product> pr = productServiceImpl.editProduct(products);
 		return pr;
 	}
 
