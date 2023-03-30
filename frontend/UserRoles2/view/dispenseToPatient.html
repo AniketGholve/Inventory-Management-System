@@ -6,40 +6,39 @@
         <div class="container mt-3">
             <label for="">Serial Number:</label>
             <input type="number" list="serialList" class="dispense_input" placeholder="Serial Number"
-                ng-model="serialNumber" ng-change="git ()"></input>
+                ng-model="serialNumber" ng-change="serialDataFunction()"></input>
             <!-- <datalist id="serialList">
                 <option ng-repeat="x in clinicDropdownName">{{x.shipToName}}</option>
             </datalist> -->
             <div>
             <div class="shadow">
-                <table class="table  table striped text-center mt-5"ng-class="{'d-none':serialNumber==''||serialNumber==null}">
-                    <thead class="d-flex d">
-                        <tr class="d-flex">
-                            <th>Dose</th>
-                            <th>Quantity</th>
+                <table class="table  table striped text-center mt-5" ng-class="{'d-none':serialNumber==''||serialNumber==null}">
+                    <thead >
+                        <tr class="">
+                            <th class="col-2">Dose</th>
+                            <th class="col-2">Quantity</th>
                             <th class="col-3">Status</th>
-                            <th class="mx-5" ></th>
-                            <th>Close</th>
+                            <th class="col-3" ></th>
+                            <th class="col-2">Close</th>
 
                         </tr>
 
                     </thead>
-                    <tbody class="d-flex">
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td>{{serialData.productId}}</td>
-                            <td></td>
-                            <td><a class="text-danger text-decoration-none">Close</a></td>
+                    <tbody >
+                        <tr class="">
+                            <td class="col-2">{{serialDespense.productName}}</td>
+                            <td class="col-2">{{serialDespense.quantity}}</td>
+                            <td class="col-3">{{serialDespense.status}}</td>
+                            <td class="col-3"></td>
+                            <td class="col-2" ng-class="{'d-none':closedispenseTable == true }"><a class="text-danger text-decoration-none" ng-click="closeTable()" >Close</a></td>
+                            <td class="col-2" ng-class="{'d-none': closedispenseTable == false }"><a class="text-danger text-decoration-none" ng-click="viewTable()" >View</a></td>
                         </tr>
 
                     </tbody>
                 </table>
-
-
             </div >
             <div class="shadow">
-                <table class="table  table striped text-center mt-5" ng-class="{'d-none':serialNumber==''||serialNumber==null}">
+                <table class="table  table striped text-center " ng-class="{'d-none': serialNumber==''||serialNumber==null || closedispenseTable == true }">
                     <thead>
                         <tr>
                             <th>Serial Number</th>
@@ -50,9 +49,9 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td>{{serialDespense.productName}}</td>
+                            <td>{{serialDespense.productName}}</td>
+                            <td>{{serialDespense.productName}}</td>
                             <td><i class="fa-regular fa-circle-xmark link-danger "></i></td>
                         </tr>
                     </tbody>

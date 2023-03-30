@@ -121,6 +121,8 @@ body {
 }
 .hr {
   color: white;
+  margin-top: 5%;
+  margin-bottom: 5%;
 }
 
 .btn1 {
@@ -347,4 +349,14 @@ nav{
 .d{
   justify-self: center;
   align-items: center;
+}
+
+.downloadclinics{
+  background-color: rgb(228, 212, 74);
+  width: 200px;
+  font-size: 18px;
+}
+
+.editd{
+  border-radius: 2px solid black;
 }

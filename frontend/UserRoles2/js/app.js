@@ -338,8 +338,18 @@ app.controller("clp", function ($scope, $http, $window, $location) {
 
             })
         }
-    
+        $scope.closedispenseTable=false;
+        $scope.closeTable = () => {
+            $scope.closedispenseTable = true;
+        }
+
+        $scope.viewTable = () => {
+            $scope.closedispenseTable = false;
+
+
+        }
     $scope.serialDataFunction = () => {
+
 
         if ($scope.serialNumber != null) {
             $http({
@@ -355,6 +365,7 @@ app.controller("clp", function ($scope, $http, $window, $location) {
             }),(error) => {
                 console.log(error);
             };
+            
             $http({
                 method: 'GET',
                 url: 'http://localhost:7890/getProductBySerialNo/' + $scope.serialNumber,
@@ -365,10 +376,30 @@ app.controller("clp", function ($scope, $http, $window, $location) {
             }).then((response) => {
                 $scope.serialData = response.data;
                 console.log($scope.serialData)
+                console.log("demo")
                 $scope.dispance.productId = $scope.serialData.productId;
                 $scope.dispance.locationId = $scope.serialData.locationId;
                 $scope.dispance.enterpriseId = $scope.serialData.enterpriseId;
                 $scope.dispance.serialId = $scope.serialData.serialId;
+
+                if($scope.serialData.productId != null){
+                    
+                $http({
+                    method: 'GET',
+                    url: 'http://localhost:7890/getDoseName/'+$scope.serialData.productId +"/"+ $scope.serialNumber,
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': sessionStorage.getItem("token")
+                    }
+                }).then((response) => {
+                    
+                    $scope.serialDespense = response.data
+                    console.log(response.data)
+    
+                }),(error) => {
+                    console.log(error);
+                };
+            }
                 $http({
                     method: 'GET',
                     url: "http://localhost:7890/getAllPhysicians",
@@ -382,6 +413,8 @@ app.controller("clp", function ($scope, $http, $window, $location) {
                 }, (error) => {
                     console.log(error);
                 });
+
+
 
                 $http({
                     method: 'GET',
@@ -400,7 +433,9 @@ app.controller("clp", function ($scope, $http, $window, $location) {
             }, (error) => {
                 console.log(error)
             })
-        }
+
+            
+    }
     }
     $scope.dispanceValueSetter = (x) => {
         console.log(x);
@@ -799,6 +834,24 @@ app.controller("alp", ($scope, $http, $window) => {
     }, (error) => {
         console.log(error);
     });
+
+    $scope.closeDropDown=false;
+    $scope.downloadfiles = () => {
+        $scope.closeDropDown = true;
+    }
+
+    $scope.options = [
+        { label: 'XLS', value: 'option1', url: 'http://localhost:7890/download/excel' },
+        { label: 'PDF', value: 'option2', url: 'http://localhost:7890/download/pdf' },
+        
+      ];
+    $scope.selectedOption = '';
+      $scope.openUrl = function() {
+        const selectedOption = $scope.options.find(o => o.value === $scope.selectedOption);
+        if (selectedOption) {
+          window.open(selectedOption.url);
+        }
+      };
     $scope.deleteClinic = (id) => {
         console.log("delete");
         console.log(id);

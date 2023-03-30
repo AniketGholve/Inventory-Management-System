@@ -3,6 +3,7 @@ package com.patient.ServiceImpl;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,10 +13,10 @@ import com.patient.Repo.ProductRepo;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
-
+import com.patient.Service.ProductService;
 
 @Service
-public class ProductServiceImpl {
+public class ProductServiceImpl implements ProductService{
 	
 	@Autowired
 	private EntityManager entityManager;
@@ -29,11 +30,12 @@ public class ProductServiceImpl {
 		return productRepo.save(product);
 	}
 	
-	public Product getDoseName(Integer productId) {
+	public Product getDoseName(Integer productId , Integer serialNumber) {
 		// TODO Auto-generated method stub
 		//Dose,Quantity,Status from quantity and event_desc from order_events
-		Query q1=entityManager.createQuery("select p.productId,p.active,p.createdOn,p.enterpriseId,p.gtin,p.manufacturer,p.modifiedOn,p.ndc,p.packageType,p.productName,oe.quantity,oe.eventDesc from Product p inner join OrderEvents oe on oe.productId = p.productId where p.productId=:a");
+		Query q1=entityManager.createQuery("select p.productId,p.active,p.createdOn,p.enterpriseId,p.gtin,p.manufacturer,p.modifiedOn,p.ndc,p.packageType,p.productName,oe.quantity,oe.eventDesc from Product p inner join OrderEvents oe on oe.productId = p.productId inner join Serial s on s.productId = oe.productId where p.productId=:a and s.serialNumber=:b");
 		q1.setParameter("a",productId);
+		q1.setParameter("b", serialNumber);
 		List<Object[]> l = q1.getResultList();
 		Product p = new Product();
 		for(Object[] o:l) {
@@ -53,5 +55,20 @@ public class ProductServiceImpl {
 		productRepo.save(p);
 		return p;
 		
+	}
+
+	@Override
+	public List<Product> getAllProducts() {
+		// TODO Auto-generated method stub
+		List<Product> list = productRepo.findAll();
+		return list;
+	}
+
+	@Override
+	public Product editProduct(Product product) {
+		// TODO Auto-generated method stub
+		Product p = productRepo.findById(product.getProductId()).orElseThrow();
+		p.setMinimumDays(product.getMinimumDays());
+		return p;
 	}
 }
