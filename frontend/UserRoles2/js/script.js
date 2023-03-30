@@ -8,6 +8,16 @@ function userFunction() {
         x.style.display = "none";
     }
 }
+
+function downloadFunction() {
+    var x = document.getElementById("downloadDropdown");
+    console.log(x.style.display);
+    if (x.style.display == "none" || x.style.display == "") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+}
 app.controller("elp", function ($scope, $http) {
     
     $http({
