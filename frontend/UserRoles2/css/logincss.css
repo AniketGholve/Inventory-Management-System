@@ -363,24 +363,30 @@ nav{
 
 .downloadMenu{
   position: absolute;
-  background:  #f7f7f7;
+  background:  #eddbdb;
   bottom: 50%;
   width: 82px;
   padding: 20px;
-  margin: 10px;
   margin: 12px 0;
   place-items: center;
   font-family: "Poppins", sans-serif;
   letter-spacing: 5px;
-  border-radius: 3px  black;
+  border-radius: 5px;
  
 }
 .downloadMenuLink{
   color: rgb(223, 48, 48);
-  font-weight: 500;
+  
   text-decoration: none;
+  text-align: center;
 
 }
 .hr1{
   color:  rgb(223, 48, 48);
+  margin-top: 15%;
+  margin-bottom: 15%;
+}
+.tableEdit{
+  width: 25px;
+  float: right;
 }
