@@ -352,8 +352,11 @@ nav{
 }
 
 .downloadclinics{
-  background-color: rgb(209, 190, 190);
+  background-color: rgb(228, 212, 74);
   width: 200px;
   font-size: 18px;
+}
 
+.editd{
+  border-radius: 2px solid black;
 }
