@@ -3,6 +3,7 @@ package com.patient.ServiceImpl;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,10 +13,10 @@ import com.patient.Repo.ProductRepo;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
-
+import com.patient.Service.ProductService;
 
 @Service
-public class ProductServiceImpl {
+public class ProductServiceImpl implements ProductService{
 	
 	@Autowired
 	private EntityManager entityManager;
@@ -54,5 +55,20 @@ public class ProductServiceImpl {
 		productRepo.save(p);
 		return p;
 		
+	}
+
+	@Override
+	public List<Product> getAllProducts() {
+		// TODO Auto-generated method stub
+		List<Product> list = productRepo.findAll();
+		return list;
+	}
+
+	@Override
+	public Product editProduct(Product product) {
+		// TODO Auto-generated method stub
+		Product p = productRepo.findById(product.getProductId()).orElseThrow();
+		p.setMinimumDays(product.getMinimumDays());
+		return p;
 	}
 }

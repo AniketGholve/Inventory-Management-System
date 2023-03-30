@@ -35,12 +35,21 @@ public class Product {
 	private Date modifiedOn;
 	@Column(name="gtin")
 	private String gtin;
+	@Column(name="minimum_days")
+	private Integer minimumDays;
 	@Transient
 	private Integer quantity;
 	@Transient
 	private String Status;
 	
 	
+	
+	public Integer getMinimumDays() {
+		return minimumDays;
+	}
+	public void setMinimumDays(Integer minimumDays) {
+		this.minimumDays = minimumDays;
+	}
 	public Integer getQuantity() {
 		return quantity;
 	}
@@ -114,9 +123,10 @@ public class Product {
 		this.gtin = gtin;
 	}
 	
+	
 	public Product(Integer productId, String productName, Integer enterpriseId, Boolean active, Integer ndc,
-			String packageType, String manufacturer, Date createdOn, Date modifiedOn, String gtin, Integer quantity,
-			String status) {
+			String packageType, String manufacturer, Date createdOn, Date modifiedOn, String gtin, Integer minimumDays,
+			Integer quantity, String status) {
 		super();
 		this.productId = productId;
 		this.productName = productName;
@@ -128,8 +138,9 @@ public class Product {
 		this.createdOn = createdOn;
 		this.modifiedOn = modifiedOn;
 		this.gtin = gtin;
+		this.minimumDays = minimumDays;
 		this.quantity = quantity;
-		Status = status;
+		this.Status = status;
 	}
 	public Product() {
 		super();

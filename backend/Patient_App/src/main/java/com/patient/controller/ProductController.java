@@ -1,5 +1,7 @@
 package com.patient.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.HttpStatus;
@@ -8,6 +10,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -33,6 +36,18 @@ public class ProductController {
 	{
 		Product p = productServiceImpl.getDoseName(productId,serialNo);
 		return p;
+	}
+	
+	@GetMapping("/getAllProduct")
+	public List<Product> getAllProduct(){
+		List<Product> list = productServiceImpl.getAllProducts();
+		return list;
+	}
+	
+	@PutMapping("/editProduct")
+	public Product editProduct(@RequestBody Product product) {
+		Product pr = productServiceImpl.editProduct(product);
+		return pr;
 	}
 
 }
