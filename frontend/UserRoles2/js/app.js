@@ -815,6 +815,20 @@ app.controller("clp", function ($scope, $http, $window, $location) {
         });
     }
 
+    $http({
+        method: 'GET',
+        url: 'http://localhost:7890/getAllProduct',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': sessionStorage.getItem("token")
+        }
+    }).then((response) => {
+        console.log(response.data);
+        $scope.product_data = response.data;
+    }, (error) => {
+        console.log(error);
+    });
+
 
 
 });

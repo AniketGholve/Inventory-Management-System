@@ -72,9 +72,9 @@
                         <th class="">Minimum Days</th>
                     </tr>
                 <tbody>
-                    <tr>
-                        <td></td>
-                        <td></td>
+                    <tr ng-repeat="x in product_data">
+                        <td>{{x.productName}}</td>
+                        <td>{{x.minimumDays}}</td>
 
                     </tr>
                 </tbody>
