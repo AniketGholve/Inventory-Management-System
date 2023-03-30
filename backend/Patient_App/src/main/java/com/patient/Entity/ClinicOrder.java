@@ -1,6 +1,6 @@
 package com.patient.Entity;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -79,7 +79,7 @@ public class ClinicOrder {
 
 	public void setOrderDatetime(Date orderDatetime) {
 		this.orderDatetime = orderDatetime;
-	}
+}
 
 
 	public String getPoNumber() {
@@ -181,7 +181,7 @@ public class ClinicOrder {
 		this.shiptoName = shiptoName;
 	}
 
-
+ 
 	public String getActivityDate() {
 		return activityDate;
 	}
@@ -246,20 +246,11 @@ public class ClinicOrder {
 		return orderEvents;
 	}
 
+	
+
 
 	public void setOrderEvents(List<OrderEvents> orderEvents) {
 		this.orderEvents = orderEvents;
-	}
-
-
-	@Override
-	public String toString() {
-		return "ClinicOrder [orderId=" + orderId + ", orderDatetime=" + orderDatetime + ", poNumber=" + poNumber
-				+ ", personInitial=" + personInitial + ", orderNote=" + orderNote + ", locationId=" + locationId
-				+ ", enterpriseId=" + enterpriseId + ", userId=" + userId + ", billtoId=" + billtoId + ", billtoName="
-				+ billtoName + ", shiptoId=" + shiptoId + ", shiptoName=" + shiptoName + ", activityDate="
-				+ activityDate + ", shipfromId=" + shipfromId + ", meu=" + meu + ", orderStatusId=" + orderStatusId
-				+ ", orderType=" + orderType + ", srcId=" + srcId + ", orderEvents=" + orderEvents + "]";
 	}
 
 
@@ -288,6 +279,20 @@ public class ClinicOrder {
 		this.srcId = srcId;
 		this.orderEvents = orderEvents;
 	}
+
+
+	@Override
+	public String toString() {
+		return "ClinicOrder [orderId=" + orderId + ", orderDatetime=" + orderDatetime + ", poNumber=" + poNumber
+				+ ", personInitial=" + personInitial + ", orderNote=" + orderNote + ", locationId=" + locationId
+				+ ", enterpriseId=" + enterpriseId + ", userId=" + userId + ", billtoId=" + billtoId + ", billtoName="
+				+ billtoName + ", shiptoId=" + shiptoId + ", shiptoName=" + shiptoName + ", activityDate="
+				+ activityDate + ", shipfromId=" + shipfromId + ", meu=" + meu + ", orderStatusId=" + orderStatusId
+				+ ", orderType=" + orderType + ", srcId=" + srcId + ", orderEvents=" + orderEvents + "]";
+	}
+
+
+
 
 	
 

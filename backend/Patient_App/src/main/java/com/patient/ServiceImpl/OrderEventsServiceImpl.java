@@ -5,6 +5,8 @@ import java.text.Format;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+ 
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -26,6 +28,7 @@ import com.patient.Service.OrderEventsService;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
+import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
 @EnableScheduling
 @Service
@@ -191,34 +194,23 @@ public class OrderEventsServiceImpl implements OrderEventsService {
 
 	}
 
+
 	@Override
 	@Transactional
-//	@Scheduled(cron = "0 26 12 * * MON-FRI")
-	@Scheduled(cron = "*/5 * * * * *")
-	public void checkProcessedEvents() throws ParseException {
-		//Date twoDaysAgo = new Date(System.currentTimeMillis()-(2*24*60*60*1000));
-		List<ClinicOrder> clinicOrderList=clinicOrderRepo.findAll();
-		//SimpleDateFormat sf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-		
-		for(ClinicOrder c:clinicOrderList) {
-			String d=c.getActivityDate();
-			LocalDateTime dateTime = LocalDateTime.parse(d);
-			System.out.println(dateTime);
-			System.out.println(dateTime.getHour());
-//			LocalDateTime currdaDateTime=
-			
+	@Scheduled(cron = "0 29 11 * * MON-FRI")
+	public void checkProcessedEvents() {
+		Date twoDaysAgo = new Date(System.currentTimeMillis()-(2*24*60*60*1000));
+		List<OrderEvents> ordersToCancel = orderEventsRepo.findByEventDescAndActivityDateBefore("Processed", twoDaysAgo);
+		System.out.print(twoDaysAgo);
+		for(OrderEvents event:ordersToCancel) {
+			event.setEventDesc("Cancelled");
+			orderEventsRepo.save(event);
 		}
-		//List<OrderEvents> ordersToCancel = orderEventsRepo.findByEventDescAndActivityDateBefore("Processed", twoDaysAgo);
-		//System.out.print(twoDaysAgo);
-//		for(OrderEvents event:ordersToCancel) {
-//			event.setEventDesc("Cancelled");
-//			orderEventsRepo.save(event);
-//		}
 	}
 
 	@Override
 	@Transactional
-	@Scheduled(cron = "*/5 * * * * *")
+	@Scheduled(cron = "0 29 11 * * MON-FRI")
 	public void AutoOrder() {
 		// TODO Auto-generated method stub
 		 List<Clinic> clinicList=clinicRepo.findAll();
@@ -286,5 +278,19 @@ public class OrderEventsServiceImpl implements OrderEventsService {
 		 }
 		
 	}
+
+	@Override
+	public String changeShipToRecieve(Integer orderId) {
+		// TODO Auto-generated method stub
+		Query q=entityManager.createNativeQuery("update order_events set event_desc=? where event_desc=? AND orderId=?");
+		q.setParameter(1, "Recieved");
+		q.setParameter(2, "Shipped");
+		q.setParameter(3, orderId);
+		q.executeUpdate();
+		return "status changes successfully";
+		
+	}
+
+	
 
 }

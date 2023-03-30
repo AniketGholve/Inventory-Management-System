@@ -22,7 +22,9 @@ public interface OrderEventsService {
 	
 	public List<Inventory> getinventoryByProductId(Integer productId,Integer locationId);
 	
-	public void checkProcessedEvents() throws ParseException;
+ 	public void checkProcessedEvents() throws ParseException;
 	
 	public void AutoOrder();
-}
+ 	
+	public String changeShipToRecieve(Integer orderId);
+ }

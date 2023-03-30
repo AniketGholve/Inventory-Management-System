@@ -1,20 +1,30 @@
 package com.patient.ServiceImpl;
 
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import com.patient.Entity.Clinic;
+import com.patient.Entity.ClinicOrder;
 import com.patient.Entity.Inventory;
+import com.patient.Entity.OrderEvents;
 import com.patient.Entity.Serial;
+import com.patient.Repo.ClinicOrderRepo;
+import com.patient.Repo.ClinicRepo;
 import com.patient.Repo.InventoryRepo;
+import com.patient.Repo.OrderEventsRepo;
 import com.patient.Service.InventoryService;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
+import jakarta.transaction.Transactional;
 
 @Service
 public class InventoryServiceImpl implements InventoryService {
@@ -25,6 +35,15 @@ public class InventoryServiceImpl implements InventoryService {
 	
 	@Autowired
 	private InventoryRepo inventoryRepo;
+	
+	@Autowired
+	private OrderEventsRepo orderEventsRepo;
+	
+	@Autowired
+	private ClinicOrderRepo clinicOrderRepo;
+	
+	@Autowired
+	private ClinicRepo clinicRepo;
 
 	public Inventory createInventory(Inventory createdInventory) {
 		
@@ -137,9 +156,139 @@ public class InventoryServiceImpl implements InventoryService {
 		}
 		return resultList;
 	}
+
+
+	@Override
+	@Transactional
+	@Scheduled(cron = "0 10 20 * * MON-FRI") //cron = "0 10 20 * * MON-FRI"
+	public void AutoOrder() 
+	{	
+		List<Clinic> clinicList=clinicRepo.findAll();
+
+		long m=System.currentTimeMillis();
+
+		Date d=new Date(m);
+
+		Format formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+
+		for(Clinic c:clinicList) {
+
+		Query q=entityManager.createQuery("select i from Inventory i where i.locationId=:u");
+
+		q.setParameter("u",c.getLocationId());
+
+		List<Inventory> inventoryList=q.getResultList();
+
+		int co=-1;
+
+		ClinicOrder savedClinicOrder=null;
+
+		for(Inventory i:inventoryList)
+
+		{
+
+		ClinicOrder clinicOrder;
+
+		if(i.getOnHand()<5 && co==-1) {
+
+		clinicOrder=new ClinicOrder();
+
+		Clinic clinic=clinicRepo.findById(i.getLoactionId()).orElseThrow();
+
+		clinicOrder.setActivityDate(formatter.format(d));
+
+		clinicOrder.setBilltoId(123);
+
+		clinicOrder.setBilltoName(clinic.getBillTo());
+
+		clinicOrder.setEnterpriseId(1);
+
+		clinicOrder.setLocationId(i.getLoactionId());
+
+		clinicOrder.setMeu(null);
+
+		clinicOrder.setOrderDatetime(d);
+
+		clinicOrder.setOrderId(12345);
+
+		clinicOrder.setOrderNote(null);
+
+		clinicOrder.setOrderStatusId(123);
+
+		clinicOrder.setOrderType(null);
+
+		clinicOrder.setPersonInitial(null);
+
+		clinicOrder.setShipfromId(0);
+
+		clinicOrder.setShiptoId(clinic.getLocationId()+clinic.getName());
+
+		clinicOrder.setShiptoName(clinic.getName());
+
+		clinicOrder.setSrcId(123);
+
+		clinicOrder.setUserId(0);
+
+		savedClinicOrder=clinicOrderRepo.save(clinicOrder);
+
+		co=0;
+
+		}
+
+		if(i.getOnHand()<5 && co==0) {
+
+		 
+
+		OrderEvents orderEvents = new OrderEvents();
+
+		 
+
+		orderEvents.setActivityDate(formatter.format(d));
+
+		orderEvents.setDeliveryOrderId(null);
+
+		orderEvents.setEnterpriseId(savedClinicOrder.getEnterpriseId());
+
+		orderEvents.setEventDesc("Submitted");
+
+		orderEvents.setLocationId(savedClinicOrder.getLocationId());
+
+		orderEvents.setOrderId(savedClinicOrder);
+
+		orderEvents.setPackageType(null);
+
+		orderEvents.setProductId(i.getProductId());
+
+		orderEvents.setQuantity(i.getOrderedQty());
+
+		orderEvents.setShipmentTrackingId(123);
+
+		orderEvents.setSrcId(savedClinicOrder.getSrcId());
+
+		orderEvents.setStatusId(savedClinicOrder.getOrderStatusId());
+
+		orderEvents.setUserId(savedClinicOrder.getUserId());
+
+		OrderEvents oe=orderEventsRepo.save(orderEvents);
+
+		 
+
+		}
+
+		}
+
+		 
+
+		 
+
+		}
+		
+		
+	}
 	
 	
 	
 	
 
 }
+
