@@ -62,13 +62,24 @@ public class DispenseToPatient {
 	private String revesionEmail;
 	@Column(name ="src_id")
 	private Integer srcId;
+	@Column(name ="next_injection")
+	private Date nextInjection;
+	@Column(name = "patient_id")
+	private Integer patientId;
 	
 //	@OneToOne
 //	@JoinColumn(name = "patientId")
 //	private Patient id;
 	
-	@Column(name = "patient_id")
-	private Integer patientId;
+	public Date getNextInjection() {
+		return nextInjection;
+	}
+
+	public void setNextInjection(Date nextInjection) {
+		this.nextInjection = nextInjection;
+	}
+
+	
 
 	public Integer getDispenseId() {
 		return dispenseId;
@@ -282,11 +293,14 @@ public class DispenseToPatient {
 				+ ", revesionEmail=" + revesionEmail + ", srcId=" + srcId + ", patientId=" + patientId + "]";
 	}
 
+	
+
 	public DispenseToPatient(Integer dispenseId, Integer productId, Integer nurseId, Integer physicianId,
 			Date dispenseDate, String injectionSite, String notes, String initial, Integer serialId, Integer userId,
 			Integer readerId, Date createdOn, Date modifiedOn, Integer serialEventId, Integer locationId,
 			Integer enterprise_id, String expType, String expMessage, Integer orderNum, String paymentStatus,
-			String revisionNotes, String revisionInitial, String revesionEmail, Integer srcId, Integer patientId) {
+			String revisionNotes, String revisionInitial, String revesionEmail, Integer srcId, Date nextInjection,
+			Integer patientId) {
 		super();
 		this.dispenseId = dispenseId;
 		this.productId = productId;
@@ -312,6 +326,7 @@ public class DispenseToPatient {
 		this.revisionInitial = revisionInitial;
 		this.revesionEmail = revesionEmail;
 		this.srcId = srcId;
+		this.nextInjection = nextInjection;
 		this.patientId = patientId;
 	}
 

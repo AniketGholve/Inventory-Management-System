@@ -60,6 +60,15 @@ public class DispenceToPatientServiceImpl implements DispenceToPatientService{
 	@Override
 	public DispenseToPatient createDispence(DispenseToPatient dispenceToPatient) {
 		Date date = new Date(System.currentTimeMillis());
+		Query q = entityManager.createNativeQuery("select p.minimum_days from product p where p.product_id=?");
+		q.setParameter(1, dispenceToPatient.getProductId());
+		int min = (int) q.getFirstResult();
+		System.out.println(min);
+		Date date1 = new Date(System.currentTimeMillis()+ (min*24*60*60*1000));
+		System.out.println(System.currentTimeMillis()+""+ min*24*60*60*1000);
+		System.out.println(date1);
+		dispenceToPatient.setNextInjection(date1);
+		
 		dispenceToPatient.setCreatedOn(date);
 		DispenseToPatient d = dispenseRepo.save(dispenceToPatient);	
 		return d;
