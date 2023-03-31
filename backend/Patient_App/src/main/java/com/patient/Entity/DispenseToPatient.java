@@ -63,7 +63,7 @@ public class DispenseToPatient {
 	@Column(name ="src_id")
 	private Integer srcId;
 	@Column(name ="next_injection")
-	private Date nextInjection;
+	private String nextInjection;
 	@Column(name = "patient_id")
 	private Integer patientId;
 	
@@ -71,11 +71,11 @@ public class DispenseToPatient {
 //	@JoinColumn(name = "patientId")
 //	private Patient id;
 	
-	public Date getNextInjection() {
+	public String getNextInjection() {
 		return nextInjection;
 	}
 
-	public void setNextInjection(Date nextInjection) {
+	public void setNextInjection(String nextInjection) {
 		this.nextInjection = nextInjection;
 	}
 
@@ -299,7 +299,7 @@ public class DispenseToPatient {
 			Date dispenseDate, String injectionSite, String notes, String initial, Integer serialId, Integer userId,
 			Integer readerId, Date createdOn, Date modifiedOn, Integer serialEventId, Integer locationId,
 			Integer enterprise_id, String expType, String expMessage, Integer orderNum, String paymentStatus,
-			String revisionNotes, String revisionInitial, String revesionEmail, Integer srcId, Date nextInjection,
+			String revisionNotes, String revisionInitial, String revesionEmail, Integer srcId, String nextInjection,
 			Integer patientId) {
 		super();
 		this.dispenseId = dispenseId;
