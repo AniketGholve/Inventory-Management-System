@@ -74,7 +74,8 @@ public class ProductServiceImpl implements ProductService{
 		for(Product p :list) {
 			if(i<length) {
 				p.setMinimumDays(products.get(i).getMinimumDays());
-				i=i+1;	
+				i=i+1;
+				productRepo.save(p);
 			}	
 		}
 		return list;

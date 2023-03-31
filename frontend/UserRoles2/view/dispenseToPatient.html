@@ -19,7 +19,7 @@
                             <th class="col-2">Quantity</th>
                             <th class="col-3">Status</th>
                             <th class="col-3" ></th>
-                            <th class="col-2">Close</th>
+                            <th class="col-2">Option</th>
 
                         </tr>
 
@@ -28,10 +28,10 @@
                         <tr class="">
                             <td class="col-2">{{serialDespense.productName}}</td>
                             <td class="col-2">{{serialDespense.quantity}}</td>
-                            <td class="col-3">{{serialDespense.status}}</td>
+                            <td class="col-3">{{serialData.serialStatus}}</td>
                             <td class="col-3"></td>
-                            <td class="col-2" ng-class="{'d-none':closedispenseTable == true }"><a class="text-danger text-decoration-none" ng-click="closeTable()" >Close</a></td>
-                            <td class="col-2" ng-class="{'d-none': closedispenseTable == false }"><a class="text-danger text-decoration-none" ng-click="viewTable()" >View</a></td>
+                            <td class="col-2" ng-class="{'d-none':closedispenseTable == true }"><a class="text-danger text-decoration-none" style="cursor: pointer;" ng-click="closeTable()" >Close</a></td>
+                            <td class="col-2" ng-class="{'d-none': closedispenseTable == false }"><a class="text-primary text-decoration-none" style="cursor: pointer;" ng-click="viewTable()" >View</a></td>
                         </tr>
 
                     </tbody>
@@ -49,9 +49,9 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td>{{serialDespense.productName}}</td>
-                            <td>{{serialDespense.productName}}</td>
-                            <td>{{serialDespense.productName}}</td>
+                            <td>{{serialData.serialNumber}}</td>
+                            <td>{{serialData.expiryDate}}</td>
+                            <td>{{serialData.serialStatus}}</td>
                             <td><i class="fa-regular fa-circle-xmark link-danger "></i></td>
                         </tr>
                     </tbody>
@@ -239,7 +239,7 @@
             </div>
             
             <div class="text-center">
-                <input class="btn2 text-center " value="Dispense To Patient" ng-class="{'d-none':dispance.nurseId == null}"
+                <input class="btn2 text-center " value="Dispense To Patient" style="cursor: pointer;" ng-class="{'d-none':dispance.nurseId == null}"
                     ng-click="dispenseToPatient()">
             </div>
 

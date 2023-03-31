@@ -600,8 +600,46 @@ app.controller("clp", function ($scope, $http, $window, $location) {
         }, (error) => { })     
         
     }
+    $http({
+        method: 'GET',
+        url: 'http://localhost:7890/getAllProduct',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': sessionStorage.getItem("token")
+        }
+    }).then((response) => {
+        console.log("Before")
+        console.log(response.data);
+        $scope.product_data = response.data;
+    }, (error) => {
+        console.log(error);
+    });
+    // $scope.product_data={};
+    $scope.editMinimumDays = () => {
+        $http({
+            method: 'PUT',
+            url: 'http://localhost:7890/editProduct',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': sessionStorage.getItem("token")
+            },
+            data: $scope.product_data
+            
+        }).then((response) => {
+            console.log("update")
+            console.log($scope.product_data);
 
+           
 
+            
+                },
+                (error) => {
+
+        })
+
+    }
+
+    
     
     if (sessionStorage.getItem("locationId") != undefined || sessionStorage.getItem("locationId") != null) {
         $scope.id = sessionStorage.getItem("locationId");
@@ -815,19 +853,7 @@ app.controller("clp", function ($scope, $http, $window, $location) {
         });
     }
 
-    $http({
-        method: 'GET',
-        url: 'http://localhost:7890/getAllProduct',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': sessionStorage.getItem("token")
-        }
-    }).then((response) => {
-        console.log(response.data);
-        $scope.product_data = response.data;
-    }, (error) => {
-        console.log(error);
-    });
+    
 
 
 
