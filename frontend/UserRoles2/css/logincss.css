@@ -83,7 +83,7 @@ body {
 
 }
 
-#userDropDown , #downloadDropdown{
+#userDropDown , #downloadDropdown , #editDropdown{
   display: none;
 }
 
@@ -363,7 +363,7 @@ nav{
 
 .downloadMenu{
   position: absolute;
-  background:  #eddbdb;
+  background:  #788fe4;
   bottom: 50%;
   width: 82px;
   padding: 20px;
@@ -375,14 +375,14 @@ nav{
  
 }
 .downloadMenuLink{
-  color: rgb(223, 48, 48);
+  color: rgb(248, 248, 248);
   
   text-decoration: none;
   text-align: center;
 
 }
 .hr1{
-  color:  rgb(223, 48, 48);
+  color:  rgb(242, 242, 242);
   margin-top: 15%;
   margin-bottom: 15%;
 }
@@ -390,3 +390,4 @@ nav{
   width: 25px;
   float: right;
 }
+

@@ -66,30 +66,30 @@
                 <h2 >Dispense Restrictions </h2>
                 </div>
                 <div class="col-6">
-                <button class="btn btn-warning  " style=" letter-spacing: 2px;color: black; float: right;">Edit</button>
+                <button class="btn btn-warning  " style=" letter-spacing: 2px;color: black; float: right;" onclick="editFunction()">Edit</button>
               
                 </div>
                 </div>
-                <div id="" class="row">
+                <div id="editDropdown" class="row">
                     <div class="d-flex justify-content-end">
-                        <form>
+                        <form  style="border: 2px groove rgb(228, 223, 223);">
                             <table class="table table-striped ">
-                                <thead>
+                                <thead class="bg-info">
                                     <tr>
                                         <th>Dose</th>
                                         <th> Minimum Days</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody >
                                     <tr ng-repeat="x in product_data">
-                                    <td>{{x.productName}}</td>
-                                    <td><input type="number" min="0" ng-value="{{x.productName}}"required></td>
+                                    <td >{{x.productName}} </td>
+                                    <td><input type="number" min="0"  ng-model="x.minimumDays"required></td>
                                 </tr>
                                 </tbody>
                                 
                             </table>
-                            <div class="text-center">
-                            <button type="button" class="btn btn-success  "  >Update</button>
+                            <div class="text-center mb-2">
+                            <input type="button" class="btn btn-info" ng-click="editMinimumDays()" value="Save">
                         </div>
                         </form>
                         
