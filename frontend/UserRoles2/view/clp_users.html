@@ -6,6 +6,22 @@
     <!-- <div>Please Select a Clinic </div> -->
     <div class="isDisabled">
         <h1 class="text-center">Patients</h1>
+        <div class="d-grid  container mt-3 ">
+            <div class="container shadow w-50 row ">
+                <h3 class="mt-2">Aniket,31-03-2023</h3>
+                <div class="d-flex mt-3 mb-3">
+                    <div class="col-4">
+                        <i class="fa-solid fa-user" style="font-size: 70px;"></i>
+                    </div>
+                    <div class="col-4 d-flex flex-column  ">
+                        <label for="">Next Injection Due :</label>
+                        <label for="">Last Dose:</label>
+                        <label for="">Last Injection Due :</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
         <div>
             <form ng-submit="getById()" class="form-inline d-flex justify-content-center mt-3">
                 <input type="text" id="patientId" placeholder="Search Patient Id" ng-model="search.patientFirstName"
@@ -114,7 +130,7 @@
             </table>
         </div>
         
-        <div class="d-grid  container mt-3 ">
+        <!-- <div class="d-grid  container mt-3 ">
             <div class="container shadow w-50 row ">
                 <h3 class="mt-2">Aniket,31-03-2023</h3>
                 <div class="d-flex mt-3 mb-3">
@@ -128,6 +144,6 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
     </div>
     </div>

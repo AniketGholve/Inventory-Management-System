@@ -628,10 +628,6 @@ app.controller("clp", function ($scope, $http, $window, $location) {
         }).then((response) => {
             console.log("update")
             console.log($scope.product_data);
-
-           
-
-            
                 },
                 (error) => {
 

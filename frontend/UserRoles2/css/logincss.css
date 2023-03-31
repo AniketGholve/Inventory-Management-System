@@ -362,16 +362,16 @@ nav{
 }
 
 .downloadMenu{
-  position: absolute;
+  /* position: absolute; */
   background:  #788fe4;
-  bottom: 50%;
-  width: 82px;
-  padding: 20px;
-  margin: 12px 0;
-  place-items: center;
+  /* bottom: 60%; */
+  width: 60px;
+  padding: 5px;
+  /* margin: 12px 0; */
+  /* place-items: center; */
   font-family: "Poppins", sans-serif;
   letter-spacing: 5px;
-  border-radius: 5px;
+  border-radius: 4px ;
  
 }
 .downloadMenuLink{
@@ -383,8 +383,8 @@ nav{
 }
 .hr1{
   color:  rgb(242, 242, 242);
-  margin-top: 15%;
-  margin-bottom: 15%;
+  margin-top: 5%;
+  margin-bottom: 5%;
 }
 .tableEdit{
   width: 25px;
