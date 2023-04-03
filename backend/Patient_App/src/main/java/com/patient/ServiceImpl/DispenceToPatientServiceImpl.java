@@ -146,6 +146,8 @@ public class DispenceToPatientServiceImpl implements DispenceToPatientService{
 		// TODO Auto-generated method stub
 //		List<DispenseToPatient> list = dispenseRepo.findAll();
 		Query q = entityManager.createNativeQuery("select pa.patient_first_name,pa.patient_last_name,pa.patient_date_of_birth,dp.created_On,dp.next_Injection,p.product_Name from dispense_to_patient dp inner join Product p on dp.product_Id = p.product_Id inner join Patient pa on pa.id = dp.patient_Id where STR_TO_DATE(dp.next_Injection,'%Y-%m-%d') >= date_sub(now(), INTERVAL 3 DAY) order by dp.next_injection");
+		//Query q = entityManager.createQuery("select pa.patientFirstName,pa.patientLastName,pa.patientDob,dp.patientCreatedOn,dp.nextInjection,p.productName from dispenseToPatient dp inner join Product p on dp.productId = p.productId inner join Patient pa on pa.id = dp.patientId where STR_TO_DATE(dp.nextInjection,'%Y-%m-%d') >= date_sub(now(), INTERVAL 3 DAY) order by dp.nextInjection");
+
 		List<Object[]> list = q.getResultList();
 //		Object[][] objArray = list.toArray(new Object[0][]);
 //		System.out.println(Arrays.deepToString(objArray));
@@ -158,6 +160,7 @@ public class DispenceToPatientServiceImpl implements DispenceToPatientService{
 			byte[] decodedBytes = Base64Utils.decodeFromString(encrypted);
 			String name = new String(decodedBytes);
 			l.setPatientName(name);
+			System.out.println(name);
 			
 			String encrypted1 = (String)o[1];
 			byte[] decodedBytes1 = Base64Utils.decodeFromString(encrypted1);
