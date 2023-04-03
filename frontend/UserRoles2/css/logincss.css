@@ -83,7 +83,7 @@ body {
 
 }
 
-#userDropDown , #downloadDropdown , #editDropdown{
+#userDropDown , #downloadDropdown , #editDropdown , #reorderDropDown{
   display: none;
 }
 
@@ -363,7 +363,7 @@ nav{
 
 .downloadMenu{
   /* position: absolute; */
-  background:  #788fe4;
+  background:  #3a57bd;
   /* bottom: 60%; */
   width: 60px;
   padding: 5px;

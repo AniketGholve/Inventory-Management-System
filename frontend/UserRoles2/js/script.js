@@ -28,6 +28,17 @@ function editFunction() {
     }
 }
 
+function reorderFunction() {
+    var x = document.getElementById("reorderDropDown");
+    console.log(x.style.display);
+    if (x.style.display == "none" || x.style.display == "") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+}
+
+
 
 app.controller("elp", function ($scope, $http) {
     
