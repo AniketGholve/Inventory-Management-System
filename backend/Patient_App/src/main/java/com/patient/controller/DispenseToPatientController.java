@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.patient.Entity.DispenseToPatient;
+import com.patient.Entity.LastInjectionScreen;
 import com.patient.Entity.Patient;
 import com.patient.Entity.Product;
 import com.patient.Entity.Serial;
@@ -59,8 +60,8 @@ public class DispenseToPatientController {
 	}
 	
 	@GetMapping("/getAllDispense")
-	public List<DispenseToPatient> getAllDispense(){
-		List<DispenseToPatient> l = dispenceToServiceImpl.getAllDispense();
+	public List<LastInjectionScreen> getAllDispense(){
+		List<LastInjectionScreen> l = dispenceToServiceImpl.getAllDispense();
 		return l;
 	}
 	
