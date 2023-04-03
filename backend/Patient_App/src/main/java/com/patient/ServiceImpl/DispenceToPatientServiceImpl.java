@@ -3,13 +3,17 @@ package com.patient.ServiceImpl;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Base64Utils;
 
 import com.patient.Entity.DispenseToPatient;
+import com.patient.Entity.LastInjectionScreen;
 import com.patient.Entity.Patient;
 import com.patient.Entity.Product;
 import com.patient.Entity.Serial;
@@ -18,7 +22,6 @@ import com.patient.Repo.PatientRepo;
 import com.patient.Repo.ProductRepo;
 import com.patient.Repo.SerialRepo;
 import com.patient.Service.DispenceToPatientService;
-
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
 
@@ -139,11 +142,40 @@ public class DispenceToPatientServiceImpl implements DispenceToPatientService{
 
 
 	@Override
-	public List<DispenseToPatient> getAllDispense() {
+	public List<LastInjectionScreen> getAllDispense() {
 		// TODO Auto-generated method stub
-		List<DispenseToPatient> list = dispenseRepo.findAll();
-//		Query q = entityManager.createQuery("select dp. from DispenseToPatient dp")
-		return list;
+//		List<DispenseToPatient> list = dispenseRepo.findAll();
+		Query q = entityManager.createNativeQuery("select pa.patient_first_name,pa.patient_last_name,pa.patient_date_of_birth,dp.created_On,dp.next_Injection,p.product_Name from dispense_to_patient dp inner join Product p on dp.product_Id = p.product_Id inner join Patient pa on pa.id = dp.patient_Id where STR_TO_DATE(dp.next_Injection,'%Y-%m-%d') >= date_sub(now(), INTERVAL 3 DAY) order by dp.next_injection");
+		List<Object[]> list = q.getResultList();
+//		Object[][] objArray = list.toArray(new Object[0][]);
+//		System.out.println(Arrays.deepToString(objArray));
+		List<LastInjectionScreen> result = new ArrayList<>();
+		for(Object[] o:list) {
+			
+			LastInjectionScreen l = new LastInjectionScreen();
+			
+			String encrypted = (String)o[0];
+			byte[] decodedBytes = Base64Utils.decodeFromString(encrypted);
+			String name = new String(decodedBytes);
+			l.setPatientName(name);
+			
+			String encrypted1 = (String)o[1];
+			byte[] decodedBytes1 = Base64Utils.decodeFromString(encrypted1);
+			String lastName = new String(decodedBytes1);
+			l.setPatientLastName(lastName);
+			
+			String encrypted2 = (String)o[2];
+			byte[] decodedBytes2 = Base64Utils.decodeFromString(encrypted2);
+			String DOB = new String(decodedBytes2);
+			l.setPatientDOB(DOB);
+			
+			l.setCreatedOn((Date)o[3]);
+			l.setLastInjection((String)o[4]);
+			l.setProductname((String)o[5]);
+//			System.out.println(Arrays.toString(l));
+			result.add(l);
+		}
+		return result;
 	}
 
 

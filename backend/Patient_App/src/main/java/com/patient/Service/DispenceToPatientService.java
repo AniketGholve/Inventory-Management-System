@@ -3,6 +3,7 @@ package com.patient.Service;
 import java.util.List;
 
 import com.patient.Entity.DispenseToPatient;
+import com.patient.Entity.LastInjectionScreen;
 import com.patient.Entity.Patient;
 import com.patient.Entity.Product;
 import com.patient.Entity.Serial;
@@ -21,7 +22,7 @@ public interface DispenceToPatientService {
 
 	public Serial getProductBySerialNo(Integer serialNo);
 	
-	public List<DispenseToPatient> getAllDispense();
+	public List<LastInjectionScreen> getAllDispense();
 
 	
 
