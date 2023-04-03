@@ -341,3 +341,21 @@ app.controller('updateEnterprise', function ($scope, $http, $window) {
         });
     }
 }); */
+
+
+
+// <!-- <select ng-model="selectedOption" class="downloadclinics m-2 col-3" ng-class="{'d-none': closeDropDown == false }" ng-change="openUrl()">
+// <option value="">Select an option</option>
+// <option ng-repeat="option in options" value="{{option.value}}">
+//   {{option.label}} <a href="{{option.url}}" ></a>
+// </option>
+// </select> -->
+// <!-- <div  class="d-grid" ng-class="{'d-none': closeDropDown == false }">
+// <a class="btn btn-info text-center m-1" href="http://localhost:7890/download/excel">Excel</a>
+// <a class="btn btn-danger m-1 text-center" href="http://localhost:7890/download/pdf" >Pdf</a>
+// </div> -->
+// <!-- <select id="downloadMenu"class="row m-3" ng-class="{'d-none': closeDropDown == false }">
+// <option label="Select a Option" class="" value="#"></option>
+// <option class="text-center" value="http://localhost:7890/download/excel" >XLS</option>
+// <option class="text-center" value="http://localhost:7890/download/pdf">PDF</option>
+// </select> -->
