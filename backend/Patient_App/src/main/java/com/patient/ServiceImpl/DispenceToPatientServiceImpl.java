@@ -142,6 +142,7 @@ public class DispenceToPatientServiceImpl implements DispenceToPatientService{
 	public List<DispenseToPatient> getAllDispense() {
 		// TODO Auto-generated method stub
 		List<DispenseToPatient> list = dispenseRepo.findAll();
+//		Query q = entityManager.createQuery("select dp. from DispenseToPatient dp")
 		return list;
 	}
 
