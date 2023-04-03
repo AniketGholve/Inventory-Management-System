@@ -17,6 +17,7 @@ import com.patient.Entity.LastInjectionScreen;
 import com.patient.Entity.Patient;
 import com.patient.Entity.Product;
 import com.patient.Entity.Serial;
+import com.patient.Entity.UsageOverLastMonths;
 import com.patient.ServiceImpl.DispenceToPatientServiceImpl;
 import com.patient.ServiceImpl.PatientServiceImpl;
 @RestController
@@ -63,6 +64,13 @@ public class DispenseToPatientController {
 	public List<LastInjectionScreen> getAllDispense(){
 		List<LastInjectionScreen> l = dispenceToServiceImpl.getAllDispense();
 		return l;
+	}
+	
+	@GetMapping("/getAllDispensedDose")
+	public List<UsageOverLastMonths> getAllDispensedDose()
+	{
+		List<UsageOverLastMonths> list = dispenceToServiceImpl.getAllUsedDoses();
+		return list;
 	}
 	
 	

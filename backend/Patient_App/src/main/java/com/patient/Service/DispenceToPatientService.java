@@ -7,6 +7,7 @@ import com.patient.Entity.LastInjectionScreen;
 import com.patient.Entity.Patient;
 import com.patient.Entity.Product;
 import com.patient.Entity.Serial;
+import com.patient.Entity.UsageOverLastMonths;
 
 public interface DispenceToPatientService {
 	
@@ -23,6 +24,8 @@ public interface DispenceToPatientService {
 	public Serial getProductBySerialNo(Integer serialNo);
 	
 	public List<LastInjectionScreen> getAllDispense();
+	
+	public List<UsageOverLastMonths> getAllUsedDoses();
 
 	
 
