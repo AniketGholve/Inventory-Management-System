@@ -17,6 +17,7 @@ import com.patient.Entity.LastInjectionScreen;
 import com.patient.Entity.Patient;
 import com.patient.Entity.Product;
 import com.patient.Entity.Serial;
+import com.patient.Entity.UsageOverLastMonths;
 import com.patient.Repo.DispenseRepo;
 import com.patient.Repo.PatientRepo;
 import com.patient.Repo.ProductRepo;
@@ -178,6 +179,40 @@ public class DispenceToPatientServiceImpl implements DispenceToPatientService{
 //			System.out.println(Arrays.toString(l));
 			result.add(l);
 		}
+		return result;
+	}
+
+
+	@Override
+	public List<UsageOverLastMonths> getAllUsedDoses() {
+		// TODO Auto-generated method stub
+		Query q = entityManager.createNativeQuery("SELECT\r\n"
+				+ "CAST(SUM(CASE WHEN MONTH(created_on) = 10 THEN 1 ELSE 0 END) AS UNSIGNED) as oct_count,\r\n"
+				+ "CAST(SUM(CASE WHEN MONTH(created_on) = 11 THEN 1 ELSE 0 END) AS Unsigned) as Nov_count,\r\n"
+				+ "CAST(SUM(CASE WHEN MONTH(created_on) = 12 THEN 1 ELSE 0 END) AS Unsigned) AS Dec_count,\r\n"
+				+ "CAST(SUM(CASE WHEN MONTH(created_on) = 1 THEN 1 ELSE 0 END) AS Unsigned) AS Jan_count,\r\n"
+				+ "CAST(SUM(CASE WHEN MONTH(created_on) = 2 THEN 1 ELSE 0 END) AS Unsigned) AS Feb_count,\r\n"
+				+ "CAST(SUM(CASE WHEN MONTH(created_on) = 3 THEN 1 ELSE 0 END) AS Unsigned) AS Mar_count\r\n"
+				+ "FROM\r\n"
+				+ "dispense_to_patient\r\n"
+				+ "WHERE\r\n"
+				+ "created_on >= DATE_SUB(CURDATE(), INTERVAL 6 MONTH)\r\n"
+				+ "GROUP BY\r\n"
+				+ "product_id");
+		List<Object[]> list = q.getResultList();
+		List<UsageOverLastMonths> result = new ArrayList<>();
+		for(Object[] o:list) {
+			UsageOverLastMonths u = new UsageOverLastMonths();
+			System.out.println(o[0]);
+			u.setUsgaeInOctober((long)o[0]);
+			u.setUsageInNovember((long)o[1]);
+			u.setUsageInDecember((long)o[2]);
+			u.setUsageInJanuary((long)o[3]);
+			u.setUsageInFebruary((long)o[4]);
+			u.setUsageInMarch((long)o[5]);
+			result.add(u);
+		}
+		
 		return result;
 	}
 
