@@ -964,95 +964,186 @@ app.controller("alp", ($scope, $http, $window) => {
 
 });
 app.controller("shipping", ($scope, $http, $window) => {
-    $scope.clinicShipToName;
-    $http({
-        method: 'Get',
-        url: "http://localhost:7890/getAllShipToId",
-        headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") }
-    }).then((response) => {
-        $scope.clinicDropdownName = response.data;
-        $scope.orderIdFunction = () => {
-            let clinicNameAndLocation = $scope.clinicNameAndLocation;
 
-            $http({
-                method: 'Get',
-                url: "http://localhost:7890/getShippingDataByShippingId/" + clinicNameAndLocation,
-                headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") }
-            }).then((response) => {
-                $scope.clinicShipToData = response.data;
-                console.log($scope.clinicShipToData == "")
-                if ($scope.clinicShipToData != "") {
-                    let nameAndLocation = clinicNameAndLocation.split("_");
-                    $http({
-                        method: 'Get',
-                        url: "http://localhost:7890/getprocessedorderEvents/" + nameAndLocation[1],
-                        headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") }
-                    }).then((response) => {
-                        $scope.orderEventData = response.data;
-                        if ($scope.productIdAndOrderEventId != undefined) {
-                            var productIdAndOrderEventId = $scope.productIdAndOrderEventId;
-                            // var productIdOrderEventId = productIdAndOrderEventId.split(",");
-                            $scope.orderEventId = $scope.productIdAndOrderEventId;
-                            $scope.demoVar = false;
-                            $http({
-                                method: 'Get',
-                                url: "http://localhost:7890/getserialbyproductId/" + $scope.productIdAndOrderEventId,
-                                headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") }
-                            }).then((response) => {
-                                $scope.serialId = response.data;
-                                console.log($scope.serialId)
-                            }, (error) => {
-                                console.log(error);
-                            });
-                        }
-                        else {
-                            $scope.demoVar = true;
-                        }
-                    }, (error) => {
-                        console.log(error);
-                    });
-                }
-            }, (error) => {
-                console.log(error);
-            });
-        }
-    }, (error) => {
-        console.log(error);
+        $scope.clinicShipToName;
+    
+        $http({
+    
+            method: 'Get',
+    
+            url: "http://localhost:7890/getAllShipToId",
+    
+            headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") }
+    
+        }).then((response) => {
+    
+            $scope.clinicDropdownName = response.data;
+    
+            $scope.orderIdFunction = () => {
+    
+                let clinicNameAndLocation = $scope.clinicNameAndLocation;
+    
+    
+    
+    
+                $http({
+    
+                    method: 'Get',
+    
+                    url: "http://localhost:7890/getShippingDataByShippingId/" + clinicNameAndLocation,
+    
+                    headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") }
+    
+                }).then((response) => {
+    
+                    $scope.clinicShipToData = response.data;
+    
+                    console.log($scope.clinicShipToData == "")
+    
+                    if ($scope.clinicShipToData != "") {
+    
+                        let nameAndLocation = clinicNameAndLocation.split("_");
+    
+                        $http({
+    
+                            method: 'Get',
+    
+                            url: "http://localhost:7890/getprocessedorderEvents/" + nameAndLocation[1],
+    
+                            headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") }
+    
+                        }).then((response) => {
+    
+                            $scope.orderEventData = response.data;
+    
+                            if ($scope.productIdAndOrderEventId != undefined) {
+    
+                                var productIdAndOrderEventId = $scope.productIdAndOrderEventId;
+    
+                                // var productIdOrderEventId = productIdAndOrderEventId.split(",");
+    
+                                $scope.orderEventId = $scope.productIdAndOrderEventId;
+    
+                                $scope.demoVar = false;
+    
+                                $http({
+    
+                                    method: 'Get',
+    
+                                    url: "http://localhost:7890/getserialbyproductId/" + $scope.productIdAndOrderEventId,
+    
+                                    headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") }
+    
+                                }).then((response) => {
+    
+                                    $scope.serialId = response.data;
+    
+                                    console.log($scope.serialId)
+    
+                                }, (error) => {
+    
+                                    console.log(error);
+    
+                                });
+    
+                            }
+    
+                            else {
+    
+                                $scope.demoVar = true;
+    
+                            }
+    
+                        }, (error) => {
+    
+                            console.log(error);
+    
+                        });
+    
+                    }
+    
+                }, (error) => {
+    
+                    console.log(error);
+    
+                });
+    
+            }
+    
+        }, (error) => {
+    
+            console.log(error);
+    
+        });
+    
+    
+    
+    
+        $scope.shipOrder = () => {
+    
+            $http({
+    
+                method: 'Get',
+    
+                url: "http://localhost:7890/changeSerialAndOrderStatusToShipped/" + $scope.orderEventId,
+    
+                headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") }
+    
+            }).then((response) => {
+    
+                $scope.shipmentDetails = response.data;
+    
+                alert("Ordered Shipped");
+    
+                $window.location.href = "#!/shipping";
+    
+            }, (error) => {
+    
+                console.log(error);
+    
+            });
+    
+        }
+    
+        $scope.demoFunction = () => {
+    
+            if ($scope.scanShipmentDetails != undefined) {
+    
+                console.log($scope.scanShipmentDetails)
+    
+                let scanShipmentDetails = $scope.scanShipmentDetails;
+    
+                let serialIdAndProductId = scanShipmentDetails.split(",");
+    
+                console.log($scope.orderEventId);
+    
+                $http({
+    
+                    method: 'Get',
+    
+                    url: "http://localhost:7890/scannedShipmentDetails/" + serialIdAndProductId[0] + "/" + serialIdAndProductId[1] + "/" + $scope.orderEventId,
+    
+                    headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") }
+    
+                }).then((response) => {
+    
+                    $scope.shipmentDetails = response.data;
+    
+                    console.log($scope.shipmentDetails)
+    
+                }, (error) => {
+    
+                    console.log(error);
+    
+                });
+    
+            }
+    
+        }
+    
+        $scope.demoVar = true;
+    
     });
-
-    $scope.shipOrder = () => {
-        $http({
-            method: 'Get',
-            url: "http://localhost:7890/changeSerialAndOrderStatusToShipped/" + $scope.orderEventId,
-            headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") }
-        }).then((response) => {
-            $scope.shipmentDetails = response.data;
-            alert("Ordered Shipped");
-            $window.location.href = "#!/shipping";
-        }, (error) => {
-            console.log(error);
-        });
-    }
-    $scope.demoFunction = () => {
-        if ($scope.scanShipmentDetails != undefined) {
-            console.log($scope.scanShipmentDetails)
-            let scanShipmentDetails = $scope.scanShipmentDetails;
-            let serialIdAndProductId = scanShipmentDetails.split(",");
-            console.log($scope.orderEventId);
-            $http({
-                method: 'Get',
-                url: "http://localhost:7890/scannedShipmentDetails/" + serialIdAndProductId[0] + "/" + serialIdAndProductId[1] + "/" + $scope.orderEventId,
-                headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") }
-            }).then((response) => {
-                $scope.shipmentDetails = response.data;
-                console.log($scope.shipmentDetails)
-            }, (error) => {
-                console.log(error);
-            });
-        }
-    }
-    $scope.demoVar = true;
-});
 
 app.controller('registerController', function ($scope, $http, $window) {
     $scope.register = {};
