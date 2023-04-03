@@ -138,4 +138,12 @@ public class DispenceToPatientServiceImpl implements DispenceToPatientService{
 	}
 
 
+	@Override
+	public List<DispenseToPatient> getAllDispense() {
+		// TODO Auto-generated method stub
+		List<DispenseToPatient> list = dispenseRepo.findAll();
+		return list;
+	}
+
+
 }
