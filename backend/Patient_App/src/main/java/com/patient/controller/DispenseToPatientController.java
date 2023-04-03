@@ -64,6 +64,12 @@ public class DispenseToPatientController {
 		return new ResponseEntity<DispenseToPatient>(dispensetoPatient,HttpStatus.CREATED);
 	}
 	
+	@GetMapping("/getAllDispense")
+	public List<DispenseToPatient> getAllDispense(){
+		List<DispenseToPatient> l = dispenceToServiceImpl.getAllDispense();
+		return l;
+	}
+	
 	
 	
 

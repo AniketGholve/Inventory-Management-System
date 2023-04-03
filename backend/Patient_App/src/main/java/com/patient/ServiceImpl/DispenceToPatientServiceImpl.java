@@ -1,6 +1,9 @@
 package com.patient.ServiceImpl;
 
 import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.Calendar;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,7 +62,20 @@ public class DispenceToPatientServiceImpl implements DispenceToPatientService{
 
 	@Override
 	public DispenseToPatient createDispence(DispenseToPatient dispenceToPatient) {
+		
 		Date date = new Date(System.currentTimeMillis());
+		Query q = entityManager.createNativeQuery("select p.minimum_days from product p where p.product_id=?");
+		q.setParameter(1, dispenceToPatient.getProductId());
+		int min = (int) q.getSingleResult();
+		System.out.println(min);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); 
+		Calendar c = Calendar.getInstance(); 
+		c.setTime(new Date(System.currentTimeMillis())); // Using today's date 
+		c.add(Calendar.DATE, min); // Adding 5 days 
+		String output = sdf.format(c.getTime()); 
+		System.out.println(output);
+		
+		dispenceToPatient.setNextInjection(output);
 		dispenceToPatient.setCreatedOn(date);
 		DispenseToPatient d = dispenseRepo.save(dispenceToPatient);	
 		return d;
@@ -119,6 +135,15 @@ public class DispenceToPatientServiceImpl implements DispenceToPatientService{
 	public Product getProductBySerialId(Integer serialId) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+
+	@Override
+	public List<DispenseToPatient> getAllDispense() {
+		// TODO Auto-generated method stub
+		List<DispenseToPatient> list = dispenseRepo.findAll();
+//		Query q = entityManager.createQuery("select dp. from DispenseToPatient dp")
+		return list;
 	}
 
 

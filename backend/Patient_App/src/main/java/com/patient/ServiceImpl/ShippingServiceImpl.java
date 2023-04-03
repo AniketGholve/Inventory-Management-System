@@ -92,6 +92,7 @@ public class ShippingServiceImpl implements ShippingService {
 
 	@Override
 	public List<ClinicOrder> getprocessedorderEvents(Integer locationId) {
+		System.out.println(locationId);
 		Query q=entityManager.createNativeQuery("select * from order_events oe inner join clinic_order co on co.order_id=oe.order_id where oe.event_desc=? and oe.location_id=? group by co.order_id;");
 		q.setParameter(1, "Processed");
 		q.setParameter(2, locationId);

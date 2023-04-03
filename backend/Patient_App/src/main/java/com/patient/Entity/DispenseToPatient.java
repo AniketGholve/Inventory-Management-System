@@ -9,6 +9,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.Transient;
 
 @Entity
 public class DispenseToPatient {
@@ -62,13 +63,46 @@ public class DispenseToPatient {
 	private String revesionEmail;
 	@Column(name ="src_id")
 	private Integer srcId;
+	@Column(name ="next_injection")
+	private String nextInjection;
+	@Column(name = "patient_id")
+	private Integer patientId;
+	@Transient
+	private String patientName;
+	@Transient
+	private String productName;
+	
 	
 //	@OneToOne
 //	@JoinColumn(name = "patientId")
 //	private Patient id;
 	
-	@Column(name = "patient_id")
-	private Integer patientId;
+	
+	public String getNextInjection() {
+		return nextInjection;
+	}
+
+	public String getPatientName() {
+		return patientName;
+	}
+
+	public void setPatientName(String patientName) {
+		this.patientName = patientName;
+	}
+
+	public String getProductName() {
+		return productName;
+	}
+
+	public void setProductName(String productName) {
+		this.productName = productName;
+	}
+
+	public void setNextInjection(String nextInjection) {
+		this.nextInjection = nextInjection;
+	}
+
+	
 
 	public Integer getDispenseId() {
 		return dispenseId;
@@ -282,11 +316,14 @@ public class DispenseToPatient {
 				+ ", revesionEmail=" + revesionEmail + ", srcId=" + srcId + ", patientId=" + patientId + "]";
 	}
 
+	
+
 	public DispenseToPatient(Integer dispenseId, Integer productId, Integer nurseId, Integer physicianId,
 			Date dispenseDate, String injectionSite, String notes, String initial, Integer serialId, Integer userId,
 			Integer readerId, Date createdOn, Date modifiedOn, Integer serialEventId, Integer locationId,
 			Integer enterprise_id, String expType, String expMessage, Integer orderNum, String paymentStatus,
-			String revisionNotes, String revisionInitial, String revesionEmail, Integer srcId, Integer patientId) {
+			String revisionNotes, String revisionInitial, String revesionEmail, Integer srcId, String nextInjection,
+			Integer patientId, String patientName, String productName) {
 		super();
 		this.dispenseId = dispenseId;
 		this.productId = productId;
@@ -312,7 +349,10 @@ public class DispenseToPatient {
 		this.revisionInitial = revisionInitial;
 		this.revesionEmail = revesionEmail;
 		this.srcId = srcId;
+		this.nextInjection = nextInjection;
 		this.patientId = patientId;
+		this.patientName = patientName;
+		this.productName = productName;
 	}
 
 	public DispenseToPatient() {

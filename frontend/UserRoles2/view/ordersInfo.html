@@ -30,10 +30,10 @@
                         <td class="p-3">{{x.shiptoId}}</td>
                         <td class="p-3">{{x.shiptoName}}</td>
                         <td class="p-3">{{x.eventDesc}}</td>
-                        <td class="p-3 bg-salt">{{x.quantityMap['Itone']}}</td>
-                        <td class="p-3 bg-salt">{{x.quantityMap.Flexon}}</td>
-                        <td class="p-3 bg-salt">{{x.quantityMap['Cosemelite']}}</td>
-                        <td class="p-3 bg-salt">{{x.quantityMap['Itone'] +x.quantityMap.Flexon+x.quantityMap['Cosemelite'] }}</td>
+                        <td class="p-3 bg-salt">{{x.quantityMap['itone']}}</td>
+                        <td class="p-3 bg-salt">{{x.quantityMap['flexon']}}</td>
+                        <td class="p-3 bg-salt">{{x.quantityMap['cosmelite cream']}}</td>
+                        <td class="p-3 bg-salt">{{x.quantityMap['itone'] +x.quantityMap['flexon']+x.quantityMap['cosmelite cream'] }}</td>
                         <td class="p-3"><a href="" class="btn" ng-class="{'disabled':x.eventDesc!='Submitted'}"><i class="fa-regular fa-circle-check link-danger"
                                     ng-click="changeOrderStatus(x.displayId)"></i></a></td>
                         <td class="p-4"><a data-bs-toggle="modal" data-bs-target="#orderInventoryData"><i class="fa-sharp fa-solid fa-box link-danger"

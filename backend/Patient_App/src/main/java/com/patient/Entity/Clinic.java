@@ -5,6 +5,8 @@ import java.sql.Timestamp;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -105,25 +107,24 @@ public class Clinic {
 	@Column(name = "src_id")
 	private Integer src_id;
 	@Transient
-	@Temporal(TemporalType.TIMESTAMP)
-	private Timestamp lastOrderDate;
+	private String lastOrderDate;
 	@Transient
-	@Temporal(TemporalType.TIMESTAMP)
-	private Timestamp lastDispence;
+	private String lastDispence;
 	
 	
 	
 	
-	public Timestamp getLastOrderDate() {
+	
+	public String getLastOrderDate() {
 		return lastOrderDate;
 	}
-	public void setLastOrderDate(Timestamp lastOrderDate) {
+	public void setLastOrderDate(String lastOrderDate) {
 		this.lastOrderDate = lastOrderDate;
 	}
-	public Timestamp getLastDispence() {
+	public String getLastDispence() {
 		return lastDispence;
 	}
-	public void setLastDispence(Timestamp lastDispence) {
+	public void setLastDispence(String lastDispence) {
 		this.lastDispence = lastDispence;
 	}
 	public Integer getLocationId() {
@@ -386,8 +387,8 @@ public class Clinic {
 			String orderPoNumber, String forecastMeu, String timeZone, String shipmentMethod, String createdBy,
 			String modifiedBy, Date createdOn, Date modifiedOn, String ehrEnabled, String ediEnabled,
 			String beepEnabled, Boolean active, String salesRep1, String salesRep2, String divisionManager,
-			String regionalManager, String overrideRep, Boolean deleted, Integer src_id, Timestamp lastOrderDate,
-			Timestamp lastDispence) {
+			String regionalManager, String overrideRep, Boolean deleted, Integer src_id, String lastOrderDate,
+			String lastDispence) {
 		super();
 		this.locationId = locationId;
 		this.enterpriseId = enterpriseId;

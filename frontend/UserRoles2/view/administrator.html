@@ -56,21 +56,54 @@
                             </tbody>
                         </table>
                     </div>
-                </div>
-            </div>
-
-
-            <div class="d-flex justify-content-between">
-                <h2>Dispense Restrictions </h2>
                 
-                <button class="btn btn-warning mb-3 " style="width: 100px; letter-spacing: 2px;color: black;" data-bs-toggle="modal" data-bs-target="#editDispense">Edit</button>
-            </div>
-            <table id="doctorTable" class="table table-striped text-center mt-2">
+                </div>
+
+            
+            <div class="d-grid">
+                <div class="row">
+                    <div class="col-6" >
+                <h2 >Dispense Restrictions </h2>
+                </div>
+                <div class="col-6">
+                <button class="btn btn-warning  " style=" letter-spacing: 2px;color: black; float: right;" onclick="editFunction()">Edit</button>
+              
+                </div>
+                </div>
+                <div id="editDropdown" class="row">
+                    <div class="d-flex justify-content-end">
+                        <form  style="border: 2px groove rgb(228, 223, 223);">
+                            <table class="table table-striped ">
+                                <thead class="bg-info">
+                                    <tr>
+                                        <th>Dose</th>
+                                        <th> Minimum Days</th>
+                                    </tr>
+                                </thead>
+                                <tbody >
+                                    <tr ng-repeat="x in product_data">
+                                    <td >{{x.productName}} </td>
+                                    <td><input type="number" min="0"  ng-model="x.minimumDays"required></td>
+                                </tr>
+                                </tbody>
+                                
+                            </table>
+                            <div class="text-center mb-2">
+                            <input type="button" class="btn btn-info" ng-click="editMinimumDays()" value="Save">
+                        </div>
+                        </form>
+                        
+                    </div>
+                    </div>
+            
+        
+            <table id="" class="table table-striped text-center mt-2 ">
                 <thead class="thead">
                     <tr>
                         <th class=" ">Dose</th>
                         <th class="">Minimum Days</th>
                     </tr>
+                </thead>
                 <tbody>
                     <tr ng-repeat="x in product_data">
                         <td>{{x.productName}}</td>
@@ -79,47 +112,76 @@
                     </tr>
                 </tbody>
             </table>
-                <div class="modal fade" id="editDispense" tabindex="-1" aria-labelledby="exampleModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog " style="width: 30%;">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Edit Details</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <form>
-                                <div class="form-group d-flex justify-content-between">
-                                    <label for="recipient-name" class="col-form-label">Dose :</label>
-                                    <input type="text" class="" autocomplete="off" style="height: 50px; width: 70%;"  id="recipient-name"  >
-                                </div>
-                                <div class="form-group mt-3 d-flex justify-content-between">
-                                    <label for="recipient-name" class="col-form-label ">Minimum Days :</label>
-                                    <input type="text" class="" autocomplete="off" style="height: 50px; width: 70%;"  id="recipient-name"  >
-
-
-                                    <!-- <label for="dropdownTab" class="text-dark mx-1 d-flex align-items-center">
-                                        Minimum Days:
-                                    </label>
-                                    <select class="" style="height: 50px; width: 82%;" ng-model="linkData.url">
-                                        <option label="Select a Link" class="d-none "></option>
-                                        <option class="" value="#!insertPatient">Add Patient</option>
-                                        <option class="" value="#!orders">Ordering</option>
-                                        <option class="" value="#!addPhysician">Add Physician</option>
-                                        <option class="" value="#!addNurse">Add Nurse</option>
-                                    </select> -->
-                                </div>
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-success" ng-click="saveLinks()" data-bs-dismiss="modal">Save</button>
-                        </div>
-
-                    </div>
-                </div>
+               
             </div>
+            <div class="d-grid">
+                <div class="row">
+                    <div class="col-6" >
+                <h2>Reorder Settings</h2>
+                </div>
+                <div class="col-6">
+                <button class="btn btn-info " style=" letter-spacing: 2px;color: black; float: right;" onclick="reorderFunction()">Edit</button>
+              
+                </div>
+                </div>
+                <hr>
+                <div id="reorderDropDown" class="row">
+                    <div class="d-flex justify-content-end">
+                        <form  style="border: 2px groove rgb(228, 223, 223);">
+                            <table class="table table-striped ">
+                                <thead class="bg-warning">
+                                    <tr>
+                                        <th>Product Name</th>
+                                        <th>Low Inventory Alerts</th>
+                                        <th class="">Alert Quantity</th>
+                                        <th class="">In-System</th>
+                                        <th class="">Email</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody >
+                                  
+                                </tbody>
+                                
+                            </table>
+                            <!-- <div class="text-center mb-2">
+                            <input type="button" class="btn btn-info" ng-click="editMinimumDays()" value="Save">
+                        </div> -->
+                        </form>
+                        
+                    </div>
+                    </div>
             
+        
+            <table id="" class="table table-striped text-center mt-2 ">
+                <thead class="thead">
+                    
+                    <tr>
+                        <th class="">Product Name</th>
+                        <th class="">Low Inventory Alerts</th>
+                        <th class="">Alert Quantity</th>
+                        <th class="">In-System</th>
+                        <th class="">Email</th>
+                        <th class="">9-2022</th>
+                        <th class="">10-2022</th>
+                        <th class="">11-2022</th>
+                        <th class="">12-2022</th>
+                        <th class="">01-2023</th>
+                        <th class="">02-2023</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="x in product_data">
+                        <td>{{x.productName}}</td>
+                        
+
+                    </tr>
+                </tbody>
+            </table>
+               
+            </div>
+            </div>
+        </div>
         </div>
     </div>
 

@@ -18,6 +18,28 @@ function downloadFunction() {
         x.style.display = "none";
     }
 }
+function editFunction() {
+    var x = document.getElementById("editDropdown");
+    console.log(x.style.display);
+    if (x.style.display == "none" || x.style.display == "") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+}
+
+function reorderFunction() {
+    var x = document.getElementById("reorderDropDown");
+    console.log(x.style.display);
+    if (x.style.display == "none" || x.style.display == "") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+}
+
+
+
 app.controller("elp", function ($scope, $http) {
     
     $http({

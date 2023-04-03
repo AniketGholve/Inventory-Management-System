@@ -20,6 +20,8 @@ public interface DispenceToPatientService {
 	public DispenseToPatient addDispense(Integer Id,Integer nurseId,Integer physicianId,Integer productId,Integer serialId,Integer locationId,String injectionSite);
 
 	public Serial getProductBySerialNo(Integer serialNo);
+	
+	public List<DispenseToPatient> getAllDispense();
 
 	
 

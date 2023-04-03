@@ -33,7 +33,9 @@ public class ProductServiceImpl implements ProductService{
 	public Product getDoseName(Integer productId , Integer serialNumber) {
 		// TODO Auto-generated method stub
 		//Dose,Quantity,Status from quantity and event_desc from order_events
+ 
 		Query q1=entityManager.createQuery("select p.productId,p.active,p.createdOn,p.enterpriseId,p.gtin,p.manufacturer,p.modifiedOn,p.ndc,p.packageType,p.productName,oe.quantity,oe.eventDesc,p.minimum_days from Product p inner join OrderEvents oe on oe.productId = p.productId inner join Serial s on s.productId = oe.productId where p.productId=:a and s.serialNumber=:b");
+ 
 		q1.setParameter("a",productId);
 		q1.setParameter("b", serialNumber);
 		List<Object[]> l = q1.getResultList();
@@ -53,7 +55,7 @@ public class ProductServiceImpl implements ProductService{
 		p.setStatus((String)o[11]);
 		p.setMinimumDays((Integer)o[12]);
 		}
-		
+ 
 		return p;
 		
 	}
@@ -74,7 +76,8 @@ public class ProductServiceImpl implements ProductService{
 		for(Product p :list) {
 			if(i<length) {
 				p.setMinimumDays(products.get(i).getMinimumDays());
-				i=i+1;	
+				i=i+1;
+				productRepo.save(p);
 			}	
 		}
 		return list;
