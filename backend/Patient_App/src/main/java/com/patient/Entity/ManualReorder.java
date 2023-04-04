@@ -1,8 +1,11 @@
 package com.patient.Entity;
 
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Transient;
 
 @Entity
 public class ManualReorder {
@@ -10,6 +13,8 @@ public class ManualReorder {
 	@Id
 	@Column(name = "product_name")
 	private String ProductName;
+	@Column(name = "product_id")
+	private int productId;
 	@Column(name = "low_inventory_alerts")
 	private boolean LowInventoryAlerts;
 	@Column(name = "alert_quantity")
@@ -18,17 +23,37 @@ public class ManualReorder {
 	private boolean inSystem;
 	@Column(name = "email")
 	private boolean email;
-	
+	@Transient
+	private UsageOverLastMonths usageOverLastMonths;
+
 	public ManualReorder() {}
 
-	public ManualReorder(String productName, boolean lowInventoryAlerts, int alertQuantity, boolean inSystem,
-			boolean email) {
+	public ManualReorder(String productName, int productId, boolean lowInventoryAlerts, int alertQuantity,
+			boolean inSystem, boolean email, UsageOverLastMonths usageOverLastMonths) {
 		super();
 		ProductName = productName;
+		this.productId = productId;
 		LowInventoryAlerts = lowInventoryAlerts;
 		AlertQuantity = alertQuantity;
 		this.inSystem = inSystem;
 		this.email = email;
+		this.usageOverLastMonths = usageOverLastMonths;
+	}
+
+	public int getProductId() {
+		return productId;
+	}
+
+	public void setProductId(int productId) {
+		this.productId = productId;
+	}
+
+	public UsageOverLastMonths getUsageOverLastMonths() {
+		return usageOverLastMonths;
+	}
+
+	public void setUsageOverLastMonths(UsageOverLastMonths usageOverLastMonths) {
+		this.usageOverLastMonths = usageOverLastMonths;
 	}
 
 	public String getProductName() {
