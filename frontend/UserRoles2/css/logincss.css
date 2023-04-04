@@ -362,16 +362,16 @@ nav{
 }
 
 .downloadMenu{
-  /* position: absolute; */
+  position: absolute;
   background:  #3a57bd;
-  /* bottom: 60%; */
+  bottom: 52%;
   width: 60px;
   padding: 5px;
-  /* margin: 12px 0; */
-  /* place-items: center; */
+  margin: 5px 0;
+  place-items: center;
   font-family: "Poppins", sans-serif;
   letter-spacing: 5px;
-  border-radius: 4px ;
+  border-radius: 4px groove  #3a57bd;
  
 }
 .downloadMenuLink{
@@ -382,7 +382,7 @@ nav{
 
 }
 .hr1{
-  color:  rgb(242, 242, 242);
+  /* color:  rgb(242, 242, 242); */
   margin-top: 5%;
   margin-bottom: 5%;
 }
@@ -390,4 +390,41 @@ nav{
   width: 25px;
   float: right;
 }
+.dropbtn {
+  background-color: #515ff0;
+  color: white;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 4px  ;
+  border-color: #515ff0;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f3f3f3;
+  min-width: 80px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  text-align: center;
+  letter-spacing: 2px;
+}
+
+.dropdown-content a {
+ 
+  color: black;
+  padding: 3px 3px;
+  text-decoration: none;
+  display: block;
+
+}
+
+.dropdown-content a:hover {background-color: #6eeb8d;}
+
+.dropdown:hover .dropdown-content {display: block;}
 
