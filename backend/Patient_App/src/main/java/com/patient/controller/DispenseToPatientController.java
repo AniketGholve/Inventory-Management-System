@@ -13,9 +13,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.patient.Entity.DispenseToPatient;
+import com.patient.Entity.LastInjectionScreen;
 import com.patient.Entity.Patient;
 import com.patient.Entity.Product;
 import com.patient.Entity.Serial;
+import com.patient.Entity.UsageOverLastMonths;
 import com.patient.ServiceImpl.DispenceToPatientServiceImpl;
 import com.patient.ServiceImpl.PatientServiceImpl;
 @RestController
@@ -59,9 +61,16 @@ public class DispenseToPatientController {
 	}
 	
 	@GetMapping("/getAllDispense")
-	public List<DispenseToPatient> getAllDispense(){
-		List<DispenseToPatient> l = dispenceToServiceImpl.getAllDispense();
+	public List<LastInjectionScreen> getAllDispense(){
+		List<LastInjectionScreen> l = dispenceToServiceImpl.getAllDispense();
 		return l;
+	}
+	
+	@GetMapping("/getAllDispensedDose")
+	public List<UsageOverLastMonths> getAllDispensedDose()
+	{
+		List<UsageOverLastMonths> list = dispenceToServiceImpl.getAllUsedDoses();
+		return list;
 	}
 	
 	
