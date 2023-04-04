@@ -634,7 +634,20 @@ app.controller("clp", function ($scope, $http, $window, $location) {
         })
 
     }
-
+    
+    $http({
+        method: 'GET',
+        url: "http://localhost:7890/getAllDispense",
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': sessionStorage.getItem("token")
+        }
+    }).then((response) => {
+        console.log(response.data);
+        $scope.dispenseShow = response.data;
+    }, (error) => {
+        console.log(error);
+    }); 
     
     
     if (sessionStorage.getItem("locationId") != undefined || sessionStorage.getItem("locationId") != null) {
@@ -848,6 +861,8 @@ app.controller("clp", function ($scope, $http, $window, $location) {
             console.log(error);
         });
     }
+
+    
 
     
 

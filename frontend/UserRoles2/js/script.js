@@ -28,15 +28,15 @@ function editFunction() {
     }
 }
 
-function reorderFunction() {
-    var x = document.getElementById("reorderDropDown");
-    console.log(x.style.display);
-    if (x.style.display == "none" || x.style.display == "") {
-        x.style.display = "block";
-    } else {
-        x.style.display = "none";
-    }
-}
+// function reorderFunction() {
+//     var x = document.getElementById("reorderDropDown");
+//     console.log(x.style.display);
+//     if (x.style.display == "none" || x.style.display == "") {
+//         x.style.display = "block";
+//     } else {
+//         x.style.display = "none";
+//     }
+// }
 
 // function toggleTables() {
 //     var switchElem = document.getElementById("tableSwitch");
@@ -53,7 +53,7 @@ function reorderFunction() {
 //   }
 
   // Show table1 by default
-  toggleTables();
+//   toggleTables();
 
 
 
