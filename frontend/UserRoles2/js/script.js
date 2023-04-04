@@ -38,6 +38,23 @@ function reorderFunction() {
     }
 }
 
+// function toggleTables() {
+//     var switchElem = document.getElementById("tableSwitch");
+//     var table1 = document.getElementById("autoTable");
+//     var table2 = document.getElementById("manualTable");
+
+//     if (switchElem.checked) {
+//       table1.classList.add("d-none");
+//       table2.classList.remove("d-none");
+//     } else {
+//       table1.classList.remove("d-none");
+//       table2.classList.add("d-none");
+//     }
+//   }
+
+  // Show table1 by default
+  toggleTables();
+
 
 
 app.controller("elp", function ($scope, $http) {
