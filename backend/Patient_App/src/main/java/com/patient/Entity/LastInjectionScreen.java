@@ -6,7 +6,7 @@ public class LastInjectionScreen {
 	 
 	private String patientName;
 	private String patientLastName;
-	private String patientDOB;
+	private Date patientDOB;
 	private Date CreatedOn;
 	private String productname;
 	private String lastInjection;
@@ -14,7 +14,7 @@ public class LastInjectionScreen {
 	public LastInjectionScreen() {}
 	
 
-	public LastInjectionScreen(String patientName, String patientLastName, String patientDOB, Date createdOn,
+	public LastInjectionScreen(String patientName, String patientLastName, Date patientDOB, Date createdOn,
 			String productname, String lastInjection) {
 		super();
 		this.patientName = patientName;
@@ -37,12 +37,12 @@ public class LastInjectionScreen {
 	}
 
 
-	public String getPatientDOB() {
+	public Date getPatientDOB() {
 		return patientDOB;
 	}
 
 
-	public void setPatientDOB(String patientDOB) {
+	public void setPatientDOB(Date patientDOB) {
 		this.patientDOB = patientDOB;
 	}
 
