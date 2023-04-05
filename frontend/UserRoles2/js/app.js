@@ -123,6 +123,7 @@ app.controller("headerController", ($scope, $http, $location) => {
         $scope.alp = "d-none";
         $scope.elp = "d-none";
         $scope.userIcon = "d-none";
+        $scope.notificationIcon="d-none";
     }
 })
 
@@ -643,11 +644,44 @@ app.controller("clp", function ($scope, $http, $window, $location) {
             'Authorization': sessionStorage.getItem("token")
         }
     }).then((response) => {
+        console.log("Hello");
         console.log(response.data);
         $scope.dispenseShow = response.data;
     }, (error) => {
         console.log(error);
     }); 
+
+    $http({
+        method: 'GET',
+        url: "http://localhost:7890/getAllDispensedDose",
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': sessionStorage.getItem("token")
+        }
+    }).then((response) => {
+        console.log("Bye");
+        console.log(response.data);
+        $scope.dispenseDoseTable = response.data;
+    }, (error) => {
+        console.log(error);
+    }); 
+
+    $http({
+        method: 'GET',
+        url: "http://localhost:7890/getManualReorder",
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': sessionStorage.getItem("token")
+        }
+    }).then((response) => {
+        console.log("Manual");
+        console.log(response.data);
+        $scope.manualReorder = response.data;
+    }, (error) => {
+        console.log(error);
+    }); 
+
+
     
     
     if (sessionStorage.getItem("locationId") != undefined || sessionStorage.getItem("locationId") != null) {

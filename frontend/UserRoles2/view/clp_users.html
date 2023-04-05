@@ -6,9 +6,9 @@
     <!-- <div>Please Select a Clinic </div> -->
     <div class="isDisabled">
         <h1 class="text-center">Patients</h1>
-        <div class="d-grid  container mt-4 ">
-            <div class="container shadow w-50 row " ng-repeat="x in dispenseShow">
-                <h3 class="mt-2">Aniket , 31-03-2023</h3>
+        <div class="d-flex container mt-4 ">
+            <div class="container shadow w-50 row m-3 " ng-repeat="x in dispenseShow">
+                <h3 class="mt-2">{{x.patientLastName}} , {{x.patientName}} {{x.patientDOB}} </h3>
                 <div class="d-flex mt-3 mb-3">
                     <div class="col-4">
                         <i class="fa-solid fa-user" style="font-size: 70px;"></i>
@@ -17,19 +17,19 @@
                         <div class="d-flex">
                             <label for="">Next Injection Due : </label>
                             <div>
-                                hhy
+                               {{x.lastInjection}}
                             </div>
                         </div>
                         <div class="d-flex">
                             <label for="">Last Dose:</label>
                             <div>
-                                he
+                                {{x.productname}}
                             </div>
                         </div>
                         <div class="d-flex">
-                            <label for="">Last Injection Due :</label>
+                            <label for="">Last Injection Date :</label>
                             <div>
-                                 hr
+                                 {{x.createdOn}}
                             </div>
 
                         </div>
