@@ -9,4 +9,6 @@ public interface ManualReorderService {
 	public List<ManualReorder> update(List<ManualReorder> list);
 	
 	public List<ManualReorder> getAll();
+
+	public String ManualReorderMessage();
 }

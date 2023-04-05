@@ -3,6 +3,7 @@ package com.patient.Entity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Transient;
 
 @Entity
 public class AutoReorder {
@@ -10,6 +11,8 @@ public class AutoReorder {
 	@Id
 	@Column(name = "product_name")
 	private String ProductName;
+	@Column(name = "product_id")
+	private int productId;
 	@Column(name = "reorder_point")
 	private int ReorderPoint;
 	@Column(name = "reorder_quantity")
@@ -18,17 +21,44 @@ public class AutoReorder {
 	private String AddOnDose;
 	@Column(name = "add_on_quantity")
 	private int AddOnQuantity;
+	@Transient
+	private UsageOverLastMonths usageOverLastMonths;
 	
 	public AutoReorder() {}
 
-	public AutoReorder(String productName, int reorderPoint, int reorderQuantity, String addOnDose, int addOnQuantity) {
+	
+	public AutoReorder(String productName, int productId, int reorderPoint, int reorderQuantity, String addOnDose,
+			int addOnQuantity, UsageOverLastMonths usageOverLastMonths) {
 		super();
 		ProductName = productName;
+		this.productId = productId;
 		ReorderPoint = reorderPoint;
 		ReorderQuantity = reorderQuantity;
 		AddOnDose = addOnDose;
 		AddOnQuantity = addOnQuantity;
+		this.usageOverLastMonths = usageOverLastMonths;
 	}
+
+
+	public int getProductId() {
+		return productId;
+	}
+
+
+	public void setProductId(int productId) {
+		this.productId = productId;
+	}
+
+
+	public UsageOverLastMonths getUsageOverLastMonths() {
+		return usageOverLastMonths;
+	}
+
+
+	public void setUsageOverLastMonths(UsageOverLastMonths usageOverLastMonths) {
+		this.usageOverLastMonths = usageOverLastMonths;
+	}
+
 
 	public String getProductName() {
 		return ProductName;
