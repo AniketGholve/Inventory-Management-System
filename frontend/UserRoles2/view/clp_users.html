@@ -7,26 +7,26 @@
     <div class="isDisabled">
         <h1 class="text-center">Patients</h1>
         <div class="d-flex container mt-4 ">
-            <div class="container shadow w-50 row m-3 " ng-repeat="x in dispenseShow">
-                <h3 class="mt-2">{{x.patientLastName}} , {{x.patientName}} {{x.patientDOB}} </h3>
+            <div class="container shadow w-100 row m-3 " ng-repeat="x in dispenseShow">
+                <h3 class="mt-2" style="font-size:25px;">{{x.patientLastName}} , {{x.patientName}} {{x.patientDOB}} </h3>
                 <div class="d-flex mt-3 mb-3">
-                    <div class="col-4">
+                    <div class="col-3">
                         <i class="fa-solid fa-user" style="font-size: 70px;"></i>
                     </div>
-                    <div class="col-8 d-flex flex-column ">
-                        <div class="d-flex">
+                    <div class="col-9 d-flex flex-column ">
+                        <div class="d-flex ">
                             <label for="">Next Injection Due : </label>
                             <div>
                                {{x.lastInjection}}
                             </div>
                         </div>
-                        <div class="d-flex">
+                        <div class="d-flex " style="margin-left: 60px;">
                             <label for="">Last Dose:</label>
-                            <div>
+                            <div class="">
                                 {{x.productname}}
                             </div>
                         </div>
-                        <div class="d-flex">
+                        <div class="d-flex ">
                             <label for="">Last Injection Date :</label>
                             <div>
                                  {{x.createdOn}}
