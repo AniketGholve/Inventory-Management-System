@@ -28,32 +28,49 @@ function editFunction() {
     }
 }
 
-function reorderFunction() {
-    var x = document.getElementById("reorderDropDown");
-    console.log(x.style.display);
-    if (x.style.display == "none" || x.style.display == "") {
-        x.style.display = "block";
-    } else {
-        x.style.display = "none";
+// function reorderFunction() {
+//     var x = document.getElementById("reorderDropDown");
+//     console.log(x.style.display);
+//     if (x.style.display == "none" || x.style.display == "") {
+//         x.style.display = "block";
+//     } else {
+//         x.style.display = "none";
+//     }
+// }
+
+function toggleTables() {
+    var auto1 = document.getElementById("autoTableMain");
+    var manual1= document.getElementById("manualTableMain");
+    var auto = document.getElementById("auto");
+    var manual = document.getElementById("manual");
+    if (auto.innerText==="Auto") {
+        var autoTable = document.getElementById("autoTable");
+        var manualTable = document.getElementById("manualTable");
+        manualTable.classList.add("d-none");
+        autoTable.classList.remove("d-none");
+        auto1.classList.remove("d-none");
+        manual1.classList.add("d-none");
+        auto.classList.add("check");
+        manual.classList.remove("check");
+    }
+  }
+function toggleTables1() {
+    var auto = document.getElementById("auto");
+    var manual = document.getElementById("manual");
+    var auto1 = document.getElementById("autoTableMain");
+    var manual1= document.getElementById("manualTableMain");
+    if (manual.innerText==="Manual") {
+        var autoTable = document.getElementById("autoTable");
+        var manualTable = document.getElementById("manualTable");
+        manualTable.classList.remove("d-none");
+        autoTable.classList.add("d-none");
+        auto1.classList.add("d-none");
+        manual1.classList.remove("d-none");
+        manual.classList.add("check");
+        auto.classList.remove("check");
+
     }
 }
-
-// function toggleTables() {
-//     var switchElem = document.getElementById("tableSwitch");
-//     var table1 = document.getElementById("autoTable");
-//     var table2 = document.getElementById("manualTable");
-
-//     if (switchElem.checked) {
-//       table1.classList.add("d-none");
-//       table2.classList.remove("d-none");
-//     } else {
-//       table1.classList.remove("d-none");
-//       table2.classList.add("d-none");
-//     }
-//   }
-
-  // Show table1 by default
-  toggleTables();
 
 
 

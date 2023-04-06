@@ -43,13 +43,15 @@ public class AutoReorderServiceImpl implements AutoReorderService {
 			System.out.println(Arrays.toString(o));
 
 		AutoReorder ar=new AutoReorder();
-
+//        ar.setProductId();
 		ar.setProductName((String)o[0]);
 		ar.setAddOnDose((String)o[1]);
 		ar.setAddOnQuantity((Integer)o[2]);
 		ar.setReorderPoint((Integer)o[3]);
 		ar.setReorderQuantity((Integer)o[4]);
+		ar.setProductId((Integer)o[5]);
 		ar.setUsageOverLastMonths(usageList.get(k++));
+		
 		
 		list.add(ar);
 
@@ -72,6 +74,8 @@ public class AutoReorderServiceImpl implements AutoReorderService {
 			a.setAddOnQuantity(list.get(i).getAddOnQuantity());
 			a.setReorderPoint(list.get(i).getReorderPoint());
 			a.setReorderQuantity(list.get(i).getReorderQuantity());
+			System.out.println(list.get(i).getProductId());
+			a.setProductId(list.get(i).getProductId());
 			i++;
 			autoReorderRepo.save(a);
 			}
