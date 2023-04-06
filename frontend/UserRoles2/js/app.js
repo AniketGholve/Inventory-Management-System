@@ -103,18 +103,21 @@ app.controller("headerController", ($scope, $http, $location) => {
                 $scope.clp = "d-none";
                 $scope.elp = "d-none";
                 $scope.login = "d-none";
+                $scope.notificationIcon="d-none";
             }
             else if ($scope.data.role == "ALP") {
                 $scope.clp = "d-none";
                 $scope.mlp = "d-none";
                 $scope.elp = "d-none";
                 $scope.login = "d-none";
+                $scope.notificationIcon="d-none";
             }
             else if ($scope.data.role == "ELP") {
                 $scope.clp = "d-none";
                 $scope.mlp = "d-none";
                 $scope.alp = "d-none";
                 $scope.login = "d-none";
+                $scope.notificationIcon="d-none";
             }
         })
     }
@@ -464,7 +467,7 @@ app.controller("clp", function ($scope, $http, $window, $location) {
             }).then((response) => {
                 
                 check=true
-                //alert("Order Placed Successfully")
+                alert("Order Placed Successfully")
 
                 $window.location.reload();
                 console.log(response);
@@ -608,16 +611,31 @@ app.controller("clp", function ($scope, $http, $window, $location) {
             'Content-Type': 'application/json',
             'Authorization': sessionStorage.getItem("token")
         },
+    }).then((response) => {
+        console.log("Before")
+        $scope.product_data = [...response.data];
+        
+    }, (error) => {
+        console.log(error);
+    });
+
+    $http({
+        method: 'GET',
+        url: 'http://localhost:7890/getAllProduct',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': sessionStorage.getItem("token")
+        },
 
        
     }).then((response) => {
         console.log("Before")
-        $scope.product_data = response.data;
+        
         $scope.product_data1 = [...response.data];
     }, (error) => {
         console.log(error);
     });
-    // $scope.product_data={};
+    
     $scope.editMinimumDays = () => {
         $http({
             method: 'PUT',
@@ -668,36 +686,115 @@ app.controller("clp", function ($scope, $http, $window, $location) {
         console.log(error);
     }); 
 
+    $scope.onOff =true;
+    $scope.addMonths=[];
+    $scope.marchMonth;
 
-    // $http({
-    //     method: 'GET',
-    //     url: "http://localhost:7890/getAutoReorderDose", http://localhost:7890/getAutoReorderDose
-    //     headers: {
-    //         'Content-Type': 'application/json',
-    //         'Authorization': sessionStorage.getItem("token")
-    //     }
-    // }).then((response) => {
-    //     console.log("Go");
-    //     console.log(response.data);
-    //     $scope.autoTableData = response.data;
-    // }, (error) => {
-    //     console.log(error);
-    // });
+    $http({
+        method: 'GET',
+        url: "http://localhost:7890/getAutoReorderDose", 
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': sessionStorage.getItem("token")
+        }
+    }).then((response) => {
+        console.log("Auto");
+        console.log(response.data);
+        $scope.autoTableData = [...response.data];
+    }, (error) => {
+        console.log(error);
+    });
 
-    // $http({
-    //     method: 'GET',
-    //     url: "http://localhost:7890/getManualReorder",
-    //     headers: {
-    //         'Content-Type': 'application/json',
-    //         'Authorization': sessionStorage.getItem("token")
-    //     }
-    // }).then((response) => {
-    //     console.log("Manual");
-    //     console.log(response.data);
-    //     $scope.manualReorder = response.data;
-    // }, (error) => {
-    //     console.log(error);
-    // }); 
+    $http({
+        method: 'GET',
+        url: "http://localhost:7890/getAutoReorderDose", 
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': sessionStorage.getItem("token")
+        }
+    }).then((response) => {
+        console.log("Autoedit");
+        console.log(response.data);
+        $scope.autoTableData1= [...response.data];
+    }, (error) => {
+        console.log(error);
+    });
+
+    $scope.autoTableUpdate = () => {
+        $http({
+            method: 'PUT',
+            url: 'http://localhost:7890/updateAutoReorder',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': sessionStorage.getItem("token")
+            },
+            data: $scope.autoTableData1
+            
+        }).then((response) => {
+            console.log("updateAutoTable")
+            console.log($scope.autoTableData1);
+            $window.location.reload();
+            
+                },
+                (error) => {
+
+        })
+
+    }
+
+
+
+    $http({
+        method: 'GET',
+        url: "http://localhost:7890/getManualReorder",
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': sessionStorage.getItem("token")
+        }
+    }).then((response) => {
+        console.log("Manual");
+        console.log(response.data);
+        $scope.manualReorder = [...response.data];
+    }, (error) => {
+        console.log(error);
+    }); 
+
+    $http({
+        method: 'GET',
+        url: "http://localhost:7890/getManualReorder",
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': sessionStorage.getItem("token")
+        }
+    }).then((response) => {
+        console.log("Manualedit");
+        console.log(response.data);
+        $scope.manualReorder1 = [...response.data];
+    }, (error) => {
+        console.log(error);
+    }); 
+
+    $scope.manualTableUpdate = () => {
+        $http({
+            method: 'PUT',
+            url: 'http://localhost:7890/updateManualReorder',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': sessionStorage.getItem("token")
+            },
+            data: $scope.manualReorder1
+            
+        }).then((response) => {
+            console.log("updateManualTable")
+            console.log($scope.manualReorder1);
+            
+            
+                },
+                (error) => {
+
+        })
+
+    }
     
     
     

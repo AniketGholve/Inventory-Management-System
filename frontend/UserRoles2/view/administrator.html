@@ -100,24 +100,24 @@
                                         aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    
-                                        <table class="table table-striped ">
-                                            <thead class="thead">
-                                                <tr>
-                                                    <th>Dose</th>
-                                                    <th> Minimum Days</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr ng-repeat="x in product_data1">
-                                                    <td>{{x.productName}} </td>
-                                                    <td><input type="number" min="0" ng-model="x.minimumDays" required>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
 
-                                        </table>
-                                    
+                                    <table class="table table-striped ">
+                                        <thead class="thead">
+                                            <tr>
+                                                <th>Dose</th>
+                                                <th> Minimum Days</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="x in product_data1">
+                                                <td>{{x.productName}} </td>
+                                                <td><input type="number" min="0" ng-model="x.minimumDays" required>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+
+                                    </table>
+
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary"
@@ -149,7 +149,7 @@
                         <!-- <div class="col-2 form-check form-switch"><input class="form-check-input" type="checkbox" role="switch" id="tableSwitch"  data-bs-target="#autoTable,#manualTable" data-bs-toggle="collapse" ></div> -->
 
 
-                        <table  class="table table-striped  text-center mt-2  ">
+                        <table class="table table-striped  text-center mt-2  ">
                             <thead class="thead">
                                 <tr>
                                     <th colspan="11" style="padding-left: 75%; border: none;">USAGE OVER LAST 6 MONTHS
@@ -172,21 +172,36 @@
 
                             </thead>
                             <tbody>
-                                <tr ng-repeat="y in dispenseDoseTable ">
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td>{{y.usgaeInOctober}}</td>
-                                    <td>{{y.usageInNovember}}</td>
-                                    <td>{{y.usageInDecember}}</td>
-                                    <td>{{y.usageInJanuary}}</td>
-                                    <td>{{y.usageInFebruary}}</td>
-                                    <td>{{y.usageInMarch}}</td>
+                                <tr ng-repeat="y in autoTableData ">
+                                    <td>{{y.productName}}</td>
+                                    <td>{{y.reorderPoint}}</td>
+                                    <td>{{y.reorderQuantity}}</td>
+                                    <td>{{y.addOnDose}}</td>
+                                    <td>{{y.addOnQuantity}}</td>
+                                    <td>{{y.usageOverLastMonths.usgaeInOctober}}</td>
+                                    <td>{{y.usageOverLastMonths.usageInNovember}}</td>
+                                    <td>{{y.usageOverLastMonths.usageInDecember}}</td>
+                                    <td>{{y.usageOverLastMonths.usageInJanuary}}</td>
+                                    <td>{{y.usageOverLastMonths.usageInFebruary}}</td>
+                                    <td>{{y.usageOverLastMonths.usageInMarch}}</td>
+
+
                                 </tr>
                                 <tr style="background-color: rgb(209, 231, 249);">
                                     <td colspan="5" style="padding-left: 650px;">Usage over Time Totals:</td>
+                                    <td>{{autoTableData[0].usageOverLastMonths.usgaeInOctober+autoTableData[1].usageOverLastMonths.usgaeInOctober+autoTableData[2].usageOverLastMonths.usgaeInOctober}}
+                                    </td>
+                                    <td>{{autoTableData[0].usageOverLastMonths.usageInNovember+autoTableData[1].usageOverLastMonths.usageInNovember+autoTableData[2].usageOverLastMonths.usageInNovember}}
+                                    </td>
+                                    <td>{{autoTableData[0].usageOverLastMonths.usageInDecember+autoTableData[1].usageOverLastMonths.usageInDecember+autoTableData[2].usageOverLastMonths.usageInDecember}}
+                                    </td>
+                                    <td>{{autoTableData[0].usageOverLastMonths.usageInJanuary+autoTableData[1].usageOverLastMonths.usageInJanuary+autoTableData[2].usageOverLastMonths.usageInJanuary}}
+                                    </td>
+                                    <td>{{autoTableData[0].usageOverLastMonths.usageInFebruary+autoTableData[1].usageOverLastMonths.usageInFebruary+autoTableData[2].usageOverLastMonths.usageInFebruary}}
+                                    </td>
+                                    <td>{{autoTableData[0].usageOverLastMonths.usageInMarch+autoTableData[1].usageOverLastMonths.usageInMarch+autoTableData[2].usageOverLastMonths.usageInMarch}}
+                                    </td>
+
                                 </tr>
                             </tbody>
                         </table>
@@ -219,23 +234,34 @@
 
                             </thead>
                             <tbody>
-                                <tr ng-repeat="y in dispenseDoseTable">
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td>{{y.usgaeInOctober}}</td>
-                                    <td>{{y.usageInNovember}}</td>
-                                    <td>{{y.usageInDecember}}</td>
-                                    <td>{{y.usageInJanuary}}</td>
-                                    <td>{{y.usageInFebruary}}</td>
-                                    <td>{{y.usageInMarch}}</td>
-
+                                <tr ng-repeat="x in manualReorder">
+                                    <td>{{x.productName}}</td>
+                                    <td>{{x.lowInventoryAlerts}}</td>
+                                    <td>{{x.alertQuantity}}</td>
+                                    <td>{{x.inSystem}}</td>
+                                    <td>{{x.email}}</td>
+                                    <td>{{x.usageOverLastMonths.usgaeInOctober}}</td>
+                                    <td>{{x.usageOverLastMonths.usageInNovember}}</td>
+                                    <td>{{x.usageOverLastMonths.usageInDecember}}</td>
+                                    <td>{{x.usageOverLastMonths.usageInJanuary}}</td>
+                                    <td>{{x.usageOverLastMonths.usageInFebruary}}</td>
+                                    <td>{{x.usageOverLastMonths.usageInMarch}}</td>
 
                                 </tr>
                                 <tr style="background-color: rgb(209, 231, 249);">
                                     <td colspan="5" style="padding-left: 650px;">Usage over Time Totals:</td>
+                                    <td>{{autoTableData[0].usageOverLastMonths.usgaeInOctober+autoTableData[1].usageOverLastMonths.usgaeInOctober+autoTableData[2].usageOverLastMonths.usgaeInOctober}}
+                                    </td>
+                                    <td>{{autoTableData[0].usageOverLastMonths.usageInNovember+autoTableData[1].usageOverLastMonths.usageInNovember+autoTableData[2].usageOverLastMonths.usageInNovember}}
+                                    </td>
+                                    <td>{{autoTableData[0].usageOverLastMonths.usageInDecember+autoTableData[1].usageOverLastMonths.usageInDecember+autoTableData[2].usageOverLastMonths.usageInDecember}}
+                                    </td>
+                                    <td>{{autoTableData[0].usageOverLastMonths.usageInJanuary+autoTableData[1].usageOverLastMonths.usageInJanuary+autoTableData[2].usageOverLastMonths.usageInJanuary}}
+                                    </td>
+                                    <td>{{autoTableData[0].usageOverLastMonths.usageInFebruary+autoTableData[1].usageOverLastMonths.usageInFebruary+autoTableData[2].usageOverLastMonths.usageInFebruary}}
+                                    </td>
+                                    <td>{{autoTableData[0].usageOverLastMonths.usageInMarch+autoTableData[1].usageOverLastMonths.usageInMarch+autoTableData[2].usageOverLastMonths.usageInMarch}}
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -303,20 +329,26 @@
 
                                                 </thead>
                                                 <tbody>
-                                                    <tr ng-repeat="y in dispenseDoseTable">
-                                                        <td></td>
-                                                        <td><input type="text" class="w-25" required></td>
-                                                        <td><input type="text" class="w-25" required></td>
-                                                        <td><select>
+                                                    <tr ng-repeat="y in autoTableData1">
+                                                        <td>{{y.productName}}</td>
+                                                        <td><input type="text" class="w-25" ng-model="y.reorderPoint"
+                                                                required></td>
+                                                        <td><input type="text" class="w-25" ng-model="y.reorderQuantity"
+                                                                required></td>
+                                                        <td><select ng-model="y.addOnDose">
                                                                 <option>Select a Dose</option>
+                                                                <option value="10">10</option>
+                                                                <option value="20">20</option>
+                                                                <option value="30">30</option>
                                                             </select></td>
-                                                        <td><input type="text" class="w-25" required></td>
-                                                        <td>{{y.usgaeInOctober}}</td>
-                                                        <td>{{y.usageInNovember}}</td>
-                                                        <td>{{y.usageInDecember}}</td>
-                                                        <td>{{y.usageInJanuary}}</td>
-                                                        <td>{{y.usageInFebruary}}</td>
-                                                        <td>{{y.usageInMarch}}</td>
+                                                        <td><input type="text" class="w-25" ng-model="y.addOnQuantity"
+                                                                required></td>
+                                                        <td>{{y.usageOverLastMonths.usgaeInOctober}}</td>
+                                                        <td>{{y.usageOverLastMonths.usageInNovember}}</td>
+                                                        <td>{{y.usageOverLastMonths.usageInDecember}}</td>
+                                                        <td>{{y.usageOverLastMonths.usageInJanuary}}</td>
+                                                        <td>{{y.usageOverLastMonths.usageInFebruary}}</td>
+                                                        <td>{{y.usageOverLastMonths.usageInMarch}}</td>
 
 
                                                     </tr>
@@ -324,11 +356,29 @@
                                                         <td colspan="5" style="padding-left: 700px;">Usage over Time
                                                             Totals:
                                                         </td>
+                                                        <td>{{autoTableData[0].usageOverLastMonths.usgaeInOctober+autoTableData[1].usageOverLastMonths.usgaeInOctober+autoTableData[2].usageOverLastMonths.usgaeInOctober}}
+                                                        </td>
+                                                        <td>{{autoTableData[0].usageOverLastMonths.usageInNovember+autoTableData[1].usageOverLastMonths.usageInNovember+autoTableData[2].usageOverLastMonths.usageInNovember}}
+                                                        </td>
+                                                        <td>{{autoTableData[0].usageOverLastMonths.usageInDecember+autoTableData[1].usageOverLastMonths.usageInDecember+autoTableData[2].usageOverLastMonths.usageInDecember}}
+                                                        </td>
+                                                        <td>{{autoTableData[0].usageOverLastMonths.usageInJanuary+autoTableData[1].usageOverLastMonths.usageInJanuary+autoTableData[2].usageOverLastMonths.usageInJanuary}}
+                                                        </td>
+                                                        <td>{{autoTableData[0].usageOverLastMonths.usageInFebruary+autoTableData[1].usageOverLastMonths.usageInFebruary+autoTableData[2].usageOverLastMonths.usageInFebruary}}
+                                                        </td>
+                                                        <td>{{autoTableData[0].usageOverLastMonths.usageInMarch+autoTableData[1].usageOverLastMonths.usageInMarch+autoTableData[2].usageOverLastMonths.usageInMarch}}
+                                                        </td>
                                                     </tr>
                                                 </tbody>
                                             </table>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Close</button>
+                                                <button type="button" class="btn btn-info" ng-click="autoTableUpdate()"
+                                                    data-bs-dismiss="modal">Update</button>
+                                            </div>
                                         </div>
-                                        <div id="manualTable" class="mt-2 d-none" >
+                                        <div id="manualTable" class="mt-2 d-none">
                                             Reorder: Manual
 
                                             <table id="manualTable" class="table table-striped text-center mt-1 ">
@@ -358,25 +408,29 @@
 
                                                 </thead>
                                                 <tbody>
-                                                    <tr ng-repeat="y in dispenseDoseTable">
-                                                        <td></td>
+                                                    <tr ng-repeat="x in manualReorder1">
+                                                        <td>{{x.productName}}</td>
                                                         <td>
                                                             <div class="form-check form-switch"><input
                                                                     class="form-check-input" style="margin-left: 40%;"
-                                                                    type="checkbox" role="switch" id="alertSwitch">
+                                                                    type="checkbox" role="switch" id="alertSwitch"
+                                                                    ng-model="x.lowInventoryAlerts">
                                                             </div>
                                                         </td>
-                                                        <td><input type="text" class="w-25" required></td>
-                                                        <td><input type="checkbox" style="height: 20px;width: 20px;">
+                                                        <td><input type="text" class="w-25" ng-model="x.alertQuantity"
+                                                                required></td>
+                                                        <td><input type="checkbox" ng-model="x.inSystem"
+                                                                style="height: 20px;width: 20px;">
                                                         </td>
-                                                        <td><input type="checkbox" style="height: 20px;width: 20px;">
+                                                        <td><input type="checkbox" ng-model="x.email"
+                                                                style="height: 20px;width: 20px;">
                                                         </td>
-                                                        <td>{{y.usgaeInOctober}}</td>
-                                                        <td>{{y.usageInNovember}}</td>
-                                                        <td>{{y.usageInDecember}}</td>
-                                                        <td>{{y.usageInJanuary}}</td>
-                                                        <td>{{y.usageInFebruary}}</td>
-                                                        <td>{{y.usageInMarch}}</td>
+                                                        <td>{{x.usageOverLastMonths.usgaeInOctober}}</td>
+                                                        <td>{{x.usageOverLastMonths.usageInNovember}}</td>
+                                                        <td>{{x.usageOverLastMonths.usageInDecember}}</td>
+                                                        <td>{{x.usageOverLastMonths.usageInJanuary}}</td>
+                                                        <td>{{x.usageOverLastMonths.usageInFebruary}}</td>
+                                                        <td>{{x.usageOverLastMonths.usageInMarch}}</td>
 
 
                                                     </tr>
@@ -384,18 +438,32 @@
                                                         <td colspan="5" style="padding-left: 700px;">Usage over Time
                                                             Totals:
                                                         </td>
+                                                        <td>{{autoTableData[0].usageOverLastMonths.usgaeInOctober+autoTableData[1].usageOverLastMonths.usgaeInOctober+autoTableData[2].usageOverLastMonths.usgaeInOctober}}
+                                                        </td>
+                                                        <td>{{autoTableData[0].usageOverLastMonths.usageInNovember+autoTableData[1].usageOverLastMonths.usageInNovember+autoTableData[2].usageOverLastMonths.usageInNovember}}
+                                                        </td>
+                                                        <td>{{autoTableData[0].usageOverLastMonths.usageInDecember+autoTableData[1].usageOverLastMonths.usageInDecember+autoTableData[2].usageOverLastMonths.usageInDecember}}
+                                                        </td>
+                                                        <td>{{autoTableData[0].usageOverLastMonths.usageInJanuary+autoTableData[1].usageOverLastMonths.usageInJanuary+autoTableData[2].usageOverLastMonths.usageInJanuary}}
+                                                        </td>
+                                                        <td>{{autoTableData[0].usageOverLastMonths.usageInFebruary+autoTableData[1].usageOverLastMonths.usageInFebruary+autoTableData[2].usageOverLastMonths.usageInFebruary}}
+                                                        </td>
+                                                        <td>{{autoTableData[0].usageOverLastMonths.usageInMarch+autoTableData[1].usageOverLastMonths.usageInMarch+autoTableData[2].usageOverLastMonths.usageInMarch}}
+                                                        </td>
+
                                                     </tr>
                                                 </tbody>
                                             </table>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Close</button>
+                                                <button type="button" class="btn btn-danger" ng-click="manualTableUpdate()"
+                                                    data-bs-dismiss="modal">Update</button>
+                                            </div>
                                         </div>
                                     </form>
                                 </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary"
-                                        data-bs-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-danger" ng-click=""
-                                        data-bs-dismiss="modal">Update</button>
-                                </div>
+
 
                             </div>
                         </div>

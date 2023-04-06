@@ -12,7 +12,7 @@
             <select id="dropdownTab"class="dropdownTab" ng-model="selectedDropdownTab" ng-change="screensName(selectedDropdownTab)">
                 <option label="Select" class="d-none"></option>
                 <option class="text-center" value="inventory">Inventory Dashboard</option>
-                <option class="text-center" value="ordering">Ordering</option>
+                <option class="text-center" value="ordering">Order Inventory</option>
             </select>
     </div>
     <div style="float: left;" ng-class="{'d-none': reportLocation()!=true}">
@@ -20,7 +20,7 @@
         <select id="dropdownTab"class="dropdownTab" ng-model="selectedDropdown" ng-change="reportName(selectedDropdown)">
             <option label="Select a Report" class="d-none"></option>
             <option class="text-center" value="addPatient">Add Patient</option>
-            <option class="text-center" value="orders">Ordering</option>
+            <option class="text-center" value="orders">Order Inventory</option>
             <option class="text-center" value="addPhysician">Add Physician</option>
             <option class="text-center" value="addNurse">Add Nurse</option>
 

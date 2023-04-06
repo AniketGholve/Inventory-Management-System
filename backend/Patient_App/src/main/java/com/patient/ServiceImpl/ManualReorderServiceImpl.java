@@ -38,6 +38,7 @@ public class ManualReorderServiceImpl implements ManualReorderService {
 			m.setLowInventoryAlerts(list.get(i).isLowInventoryAlerts());
 			m.setInSystem(list.get(i).isInSystem());
 			m.setEmail(list.get(i).isEmail());
+			m.setProductId(list.get(i).getProductId());
 			i++;
 			manualReorderRepo.save(m);
 			}
@@ -75,6 +76,7 @@ public class ManualReorderServiceImpl implements ManualReorderService {
 	mr.setEmail((Boolean)o[3]);
 
 	mr.setInSystem((Boolean)o[4]);
+	mr.setProductId((Integer)o[5]);
 
 	mr.setUsageOverLastMonths(usageList.get(k++));
 	
