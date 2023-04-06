@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import com.patient.Entity.AutoReorder;
 import com.patient.Entity.Clinic;
 import com.patient.Entity.ClinicOrder;
 import com.patient.Entity.Inventory;
@@ -88,16 +89,15 @@ public class NotificationsServiceImpl implements NotificationsService {
 	
 	//AutoOrder
 	@Override
-	@Scheduled(fixedRate = 86400000)
-	public void AutoOrder() {
-		// TODO Auto-generated method stub
+	@Transactional
+	@Scheduled(fixedRate = 86400000) //cron = "0 10 20 * * MON-FRI"
+	public void AutoOrder() 
+	{	
 		List<Clinic> clinicList=clinicRepo.findAll();
 
 		long m=System.currentTimeMillis();
 
 		Date d=new Date(m);
-		
-		
 
 		Format formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 
@@ -116,11 +116,26 @@ public class NotificationsServiceImpl implements NotificationsService {
 		for(Inventory i:inventoryList)
 
 		{
+			
+			Query q2=entityManager.createQuery("select ar from AutoReorder ar where ar.productId=:v");
+
+			q2.setParameter("v",i.getProductId());
+
+			AutoReorder autoReorder=(AutoReorder) q2.getSingleResult();
 
 		ClinicOrder clinicOrder;
 
-		if(i.getOnHand()<5 && co==-1) {
+		if(i.getOnHand()<autoReorder.getReorderPoint() && co==-1) {
 
+			Query q3=entityManager.createNativeQuery("update inventory i set i.on_hand=? where i.location_id=? and i.product_id=?" );
+			
+			q3.setParameter(1, i.getOnHand()+autoReorder.getReorderQuantity());
+
+			q3.setParameter(2, i.getLoactionId());
+
+			q3.setParameter(3, autoReorder.getProductId());
+			
+			q3.executeUpdate();
 		clinicOrder=new ClinicOrder();
 
 		Clinic clinic=clinicRepo.findById(i.getLoactionId()).orElseThrow();
@@ -163,13 +178,19 @@ public class NotificationsServiceImpl implements NotificationsService {
 
 		co=0;
 		
+//		Query q5 = entityManager.createNativeQuery("select ")
 		
+		Notifications notification = new Notifications();	
+		Date date = new Date(System.currentTimeMillis());
+		notification.setMessage("Order placed for LocationId:"+i.getLoactionId());
+		notification.setNotifiedTime(date);
+		notification.setStatus("Success Order");
+		notificationsRepo.save(notification);
 
 		}
 
-		if(i.getOnHand()<5 && co==0) {
+		if(i.getOnHand()<autoReorder.getReorderPoint() && co==0) {
 
-		 
 
 		OrderEvents orderEvents = new OrderEvents();
 
@@ -191,7 +212,7 @@ public class NotificationsServiceImpl implements NotificationsService {
 
 		orderEvents.setProductId(i.getProductId());
 
-		orderEvents.setQuantity(i.getOrderedQty());
+		orderEvents.setQuantity(autoReorder.getReorderQuantity());
 
 		orderEvents.setShipmentTrackingId(123);
 
@@ -206,8 +227,15 @@ public class NotificationsServiceImpl implements NotificationsService {
 		 
 		
 		}
+
 		}
+
+		
+
+		 
+
 		}
+		
 		
 	}
 
