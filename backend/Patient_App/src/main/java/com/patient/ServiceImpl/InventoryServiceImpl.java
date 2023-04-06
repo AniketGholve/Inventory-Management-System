@@ -247,7 +247,7 @@ public class InventoryServiceImpl implements InventoryService {
 		Query q3=entityManager.createNativeQuery("update inventory i set on_i.hand=? where i.location_id=? and i.product_id=?" );
 		q3.setParameter(1, i.getOnHand()+autoReorder.getReorderQuantity());
 		q3.setParameter(2, i.getLoactionId());
-		q3.setParameter(3, autoReorder.getproduct)
+		q3.setParameter(3, autoReorder.getProductId());
 
 		 
 

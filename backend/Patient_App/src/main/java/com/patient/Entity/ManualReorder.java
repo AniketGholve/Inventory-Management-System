@@ -13,6 +13,8 @@ public class ManualReorder {
 	@Id
 	@Column(name = "product_name")
 	private String ProductName;
+	@Column(name = "product_id")
+	private int productId;
 	@Column(name = "low_inventory_alerts")
 	private boolean LowInventoryAlerts;
 	@Column(name = "alert_quantity")
@@ -31,6 +33,14 @@ public class ManualReorder {
 
 	public void setProductName(String productName) {
 		ProductName = productName;
+	}
+
+	public int getProductId() {
+		return productId;
+	}
+
+	public void setProductId(int productId) {
+		this.productId = productId;
 	}
 
 	public boolean isLowInventoryAlerts() {
@@ -75,15 +85,16 @@ public class ManualReorder {
 
 	@Override
 	public String toString() {
-		return "ManualReorder [ProductName=" + ProductName + ", LowInventoryAlerts=" + LowInventoryAlerts
-				+ ", AlertQuantity=" + AlertQuantity + ", inSystem=" + inSystem + ", email=" + email
-				+ ", usageOverLastMonths=" + usageOverLastMonths + "]";
+		return "ManualReorder [ProductName=" + ProductName + ", productId=" + productId + ", LowInventoryAlerts="
+				+ LowInventoryAlerts + ", AlertQuantity=" + AlertQuantity + ", inSystem=" + inSystem + ", email="
+				+ email + ", usageOverLastMonths=" + usageOverLastMonths + "]";
 	}
 
-	public ManualReorder(String productName, boolean lowInventoryAlerts, int alertQuantity, boolean inSystem,
-			boolean email, UsageOverLastMonths usageOverLastMonths) {
+	public ManualReorder(String productName, int productId, boolean lowInventoryAlerts, int alertQuantity,
+			boolean inSystem, boolean email, UsageOverLastMonths usageOverLastMonths) {
 		super();
 		ProductName = productName;
+		this.productId = productId;
 		LowInventoryAlerts = lowInventoryAlerts;
 		AlertQuantity = alertQuantity;
 		this.inSystem = inSystem;
@@ -95,7 +106,11 @@ public class ManualReorder {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+ 
 
+	
+
+	
 	
 	
 	

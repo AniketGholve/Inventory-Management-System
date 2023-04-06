@@ -61,6 +61,13 @@ public class LastInjectionScreen {
 		this.lastInjection = lastInjection;
 	}
 
+	@Override
+	public String toString() {
+		return "LastInjectionScreen [patientName=" + patientName + ", patientLastName=" + patientLastName
+				+ ", patientDOB=" + patientDOB + ", CreatedOn=" + CreatedOn + ", productname=" + productname
+				+ ", lastInjection=" + lastInjection + "]";
+	}
+
 	public LastInjectionScreen(String patientName, String patientLastName, Date patientDOB, Date createdOn,
 			String productname, String lastInjection) {
 		super();
@@ -71,6 +78,8 @@ public class LastInjectionScreen {
 		this.productname = productname;
 		this.lastInjection = lastInjection;
 	}
+
+	
 	
 
 	

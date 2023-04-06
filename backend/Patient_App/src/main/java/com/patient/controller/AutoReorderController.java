@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.patient.Entity.AutoReorder;
@@ -25,7 +26,7 @@ public class AutoReorderController {
 	}
 	
 	@PutMapping("/updateAutoReorder")
-	public List<AutoReorder> updateAutoReorder(List<AutoReorder> list){
+	public List<AutoReorder> updateAutoReorder(@RequestBody List<AutoReorder> list){
 		List<AutoReorder> l = autoReorderServiceImpl.updateReorder(list);
 		return l;
 	}

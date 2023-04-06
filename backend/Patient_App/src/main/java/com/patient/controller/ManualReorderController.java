@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.patient.Entity.ManualReorder;
@@ -26,7 +27,7 @@ public class ManualReorderController {
 	}
 	
 	@PutMapping("/updateManualReorder")
-	public List<ManualReorder> updateReorder(List<ManualReorder> list)
+	public List<ManualReorder> updateReorder(@RequestBody List<ManualReorder> list)
 	{
 		List<ManualReorder> l = manualReorderServiceImpl.update(list);
 		return l;

@@ -123,6 +123,7 @@ app.controller("headerController", ($scope, $http, $location) => {
         $scope.alp = "d-none";
         $scope.elp = "d-none";
         $scope.userIcon = "d-none";
+        $scope.notificationIcon="d-none";
     }
 })
 
@@ -606,11 +607,13 @@ app.controller("clp", function ($scope, $http, $window, $location) {
         headers: {
             'Content-Type': 'application/json',
             'Authorization': sessionStorage.getItem("token")
-        }
+        },
+
+       
     }).then((response) => {
         console.log("Before")
-        console.log(response.data);
         $scope.product_data = response.data;
+        $scope.product_data1 = [...response.data];
     }, (error) => {
         console.log(error);
     });
@@ -623,18 +626,79 @@ app.controller("clp", function ($scope, $http, $window, $location) {
                 'Content-Type': 'application/json',
                 'Authorization': sessionStorage.getItem("token")
             },
-            data: $scope.product_data
+            data: $scope.product_data1
             
         }).then((response) => {
             console.log("update")
-            console.log($scope.product_data);
+            console.log($scope.product_data1);
                 },
                 (error) => {
 
         })
 
     }
+    
+    $http({
+        method: 'GET',
+        url: "http://localhost:7890/getAllDispense",
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': sessionStorage.getItem("token")
+        }
+    }).then((response) => {
+        console.log("Hello");
+        console.log(response.data);
+        $scope.dispenseShow = response.data;
+    }, (error) => {
+        console.log(error);
+    }); 
 
+    $http({
+        method: 'GET',
+        url: "http://localhost:7890/getAllDispensedDose",
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': sessionStorage.getItem("token")
+        }
+    }).then((response) => {
+        console.log("Bye");
+        console.log(response.data);
+        $scope.dispenseDoseTable = response.data;
+    }, (error) => {
+        console.log(error);
+    }); 
+
+
+    // $http({
+    //     method: 'GET',
+    //     url: "http://localhost:7890/getAutoReorderDose", http://localhost:7890/getAutoReorderDose
+    //     headers: {
+    //         'Content-Type': 'application/json',
+    //         'Authorization': sessionStorage.getItem("token")
+    //     }
+    // }).then((response) => {
+    //     console.log("Go");
+    //     console.log(response.data);
+    //     $scope.autoTableData = response.data;
+    // }, (error) => {
+    //     console.log(error);
+    // });
+
+    // $http({
+    //     method: 'GET',
+    //     url: "http://localhost:7890/getManualReorder",
+    //     headers: {
+    //         'Content-Type': 'application/json',
+    //         'Authorization': sessionStorage.getItem("token")
+    //     }
+    // }).then((response) => {
+    //     console.log("Manual");
+    //     console.log(response.data);
+    //     $scope.manualReorder = response.data;
+    // }, (error) => {
+    //     console.log(error);
+    // }); 
+    
     
     
     if (sessionStorage.getItem("locationId") != undefined || sessionStorage.getItem("locationId") != null) {
@@ -851,6 +915,8 @@ app.controller("clp", function ($scope, $http, $window, $location) {
 
     
 
+    
+
 
 
 });
@@ -914,6 +980,7 @@ app.controller("alp", ($scope, $http, $window) => {
         }
     }).then((response) => {
         $scope.orderData = response.data;
+        console.log(response)
     }, (error) => {
         console.log(error);
     });
@@ -1217,6 +1284,8 @@ app.controller('updateController', function ($scope, $http, $routeParams, $windo
         }
     }).then((response) => {
         $scope.updateFormData = response.data;
+        console.log("Kiet")
+        console.log(response.data)
         $scope.updateFormData.patientDob = new Date(response.data.patientDob);
         $scope.fileCount = $scope.updateFormData.patientFile.length;
         var range = [];
@@ -1224,6 +1293,7 @@ app.controller('updateController', function ($scope, $http, $routeParams, $windo
             range.push(i);
         }
         $scope.range = range;
+        
     }, (error) => {
         console.log(error);
     })

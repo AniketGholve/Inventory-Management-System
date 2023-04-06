@@ -1,9 +1,13 @@
 package com.patient.ServiceImpl;
 
+import java.util.ArrayList;
+
+import java.util.Arrays;
 import java.util.List;
 
 import org.hibernate.query.NativeQuery;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import com.patient.Entity.ManualReorder;
@@ -13,7 +17,9 @@ import com.patient.Service.ManualReorderService;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
-@Service
+ 
+import jakarta.transaction.Transactional;
+ @Service
 public class ManualReorderServiceImpl implements ManualReorderService {
 	
 	@Autowired
@@ -23,6 +29,7 @@ public class ManualReorderServiceImpl implements ManualReorderService {
 	@Autowired
 	private EntityManager entityManager;
 	
+	 
 	@Override
 	public List<ManualReorder> update(List<ManualReorder> list) {
 		// TODO Auto-generated method stub
@@ -41,9 +48,10 @@ public class ManualReorderServiceImpl implements ManualReorderService {
 	}
 
 	@Override
+
 	public List<ManualReorder> getAll() {
 		// TODO Auto-generated method stub
-		Query q=entityManager.createNativeQuery("select * from manual_reorder");
+		Query q=entityManager.createNativeQuery("select * from manual_reorder order by product_id");
 		List<Object[]> l=q.getResultList();
 		List<UsageOverLastMonths> usageList=dispenceToPatientServiceImpl.getAllUsedDoses();
 		int k=0;
@@ -59,6 +67,23 @@ public class ManualReorderServiceImpl implements ManualReorderService {
 		}
 		List<ManualReorder> list = manualReorderRepo.findAll();
 		return list;
+}
+	@Override
+	@Transactional
+	@Scheduled(fixedRate = 3000000)//cron = "0 0 12 * * MON-FRI"
+	public String ManualReorderMessage() {
+		Query q = entityManager.createNativeQuery("select i.on_hand,m.product_name from \r\n"
+				+ "inventory i inner join product p on i.product_id=p.product_id \r\n"
+				+ "inner join manual_reorder m on m.product_name=p.product_name \r\n"
+				+ "where i.on_hand<m.alert_quantity and m.low_inventory_alerts = true");
+		List<Object[]> list = q.getResultList();
+		if(list.size()>0) {
+		System.out.println("low");
+		return "Inventory is low on doses please order doses";
+		}
+		else {
+			return null;
+		}
 	}
 
 }

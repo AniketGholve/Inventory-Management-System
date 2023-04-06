@@ -145,10 +145,13 @@ public class DispenceToPatientServiceImpl implements DispenceToPatientService{
 	public List<LastInjectionScreen> getAllDispense() {
 		// TODO Auto-generated method stub
 //		List<DispenseToPatient> list = dispenseRepo.findAll();
-		Query q = entityManager.createNativeQuery("select AES_DECRYPT(pa.patient_first_name,'this-is-patient-'),pa.patient_last_name,pa.patient_date_of_birth,dp.created_On,dp.next_Injection,p.product_Name from dispense_to_patient dp inner join Product p on dp.product_Id = p.product_Id inner join Patient pa on pa.id = dp.patient_Id where STR_TO_DATE(dp.next_Injection,'%Y-%m-%d') >= date_sub(now(), INTERVAL 3 DAY) order by dp.next_injection");
+ 
+		//Query q = entityManager.createNativeQuery("select AES_DECRYPT(pa.patient_first_name,'this-is-patient-'),pa.patient_last_name,pa.patient_date_of_birth,dp.created_On,dp.next_Injection,p.product_Name from dispense_to_patient dp inner join Product p on dp.product_Id = p.product_Id inner join Patient pa on pa.id = dp.patient_Id where STR_TO_DATE(dp.next_Injection,'%Y-%m-%d') >= date_sub(now(), INTERVAL 3 DAY) order by dp.next_injection");
 		//Query q = entityManager.createQuery("select pa.patientFirstName,pa.patientLastName,pa.patientDob,dp.createdOn,dp.nextInjection,p.productName from DispenseToPatient dp inner join Product p on dp.productId = p.productId inner join Patient pa on pa.id = dp.patientId where dp.nextInjection-CURRENT_DATE <=3  order by dp.nextInjection");
 		
-		List<Object[]> list = q.getResultList();
+ 
+		Query q = entityManager.createQuery("select pa.patientFirstName,pa.patientLastName,pa.patientDob,dp.createdOn,dp.nextInjection,p.productName from DispenseToPatient dp inner join Product p on dp.productId = p.productId inner join Patient pa on pa.id = dp.patientId where dp.nextInjection-CURRENT_DATE <=3 order by dp.nextInjection");
+ 		List<Object[]> list = q.getResultList();
 //		Object[][] objArray = list.toArray(new Object[0][]);
 //		System.out.println(Arrays.deepToString(objArray));
 		List<LastInjectionScreen> result = new ArrayList<>();
@@ -156,26 +159,21 @@ public class DispenceToPatientServiceImpl implements DispenceToPatientService{
 			
 			LastInjectionScreen l = new LastInjectionScreen();
 			
-			System.out.println(o[1]);
+ 
 			String name = (String)o[0];
 			l.setPatientName(name);
-			System.out.println(name);
-//			
+			
 			String lastName = (String)o[1];
-//			byte[] decodedBytes1 = Base64Utils.decodeFromString(encrypted1);
-//			String lastName = new String(decodedBytes1);
 			l.setPatientLastName(lastName);
-//			
-			//Date DOB = (Date)o[2];
-//			byte[] decodedBytes2 = Base64Utils.decodeFromString(encrypted2);
-//			String DOB = new String(decodedBytes2);
-			//l.setPatientDOB(DOB);
-//			
-			l.setCreatedOn((Date)o[3]);
+			
+			Date DOB = (Date)o[2];
+			l.setPatientDOB(DOB);
+			
+ 			l.setCreatedOn((Date)o[3]);
 			System.out.println(o[4].getClass());
 			//l.setLastInjection((String)o[4]);
 			l.setProductname((String)o[5]);
-////			System.out.println(Arrays.toString(l));
+ 
 			result.add(l);
 		}
 		return result;
