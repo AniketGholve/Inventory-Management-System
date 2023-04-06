@@ -1,8 +1,11 @@
 package com.patient.Entity;
 
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Transient;
 
 @Entity
 public class ManualReorder {
@@ -19,17 +22,8 @@ public class ManualReorder {
 	@Column(name = "email")
 	private boolean email;
 	
-	public ManualReorder() {}
-
-	public ManualReorder(String productName, boolean lowInventoryAlerts, int alertQuantity, boolean inSystem,
-			boolean email) {
-		super();
-		ProductName = productName;
-		LowInventoryAlerts = lowInventoryAlerts;
-		AlertQuantity = alertQuantity;
-		this.inSystem = inSystem;
-		this.email = email;
-	}
+	@Transient
+	private UsageOverLastMonths usageOverLastMonths;
 
 	public String getProductName() {
 		return ProductName;
@@ -70,6 +64,38 @@ public class ManualReorder {
 	public void setEmail(boolean email) {
 		this.email = email;
 	}
+
+	public UsageOverLastMonths getUsageOverLastMonths() {
+		return usageOverLastMonths;
+	}
+
+	public void setUsageOverLastMonths(UsageOverLastMonths usageOverLastMonths) {
+		this.usageOverLastMonths = usageOverLastMonths;
+	}
+
+	@Override
+	public String toString() {
+		return "ManualReorder [ProductName=" + ProductName + ", LowInventoryAlerts=" + LowInventoryAlerts
+				+ ", AlertQuantity=" + AlertQuantity + ", inSystem=" + inSystem + ", email=" + email
+				+ ", usageOverLastMonths=" + usageOverLastMonths + "]";
+	}
+
+	public ManualReorder(String productName, boolean lowInventoryAlerts, int alertQuantity, boolean inSystem,
+			boolean email, UsageOverLastMonths usageOverLastMonths) {
+		super();
+		ProductName = productName;
+		LowInventoryAlerts = lowInventoryAlerts;
+		AlertQuantity = alertQuantity;
+		this.inSystem = inSystem;
+		this.email = email;
+		this.usageOverLastMonths = usageOverLastMonths;
+	}
+
+	public ManualReorder() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 	
 	
 	

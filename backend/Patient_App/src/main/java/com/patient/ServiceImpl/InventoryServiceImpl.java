@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import com.patient.Entity.AutoReorder;
 import com.patient.Entity.Clinic;
 import com.patient.Entity.ClinicOrder;
 import com.patient.Entity.Inventory;
@@ -178,6 +179,7 @@ public class InventoryServiceImpl implements InventoryService {
 		q.setParameter("u",c.getLocationId());
 
 		List<Inventory> inventoryList=q.getResultList();
+		
 
 		int co=-1;
 
@@ -186,10 +188,15 @@ public class InventoryServiceImpl implements InventoryService {
 		for(Inventory i:inventoryList)
 
 		{
-
+			Query q2=entityManager.createQuery("select ar from AutoReorder where ar.productId=:v");
+			q2.setParameter("v",i.getProductId());
+			AutoReorder autoReorder=(AutoReorder) q2.getSingleResult();
+		
 		ClinicOrder clinicOrder;
 
-		if(i.getOnHand()<5 && co==-1) {
+		if(i.getOnHand()<autoReorder.getReorderPoint() && co==-1) {
+			
+		
 
 		clinicOrder=new ClinicOrder();
 
@@ -235,7 +242,12 @@ public class InventoryServiceImpl implements InventoryService {
 
 		}
 
-		if(i.getOnHand()<5 && co==0) {
+		if(i.getOnHand()<autoReorder.getReorderPoint() && co==0) {
+			
+		Query q3=entityManager.createNativeQuery("update inventory i set on_i.hand=? where i.location_id=? and i.product_id=?" );
+		q3.setParameter(1, i.getOnHand()+autoReorder.getReorderQuantity());
+		q3.setParameter(2, i.getLoactionId());
+		q3.setParameter(3, autoReorder.getproduct)
 
 		 
 
