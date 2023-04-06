@@ -92,7 +92,7 @@ public class ManualReorderServiceImpl implements ManualReorderService {
 	
 	@Override
 	@Transactional
-	@Scheduled(fixedRate = 3000000)//cron = "0 0 12 * * MON-FRI"
+//	@Scheduled(fixedRate = 3000000)//cron = "0 0 12 * * MON-FRI"
 	public String ManualReorderMessage() {
 		Query q = entityManager.createNativeQuery("select i.on_hand,m.product_name from \r\n"
 				+ "inventory i inner join product p on i.product_id=p.product_id \r\n"
