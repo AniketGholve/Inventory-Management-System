@@ -146,7 +146,7 @@ public class DispenceToPatientServiceImpl implements DispenceToPatientService{
 	public List<LastInjectionScreen> getAllDispense() {
 		// TODO Auto-generated method stub
 //		List<DispenseToPatient> list = dispenseRepo.findAll();
-		Query q = entityManager.createQuery("select pa.patientFirstName,pa.patientLastName,pa.patientDob,dp.createdOn,dp.nextInjection,p.productName from DispenseToPatient dp inner join Product p on dp.productId = p.productId inner join Patient pa on pa.id = dp.patientId where dp.nextInjection-CURRENT_DATE <=3 order by dp.nextInjection");
+		Query q = entityManager.createQuery("select pa.patientFirstName,pa.patientLastName,pa.patientDob,dp.createdOn,dp.nextInjection,p.productName from DispenseToPatient dp inner join Product p on dp.productId = p.productId inner join Patient pa on pa.id = dp.patientId where STR_TO_DATE(dp.nextInjection,'%Y-%m-%d') >= CURRENT_DATE-3 order by dp.nextInjection");//CURRENT_DATE <=3
 		List<Object[]> list = q.getResultList();
 //		Object[][] objArray = list.toArray(new Object[0][]);
 //		System.out.println(Arrays.deepToString(objArray));
