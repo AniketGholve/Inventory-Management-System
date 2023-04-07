@@ -47,11 +47,33 @@
 
                 </ul>
             </div>
-            <div class="{{notificationIcon}}">
+            <div class="{{notificationIcon}}" >
                 <div>
                 <button onclick="notificationFunction()" class="btn3"><i class="fa-sharp fa-solid fa-bell"></i></button>
             </div>
             <div id="notificationDropDown" class="notification-menu">
+                <div class="deleteNotificationAdmin">
+                    <i class="fa-sharp fa-solid fa-xmark" ng-click="deleteNotifications()"></i>
+                </div>
+                <div ng-repeat="x in notificationData" class="mt-2" ng-class="{'successNotification': x.status == 'Success Order' , 'errorNotification': x.status == 'Error Order'}" >
+                    
+                    <div class="d-grid ">
+                        <div class="row-cols-6">
+                        {{x.message}}
+                    </div>
+                    <div class="row">
+                        <div class="col-6" >
+                            {{x.notifiedTime}}
+                        </div>
+                        <div class="col-6">
+                         
+                            {{x.status}}
+                        </div>
+                    </div>
+                    </div>
+                    </div>
+
+                </div>
 
                 
             </div>

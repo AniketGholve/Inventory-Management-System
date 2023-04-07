@@ -686,9 +686,9 @@ app.controller("clp", function ($scope, $http, $window, $location) {
         console.log(error);
     }); 
 
-    $scope.onOff =true;
-    $scope.addMonths=[];
-    $scope.marchMonth;
+    // $scope.onOff =true;
+    // $scope.addMonths=[];
+    // $scope.marchMonth;
 
     $http({
         method: 'GET',
@@ -733,7 +733,7 @@ app.controller("clp", function ($scope, $http, $window, $location) {
         }).then((response) => {
             console.log("updateAutoTable")
             console.log($scope.autoTableData1);
-            $window.location.reload();
+            
             
                 },
                 (error) => {
@@ -789,11 +789,38 @@ app.controller("clp", function ($scope, $http, $window, $location) {
             console.log($scope.manualReorder1);
             
             
+            
                 },
                 (error) => {
 
         })
 
+    }
+
+    $http({
+        method: 'GET',
+        url: "http://localhost:7890/getAllNotifications",
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': sessionStorage.getItem("token")
+        }
+    }).then((response) => {
+        console.log("Notification");
+        $scope.notificationData = [...response.data];
+        console.log(response.data);
+    }, (error) => {
+        console.log(error);
+    }); 
+
+    $scope.deleteNotifications= () =>{
+        $http({
+            method: 'DELETE',
+            url: "http://localhost:7890/deleteAllNotifications" ,
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': sessionStorage.getItem("token")
+            }
+        }).then((response) => { }, (error) => { })
     }
     
     

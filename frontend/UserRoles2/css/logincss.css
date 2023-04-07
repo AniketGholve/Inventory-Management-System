@@ -466,16 +466,27 @@ nav{
 .notification-menu{
   position: absolute;
   top: 138%;
-  left: 75%;
-  width: 75%;
-  padding: 20px;
-  margin: 10px;
+  right: 7%;
+  width: 40%;
+  padding: 27px;
   margin: 12px 0;
   place-items: center;
   font-family: "Poppins", sans-serif;
-  letter-spacing: 2px;
+  letter-spacing: 3px;
   border-radius: 3px;
-  background:  rgb(220, 219, 219);
-  border: solid #0e0e0e;
+  background:  rgb(201, 198, 198);
+  border: 1px solid #0e0e0e;
 
+}
+.successNotification{
+  background-color:  #6eeb8d;
+  padding: 5px;
+}
+.errorNotification{
+  background-color: rgb(236, 69, 69);
+  padding: 5px;
+}
+.hradmin{
+  color: rgb(155, 152, 152);
+  pointer-events: none;
 }
