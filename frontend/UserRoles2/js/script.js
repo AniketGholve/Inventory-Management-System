@@ -67,6 +67,7 @@ function toggleTables() {
         manual.classList.remove("check");
     }
   }
+  
 function toggleTables1() {
     var auto = document.getElementById("auto");
     var manual = document.getElementById("manual");
@@ -81,7 +82,6 @@ function toggleTables1() {
         manual1.classList.remove("d-none");
         manual.classList.add("check");
         auto.classList.remove("check");
-
     }
 }
 

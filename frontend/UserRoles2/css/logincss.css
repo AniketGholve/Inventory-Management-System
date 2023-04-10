@@ -322,7 +322,7 @@ body {
   background-color: rgba(80, 212, 175, 0.989);
   color: white;
 }
-.header2{
+.header2 , .header3{
   height: 40px;
   background-color: rgb(115, 202, 111);
 
@@ -489,4 +489,8 @@ nav{
 .hradmin{
   color: rgb(155, 152, 152);
   pointer-events: none;
+}
+.deleteNotificationAdmin{
+  float: right;
+  display: flex;
 }

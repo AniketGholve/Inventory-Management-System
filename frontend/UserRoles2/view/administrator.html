@@ -282,28 +282,8 @@
                                             <div class="switch check" onclick="toggleTables()" id="auto">Auto</div>
                                             <div class="switch" onclick="toggleTables1()" id="manual">Manual</div>
                                         </div>
-                                        <!-- <div class="form-group col-md-5 float-left">
-
-                                            <label for="inputStatus" translate>common.status</label>
-
-                                            <div class="switch-btn switch-rev">
-
-                                                <label class="switch-btn-label switch-btn-xl-label">
-
-                                                    <input type="checkbox" ng-model="userData.active">
-
-                                                    <span> <span class="uppercase" translate>common.inActive</span>
-
-                                                        <span class="uppercase" translate>common.active</span>
-
-                                                    </span> <a class="btn btn-switch"></a>
-
-                                                </label>
-
-                                            </div>
-
-                                        </div> -->
-
+                                       
+                                            
                                         <div id="autoTable" class="mt-2">
                                             Reorder: Auto
                                             <table id="autoTable" class="table table-striped  text-center mt-2  ">
@@ -336,7 +316,7 @@
                                                         <td><input type="text" class="w-25" ng-model="y.reorderQuantity"
                                                                 required></td>
                                                         <td><select ng-model="y.addOnDose">
-                                                                <option>Select a Dose</option>
+                                                                <option value="-">Select a Dose</option>
                                                                 <option value="Itone">Itone</option>
                                                                 <option value="Flexon"> Flexon</option>
                                                                 <option value="cosmolitecream"> cosmolite cream</option>
@@ -379,7 +359,7 @@
                                                     data-bs-dismiss="modal">Update</button>
                                             </div>
                                         </div>
-                                        <div id="manualTable" class="mt-2 d-none">
+                                        <div id="manualTable" class="mt-2 d-none"  >
                                             Reorder: Manual
 
                                             <table id="manualTable" class="table table-striped text-center mt-1 ">

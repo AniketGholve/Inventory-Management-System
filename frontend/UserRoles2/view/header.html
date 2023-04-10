@@ -38,6 +38,9 @@
                     <li class="nav-item nav_hover {{alp}}" ng-class="{active: activeTab === 'shipping'}">
                         <a class="nav-link" href="#!/shipping">Shipping</a>
                     </li>
+                    <li class="nav-item nav_hover {{alp}}" ng-class="{active: activeTab === 'setup' || activeTab === 'product'}">
+                        <a class="nav-link" href="#!/setup" ng-click="setupName('setup')">Setup</a>
+                    </li>
                     <li class="nav-item nav_hover {{elp}}" ng-class="{active: activeTab === 'successOrders'}">
                         <a class="nav-link" href="#!/elp_users">Success Orders</a>
                     </li>
@@ -55,6 +58,7 @@
                 <div class="deleteNotificationAdmin">
                     <i class="fa-sharp fa-solid fa-xmark" ng-click="deleteNotifications()"></i>
                 </div>
+                <div class="mt-5">
                 <div ng-repeat="x in notificationData" class="mt-2" ng-class="{'successNotification': x.status == 'Success Order' , 'errorNotification': x.status == 'Error Order'}" >
                     
                     <div class="d-grid ">
@@ -72,7 +76,7 @@
                     </div>
                     </div>
                     </div>
-
+                </div>
                 </div>
 
                 
