@@ -83,6 +83,10 @@ app.controller("headerController", ($scope, $http, $location) => {
             break;
         case '/reports': $scope.activeTab = 'reports';
             break;
+        case '/setup': $scope.activeTab = 'setup';
+            break;
+        case '/product': $scope.activeTab = 'product';
+            break;
         
     }
     if (sessionStorage.getItem("username") != undefined) {
@@ -229,6 +233,15 @@ app.config(function ($routeProvider, $httpProvider ) {
             {
                 templateUrl: "view/shipping.html"
             })
+        .when('/setup',
+            {
+                templateUrl: "view/setup.html"
+            })
+        .when('/product',
+            {
+                templateUrl: "view/product.html"
+            })
+        
         .when('/addToInventory',
             {
                 templateUrl: "view/addToInventory.html"
@@ -686,9 +699,9 @@ app.controller("clp", function ($scope, $http, $window, $location) {
         console.log(error);
     }); 
 
-    $scope.onOff =true;
-    $scope.addMonths=[];
-    $scope.marchMonth;
+    // $scope.onOff =true;
+    // $scope.addMonths=[];
+    // $scope.marchMonth;
 
     $http({
         method: 'GET',
@@ -705,6 +718,22 @@ app.controller("clp", function ($scope, $http, $window, $location) {
         console.log(error);
     });
 
+    function autoTableData(){
+        $http({
+            method: 'GET',
+            url: "http://localhost:7890/getAutoReorderDose", 
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': sessionStorage.getItem("token")
+            }
+        }).then((response) => {
+            console.log("Auto");
+            console.log(response.data);
+            $scope.autoTableData = [...response.data];
+        }, (error) => {
+            console.log(error);
+        });
+    }
     $http({
         method: 'GET',
         url: "http://localhost:7890/getAutoReorderDose", 
@@ -733,17 +762,15 @@ app.controller("clp", function ($scope, $http, $window, $location) {
         }).then((response) => {
             console.log("updateAutoTable")
             console.log($scope.autoTableData1);
-            $window.location.reload();
-            
+            autoTableData();
+            // $window.location.reload();       
                 },
                 (error) => {
 
         })
 
     }
-
-
-
+    
     $http({
         method: 'GET',
         url: "http://localhost:7890/getManualReorder",
@@ -787,13 +814,56 @@ app.controller("clp", function ($scope, $http, $window, $location) {
         }).then((response) => {
             console.log("updateManualTable")
             console.log($scope.manualReorder1);
-            
+            manualTableData()
+            // $window.location.reload();
             
                 },
                 (error) => {
 
         })
 
+    }
+    function manualTableData(){
+        $http({
+            method: 'GET',
+            url: "http://localhost:7890/getManualReorder",
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': sessionStorage.getItem("token")
+            }
+        }).then((response) => {
+            console.log("Manual");
+            console.log(response.data);
+            $scope.manualReorder = [...response.data];
+        }, (error) => {
+            console.log(error);
+        }); 
+    }
+
+    $http({
+        method: 'GET',
+        url: "http://localhost:7890/getAllNotifications",
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': sessionStorage.getItem("token")
+        }
+    }).then((response) => {
+        console.log("Notification");
+        $scope.notificationData = [...response.data];
+        console.log(response.data);
+    }, (error) => {
+        console.log(error);
+    }); 
+
+    $scope.deleteNotifications= () =>{
+        $http({
+            method: 'DELETE',
+            url: "http://localhost:7890/deleteAllNotifications" ,
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': sessionStorage.getItem("token")
+            }
+        }).then((response) => { }, (error) => { })
     }
     
     
@@ -1124,6 +1194,25 @@ app.controller("alp", ($scope, $http, $window) => {
         }, (error) => {
             console.log(error);
         });
+    }
+    $scope.setupDropdownTab = sessionStorage.getItem("setupName");
+    $scope.setUpLocation = () => {
+        let allPath = $location.path();
+        if (allPath === "/setup" || allPath === "/product") {
+            return true;
+        }
+        return false;
+    }
+
+    $scope.setupName = (id) => {
+        sessionStorage.setItem("setupName", id);
+        if (sessionStorage.getItem("setupName") == "setup") {
+            $window.location.href = "#!/setup";
+        }
+        else if (sessionStorage.getItem("setupName") == "product") {
+            $window.location.href = "#!/product";
+            
+        }
     }
 
 });

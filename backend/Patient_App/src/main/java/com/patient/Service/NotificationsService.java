@@ -12,7 +12,7 @@ public interface NotificationsService {
 	
 	public Notifications deleteNotification();
 	
-	public List<Notifications> deleteAllNotification();
+	public void deleteAllNotification();
 	
 	public void AutoOrder();
 }

@@ -80,10 +80,10 @@ public class NotificationsServiceImpl implements NotificationsService {
 	}
 
 	@Override
-	public List<Notifications> deleteAllNotification() {
+	public void  deleteAllNotification() {
 		// TODO Auto-generated method stub
 		notificationsRepo.deleteAll();
-		return null;
+	
 	}
 	
 	

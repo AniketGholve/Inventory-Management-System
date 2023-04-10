@@ -9,6 +9,19 @@ function userFunction() {
     }
 }
 
+
+function notificationFunction() {
+    var x = document.getElementById("notificationDropDown");
+    console.log(x.style.display);
+    if (x.style.display == "none" || x.style.display == "") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+}
+
+
+
 function downloadFunction() {
     var x = document.getElementById("downloadDropdown");
     console.log(x.style.display);
@@ -54,6 +67,7 @@ function toggleTables() {
         manual.classList.remove("check");
     }
   }
+  
 function toggleTables1() {
     var auto = document.getElementById("auto");
     var manual = document.getElementById("manual");
@@ -68,7 +82,6 @@ function toggleTables1() {
         manual1.classList.remove("d-none");
         manual.classList.add("check");
         auto.classList.remove("check");
-
     }
 }
 

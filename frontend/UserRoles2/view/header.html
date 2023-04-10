@@ -38,6 +38,9 @@
                     <li class="nav-item nav_hover {{alp}}" ng-class="{active: activeTab === 'shipping'}">
                         <a class="nav-link" href="#!/shipping">Shipping</a>
                     </li>
+                    <li class="nav-item nav_hover {{alp}}" ng-class="{active: activeTab === 'setup' || activeTab === 'product'}">
+                        <a class="nav-link" href="#!/setup" ng-click="setupName('setup')">Setup</a>
+                    </li>
                     <li class="nav-item nav_hover {{elp}}" ng-class="{active: activeTab === 'successOrders'}">
                         <a class="nav-link" href="#!/elp_users">Success Orders</a>
                     </li>
@@ -47,9 +50,39 @@
 
                 </ul>
             </div>
-            <div class="{{notificationIcon}}">
+            <div class="{{notificationIcon}}" >
+                <div>
                 <button onclick="notificationFunction()" class="btn3"><i class="fa-sharp fa-solid fa-bell"></i></button>
             </div>
+            <div id="notificationDropDown" class="notification-menu">
+                <div class="deleteNotificationAdmin">
+                    <i class="fa-sharp fa-solid fa-xmark" ng-click="deleteNotifications()"></i>
+                </div>
+                <div class="mt-5">
+                <div ng-repeat="x in notificationData" class="mt-2" ng-class="{'successNotification': x.status == 'Success Order' , 'errorNotification': x.status == 'Error Order'}" >
+                    
+                    <div class="d-grid ">
+                        <div class="row-cols-6">
+                        {{x.message}}
+                    </div>
+                    <div class="row">
+                        <div class="col-6" >
+                            {{x.notifiedTime}}
+                        </div>
+                        <div class="col-6">
+                         
+                            {{x.status}}
+                        </div>
+                    </div>
+                    </div>
+                    </div>
+                </div>
+                </div>
+
+                
+            </div>
+        </div>
+
             <div style="border:0cap;">
                 <button onclick="theme()" class="btn3" ><i id ="themeIcon"class="fa-sharp fa-solid fa-sun" ></i></button>
             </div>
