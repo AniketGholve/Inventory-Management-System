@@ -19,7 +19,7 @@ public class NotificationsController {
 	@Autowired
 	private NotificationsServiceImpl notificationsServiceImpl;
 	
-	@DeleteMapping("/deleteAllNotification")
+	@PostMapping("/deleteAllNotification")
 	public void deleteAllNotification (){
 		notificationsServiceImpl.deleteAllNotification();
 	}
