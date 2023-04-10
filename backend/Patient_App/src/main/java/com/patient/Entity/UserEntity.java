@@ -2,17 +2,15 @@ package com.patient.Entity;
 
 import java.sql.Date;
 import java.util.ArrayList;
-
 import java.util.Collection;
 import java.util.List;
+
 ////
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -40,8 +38,58 @@ public class UserEntity implements UserDetails {
 	private Date dateofBirth;
 	//@JsonProperty("phoneNo")
 	private String phoneNo;
+	@Column(name = "enterprise_id")
+	private int enterpriseId;
+	@Column(name = "job_titile")
+	private String jobTitile;
+	@Column(name = "location_id")
+	private int loactionId;
+	@Column(name = "active")
+	private boolean active;
+	@Column(name = "deleted")
+	private boolean deleted;
 	
 	
+	public int getEnterpriseId() {
+		return enterpriseId;
+	}
+
+	public void setEnterpriseId(int enterpriseId) {
+		this.enterpriseId = enterpriseId;
+	}
+
+	public String getJobTitile() {
+		return jobTitile;
+	}
+
+	public void setJobTitile(String jobTitile) {
+		this.jobTitile = jobTitile;
+	}
+
+	public int getLoactionId() {
+		return loactionId;
+	}
+
+	public void setLoactionId(int loactionId) {
+		this.loactionId = loactionId;
+	}
+
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
+	}
+
+	public boolean isDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
+	}
+
 	public Integer getId() {
 		return id;
 	}
@@ -113,8 +161,10 @@ public class UserEntity implements UserDetails {
 				+ ", role=" + role + "]";
 	}
 	
+	
 	public UserEntity(Integer id, String username, String password, String role, String firstName, String lastName,
-			Date dateofBirth, String phoneNo) {
+			Date dateofBirth, String phoneNo, int enterpriseId, String jobTitile, int loactionId, boolean active,
+			boolean deleted) {
 		super();
 		this.id = id;
 		this.username = username;
@@ -124,7 +174,13 @@ public class UserEntity implements UserDetails {
 		this.lastName = lastName;
 		this.dateofBirth = dateofBirth;
 		this.phoneNo = phoneNo;
+		this.enterpriseId = enterpriseId;
+		this.jobTitile = jobTitile;
+		this.loactionId = loactionId;
+		this.active = active;
+		this.deleted = deleted;
 	}
+
 	public UserEntity() {
 		super();
 		// TODO Auto-generated constructor stub
