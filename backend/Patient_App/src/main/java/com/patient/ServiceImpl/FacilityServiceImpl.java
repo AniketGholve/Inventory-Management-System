@@ -55,4 +55,11 @@ public class FacilityServiceImpl implements FacilityService {
 		return f;
 	}
 
+	@Override
+	public Facility getFacilityById(int id) {
+		// TODO Auto-generated method stub
+		Facility f = facilityRepo.findById(id).orElseThrow();
+		return null;
+	}
+
 }

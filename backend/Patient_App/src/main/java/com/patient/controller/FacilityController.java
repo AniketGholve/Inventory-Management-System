@@ -48,4 +48,11 @@ public class FacilityController {
 		facilityServiceImpl.deleteById(facilityId);
 		return "Facility Deleted Succesfully";
 	}
+	
+	@GetMapping("/getFacilityById/{id}")
+	public Facility getFacilityById(@PathVariable int id) 
+	{
+		Facility f = facilityServiceImpl.getFacilityById(id);
+		return f;
+	}
 }

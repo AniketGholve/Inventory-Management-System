@@ -13,4 +13,6 @@ public interface FacilityService {
 	public void deleteById(int id);
 	
 	public Facility addFacility(Facility facility);
+	
+	public Facility getFacilityById(int id);
 }
