@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.patient.Entity.Enterprises;
+import com.patient.Entity.UserEntity;
 import com.patient.Repo.EnterpriseRepo;
 import com.patient.Service.EnterpriseService;
 
@@ -107,6 +108,20 @@ public class EnterpriseServiceImpl implements EnterpriseService {
 		Enterprises e=enterpriseRepo.findById(id).orElse(null);
 		return e;
 	}
+
+//	@Override
+//	public List<UserEntity> getAllUsersByEnterpriseId(int id) {
+//		// TODO Auto-generated method stub
+//		Query q = entityManager.createNativeQuery("select * from user_entity where enterprise_id=?");
+//		q.setParameter(1, id);
+//		List<Object[]> list = q.getResultList();
+//		List<UserEntity> result = new ArrayList<>();
+//		for(Object[] o:list) {
+//			UserEntity u = new UserEntity();
+//			u.set
+//		}
+//		return null;
+//	}
 
 	 
 

@@ -84,11 +84,11 @@ public class UserController {
 	public List<Orders> getStatus_Success(@PathVariable("s") int s) {
 		return Orepo.getSuccessOrders(s);
 
-
+	}
 	
-
-
-
+	@PostMapping("/deleteById/{id}")
+	public void delteById(int id) {
+		userEntityServiceImpl.deleteUser(id);
 	}
 }
  
