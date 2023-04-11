@@ -13,5 +13,7 @@ public interface ProductService {
 	public List<Product> getAllProducts();
 	
 	public List<Product> editProduct(List<Product> products);
+	
+	public Product getProductById(int id);
 
 }
