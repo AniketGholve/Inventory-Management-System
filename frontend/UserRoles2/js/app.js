@@ -934,6 +934,8 @@ app.controller("clp", function ($scope, $http, $window, $location) {
             }
         }).then((response) => {
             $scope.onHandData = response.data;
+            console.log("onhand")
+            console.log($scope.onHandData)
         }, (error) => {
             console.log(error)
         })
@@ -1285,15 +1287,27 @@ app.controller("alp", ($scope, $http, $window ,$location) => {
             console.log("updateEnterprise Table");
             console.log($scope.enterpriseDataModify);
             // alert("Enterprise Data Added Successfully");
-            // $window.location.reload();
-            
-            
+            // $window.location.reload(); 
                 },
                 (error) => {
-
         })
-
     }
+
+    $http({
+        method: 'GET',
+        url: 'http://localhost:7890/getAllFacilityByEnterpriseId', 
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': sessionStorage.getItem("token")
+        },
+    }).then((response) => {
+        console.log("Facility")
+        $scope.facilitydata = response.data;
+        console.log($scope.facilitydata)
+        
+    }, (error) => {
+        console.log(error);
+    });
 
 
 });

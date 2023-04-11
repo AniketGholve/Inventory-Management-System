@@ -7,106 +7,132 @@
             <a class="corporateModify" href="#!editCorporate">Modify Corporate</a>
         </div>
         <hr>
-        <div class="container shadow p-3 mt-2 " >
+        <div class="container shadow p-3 mt-2 ">
             <div class="d-grid" ng-repeat="x in enterpriseData">
                 <div class="row ">
-                    <label class="col-3"for="">Corporate Name </label>
+                    <label class="col-3" for="">Corporate Name </label>
                     <div class="col-4">{{x.name}}</div>
                 </div>
                 <div class="row ">
-                    <label class="col-3"for="">Corporate Number </label>
+                    <label class="col-3" for="">Corporate Number </label>
                     <div class="col-4">{{x.enterpriseId}}</div>
                 </div>
                 <br>
-                
+
                 <div class="row ">
-                    <label class="col-3"for="">Address</label>
+                    <label class="col-3" for="">Address</label>
                     <div class="col-4">{{x.addrLink1}},{{x.addrLink2}}</div>
-                    <label class="col-1"for="">GLN</label>
+                    <label class="col-1" for="">GLN</label>
                     <div class="col-4">{{x.gln}}</div>
                 </div>
                 <div class="row ">
-                    <label class="col-3"for="">City</label>
+                    <label class="col-3" for="">City</label>
                     <div class="col-4">{{x.city}}</div>
-                    <label class="col-1"for="">Phone</label>
+                    <label class="col-1" for="">Phone</label>
                     <div class="col-4">{{x.phone}}</div>
                 </div>
                 <div class="row ">
-                    <label class="col-3"for="">State</label>
+                    <label class="col-3" for="">State</label>
                     <div class="col-4">{{x.state}}</div>
-                    <label class="col-1"for="">Email</label>
+                    <label class="col-1" for="">Email</label>
                     <div class="col-4">{{x.email}}</div>
                 </div>
                 <div class="row">
                     <label class="col-3" for=" ">ZipCode</label>
                     <div class="col-4">{{x.zipcode}}</div>
-                </div>     
-            </div>
-
-            
-            </div>
-            <div class="d-grid mt-3">
-                <div class="row">
-                    <div class="col-6">
-                        <h2>Facilities</h2>
-                    </div>
-                    <div class="col-6">
-                        <a class=" text-danger text-decoration-none  "
-                            style=" cursor: pointer; font-size: 22px; float: right; margin-left: 10px;"
-                            data-bs-toggle="modal" data-bs-target="#editDispenseRestrictions"> + Add Facility
-                            </a>
-                    </div>
                 </div>
-
-        </div>
-
-           
-                <!-- <div class="d-flex justify-content-between">
-                    <label for="">Corporate Name</label>
-                    <div>
-                       Hello
-
-                    </div>
-                </div>
-                <div class="">
-                    <label for="">Corporate Number</label>
-                    <div>
-
-                    </div>
-                </div>
-            </div>
             </div>
         </div>
-
-        </div> -->
-
-        <!-- <div class="   " >
-
-            <div class="d-flex mt-3 mb-3">
-                <div class="col-3">
-                    <i class="fa-solid fa-user" style="font-size: 70px;"></i>
+        <div class="d-grid mt-3">
+            <div class="row">
+                <div class="col-6">
+                    <h3 style="font-size:25px;">Facilities</h3>
                 </div>
-                <div class="col-9 d-flex flex-column ">
-                    <div class="d-flex ">
-                        <label for="">Next Injection Due : </label>
-                        <div>
-                           {{x.lastInjection}}
-                        </div>
-                    </div>
-                    <div class="d-flex " style="margin-left: 60px;">
-                        <label for="">Last Dose:</label>
-                        <div class="">
-                            {{x.productname}}
-                        </div>
-                    </div>
-                    <div class="d-flex ">
-                        <label for="">Last Injection Date :</label>
-                        <div>
-                             {{x.createdOn}}
-                        </div>
+                <div class="col-6">
+                    <a class="corporateModify" style="float: right;"> + Add Facility
+                    </a>
+                </div>
+            </div>
 
-                    </div>
-                </div> -->
+            <table id="" class="table table-striped text-center mt-2 ">
+                <thead class="thead">
+                    <tr >
+                        <th class="">Facility Name</th>
+                        <th class="">Facility ID</th>
+                        <th class="">Address</th>
+                        <th class="">City</th>
+                        <th class="">State</th>
+                        <th class="">Zip Code</th>
+                        <th class="">Edit</th>
+                        <th class="">Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="x in facilitydata">
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td><i class="fa-regular fa-pen-to-square link-danger "></i></td>
+                        <td><i class="fa-regular fa-circle-xmark link-danger "></i></td>
+
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="d-grid mt-3">
+            <div class="row">
+                <div class="col-6">
+                    <h3 style="font-size:25px;">Users</h3>
+                </div>
+                <div class="col-6">
+                    <a class="corporateModify" style="float: right;"> + Add User</a>
+                </div>
+            </div>
+
+            <table id="" class="table table-striped text-center mt-2 ">
+                <thead class="thead">
+                    <tr>
+                        <th class="">Last Name</th>
+                        <th class="">First Name</th>
+                        <th class="">Middle Initial</th>
+                        <th class="">User Email</th>
+                        <th class="">User Name</th>
+                        <th class="">Corporate Name</th>
+                        <th class="">Role</th>
+                        <th class="">Phone</th>
+                        <th class="">Status</th>
+                        <th class="">Edit</th>
+                        <th class="">Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+
+                        <td><i class="fa-regular fa-pen-to-square link-danger "></i></td>
+                        <td><i class="fa-regular fa-circle-xmark link-danger "></i></td>
+
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+
+
     </div>
 </div>
 </div>

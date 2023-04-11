@@ -38,57 +38,57 @@ public class UserEntity implements UserDetails {
 	private Date dateofBirth;
 	//@JsonProperty("phoneNo")
 	private String phoneNo;
-	@Column(name = "enterprise_id")
-	private int enterpriseId;
-	@Column(name = "job_titile")
-	private String jobTitile;
-	@Column(name = "location_id")
-	private int loactionId;
-	@Column(name = "active")
-	private boolean active;
-	@Column(name = "deleted")
-	private boolean deleted;
+//	@Column(name = "enterprise_id")
+//	private int enterpriseId;
+//	@Column(name = "job_titile")
+//	private String jobTitile;
+//	@Column(name = "location_id")
+//	private int loactionId;
+//	@Column(name = "active")
+//	private boolean active;
+//	@Column(name = "deleted")
+//	private boolean deleted;
 	
 	
-	public int getEnterpriseId() {
-		return enterpriseId;
-	}
-
-	public void setEnterpriseId(int enterpriseId) {
-		this.enterpriseId = enterpriseId;
-	}
-
-	public String getJobTitile() {
-		return jobTitile;
-	}
-
-	public void setJobTitile(String jobTitile) {
-		this.jobTitile = jobTitile;
-	}
-
-	public int getLoactionId() {
-		return loactionId;
-	}
-
-	public void setLoactionId(int loactionId) {
-		this.loactionId = loactionId;
-	}
-
-	public boolean isActive() {
-		return active;
-	}
-
-	public void setActive(boolean active) {
-		this.active = active;
-	}
-
-	public boolean isDeleted() {
-		return deleted;
-	}
-
-	public void setDeleted(boolean deleted) {
-		this.deleted = deleted;
-	}
+//	public int getEnterpriseId() {
+//		return enterpriseId;
+//	}
+//
+//	public void setEnterpriseId(int enterpriseId) {
+//		this.enterpriseId = enterpriseId;
+//	}
+//
+//	public String getJobTitile() {
+//		return jobTitile;
+//	}
+//
+//	public void setJobTitile(String jobTitile) {
+//		this.jobTitile = jobTitile;
+//	}
+//
+//	public int getLoactionId() {
+//		return loactionId;
+//	}
+//
+//	public void setLoactionId(int loactionId) {
+//		this.loactionId = loactionId;
+//	}
+//
+//	public boolean isActive() {
+//		return active;
+//	}
+//
+//	public void setActive(boolean active) {
+//		this.active = active;
+//	}
+//
+//	public boolean isDeleted() {
+//		return deleted;
+//	}
+//
+//	public void setDeleted(boolean deleted) {
+//		this.deleted = deleted;
+//	}
 
 	public Integer getId() {
 		return id;
@@ -174,11 +174,11 @@ public class UserEntity implements UserDetails {
 		this.lastName = lastName;
 		this.dateofBirth = dateofBirth;
 		this.phoneNo = phoneNo;
-		this.enterpriseId = enterpriseId;
-		this.jobTitile = jobTitile;
-		this.loactionId = loactionId;
-		this.active = active;
-		this.deleted = deleted;
+//		this.enterpriseId = enterpriseId;
+//		this.jobTitile = jobTitile;
+//		this.loactionId = loactionId;
+//		this.active = active;
+//		this.deleted = deleted;
 	}
 
 	public UserEntity() {
