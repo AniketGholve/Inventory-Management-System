@@ -1,5 +1,6 @@
 package com.patient.ServiceImpl;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -10,12 +11,14 @@ import org.springframework.stereotype.Service;
 
 import com.patient.Entity.Clinic;
 import com.patient.Entity.ClinicOrder;
+import com.patient.Entity.Notifications;
 import com.patient.Entity.OrderEvents;
 import com.patient.Entity.Product;
 import com.patient.Entity.ScannedShipmentDetails;
 import com.patient.Entity.Serial;
 import com.patient.Repo.ClinicOrderRepo;
 import com.patient.Repo.ClinicRepo;
+import com.patient.Repo.NotificatinsRepo;
 import com.patient.Repo.OrderEventsRepo;
 import com.patient.Repo.ProductRepo;
 import com.patient.Repo.SerialRepo;
@@ -44,6 +47,9 @@ public class ShippingServiceImpl implements ShippingService {
 	
 	@Autowired
 	private ProductRepo productRepo;
+	
+	@Autowired
+	private NotificatinsRepo notificationsRepo;
 	
 	
 	private Map<String,Integer> m=new HashMap<>();
@@ -216,6 +222,14 @@ public class ShippingServiceImpl implements ShippingService {
 			q2.executeUpdate();
 			
 		}
+		
+		Notifications notification = new Notifications();
+		Date date = new Date(System.currentTimeMillis());
+		notification.setMessage("Status Changed to Processed Successfully");
+		notification.setNotifiedTime(date);
+		notification.setStatus("Success Order");
+		notificationsRepo.save(notification);
+		
 		return "Status Changed Successfully";
 	}
 	

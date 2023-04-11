@@ -7,6 +7,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Transient;
 
 @Entity
 public class Enterprises {
@@ -60,11 +61,25 @@ public class Enterprises {
 	private String gln;
 	@Column(name="ehr_implementation_status")
 	private Boolean ehrImplementationStatus;
+	@Transient
+	private int facilityCount;
+	@Transient
+	private int users;
+	
+	
+	public Enterprises() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	
+	
+	
+	
 	public Enterprises(int enterpriseId, String name, String addrLink1, String addrLink2, String city, String state,
 			String stateCode, String zipcode, String phone, String email, Boolean isCorporate, Boolean active,
 			Boolean deleted, String country, String extEnterpriseId, String modifiedBy, String createdBy,
 			Date createdOn, Date modifiedOn, Boolean sharedPatients, Boolean scheduledReports, String showJit,
-			String gln, Boolean ehrImplementationStatus) {
+			String gln, Boolean ehrImplementationStatus, int facilityCount, int users) {
 		super();
 		this.enterpriseId = enterpriseId;
 		this.name = name;
@@ -90,10 +105,24 @@ public class Enterprises {
 		this.showJit = showJit;
 		this.gln = gln;
 		this.ehrImplementationStatus = ehrImplementationStatus;
+		this.facilityCount = facilityCount;
+		this.users = users;
 	}
-	public Enterprises() {
-		super();
-		// TODO Auto-generated constructor stub
+
+
+
+
+	public int getFacilityCount() {
+		return facilityCount;
+	}
+	public void setFacilityCount(int facilityCount) {
+		this.facilityCount = facilityCount;
+	}
+	public int getUsers() {
+		return users;
+	}
+	public void setUsers(int users) {
+		this.users = users;
 	}
 	public int getEnterpriseId() {
 		return enterpriseId;

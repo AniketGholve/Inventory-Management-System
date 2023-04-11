@@ -53,7 +53,7 @@ public class NotificationsServiceImpl implements NotificationsService {
 	//ManualOrder
 	@Override
 	@Transactional
-	@Scheduled(fixedRate = 86400000)//
+	@Scheduled(cron = "0 0 20 * * MON-FRI")//
 	public Notifications createNotification() {
 		// TODO Auto-generated method stub
 		Query q = entityManager.createNativeQuery("select i.on_hand,m.product_name from \r\n"
@@ -90,7 +90,7 @@ public class NotificationsServiceImpl implements NotificationsService {
 	//AutoOrder
 	@Override
 	@Transactional
-	@Scheduled(fixedRate = 86400000) //cron = "0 10 20 * * MON-FRI"
+	@Scheduled(cron = "0 0 12 * * MON-FRI") //cron = "0 10 20 * * MON-FRI"
 	public void AutoOrder() 
 	{	
 		List<Clinic> clinicList=clinicRepo.findAll();
