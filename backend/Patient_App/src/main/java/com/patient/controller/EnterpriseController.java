@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.patient.Entity.Enterprises;
+import com.patient.Entity.UserEntity;
+import com.patient.Repo.UserEntityRepo;
 import com.patient.ServiceImpl.EnterpriseServiceImpl;
 
 @RestController
@@ -25,6 +27,9 @@ public class EnterpriseController {
 	
 	@Autowired
 	private EnterpriseServiceImpl enterpriseserviceImpl;
+	
+	@Autowired
+	private UserEntityRepo userEntityRepo;
 	
 	
 	
@@ -65,6 +70,12 @@ public class EnterpriseController {
 		return new ResponseEntity<String>(message,HttpStatus.OK);
 	}
 	
+	@GetMapping("/getEnterpriseIdByUsername/{username}")
+	public UserEntity getEnterpriseIdByUsername(@PathVariable String username) 
+	{
+		UserEntity u = userEntityRepo.findByUsername(username);
+		return u;
+	}
 	
 	
 }

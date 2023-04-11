@@ -49,5 +49,12 @@ public class ProductController {
 		List<Product> pr = productServiceImpl.editProduct(products);
 		return pr;
 	}
+	
+	@GetMapping("/getProductById/{id}")
+	public Product getProductById(@PathVariable int id) 
+	{
+		Product p = productServiceImpl.getProductById(id);
+		return p;
+	}
 
 }
