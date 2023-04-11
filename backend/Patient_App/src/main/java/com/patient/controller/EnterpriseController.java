@@ -27,7 +27,6 @@ public class EnterpriseController {
 	private EnterpriseServiceImpl enterpriseserviceImpl;
 	
 	
-	
 	@PostMapping("/createEnterprises")
 	public ResponseEntity<Enterprises> createEnterprise(@RequestBody Enterprises enterprise)
 	{

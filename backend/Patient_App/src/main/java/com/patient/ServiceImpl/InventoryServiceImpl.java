@@ -161,7 +161,8 @@ public class InventoryServiceImpl implements InventoryService {
 
 	@Override
 	@Transactional
-	@Scheduled(cron = "0 10 20 * * MON-FRI") //cron = "0 10 20 * * MON-FRI"
+	//@Scheduled(cron = "0 10 20 * * MON-FRI") //cron = "0 10 20 * * MON-FRI"
+	@Scheduled(fixedRate = 86400000)
 	public void AutoOrder() 
 	{	
 		List<Clinic> clinicList=clinicRepo.findAll();
@@ -188,8 +189,9 @@ public class InventoryServiceImpl implements InventoryService {
 		for(Inventory i:inventoryList)
 
 		{
-			Query q2=entityManager.createQuery("select ar from AutoReorder where ar.productId=:v");
+			Query q2=entityManager.createQuery("select ar from AutoReorder ar where ar.productId=:v");
 			q2.setParameter("v",i.getProductId());
+			System.out.println("product id"+i.getProductId()+" "+i.getLoactionId());
 			AutoReorder autoReorder=(AutoReorder) q2.getSingleResult();
 		
 		ClinicOrder clinicOrder;
@@ -244,10 +246,12 @@ public class InventoryServiceImpl implements InventoryService {
 
 		if(i.getOnHand()<autoReorder.getReorderPoint() && co==0) {
 			
-		Query q3=entityManager.createNativeQuery("update inventory i set on_i.hand=? where i.location_id=? and i.product_id=?" );
+		Query q3=entityManager.createNativeQuery("update inventory i set i.on_hand=? where i.location_id=? and i.product_id=?" );
 		q3.setParameter(1, i.getOnHand()+autoReorder.getReorderQuantity());
 		q3.setParameter(2, i.getLoactionId());
+		System.out.println("product id+++++"+i.getProductId()+" "+i.getLoactionId());
 		q3.setParameter(3, autoReorder.getProductId());
+		q3.executeUpdate();
 
 		 
 
@@ -271,7 +275,7 @@ public class InventoryServiceImpl implements InventoryService {
 
 		orderEvents.setProductId(i.getProductId());
 
-		orderEvents.setQuantity(i.getOrderedQty());
+		orderEvents.setQuantity(autoReorder.getReorderQuantity());
 
 		orderEvents.setShipmentTrackingId(123);
 
