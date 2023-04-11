@@ -10,4 +10,6 @@ public interface UserEntityService {
 	public Integer addUser(UserEntity userEntity);
 	
 	public UserEntity editUser(UserEntity userEntity);
+	
+	public void deleteUser(int id);
 }

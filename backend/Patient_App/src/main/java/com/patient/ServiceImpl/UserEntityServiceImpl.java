@@ -44,6 +44,8 @@ public class UserEntityServiceImpl implements UserEntityService {
 		boolean result = Arrays.asList(arr).contains(role);
 		if (result) {
 			userEntity.setPassword(passwordEncoder.encode(userEntity.getPassword()));
+			userEntity.setActive(true);
+			userEntity.setDeleted(false);
 			userEntityRepo.save(userEntity);
 			return 1;
 		}
@@ -86,6 +88,12 @@ public class UserEntityServiceImpl implements UserEntityService {
 		userEntityRepo.save(u);
 		return u;
 		
+	}
+
+	@Override
+	public void deleteUser(int id) {
+		// TODO Auto-generated method stub
+		userEntityRepo.deleteById(id);	
 	}
 
 }

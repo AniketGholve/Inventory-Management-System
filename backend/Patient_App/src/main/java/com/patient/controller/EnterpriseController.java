@@ -77,5 +77,12 @@ public class EnterpriseController {
 		return u;
 	}
 	
+	@GetMapping("/getAllUsersByEnterpriseId/{id}")
+	public List<UserEntity> getAllUsersByEnterpriseId(@PathVariable int id)
+	{
+		List<UserEntity> list = userEntityRepo.findByEnterpriseId(id);
+		return list;
+	}
+	
 	
 }

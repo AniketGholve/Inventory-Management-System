@@ -12,7 +12,7 @@ public interface FacilityService {
 	
 	public void deleteById(int id);
 	
-	public Facility addFacility(Facility facility);
+	public Facility addFacility(Facility facility,int enterpriseId);
 	
 	public Facility getFacilityById(int id);
 }

@@ -28,10 +28,10 @@ public class FacilityController {
 		return list;
 	}
 	
-	@PostMapping("/addFacility")
-	public Facility addFacility(@RequestBody Facility facility)
+	@PostMapping("/addFacility/{enterpriseId}")
+	public Facility addFacility(@RequestBody Facility facility,@PathVariable("enterpriseId") int enterpriseId)
 	{
-		Facility fac = facilityServiceImpl.addFacility(facility);
+		Facility fac = facilityServiceImpl.addFacility(facility,enterpriseId);
 		return fac;
 	}
 	
