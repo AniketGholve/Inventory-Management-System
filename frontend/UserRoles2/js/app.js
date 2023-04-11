@@ -87,6 +87,9 @@ app.controller("headerController", ($scope, $http, $location) => {
             break;
         case '/product': $scope.activeTab = 'product';
             break;
+        case '/editCorporate': $scope.activeTab = 'setup';
+            break; 
+        
         
     }
     if (sessionStorage.getItem("username") != undefined) {
@@ -241,7 +244,10 @@ app.config(function ($routeProvider, $httpProvider ) {
             {
                 templateUrl: "view/product.html"
             })
-        
+        .when('/editCorporate',
+            {
+                templateUrl: "view/editCorporate.html"
+            })
         .when('/addToInventory',
             {
                 templateUrl: "view/addToInventory.html"
@@ -627,6 +633,7 @@ app.controller("clp", function ($scope, $http, $window, $location) {
     }).then((response) => {
         console.log("Before")
         $scope.product_data = [...response.data];
+        console.log($scope.product_data)
         
     }, (error) => {
         console.log(error);
@@ -1088,7 +1095,7 @@ app.controller("clp", function ($scope, $http, $window, $location) {
 
 });
 
-app.controller("alp", ($scope, $http, $window) => {
+app.controller("alp", ($scope, $http, $window ,$location) => {
     // clinic controller
     $http({
         method: 'GET',
@@ -1098,6 +1105,7 @@ app.controller("alp", ($scope, $http, $window) => {
             'Authorization': sessionStorage.getItem("token")
         }
     }).then((response) => {
+        console.log("CLinic")
         console.log(response.data);
         $scope.clinic_data = response.data;
     }, (error) => {
@@ -1195,15 +1203,16 @@ app.controller("alp", ($scope, $http, $window) => {
             console.log(error);
         });
     }
-    $scope.setupDropdownTab = sessionStorage.getItem("setupName");
+
+    
     $scope.setUpLocation = () => {
-        let allPath = $location.path();
-        if (allPath === "/setup" || allPath === "/product") {
+        let setUpPath = $location.path();
+        if (setUpPath === "/setup" || setUpPath === "/product") {
             return true;
         }
         return false;
     }
-
+    $scope.setupDropdownTab = sessionStorage.getItem("setupName");
     $scope.setupName = (id) => {
         sessionStorage.setItem("setupName", id);
         if (sessionStorage.getItem("setupName") == "setup") {
@@ -1214,6 +1223,78 @@ app.controller("alp", ($scope, $http, $window) => {
             
         }
     }
+
+    $http({
+        method: 'GET',
+        url: 'http://localhost:7890/getAllProduct',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': sessionStorage.getItem("token")
+        },
+    }).then((response) => {
+        console.log("Product Dropdown")
+        $scope.productAlp = response.data;
+        console.log($scope.productAlp)
+        
+    }, (error) => {
+        console.log(error);
+    });
+
+    $http({
+        method: 'GET',
+        url: 'http://localhost:7890/getAllEnterprise',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': sessionStorage.getItem("token")
+        },
+    }).then((response) => {
+        console.log("Enterprise")
+        $scope.enterpriseData = [...response.data];
+        console.log($scope.enterpriseData)
+        
+    }, (error) => {
+        console.log(error);
+    });
+    $http({
+        method: 'GET',
+        url: 'http://localhost:7890/getAllEnterprise',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': sessionStorage.getItem("token")
+        },
+    }).then((response) => {
+        console.log("EnterpriseModify")
+        $scope.enterpriseDataModify = [...response.data];
+        console.log($scope.enterpriseDataModify)
+        
+    }, (error) => {
+        console.log(error);
+    });
+
+    $scope.enterpriseUpdate = () => {
+        $http({
+            method: 'PUT',
+            url: 'http://localhost:7890/updateEnterprise',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': sessionStorage.getItem("token")
+            },
+            data: $scope.enterpriseDataModify
+            
+        }).then((response) => {
+            console.log("updateEnterprise Table");
+            console.log($scope.enterpriseDataModify);
+            // alert("Enterprise Data Added Successfully");
+            // $window.location.reload();
+            
+            
+                },
+                (error) => {
+
+        })
+
+    }
+
 
 });
 app.controller("shipping", ($scope, $http, $window) => {
