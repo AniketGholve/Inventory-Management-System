@@ -89,6 +89,8 @@ app.controller("headerController", ($scope, $http, $location) => {
             break;
         case '/editCorporate': $scope.activeTab = 'setup';
             break; 
+        case '/addfacility': $scope.activeTab = 'setup';
+            break; 
         
         
     }
@@ -248,6 +250,14 @@ app.config(function ($routeProvider, $httpProvider ) {
             {
                 templateUrl: "view/editCorporate.html"
             })
+        .when('/addfacility',
+            {
+                templateUrl: "view/addfacility.html"
+            })
+        .when('/addUserSetup',
+            {
+                templateUrl: "view/addUserSetup.html"
+            })
         .when('/addToInventory',
             {
                 templateUrl: "view/addToInventory.html"
@@ -292,6 +302,15 @@ app.controller("loginCtrl", ($scope, $http, $window,) => {
             sessionStorage.setItem("token", "Bearer " + $scope.data.token)
             if ($scope.data) {
                 sessionStorage.setItem("username", $scope.submit.username)
+                $http({
+                    method: 'GET',
+                    url: 'http://localhost:7890/getEnterpriseIdByUsername/' + $scope.submit.username,
+                    headers: { 'Authorization': sessionStorage.getItem("token") }
+                }).then((response) => {
+                    $scope.dataEnterprise = response.data;
+                    sessionStorage.setItem("EnterpriseId",$scope.dataEnterprise.enterpriseId)
+                    
+                })
                 $http({
                     method: 'GET',
                     url: 'http://localhost:7890/api/get/' + $scope.submit.username,
@@ -1244,34 +1263,20 @@ app.controller("alp", ($scope, $http, $window ,$location) => {
 
     $http({
         method: 'GET',
-        url: 'http://localhost:7890/getAllEnterprise',
+        url: 'http://localhost:7890/getByEnterpriseId/' +sessionStorage.getItem("EnterpriseId"),
         headers: {
             'Content-Type': 'application/json',
             'Authorization': sessionStorage.getItem("token")
         },
     }).then((response) => {
         console.log("Enterprise")
-        $scope.enterpriseData = [...response.data];
+        $scope.enterpriseData = response.data;
         console.log($scope.enterpriseData)
         
     }, (error) => {
         console.log(error);
     });
-    $http({
-        method: 'GET',
-        url: 'http://localhost:7890/getAllEnterprise',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': sessionStorage.getItem("token")
-        },
-    }).then((response) => {
-        console.log("EnterpriseModify")
-        $scope.enterpriseDataModify = [...response.data];
-        console.log($scope.enterpriseDataModify)
-        
-    }, (error) => {
-        console.log(error);
-    });
+    
 
     $scope.enterpriseUpdate = () => {
         $http({
@@ -1281,11 +1286,11 @@ app.controller("alp", ($scope, $http, $window ,$location) => {
                 'Content-Type': 'application/json',
                 'Authorization': sessionStorage.getItem("token")
             },
-            data: $scope.enterpriseDataModify
+            data: $scope.enterpriseData
             
         }).then((response) => {
             console.log("updateEnterprise Table");
-            console.log($scope.enterpriseDataModify);
+            console.log($scope.enterpriseData);
             // alert("Enterprise Data Added Successfully");
             // $window.location.reload(); 
                 },
@@ -1293,9 +1298,42 @@ app.controller("alp", ($scope, $http, $window ,$location) => {
         })
     }
 
+    $scope.getProductSetup = (productId) =>{
+        console.log(productId);
+        $http({
+            method: 'GET',
+            url: 'http://localhost:7890/getProductById/'+ productId,
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': sessionStorage.getItem("token")
+            },
+        }).then((response) => {
+            console.log("productSetup")
+            $scope.productSetup = response.data;
+            console.log($scope.productSetup)
+            
+        }, (error) => {
+            console.log(error);
+        });
+        
+    }
+ //Facility ApI
+
+ $scope.facilityAddData ={};
+ $scope.saveFacility = () =>{
+     $http({
+         method: 'post',
+         url: "http://localhost:7890/addFacility",
+         headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") },
+         data : $scope.facilityAddData
+     }).then((response) => {
+         console.log("facilityAddData");
+         
+     }, (error) => { })     
+ }
     $http({
         method: 'GET',
-        url: 'http://localhost:7890/getAllFacilityByEnterpriseId', 
+        url: 'http://localhost:7890/getAllFacilityByEnterpriseId/' +sessionStorage.getItem("EnterpriseId"), 
         headers: {
             'Content-Type': 'application/json',
             'Authorization': sessionStorage.getItem("token")
@@ -1308,6 +1346,39 @@ app.controller("alp", ($scope, $http, $window ,$location) => {
     }, (error) => {
         console.log(error);
     });
+
+    $scope.deletefacility= (facilityId) =>{
+        $http({
+            method: 'POST',
+            url: "http://localhost:7890/deleteFacility/" + facilityId,
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': sessionStorage.getItem("token")
+            }
+        }).then((response) => {$window.location.reload() }, (error) => { })
+    }
+
+
+
+    // $http({
+    //     method: 'GET',
+    //     url: 'http://localhost:7890/getEnterpriseIdByUsername/' + sessionStorage.getItem("username"), 
+    //     headers: {
+    //         'Content-Type': 'application/json',
+    //         'Authorization': sessionStorage.getItem("token")
+    //     },
+    // }).then((response) => {
+    //     console.log("username")
+    //     $scope.usernameenter = response.data;
+    //     console.log($scope.usernameenter)
+        
+    // }, (error) => {
+    //     console.log(error);
+    // });
+     
+
+
+
 
 
 });

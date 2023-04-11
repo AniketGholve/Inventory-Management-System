@@ -8,38 +8,38 @@
         </div>
         <hr>
         <div class="container shadow p-3 mt-2 ">
-            <div class="d-grid" ng-repeat="x in enterpriseData">
+            <div class="d-grid" >
                 <div class="row ">
                     <label class="col-3" for="">Corporate Name </label>
-                    <div class="col-4">{{x.name}}</div>
+                    <div class="col-4">{{enterpriseData.name}}</div>
                 </div>
                 <div class="row ">
                     <label class="col-3" for="">Corporate Number </label>
-                    <div class="col-4">{{x.enterpriseId}}</div>
+                    <div class="col-4">{{enterpriseData.enterpriseId}}</div>
                 </div>
                 <br>
 
                 <div class="row ">
                     <label class="col-3" for="">Address</label>
-                    <div class="col-4">{{x.addrLink1}},{{x.addrLink2}}</div>
+                    <div class="col-4">{{enterpriseData.addrLink1}},{{enterpriseData.addrLink2}}</div>
                     <label class="col-1" for="">GLN</label>
-                    <div class="col-4">{{x.gln}}</div>
+                    <div class="col-4">{{enterpriseData.gln}}</div>
                 </div>
                 <div class="row ">
                     <label class="col-3" for="">City</label>
-                    <div class="col-4">{{x.city}}</div>
+                    <div class="col-4">{{enterpriseData.city}}</div>
                     <label class="col-1" for="">Phone</label>
-                    <div class="col-4">{{x.phone}}</div>
+                    <div class="col-4">{{enterpriseData.phone}}</div>
                 </div>
                 <div class="row ">
                     <label class="col-3" for="">State</label>
-                    <div class="col-4">{{x.state}}</div>
+                    <div class="col-4">{{enterpriseData.state}}</div>
                     <label class="col-1" for="">Email</label>
-                    <div class="col-4">{{x.email}}</div>
+                    <div class="col-4">{{enterpriseData.email}}</div>
                 </div>
                 <div class="row">
                     <label class="col-3" for=" ">ZipCode</label>
-                    <div class="col-4">{{x.zipcode}}</div>
+                    <div class="col-4">{{enterpriseData.zipcode}}</div>
                 </div>
             </div>
         </div>
@@ -49,7 +49,7 @@
                     <h3 style="font-size:25px;">Facilities</h3>
                 </div>
                 <div class="col-6">
-                    <a class="corporateModify" style="float: right;"> + Add Facility
+                    <a class="corporateModify" style="float: right;" href="#!addfacility"> + Add Facility
                     </a>
                 </div>
             </div>
@@ -69,14 +69,14 @@
                 </thead>
                 <tbody>
                     <tr ng-repeat="x in facilitydata">
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td><i class="fa-regular fa-pen-to-square link-danger "></i></td>
-                        <td><i class="fa-regular fa-circle-xmark link-danger "></i></td>
+                        <td>{{x.facilityName}}</td>
+                        <td>{{x.facilityId}}</td>
+                        <td>{{x.address}}</td>
+                        <td>{{x.city}}</td>
+                        <td>{{x.state}}</td>
+                        <td>{{x.zipcode}}</td>
+                        <td><i class="fa-regular fa-pen-to-square link-danger " ></i></td>
+                        <td><i class="fa-regular fa-circle-xmark link-danger " ng-click="deletefacility(x.facilityId)" style="cursor: pointer;"></i></td>
 
 
                     </tr>
@@ -90,7 +90,7 @@
                     <h3 style="font-size:25px;">Users</h3>
                 </div>
                 <div class="col-6">
-                    <a class="corporateModify" style="float: right;"> + Add User</a>
+                    <a class="corporateModify" style="float: right;" href="#!addUserSetup"> + Add User</a>
                 </div>
             </div>
 

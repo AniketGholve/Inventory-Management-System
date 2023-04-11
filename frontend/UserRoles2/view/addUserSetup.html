@@ -1,0 +1,53 @@
+<div ng-controller="alp">
+    <div ng-include="'view/header.html'"></div>
+    <div ng-include="'view/header3.html'"></div>
+    <div class="container mt-5">
+        <a class="corporateModify" href="#!setup">Back to Corporate</a>
+        <h2 class="text-center ">Add User</h2>
+    </div>
+    
+    <div class="container mt-4">
+        <form>
+            <div class="row g-3 form-control d-flex justify-content-between addfacility m-auto">
+                <div class="col-auto d-flex justify-content-between w-50">
+                    <label for="">Last Name </label>
+                    <input type="text" class="inputeditCorporate" ng-model="facilityAddData.facilityName" >
+                </div>
+                <div class="col-auto d-flex justify-content-between w-50">
+                    <label for="">First Name </label>
+                    <input type="email" class="inputeditCorporate" ng-model="facilityAddData.facilityId">
+                </div>
+                <div class="col-auto d-flex justify-content-between w-50">
+                    <label for="">Middle Initial </label>
+                    <input type="text" class="inputeditCorporate" ng-model="facilityAddData.address" >
+                </div>
+                <div class="col-auto d-flex justify-content-between w-50">
+                    <label for="">User Email</label>
+                    <input type="text" class="inputeditCorporate" ng-model="facilityAddData.city">
+                </div>
+                <div class="col-auto d-flex justify-content-between w-50">
+                    <label for="">User Name</label>
+                    <input type="text" class="inputeditCorporate" ng-model="facilityAddData.state">
+                </div>
+                <div class="col-auto d-flex justify-content-between w-50">
+                    <label for="">Corporate Name</label>
+                    <input type="text" class="inputeditCorporate" ng-model="facilityAddData.zipcode">
+                </div>
+                <div class="col-auto d-flex justify-content-between w-50">
+                    <label for="">Role</label>
+                    <input type="text" class="inputeditCorporate" ng-model="facilityAddData.zipcode">
+                </div>
+                <div class="col-auto d-flex justify-content-between w-50">
+                    <label for="">Phone</label>
+                    <input type="text" class="inputeditCorporate" ng-model="facilityAddData.zipcode">
+                </div>
+                <div class="col-auto d-flex justify-content-between w-50">
+                    <label for="">Status</label>
+                    <input type="text" class="inputeditCorporate" ng-model="facilityAddData.zipcode">
+                </div>
+                <button type="button" class="btn btn-info" ng-click="saveFacility()">Save</button>
+            </div>
+        </form>
+    </div>
+
+</div>
