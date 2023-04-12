@@ -233,11 +233,13 @@ body {
 }
 
 .dropdownTab {
-  border-radius: 10px;
-  font-size: 17px;
+ border: none;
+  font-size: 20px;
   text-align: center;
   margin-top: 8px;
   margin-right: 30px;
+  background: transparent;
+  
 }
 
 .shipInfo {
@@ -346,6 +348,8 @@ nav{
 .shadow{
   box-shadow: 10px 10px grey;
 }
+
+
 .d{
   justify-self: center;
   align-items: center;
@@ -504,3 +508,25 @@ nav{
 
 }
 
+.addfacility{
+  width: 60%;
+}
+
+.editCorporate{
+  width: 63%;
+}
+
+.inputeditCorporate{
+  border: 2px solid black;
+}
+
+.productSetup{
+  cursor: pointer;
+  text-decoration: none;
+  color: #b5202f;
+}
+
+.dropdownUserSetup{
+  border: 2px solid black;
+  width: 58%;
+}

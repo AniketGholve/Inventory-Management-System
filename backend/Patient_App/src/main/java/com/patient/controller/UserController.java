@@ -92,7 +92,7 @@ public class UserController {
 	}
 	
 	@PostMapping("/deleteById/{id}")
-	public void delteById(int id) {
+	public void delteById(@PathVariable("id")int id) {
 		userEntityServiceImpl.deleteUser(id);
 	}
 }

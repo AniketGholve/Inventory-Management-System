@@ -89,6 +89,11 @@ app.controller("headerController", ($scope, $http, $location) => {
             break;
         case '/editCorporate': $scope.activeTab = 'setup';
             break; 
+        case '/addfacility': $scope.activeTab = 'setup';
+            break;
+        case '/reporting': $scope.activeTab = 'reporting';
+            break;
+        
         
         
     }
@@ -240,13 +245,39 @@ app.config(function ($routeProvider, $httpProvider ) {
             {
                 templateUrl: "view/setup.html"
             })
+        .when("/productInformation/:param1",
+            {
+                templateUrl: "view/productInformation.html"
+            })
         .when('/product',
             {
                 templateUrl: "view/product.html"
             })
+        .when('/reporting',
+        {
+            templateUrl: "view/reporting.html"
+        })
+
         .when('/editCorporate',
             {
                 templateUrl: "view/editCorporate.html"
+            })
+        .when('/addfacility',
+            {
+                templateUrl: "view/addfacility.html"
+            })
+        .when("/editfacility/:param1",
+            {
+                templateUrl: "view/editFacility.html"
+            })
+        
+        .when('/addUserSetup',
+            {
+                templateUrl: "view/addUserSetup.html"
+            })
+        .when("/editUserSetup",
+            {
+                templateUrl: "view/editUserSetup.html"
             })
         .when('/addToInventory',
             {
@@ -292,6 +323,15 @@ app.controller("loginCtrl", ($scope, $http, $window,) => {
             sessionStorage.setItem("token", "Bearer " + $scope.data.token)
             if ($scope.data) {
                 sessionStorage.setItem("username", $scope.submit.username)
+                $http({
+                    method: 'GET',
+                    url: 'http://localhost:7890/getEnterpriseIdByUsername/' + $scope.submit.username,
+                    headers: { 'Authorization': sessionStorage.getItem("token") }
+                }).then((response) => {
+                    $scope.dataEnterprise = response.data;
+                    sessionStorage.setItem("EnterpriseId",$scope.dataEnterprise.enterpriseId)
+                    
+                })
                 $http({
                     method: 'GET',
                     url: 'http://localhost:7890/api/get/' + $scope.submit.username,
@@ -619,6 +659,7 @@ app.controller("clp", function ($scope, $http, $window, $location) {
             headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") }
         }).then((response) => {
             $scope.updateLinkData = response.data;
+            console.log(response);
             
         }, (error) => { })     
         
@@ -638,7 +679,8 @@ app.controller("clp", function ($scope, $http, $window, $location) {
     }, (error) => {
         console.log(error);
     });
-
+    
+    //Minimum Days
     $http({
         method: 'GET',
         url: 'http://localhost:7890/getAllProduct',
@@ -934,6 +976,8 @@ app.controller("clp", function ($scope, $http, $window, $location) {
             }
         }).then((response) => {
             $scope.onHandData = response.data;
+            console.log("onhand")
+            console.log($scope.onHandData)
         }, (error) => {
             console.log(error)
         })
@@ -1095,7 +1139,7 @@ app.controller("clp", function ($scope, $http, $window, $location) {
 
 });
 
-app.controller("alp", ($scope, $http, $window ,$location) => {
+app.controller("alp", ($scope, $http, $window ,$location ,$routeParams) => {
     // clinic controller
     $http({
         method: 'GET',
@@ -1242,34 +1286,20 @@ app.controller("alp", ($scope, $http, $window ,$location) => {
 
     $http({
         method: 'GET',
-        url: 'http://localhost:7890/getAllEnterprise',
+        url: 'http://localhost:7890/getByEnterpriseId/' +sessionStorage.getItem("EnterpriseId"),
         headers: {
             'Content-Type': 'application/json',
             'Authorization': sessionStorage.getItem("token")
         },
     }).then((response) => {
         console.log("Enterprise")
-        $scope.enterpriseData = [...response.data];
+        $scope.enterpriseData = response.data;
         console.log($scope.enterpriseData)
         
     }, (error) => {
         console.log(error);
     });
-    $http({
-        method: 'GET',
-        url: 'http://localhost:7890/getAllEnterprise',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': sessionStorage.getItem("token")
-        },
-    }).then((response) => {
-        console.log("EnterpriseModify")
-        $scope.enterpriseDataModify = [...response.data];
-        console.log($scope.enterpriseDataModify)
-        
-    }, (error) => {
-        console.log(error);
-    });
+    
 
     $scope.enterpriseUpdate = () => {
         $http({
@@ -1279,24 +1309,207 @@ app.controller("alp", ($scope, $http, $window ,$location) => {
                 'Content-Type': 'application/json',
                 'Authorization': sessionStorage.getItem("token")
             },
-            data: $scope.enterpriseDataModify
+            data: $scope.enterpriseData
             
         }).then((response) => {
             console.log("updateEnterprise Table");
-            console.log($scope.enterpriseDataModify);
+            console.log($scope.enterpriseData);
             // alert("Enterprise Data Added Successfully");
-            // $window.location.reload();
-            
-            
+            // $window.location.reload(); 
                 },
                 (error) => {
-
         })
+    }
 
+    // $scope.getProductSetup = (productId) =>{
+    //     console.log(productId);
+    //     $http({
+    //         method: 'GET',
+    //         url: 'http://localhost:7890/getProductById/'+ productId,
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //             'Authorization': sessionStorage.getItem("token")
+    //         },
+    //     }).then((response) => {
+    //         console.log("productSetup")
+    //         $scope.productSetup = response.data;
+    //         console.log($scope.productSetup)
+    //         console.log(response)
+            
+    //     }, (error) => {
+    //         console.log(error);
+    //     });
+    // }
+ //Facility ApI
+
+ $scope.facilityAddData ={};
+
+ $scope.saveFacility = () =>{
+    $scope.facilityAddData.enterpriseId=sessionStorage.getItem("EnterpriseId");
+     $http({
+         method: 'post',
+         url: "http://localhost:7890/addFacility/" +sessionStorage.getItem("EnterpriseId"),
+         headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") },
+         data : $scope.facilityAddData
+     }).then((response) => {
+         console.log("facilityAddData");
+         console.log($scope.facilityAddData);
+         console.log(response)
+         
+     }, (error) => { })     
+ }
+    $http({
+        method: 'GET',
+        url: 'http://localhost:7890/getAllFacilityByEnterpriseId/' +sessionStorage.getItem("EnterpriseId"), 
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': sessionStorage.getItem("token")
+        },
+    }).then((response) => {
+        console.log("Facility")
+        $scope.facilitydata = response.data;
+        console.log($scope.facilitydata)
+        
+    }, (error) => {
+        console.log(error);
+    });
+    $scope.deletefacility= (facilityId) =>{
+        $http({
+            method: 'POST',
+            url: "http://localhost:7890/deleteFacility/" + facilityId,
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': sessionStorage.getItem("token")
+            }
+        }).then((response) => {$window.location.reload() }, (error) => { })
+    }
+ //user
+    $http({
+        method: 'GET',
+        url: 'http://localhost:7890/getAllUsersByEnterpriseId/' +sessionStorage.getItem("EnterpriseId"), 
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': sessionStorage.getItem("token")
+        },
+    }).then((response) => {
+        console.log("UserData")
+        $scope.userDataSetup = response.data;
+        console.log($scope.userDataSetup)
+        
+    }, (error) => {
+        console.log(error);
+    });
+
+ 
+    $scope.userAddData ={};
+
+    $scope.saveUser = () =>{
+       $scope.userAddData.enterpriseId=sessionStorage.getItem("EnterpriseId");
+        $http({
+            method: 'post',
+            url: "http://localhost:7890/api/addUser" ,
+            headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") },
+            data : $scope.userAddData
+        }).then((response) => {
+            console.log("userAddData");
+            console.log($scope.userAddData);
+            console.log(response)
+            
+        }, (error) => { })     
+    }
+
+    $scope.deleteuser= (id) =>{
+        $http({
+            method: 'POST',
+            url: "http://localhost:7890/api/deleteById/" + id,
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': sessionStorage.getItem("token")
+            }
+        }).then((response) => {$window.location.reload() }, (error) => { })
     }
 
 
+
 });
+
+app.controller('updateFacilityController', function ($scope, $http, $routeParams, $window) {
+
+    $scope.setUpLocation = () => {
+        let setUpPath = $location.path();
+        if (setUpPath === "/setup" || setUpPath === "/product") {
+            return true;
+        }
+        return false;
+    }
+    $scope.setupDropdownTab = sessionStorage.getItem("setupName");
+    $scope.setupName = (id) => {
+        sessionStorage.setItem("setupName", id);
+        if (sessionStorage.getItem("setupName") == "setup") {
+            $window.location.href = "#!/setup";
+        }
+        else if (sessionStorage.getItem("setupName") == "product") {
+            $window.location.href = "#!/product";
+            
+        }
+    }
+
+    $http({
+        method: 'GET',
+        url: "http://localhost:7890/getProductById/"+ $routeParams.param1,
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': sessionStorage.getItem("token")
+        }
+    }).then((response) => {
+        console.log("productSetup")
+        $scope.productSetup = response.data;
+        console.log($scope.productSetup)
+        console.log(response)
+        
+    }, (error) => {
+        console.log(error);
+    }); 
+
+    $http({
+        method: 'get',
+        url: "http://localhost:7890/api/getUserDetails/" + sessionStorage.getItem("username"),
+        headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") }
+    }).then((response) => {
+        console.log("User Update")
+        $scope.userdataUpdate = response.data;
+        console.log($scope.userdataUpdate);
+        
+    }, (error) => { })
+    $http({
+            method: 'get',
+            url: "http://localhost:7890/getFacilityById/" + $routeParams.param1,
+            headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") }
+        }).then((response) => {
+            console.log("Facility Update")
+            $scope.facilityUpdateData = response.data;
+            console.log($scope.facilityUpdateData);
+            
+        }, (error) => { })
+
+    $scope.UpdateFacility = () =>{
+        $http({
+                method: 'put',
+                url: "http://localhost:7890/editFacility" ,
+                headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") },
+                data : $scope.facilityUpdateData
+            }).then((response) => {
+                console.log("Hello")
+                $window.location.href="#!setup"
+                
+            }, (error) => { })     
+        }
+
+    
+    
+        
+});
+
 app.controller("shipping", ($scope, $http, $window) => {
 
         $scope.clinicShipToName;

@@ -1,52 +1,54 @@
 <div ng-controller="alp">
     <div ng-include="'view/header.html'"></div>
+    <div ng-include="'view/header3.html'"></div>
     <div class="container mt-5">
         <a class="corporateModify" href="#!setup">Back to Corporate</a>
         <h2 class="text-center ">Modify Corporate</h2>
     </div>
     
     <div class="container mt-4">
-        <form  >
-            <div class="row g-3 p-3 form-control d-flex justify-content-between w-75 m-auto"  ng-repeat="x in enterpriseDataModify">
+        <form>
+            <div class="row g-3 form-control d-flex justify-content-between editCorporate m-auto" >
+                
                 <div class="col-auto d-flex justify-content-between w-50">
                     <label for="">Corporate Name</label>
-                    <input type="text" ng-model="x.name" >
+                    <input type="text" class="inputeditCorporate" ng-model="enterpriseData.name" >
                 </div>
                 <div class="col-auto d-flex justify-content-between w-50">
                     <label for="">Zipcode</label>
-                    <input type="text" ng-model="x.zipcode">
+                    <input type="text" class="inputeditCorporate" ng-model="enterpriseData.zipcode">
                 </div>
                 <div class="col-auto d-flex justify-content-between w-50">
                     <label for="">Corporate Number</label>
-                    <input type="text" ng-model="x.enterpriseId">
+                    <input type="text" class="inputeditCorporate" ng-model="enterpriseData.enterpriseId">
                 </div>
                 <div class="col-auto d-flex justify-content-between w-50">
                     <label for="">GLN</label>
-                    <input type="text" ng-model="x.gln">
+                    <input type="text" class="inputeditCorporate" ng-model="enterpriseData.gln">
                 </div>
                 <div class="col-auto d-flex justify-content-between w-50">
                     <label for="">City</label>
-                    <input type="text" ng-model="x.city">
+                    <input type="text" class="inputeditCorporate" ng-model="enterpriseData.city">
                 </div>
                 <div class="col-auto d-flex justify-content-between w-50">
                     <label for="">Phone</label>
-                    <input type="text" ng-model="x.phone">
+                    <input type="text" class="inputeditCorporate" ng-model="enterpriseData.phone">
                 </div>
                 <div class="col-auto d-flex justify-content-between w-50">
                     <label for="" class="">State</label>
-                    <input type="Text" ng-model="x.state">
+                    <input type="Text" class="inputeditCorporate" ng-model="enterpriseData.state">
                 </div>
                 <div class="col-auto d-flex justify-content-between w-50">
                     <label for="">Email</label>
-                    <input type="email" ng-model="x.email">
+                    <input type="email" class="inputeditCorporate" ng-model="enterpriseData.email">
                 </div>
                 
                 <div class="col-auto d-flex justify-content-between w-50">
                     <label for="">Address</label>
                     <div class="d-grid mx-2 p-1">
-                    <input class="row" type="text" ng-model="x.addrLink1">
+                    <input class="row inputeditCorporate" type="text"  ng-model="enterpriseData.addrLink1">
                     <div class="p-1"></div>
-                    <input class="row" type="text" ng-model="x.addrLink2">
+                    <input class="row inputeditCorporate" type="text"  ng-model="enterpriseData.addrLink2">
                     </div>
                     
                 </div>
