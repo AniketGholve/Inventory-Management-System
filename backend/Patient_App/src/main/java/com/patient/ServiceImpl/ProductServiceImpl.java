@@ -82,4 +82,11 @@ public class ProductServiceImpl implements ProductService{
 		}
 		return list;
 	}
+
+	@Override
+	public Product getProductById(int id) {
+		// TODO Auto-generated method stub
+		Product p = productRepo.findById(id).orElseThrow();
+		return p;
+	}
 }

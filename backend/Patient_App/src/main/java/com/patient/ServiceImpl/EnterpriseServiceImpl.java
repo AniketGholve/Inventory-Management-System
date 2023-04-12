@@ -1,8 +1,8 @@
 package com.patient.ServiceImpl;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,6 +12,7 @@ import com.patient.Repo.EnterpriseRepo;
 import com.patient.Service.EnterpriseService;
 
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.Query;
 
 @Service
 public class EnterpriseServiceImpl implements EnterpriseService {
@@ -43,7 +44,23 @@ public class EnterpriseServiceImpl implements EnterpriseService {
 	public List<Enterprises> getAllEnterprises() {
 		// TODO Auto-generated method stub
 		List<Enterprises> listEnterprises=enterpriseRepo.findAll();
-		return listEnterprises;
+		List<Enterprises> list = new ArrayList<>();
+		int len = listEnterprises.size();
+		if(len>0)
+		{
+			for(Enterprises e:listEnterprises) {
+				Query q1 = entityManager.createNativeQuery("select * from facility where enterprise_Id=?");
+				q1.setParameter(1, e.getEnterpriseId());
+				e.setFacilityCount(q1.getResultList().size());
+				Query q2 = entityManager.createNativeQuery("select * from user_entity where enterprise_Id=? and active=?");
+				q2.setParameter(1, e.getEnterpriseId());
+				q2.setParameter(2, e.getActive());
+				e.setUsers(q2.getResultList().size());
+				list.add(e);
+				len--;
+			}
+		}
+		return list;
 	}
 
 	@Override

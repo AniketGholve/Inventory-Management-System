@@ -1,6 +1,7 @@
 package com.patient.ServiceImpl;
 
 import java.sql.Date;
+
 import java.text.Format;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -20,9 +21,12 @@ import org.springframework.stereotype.Service;
 import com.patient.Entity.Clinic;
 import com.patient.Entity.ClinicOrder;
 import com.patient.Entity.Inventory;
+import com.patient.Entity.Notifications;
 import com.patient.Entity.OrderEvents;
 import com.patient.Repo.ClinicOrderRepo;
+ 
 import com.patient.Repo.ClinicRepo;
+import com.patient.Repo.NotificatinsRepo;
 import com.patient.Repo.OrderEventsRepo;
 import com.patient.Service.OrderEventsService;
 
@@ -46,6 +50,9 @@ public class OrderEventsServiceImpl implements OrderEventsService {
 
 	@Autowired
 	private EntityManager entityManager;
+	
+	@Autowired
+	private NotificatinsRepo notificationsRepo;
 
 	@Override
 	public List<OrderEvents> createOrderEvent(List<Inventory> inventory, Integer clinicOrderId) {
@@ -98,7 +105,17 @@ public class OrderEventsServiceImpl implements OrderEventsService {
 		q.setParameter(1, "Processed");
 		q.setParameter(2, orderId);
 		q.executeUpdate();
+		
+		
+		Notifications notification = new Notifications();
+		Date date = new Date(System.currentTimeMillis());
+		notification.setMessage("Status Changed to Processed Successfully");
+		notification.setNotifiedTime(date);
+		notification.setStatus("Success Order");
+		notificationsRepo.save(notification);
+		
 		return "status changes successfully";
+		
 	}
 
 	@Override

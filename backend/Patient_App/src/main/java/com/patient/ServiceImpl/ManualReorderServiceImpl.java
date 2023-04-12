@@ -40,6 +40,7 @@ public class ManualReorderServiceImpl implements ManualReorderService {
 			m.setLowInventoryAlerts(list.get(i).isLowInventoryAlerts());
 			m.setInSystem(list.get(i).isInSystem());
 			m.setEmail(list.get(i).isEmail());
+			m.setProductId(list.get(i).getProductId());
 			i++;
 			manualReorderRepo.save(m);
 			}
@@ -51,26 +52,67 @@ public class ManualReorderServiceImpl implements ManualReorderService {
 
 	public List<ManualReorder> getAll() {
 		// TODO Auto-generated method stub
-		Query q=entityManager.createNativeQuery("select * from manual_reorder order by product_id");
-		List<Object[]> l=q.getResultList();
-		List<UsageOverLastMonths> usageList=dispenceToPatientServiceImpl.getAllUsedDoses();
-		int k=0;
-		for(Object[] o:l) {
-			ManualReorder mr=new ManualReorder();
-			mr.setProductName((String)o[0]);
-			mr.setAlertQuantity((Integer)o[1]);
-			mr.setLowInventoryAlerts((Boolean)o[2]);
-			mr.setEmail((Boolean)o[3]);
-			mr.setInSystem((Boolean)o[4]);
-			mr.setUsageOverLastMonths(usageList.get(k++));
-			
-		}
-		List<ManualReorder> list = manualReorderRepo.findAll();
-		return list;
-}
+//		Query q=entityManager.createNativeQuery("select * from manual_reorder order by product_id");
+//		List<Object[]> l=q.getResultList();
+//		List<UsageOverLastMonths> usageList=dispenceToPatientServiceImpl.getAllUsedDoses();
+//		int k=0;
+//		for(Object[] o:l) {
+//			ManualReorder mr=new ManualReorder();
+//			mr.setProductName((String)o[0]);
+//			mr.setAlertQuantity((Integer)o[1]);
+//			mr.setLowInventoryAlerts((Boolean)o[2]);
+//			mr.setEmail((Boolean)o[3]);
+//			mr.setInSystem((Boolean)o[4]);
+//			mr.setUsageOverLastMonths(usageList.get(k++));
+//			
+//		}
+//		List<ManualReorder> list = manualReorderRepo.findAll();
+//		return list;
+//		}
+
+	// TODO Auto-generated method stub
+
+	Query q=entityManager.createNativeQuery("select * from manual_reorder order by product_id");
+
+	List<Object[]> l=q.getResultList();
+
+	List<UsageOverLastMonths> usageList=dispenceToPatientServiceImpl.getAllUsedDoses();
+	System.out.println("abcd");
+	System.out.println(usageList.size());
+	int k=0;
+	List<ManualReorder> list = new ArrayList<>();
+	
+	for(Object[] o:l) {
+		System.out.println(Arrays.toString(o));
+
+	ManualReorder mr=new ManualReorder();
+
+	mr.setProductName((String)o[0]);
+
+	mr.setAlertQuantity((Integer)o[1]);
+
+	mr.setLowInventoryAlerts((Boolean)o[2]);
+
+	mr.setEmail((Boolean)o[3]);
+
+	mr.setInSystem((Boolean)o[4]);
+	mr.setProductId((Integer)o[5]);
+
+	mr.setUsageOverLastMonths(usageList.get(k++));
+	
+	list.add(mr);
+
+	}
+
+//	List<ManualReorder> list = manualReorderRepo.findAll();
+//
+	return list;
+
+	}
+	
 	@Override
 	@Transactional
-	@Scheduled(fixedRate = 3000000)//cron = "0 0 12 * * MON-FRI"
+//	@Scheduled(fixedRate = 3000000)//cron = "0 0 12 * * MON-FRI"
 	public String ManualReorderMessage() {
 		Query q = entityManager.createNativeQuery("select i.on_hand,m.product_name from \r\n"
 				+ "inventory i inner join product p on i.product_id=p.product_id \r\n"

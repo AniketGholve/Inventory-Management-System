@@ -145,13 +145,17 @@ public class DispenceToPatientServiceImpl implements DispenceToPatientService{
 	public List<LastInjectionScreen> getAllDispense() {
 		// TODO Auto-generated method stub
 //		List<DispenseToPatient> list = dispenseRepo.findAll();
+
  
 		//Query q = entityManager.createNativeQuery("select AES_DECRYPT(pa.patient_first_name,'this-is-patient-'),pa.patient_last_name,pa.patient_date_of_birth,dp.created_On,dp.next_Injection,p.product_Name from dispense_to_patient dp inner join Product p on dp.product_Id = p.product_Id inner join Patient pa on pa.id = dp.patient_Id where STR_TO_DATE(dp.next_Injection,'%Y-%m-%d') >= date_sub(now(), INTERVAL 3 DAY) order by dp.next_injection");
 		//Query q = entityManager.createQuery("select pa.patientFirstName,pa.patientLastName,pa.patientDob,dp.createdOn,dp.nextInjection,p.productName from DispenseToPatient dp inner join Product p on dp.productId = p.productId inner join Patient pa on pa.id = dp.patientId where dp.nextInjection-CURRENT_DATE <=3  order by dp.nextInjection");
 		
  
-		Query q = entityManager.createQuery("select pa.patientFirstName,pa.patientLastName,pa.patientDob,dp.createdOn,dp.nextInjection,p.productName from DispenseToPatient dp inner join Product p on dp.productId = p.productId inner join Patient pa on pa.id = dp.patientId where dp.nextInjection-CURRENT_DATE <=3 order by dp.nextInjection");
- 		List<Object[]> list = q.getResultList();
+//		Query q = entityManager.createQuery("select pa.patientFirstName,pa.patientLastName,pa.patientDob,dp.createdOn,dp.nextInjection,p.productName from DispenseToPatient dp inner join Product p on dp.productId = p.productId inner join Patient pa on pa.id = dp.patientId where dp.nextInjection-CURRENT_DATE <=3 order by dp.nextInjection");
+// 		List<Object[]> list = q.getResultList();
+
+		Query q = entityManager.createQuery("select pa.patientFirstName,pa.patientLastName,pa.patientDob,dp.createdOn,dp.nextInjection,p.productName from DispenseToPatient dp inner join Product p on dp.productId = p.productId inner join Patient pa on pa.id = dp.patientId where STR_TO_DATE(dp.nextInjection,'%Y-%m-%d') >= CURRENT_DATE-3 order by dp.nextInjection");//CURRENT_DATE <=3
+		List<Object[]> list = q.getResultList();
 //		Object[][] objArray = list.toArray(new Object[0][]);
 //		System.out.println(Arrays.deepToString(objArray));
 		List<LastInjectionScreen> result = new ArrayList<>();

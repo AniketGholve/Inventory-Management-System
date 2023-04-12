@@ -1,0 +1,59 @@
+<div ng-controller="alp">
+    <div ng-include="'view/header.html'"></div>
+    <div class="container mt-5">
+        <a class="corporateModify" href="#!setup">Back to Corporate</a>
+        <h2 class="text-center ">Modify Corporate</h2>
+    </div>
+    
+    <div class="container mt-4">
+        <form  >
+            <div class="row g-3 p-3 form-control d-flex justify-content-between w-75 m-auto"  ng-repeat="x in enterpriseDataModify">
+                <div class="col-auto d-flex justify-content-between w-50">
+                    <label for="">Corporate Name</label>
+                    <input type="text" ng-model="x.name" >
+                </div>
+                <div class="col-auto d-flex justify-content-between w-50">
+                    <label for="">Zipcode</label>
+                    <input type="text" ng-model="x.zipcode">
+                </div>
+                <div class="col-auto d-flex justify-content-between w-50">
+                    <label for="">Corporate Number</label>
+                    <input type="text" ng-model="x.enterpriseId">
+                </div>
+                <div class="col-auto d-flex justify-content-between w-50">
+                    <label for="">GLN</label>
+                    <input type="text" ng-model="x.gln">
+                </div>
+                <div class="col-auto d-flex justify-content-between w-50">
+                    <label for="">City</label>
+                    <input type="text" ng-model="x.city">
+                </div>
+                <div class="col-auto d-flex justify-content-between w-50">
+                    <label for="">Phone</label>
+                    <input type="text" ng-model="x.phone">
+                </div>
+                <div class="col-auto d-flex justify-content-between w-50">
+                    <label for="" class="">State</label>
+                    <input type="Text" ng-model="x.state">
+                </div>
+                <div class="col-auto d-flex justify-content-between w-50">
+                    <label for="">Email</label>
+                    <input type="email" ng-model="x.email">
+                </div>
+                
+                <div class="col-auto d-flex justify-content-between w-50">
+                    <label for="">Address</label>
+                    <div class="d-grid mx-2 p-1">
+                    <input class="row" type="text" ng-model="x.addrLink1">
+                    <div class="p-1"></div>
+                    <input class="row" type="text" ng-model="x.addrLink2">
+                    </div>
+                    
+                </div>
+                
+                <button type="button" class="btn btn-info" ng-click="enterpriseUpdate()">Update</button>
+            </div>
+        </form>
+    </div>
+
+</div>

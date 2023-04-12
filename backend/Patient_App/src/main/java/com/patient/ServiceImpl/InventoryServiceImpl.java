@@ -3,7 +3,7 @@ package com.patient.ServiceImpl;
 import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +15,7 @@ import com.patient.Entity.AutoReorder;
 import com.patient.Entity.Clinic;
 import com.patient.Entity.ClinicOrder;
 import com.patient.Entity.Inventory;
+import com.patient.Entity.Notifications;
 import com.patient.Entity.OrderEvents;
 import com.patient.Entity.Serial;
 import com.patient.Repo.ClinicOrderRepo;
@@ -299,12 +300,13 @@ public class InventoryServiceImpl implements InventoryService {
 
 		}
 		
-		
-	}
-	
-	
-	
-	
+//	public void AutoOrder() {
+//		// TODO Auto-generated method stub
+//		
+//	}
 
+
+	
+}
 }
 

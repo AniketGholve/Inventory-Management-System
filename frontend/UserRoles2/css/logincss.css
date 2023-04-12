@@ -83,7 +83,7 @@ body {
 
 }
 
-#userDropDown , #downloadDropdown , #editDropdown , #reorderDropDown{
+#userDropDown , #downloadDropdown , #editDropdown , #reorderDropDown,#notificationDropDown{
   display: none;
 }
 
@@ -322,7 +322,7 @@ body {
   background-color: rgba(80, 212, 175, 0.989);
   color: white;
 }
-.header2{
+.header2 , .header3{
   height: 40px;
   background-color: rgb(115, 202, 111);
 
@@ -462,3 +462,45 @@ nav{
   justify-content: space-between;
   cursor: pointer;
 }
+
+.notification-menu{
+  position: absolute;
+  top: 138%;
+  right: 7%;
+  width: 40%;
+  padding: 27px;
+  margin: 12px 0;
+  place-items: center;
+  font-family: "Poppins", sans-serif;
+  letter-spacing: 3px;
+  border-radius: 3px;
+  background:  rgb(201, 198, 198);
+  border: 1px solid #0e0e0e;
+
+}
+.successNotification{
+  background-color:  #6eeb8d;
+  padding: 5px;
+}
+.errorNotification{
+  background-color: rgb(236, 69, 69);
+  padding: 5px;
+}
+.hradmin{
+  color: rgb(155, 152, 152);
+  pointer-events: none;
+}
+.deleteNotificationAdmin{
+  float: right;
+  display: flex;
+}
+
+
+.corporateModify{
+  font-size: 20px;
+  text-decoration: none;
+  color: rgb(223, 51, 83);
+  cursor: pointer;
+
+}
+
