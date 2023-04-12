@@ -33,7 +33,8 @@ public class FacilityServiceImpl implements FacilityService {
 		Facility f = facilityRepo.findById(facility.getFacilityId()).orElseThrow();
 		f.setAddress(facility.getAddress());
 		f.setCity(facility.getCity());
-		f.setEnterpriseId(facility.getEnterpriseId());
+//		f.setEnterpriseId(facility.getEnterpriseId());
+		f.setEnterpriseId(f.getEnterpriseId());
 		f.setFacilityName(facility.getFacilityName());
 		f.setLocationId(facility.getLocationId());
 		f.setState(facility.getState());
@@ -49,9 +50,11 @@ public class FacilityServiceImpl implements FacilityService {
 	}
 
 	@Override
-	public Facility addFacility(Facility facility) {
+	public Facility addFacility(Facility facility,int enterpriseId) {
 		// TODO Auto-generated method stub
-		Facility f = facilityRepo.save(facility);
+		Facility f = new Facility();
+		f = facilityRepo.save(facility);
+		f.setEnterpriseId(enterpriseId);
 		return f;
 	}
 

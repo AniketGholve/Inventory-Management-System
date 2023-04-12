@@ -2,8 +2,10 @@ package com.patient.Service;
 
 import java.util.List;
 
- 
+import org.springframework.web.bind.annotation.PathVariable;
+
 import com.patient.Entity.Enterprises;
+import com.patient.Entity.UserEntity;
 
 public interface EnterpriseService {
 	
@@ -16,5 +18,6 @@ public interface EnterpriseService {
 	
 	public String deleteEnterprise(Integer enterpriseId);
 	
+//	public List<UserEntity> getAllUsersByEnterpriseId(int id);
  
 }
