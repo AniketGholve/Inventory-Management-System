@@ -17,6 +17,8 @@ public class Serial {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="serial_id")
 	private Integer serialId;
+//	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="serial_number")
 	private Integer serialNumber;
 	@Column(name="ndc")

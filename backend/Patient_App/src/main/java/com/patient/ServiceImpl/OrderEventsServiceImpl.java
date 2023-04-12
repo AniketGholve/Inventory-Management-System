@@ -19,6 +19,7 @@ import com.patient.Entity.ClinicOrder;
 import com.patient.Entity.Inventory;
 import com.patient.Entity.Notifications;
 import com.patient.Entity.OrderEvents;
+import com.patient.Entity.Serial;
 import com.patient.Repo.ClinicOrderRepo;
 import com.patient.Repo.NotificatinsRepo;
 import com.patient.Repo.OrderEventsRepo;
@@ -43,7 +44,12 @@ public class OrderEventsServiceImpl implements OrderEventsService {
 	
 	@Autowired
 	private NotificatinsRepo notificationsRepo;
-
+	
+	@Autowired
+	private SerialServiceImpl serialServiceImpl;
+	
+	private static int k = 1000;
+	
 	@Override
 	public List<OrderEvents> createOrderEvent(List<Inventory> inventory, Integer clinicOrderId) {
 		// TODO Auto-generated method stub
@@ -69,12 +75,27 @@ public class OrderEventsServiceImpl implements OrderEventsService {
 				orderEvents.setPackageType(null);
 				orderEvents.setProductId(i.getProductId());
 				orderEvents.setQuantity(i.getOrderedQty());
+				int len = i.getOrderedQty();
 				orderEvents.setShipmentTrackingId(123);
 				orderEvents.setSrcId(clinicOrder.getSrcId());
 				orderEvents.setStatusId(clinicOrder.getOrderStatusId());
 				orderEvents.setUserId(clinicOrder.getUserId());
 				OrderEvents oe=orderEventsRepo.save(orderEvents);
 				orderEventsList.add(oe);
+				for(int j=0;j<len;j++) {
+					Serial s = new Serial();
+					s.setCreatedOn(d);
+					System.out.println("hello");
+					System.out.println(oe.getLocationId());
+					System.out.println(oe.getEnterpriseId());
+					s.setLocationId(oe.getLocationId());
+					s.setEnterpriseId(oe.getEnterpriseId());
+					s.setProductId(oe.getProductId());
+					s.setSerialStatus("Comissioned");
+					s.setSerialNumber(k);
+					k++;
+					serialServiceImpl.createSerial(s);
+				}
 			}
 		}
 		return orderEventsList;

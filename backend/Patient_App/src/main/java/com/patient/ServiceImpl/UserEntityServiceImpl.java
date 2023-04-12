@@ -96,4 +96,11 @@ public class UserEntityServiceImpl implements UserEntityService {
 		userEntityRepo.deleteById(id);	
 	}
 
+	@Override
+	public UserEntity findUserById(int id) {
+		// TODO Auto-generated method stub
+		UserEntity u = userEntityRepo.findById(id).orElseThrow();
+		return u;
+	}
+
 }
