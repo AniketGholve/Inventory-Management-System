@@ -18,6 +18,8 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -152,11 +154,7 @@ public class DownloadController {
 	table.addCell(cell6);
 	PdfPCell cell7 = new PdfPCell(new Phrase("lastDispense"));
 	table.addCell(cell7);
-//	table.addCell(cell);
-//	for (Object[] column : col) {
-//			PdfPCell cell = new PdfPCell(new Phrase((String) column[0]));
-//			table.addCell(cell);	
-//		}
+
 	for (Object[] row : rows) {
 		for (Object value : row) {
 			PdfPCell cells = new PdfPCell(new Phrase(String.valueOf(value)));
@@ -172,5 +170,95 @@ public class DownloadController {
 	}
 	
 	
+	@PostMapping(value = "/inventoryPdf/{locationId}", produces = "application/pdf")
+	public ResponseEntity<byte[]> downloadInventoryPdf(@PathVariable int locationId) throws IOException, DocumentException {
 	
+		Query q = entityManager.createNativeQuery("select p.product_name,s.expiry_date,s.serial_number,s.serial_status from serial s inner join product p where p.product_id=s.product_id and s.location_id=?");
+		q.setParameter(1, locationId);
+		List<Object[]> rows = q.getResultList();
+		System.out.println(Arrays.toString(rows.get(0)));
+	
+	
+	Document document = new Document();
+	ByteArrayOutputStream baos = new ByteArrayOutputStream();
+	PdfWriter.getInstance(document, baos);
+
+	document.open();
+
+	// Create table
+	PdfPTable table = new PdfPTable(4);
+	PdfPCell cell0 = new PdfPCell(new Phrase("Dose"));
+	table.addCell(cell0);
+	PdfPCell cell1 = new PdfPCell(new Phrase("Expiry"));
+	table.addCell(cell1);
+	PdfPCell cell2 = new PdfPCell(new Phrase("SerialNumber"));
+	table.addCell(cell2);
+	PdfPCell cell3 = new PdfPCell(new Phrase("status"));
+	table.addCell(cell3);
+	
+	for (Object[] row : rows) {
+		for (Object value : row) {
+			PdfPCell cells = new PdfPCell(new Phrase(String.valueOf(value)));
+			table.addCell(cells);
+		}
+	}
+
+	document.add(table);
+	document.close();
+
+	return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=Inventory.pdf")
+	.body(baos.toByteArray());
+	}
+	
+	
+	@PostMapping(value = "/InventoryExcel/{locationId}", produces = "application/vnd.ms-excel")
+	public ResponseEntity<byte[]> downloadInventoryExcel(@PathVariable int locationId) throws IOException{
+		
+		 
+		Query q = entityManager.createNativeQuery("select p.product_name,s.expiry_date,s.serial_number,s.serial_status from serial s inner join product p where p.product_id=s.product_id and s.location_id=?");
+		q.setParameter(1, locationId);
+		List<Object[]> rows = q.getResultList();
+		System.out.println(Arrays.toString(rows.get(0)));
+		
+		Workbook workbook = new XSSFWorkbook();
+		Sheet sheet = workbook.createSheet("Inventory");
+		
+		//create header row
+		Row header = sheet.createRow(0);
+		
+		Cell cell = header.createCell(0);
+		cell.setCellValue("Dose");
+		Cell cell1 = header.createCell(1);
+		cell1.setCellValue("Expiry");
+		Cell cell2 = header.createCell(2);
+		cell2.setCellValue("SerialNumber");
+		Cell cell3 = header.createCell(3);
+		cell3.setCellValue("Status");
+	
+		//create Data rows
+		int rowNum = 1;
+		for(Object[] row:rows) {
+			Row dataRow = sheet.createRow(rowNum++);
+			int colNum =0;
+			for(Object value:row) {
+				Cell cells = dataRow.createCell(colNum++);
+				if(value instanceof String) {
+					cells.setCellValue((String)value);
+				}
+				else if(value instanceof Integer) {
+					cells.setCellValue((Integer)value);
+				}
+				else if(value instanceof Date) {
+					cells.setCellValue((Date)value);
+				}			
+			}
+		}
+		
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		workbook.write(baos);
+		workbook.close();
+		
+		return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=Inventory.xlsx").body(baos.toByteArray());
+		
+	}
 }

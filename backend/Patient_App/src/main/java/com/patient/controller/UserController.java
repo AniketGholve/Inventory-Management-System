@@ -60,6 +60,11 @@ public class UserController {
 		return new ResponseEntity<UserEntity>(editUser,HttpStatus.OK);
 	}
 	
+	@GetMapping("/getUserById/{id}")
+	public UserEntity getUserById(@PathVariable int id) {
+		UserEntity u = userEntityServiceImpl.findUserById(id);
+		return u;
+	}
 	
 	@GetMapping("/getUserDetails/{username}")
 	public ResponseEntity<UserEntity> getByUsername(@PathVariable String username) {
