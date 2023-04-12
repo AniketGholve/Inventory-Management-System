@@ -75,7 +75,7 @@
                         <td>{{x.city}}</td>
                         <td>{{x.state}}</td>
                         <td>{{x.zipcode}}</td>
-                        <td><i class="fa-regular fa-pen-to-square link-danger " ></i></td>
+                        <td><a href="#!editfacility/{{x.facilityId}}" ><i class="fa-regular fa-pen-to-square link-danger"  ></i></a></td>
                         <td><i class="fa-regular fa-circle-xmark link-danger " ng-click="deletefacility(x.facilityId)" style="cursor: pointer;"></i></td>
 
 
@@ -99,10 +99,7 @@
                     <tr>
                         <th class="">Last Name</th>
                         <th class="">First Name</th>
-                        <th class="">Middle Initial</th>
-                        <th class="">User Email</th>
                         <th class="">User Name</th>
-                        <th class="">Corporate Name</th>
                         <th class="">Role</th>
                         <th class="">Phone</th>
                         <th class="">Status</th>
@@ -111,19 +108,16 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                    <tr ng-repeat="x in userDataSetup">
+                        <td>{{x.lastName}}</td>
+                        <td>{{x.firstName}}</td>
+                        <td>{{x.username}}</td>
+                        <td>{{x.jobTitile}}</td>
+                        <td>{{x.phoneNo}}</td>
+                        <td>Active</td>
 
-                        <td><i class="fa-regular fa-pen-to-square link-danger "></i></td>
-                        <td><i class="fa-regular fa-circle-xmark link-danger "></i></td>
+                        <td><a href="#!editUserSetup" ><i class="fa-regular fa-pen-to-square link-danger "></i></a></td>
+                        <td><i class="fa-regular fa-circle-xmark link-danger "  ng-click="deleteuser(x.id)" style="cursor: pointer;"></i></td>
 
 
                     </tr>

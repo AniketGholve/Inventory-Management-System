@@ -16,7 +16,7 @@
                 </thead>
                 <tbody>
                     <tr ng-repeat="x in productAlp">
-                        <td ><a ng-click="getProductSetup(x.productId)"data-bs-toggle="modal" data-bs-target="#productName"
+                        <td ><a href="#!productInformation/{{x.productId}}"
                             class="productSetup">{{x.productName}}</a></td>
                         <td>{{x.ndc}}</td>
                         <td>{{x.manufacturer}}</td>
@@ -46,37 +46,37 @@
                     <div class="d-grid container shadow " style="padding: 15px;width: 80%;" >
                         <div class="row">
                             <div class="d-flex justify-content-between  ">
-                                <label>Product ID</label>
+                                <label>Product ID:</label>
                                 <div>{{productSetup.productId}} </div>
                             </div> 
                         </div>
                         <div class="row">
                             <div class="d-flex justify-content-between ">
-                                <label>Product Name</label>
+                                <label>Product Name:</label>
                                 <div>{{productSetup.productName}} </div>
                             </div> 
                         </div>
                         <div class="row">
                             <div class="d-flex justify-content-between ">
-                                <label>Product Code</label>
+                                <label>Product Code:</label>
                                 <div> {{productSetup.ndc}}</div>
                             </div> 
                         </div>
                         <div class="row">
                             <div class="d-flex justify-content-between ">
-                                <label>Manufacturer</label>
+                                <label>Manufacturer:</label>
                                 <div> {{productSetup.manufacturer}}</div>
                             </div> 
                         </div>
                         <div class="row">
                             <div class="d-flex justify-content-between ">
-                                <label>Gtin</label>
+                                <label>Gtin:</label>
                                 <div> {{productSetup.gtin}}</div>
                             </div> 
                         </div>
                         <div class="row">
                             <div class="d-flex justify-content-between ">
-                                <label>Status</label>
+                                <label>Status:</label>
                                 <div> Active</div>
                             </div> 
                         </div>
@@ -85,11 +85,11 @@
 
                 </div>
 
-                <div class="modal-footer">
+                <!-- <div class="modal-footer">
 
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
 
-                </div>
+                <!-- </div> --> 
 
             </div>
 
