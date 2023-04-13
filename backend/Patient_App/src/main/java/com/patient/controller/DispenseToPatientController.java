@@ -60,9 +60,9 @@ public class DispenseToPatientController {
 		return new ResponseEntity<DispenseToPatient>(dispensetoPatient,HttpStatus.CREATED);
 	}
 	
-	@GetMapping("/getAllDispense")
-	public List<LastInjectionScreen> getAllDispense(){
-		List<LastInjectionScreen> l = dispenceToServiceImpl.getAllDispense();
+	@GetMapping("/getAllDispense/{locationId}")
+	public List<LastInjectionScreen> getAllDispense(@PathVariable int locationId){
+		List<LastInjectionScreen> l = dispenceToServiceImpl.getAllDispense(locationId);
 		return l;
 	}
 	

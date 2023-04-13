@@ -23,7 +23,7 @@ public interface DispenceToPatientService {
 
 	public Serial getProductBySerialNo(Integer serialNo);
 	
-	public List<LastInjectionScreen> getAllDispense();
+	public List<LastInjectionScreen> getAllDispense(int locationId);
 	
 	public List<UsageOverLastMonths> getAllUsedDoses();
 
