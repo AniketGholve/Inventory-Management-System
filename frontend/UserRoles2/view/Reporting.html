@@ -8,7 +8,7 @@
                     <!-- <label for="dropdownTab" class="text-dark " style="font-size: 20px;"><h5>Choose :</h5></label> -->
                     <select id="dropdownViewTab" class="dropdownTab4" ng-model="id" ng-change="clinicName(id)">
                         <option label="Select Clinic" class="d-none"></option>
-                        <option ng-repeat="x in clinicNames" value="{{x.locationId}}" class="text-center">{{x.name}}
+                        <option ng-repeat="x in clinicNames" ng-click="clinicName(x.locationId)"value="{{x.locationId}}" class="text-center">{{x.name}}
                         </option>
                     </select>
                     <div>

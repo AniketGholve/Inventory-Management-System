@@ -752,142 +752,142 @@ app.controller("clp", function ($scope, $http, $window, $location) {
     // $scope.addMonths=[];
     // $scope.marchMonth;
 
-    // $http({
-    //     method: 'GET',
-    //     url: "http://localhost:7890/getAutoReorderDose", 
-    //     headers: {
-    //         'Content-Type': 'application/json',
-    //         'Authorization': sessionStorage.getItem("token")
-    //     }
-    // }).then((response) => {
-    //     console.log("Auto");
-    //     console.log(response.data);
-    //     $scope.autoTableData = [...response.data];
-    // }, (error) => {
-    //     console.log(error);
-    // });
+    $http({
+        method: 'GET',
+        url: "http://localhost:7890/getAutoReorderDose", 
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': sessionStorage.getItem("token")
+        }
+    }).then((response) => {
+        console.log("Auto");
+        console.log(response.data);
+        $scope.autoTableData = [...response.data];
+    }, (error) => {
+        console.log(error);
+    });
 
-    // function autoTableData(){
-    //     $http({
-    //         method: 'GET',
-    //         url: "http://localhost:7890/getAutoReorderDose", 
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //             'Authorization': sessionStorage.getItem("token")
-    //         }
-    //     }).then((response) => {
-    //         console.log("Auto");
-    //         console.log(response.data);
-    //         $scope.autoTableData = [...response.data];
-    //     }, (error) => {
-    //         console.log(error);
-    //     });
-    // }
-    // $http({
-    //     method: 'GET',
-    //     url: "http://localhost:7890/getAutoReorderDose", 
-    //     headers: {
-    //         'Content-Type': 'application/json',
-    //         'Authorization': sessionStorage.getItem("token")
-    //     }
-    // }).then((response) => {
-    //     console.log("Autoedit");
-    //     console.log(response.data);
-    //     $scope.autoTableData1= [...response.data];
-    // }, (error) => {
-    //     console.log(error);
-    // });
+    function autoTableData(){
+        $http({
+            method: 'GET',
+            url: "http://localhost:7890/getAutoReorderDose", 
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': sessionStorage.getItem("token")
+            }
+        }).then((response) => {
+            console.log("Auto");
+            console.log(response.data);
+            $scope.autoTableData = [...response.data];
+        }, (error) => {
+            console.log(error);
+        });
+    }
+    $http({
+        method: 'GET',
+        url: "http://localhost:7890/getAutoReorderDose", 
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': sessionStorage.getItem("token")
+        }
+    }).then((response) => {
+        console.log("Autoedit");
+        console.log(response.data);
+        $scope.autoTableData1= [...response.data];
+    }, (error) => {
+        console.log(error);
+    });
 
-    // $scope.autoTableUpdate = () => {
-    //     $http({
-    //         method: 'PUT',
-    //         url: 'http://localhost:7890/updateAutoReorder',
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //             'Authorization': sessionStorage.getItem("token")
-    //         },
-    //         data: $scope.autoTableData1
+    $scope.autoTableUpdate = () => {
+        $http({
+            method: 'PUT',
+            url: 'http://localhost:7890/updateAutoReorder',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': sessionStorage.getItem("token")
+            },
+            data: $scope.autoTableData1
 
-    //     }).then((response) => {
-    //         console.log("updateAutoTable")
-    //         console.log($scope.autoTableData1);
-    //         autoTableData();
-    //         // $window.location.reload();       
-    //             },
-    //             (error) => {
+        }).then((response) => {
+            console.log("updateAutoTable")
+            console.log($scope.autoTableData1);
+            autoTableData();
+            // $window.location.reload();       
+                },
+                (error) => {
 
-    //     })
+        })
 
-    // }
+    }
 
-    // $http({
-    //     method: 'GET',
-    //     url: "http://localhost:7890/getManualReorder",
-    //     headers: {
-    //         'Content-Type': 'application/json',
-    //         'Authorization': sessionStorage.getItem("token")
-    //     }
-    // }).then((response) => {
-    //     console.log("Manual");
-    //     console.log(response.data);
-    //     $scope.manualReorder = [...response.data];
-    // }, (error) => {
-    //     console.log(error);
-    // }); 
+    $http({
+        method: 'GET',
+        url: "http://localhost:7890/getManualReorder",
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': sessionStorage.getItem("token")
+        }
+    }).then((response) => {
+        console.log("Manual");
+        console.log(response.data);
+        $scope.manualReorder = [...response.data];
+    }, (error) => {
+        console.log(error);
+    }); 
 
-    // $http({
-    //     method: 'GET',
-    //     url: "http://localhost:7890/getManualReorder",
-    //     headers: {
-    //         'Content-Type': 'application/json',
-    //         'Authorization': sessionStorage.getItem("token")
-    //     }
-    // }).then((response) => {
-    //     console.log("Manualedit");
-    //     console.log(response.data);
-    //     $scope.manualReorder1 = [...response.data];
-    // }, (error) => {
-    //     console.log(error);
-    // }); 
+    $http({
+        method: 'GET',
+        url: "http://localhost:7890/getManualReorder",
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': sessionStorage.getItem("token")
+        }
+    }).then((response) => {
+        console.log("Manualedit");
+        console.log(response.data);
+        $scope.manualReorder1 = [...response.data];
+    }, (error) => {
+        console.log(error);
+    }); 
 
-    // $scope.manualTableUpdate = () => {
-    //     $http({
-    //         method: 'PUT',
-    //         url: 'http://localhost:7890/updateManualReorder',
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //             'Authorization': sessionStorage.getItem("token")
-    //         },
-    //         data: $scope.manualReorder1
+    $scope.manualTableUpdate = () => {
+        $http({
+            method: 'PUT',
+            url: 'http://localhost:7890/updateManualReorder',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': sessionStorage.getItem("token")
+            },
+            data: $scope.manualReorder1
 
-    //     }).then((response) => {
-    //         console.log("updateManualTable")
-    //         console.log($scope.manualReorder1);
-    //         manualTableData()
-    //         // $window.location.reload();
+        }).then((response) => {
+            console.log("updateManualTable")
+            console.log($scope.manualReorder1);
+            manualTableData()
+            // $window.location.reload();
 
-    //             },
-    //             (error) => {
+                },
+                (error) => {
 
-    //     })
+        })
 
-    // }
-    // function manualTableData(){
-    //     $http({
-    //         method: 'GET',
-    //         url: "http://localhost:7890/getManualReorder",
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //             'Authorization': sessionStorage.getItem("token")
-    //         }
-    //     }).then((response) => {
-    //         console.log("Manual");
-    //         console.log(response.data);
-    //         $scope.manualReorder = [...response.data];
-    //     }, (error) => {
-    //         console.log(error);
-    //     }); 
-    // }
+    }
+    function manualTableData(){
+        $http({
+            method: 'GET',
+            url: "http://localhost:7890/getManualReorder",
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': sessionStorage.getItem("token")
+            }
+        }).then((response) => {
+            console.log("Manual");
+            console.log(response.data);
+            $scope.manualReorder = [...response.data];
+        }, (error) => {
+            console.log(error);
+        }); 
+    }
 
     $http({
         method: 'GET',
@@ -1433,7 +1433,7 @@ app.controller("alp", ($scope, $http, $window, $location, $routeParams) => {
     }, (error) => { })
 
     $scope.downloadXLS = () =>{
-        
+
     }
 
 

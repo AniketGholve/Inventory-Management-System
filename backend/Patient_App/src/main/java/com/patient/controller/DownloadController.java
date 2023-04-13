@@ -170,7 +170,7 @@ public class DownloadController {
 	}
 	
 	
-	@PostMapping(value = "/inventoryPdf/{locationId}", produces = "application/pdf")
+	@GetMapping(value = "/inventoryPdf/{locationId}", produces = "application/pdf")
 	public ResponseEntity<byte[]> downloadInventoryPdf(@PathVariable int locationId) throws IOException, DocumentException {
 	
 		Query q = entityManager.createNativeQuery("select p.product_name,s.expiry_date,s.serial_number,s.serial_status from serial s inner join product p where p.product_id=s.product_id and s.location_id=?");
@@ -211,7 +211,7 @@ public class DownloadController {
 	}
 	
 	
-	@PostMapping(value = "/InventoryExcel/{locationId}", produces = "application/vnd.ms-excel")
+	@GetMapping(value = "/InventoryExcel/{locationId}", produces = "application/vnd.ms-excel")
 	public ResponseEntity<byte[]> downloadInventoryExcel(@PathVariable int locationId) throws IOException{
 		
 		 
