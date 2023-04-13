@@ -23,6 +23,7 @@ import com.patient.Entity.Serial;
 import com.patient.Repo.ClinicOrderRepo;
 import com.patient.Repo.NotificatinsRepo;
 import com.patient.Repo.OrderEventsRepo;
+import com.patient.Repo.SerialRepo;
 import com.patient.Service.OrderEventsService;
 
 import jakarta.persistence.EntityManager;
@@ -47,6 +48,9 @@ public class OrderEventsServiceImpl implements OrderEventsService {
 	
 	@Autowired
 	private SerialServiceImpl serialServiceImpl;
+	
+	@Autowired
+	private SerialRepo serialSeviceRepo;
 	
 	private static int k = 1000;
 	
@@ -94,7 +98,7 @@ public class OrderEventsServiceImpl implements OrderEventsService {
 					s.setSerialStatus("Comissioned");
 					s.setSerialNumber(k);
 					k++;
-					serialServiceImpl.createSerial(s);
+					serialSeviceRepo.save(s);
 				}
 			}
 		}

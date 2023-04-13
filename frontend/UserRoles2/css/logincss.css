@@ -231,16 +231,36 @@ body {
   top: 40%;
   left: 50%;
 }
-
-.dropdownTab {
- border: none;
-  font-size: 20px;
+.dropdownTab4{
+  width: 20%;
+  height: 60%;
+  padding: 10px;
+  border-radius: 10px ;
+  font-size: 16px;
   text-align: center;
   margin-top: 8px;
   margin-right: 30px;
-  background: transparent;
+
+}
+.dropdownTab {
+ border-radius: 10px ;
+  font-size: 18px;
+  text-align: center;
+  margin-top: 8px;
+  margin-right: 30px;
+  
   
 }
+.dropdownTab3 {
+  border: none;
+   font-size: 23px;
+   text-align: center;
+   margin-top: 8px;
+   margin-right: 30px;
+   background: transparent;
+   color: rgb(33, 29, 29);
+   
+ }
 
 .shipInfo {
   background-color: rgb(209, 208, 208);
