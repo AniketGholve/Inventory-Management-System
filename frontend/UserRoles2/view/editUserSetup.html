@@ -1,31 +1,31 @@
-<div ng-controller="alp">
+<div ng-controller="updateUserSetupController">
     <div ng-include="'view/header.html'"></div>
     <div ng-include="'view/header3.html'"></div>
     <div class="container mt-5">
         <a class="corporateModify" href="#!setup">Back to Corporate</a>
         <h2 class="text-center ">Edit User</h2>
     </div>
-    
+
     <div class="container mt-4">
-        <form>
+        <form ng-submit="saveUserSetup()">
             <div class="row g-3 form-control d-flex justify-content-between addfacility m-auto">
                 <div class="col-auto d-flex justify-content-between w-50">
                     <label for="">Last Name </label>
-                    <input type="text" class="inputeditCorporate" ng-model="userAddData.lastName" >
+                    <input type="text" class="inputeditCorporate" ng-model="userdataUpdate.lastName">
                 </div>
                 <div class="col-auto d-flex justify-content-between w-50">
                     <label for="">First Name </label>
-                    <input type="text" class="inputeditCorporate" ng-model="userAddData.firstName">
+                    <input type="text" class="inputeditCorporate" ng-model="userdataUpdate.firstName">
                 </div>
-               
-                <div class="col-auto d-flex justify-content-between w-50">
+
+                <!-- <div class="col-auto d-flex justify-content-between w-50">
                     <label for="">User Name</label>
-                    <input type="text" class="inputeditCorporate" ng-model="userAddData.username">
+                    <input type="email" class="inputeditCorporate" ng-model="userdataUpdate.username">
                 </div>
-                
+                 -->
                 <div class="col-auto d-flex justify-content-between w-50">
                     <label for="">Role</label>
-                    <select ng-model="userAddData.role" class="text-center dropdownUserSetup" required>
+                    <select ng-model="userdataUpdate.role" class="text-center dropdownUserSetup" required>
                         <option value="" class="d-none">Please Choose</option>
                         <option value="ELP">ELP</option>
                         <option value="MLP">MLP</option>
@@ -35,7 +35,7 @@
                 </div>
                 <div class="col-auto d-flex justify-content-between w-50">
                     <label for="">Job Title</label>
-                    <select ng-model="userAddData.jobTitile" class="text-center dropdownUserSetup" required>
+                    <select ng-model="userdataUpdate.jobTitile" class="text-center dropdownUserSetup" required>
                         <option value="" class="d-none">Please Choose</option>
                         <option value="Sales">Sales</option>
                         <option value="Marketing">Marketing</option>
@@ -45,32 +45,41 @@
                 </div>
                 <div class="col-auto d-flex justify-content-between w-50">
                     <label for="">Phone</label>
-                    <input type="text" class="inputeditCorporate" ng-model="userAddData.phoneNo">
+                    <input type="tel" pattern="^\d{10}$" class="inputeditCorporate" ng-model="userdataUpdate.phoneNo">
                 </div>
                 <div class="col-auto d-flex justify-content-between w-50">
-                    <label >Password  </label>
-                    <input class="inputeditCorporate" type="password" name="password" ng-model="userAddData.password" required
-                        ng-init="password_error_show =0" placeholder="Password" />
+                    <label>Password </label>
+                    <input class="inputeditCorporate" type="password" name="password" ng-model="userdataUpdate.password"
+                        required ng-init="password_error_show =0" placeholder="Password" />
                 </div>
                 <div class="col-auto d-flex justify-content-between w-50">
-                    <label >Confirm Password  </label>
+                    <label>Confirm Password </label>
                     <input class="inputeditCorporate" type="password" name="confirmPassword"
-                         required ng-init="confirmPassword_error_show =0"
-                         placeholder="Confirm Password" />
-                    <span id="Invalid" style="display: none; color: red;">Password Not Matched</span>
-                    <span id="valid" style="display: none; color: green;">Password Matched</span>
+                        ng-model="userdataUpdate.confirmPassword" required ng-init="confirmPassword_error_show =0"
+                        ng-change="validPassword()" placeholder="Confirm Password" />
+                        
+                   
+                       
                 </div>
-                <hr>
-                <div class="col-auto">
+                
+                
+            
+                <div class="col-auto d-flex justify-content-between w-50">
                     <label for="">Status</label>
-                    <select ng-model="userAddData.status" class="text-center dropdownUserSetup" required>
+                    <select ng-model="userdataUpdate.status" class="text-center dropdownUserSetup" required>
                         <option value="" class="d-none">Please Choose</option>
                         <option value="Active">Active</option>
                         <option value="Inactive">Inactive</option>
-                        
+
                     </select>
                 </div>
-                <button type="button" class="btn btn-info" ng-click="saveUser()">Save</button>
+                <div class="col-auto d-flex justify-content-between w-50" style="padding-left: 25%;">
+                    <span id="Invalid" style="display: none; color: red;">Password Not Matched</span>
+                    <span id="valid" style="display: none; color: green;">Password Matched</span>
+
+                </div>
+                <!-- <button type="button" class="btn btn-info" ng-click="saveUserSetup()">Save</button> -->
+                <input class="btn btn-primary" name="edit" type="submit" value="Save"></input>
             </div>
         </form>
     </div>

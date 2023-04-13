@@ -144,7 +144,7 @@ app.controller("edit_userCtrl", function ($scope, $http, $window, $route) {
         console.log(error);
     });
     $scope.updatedData = () => {
-        delete $scope.edit.authorities;        ;
+        delete $scope.edit.authorities;        
         console.log($scope.edit);
          $scope.edit.username = sessionStorage.getItem("username");
 

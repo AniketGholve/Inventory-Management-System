@@ -233,9 +233,9 @@ body {
 }
 .dropdownTab4{
   width: 20%;
-    height: 60%;
-    padding: 10px;
-    border-radius: 10px ;
+  height: 60%;
+  padding: 10px;
+  border-radius: 10px ;
   font-size: 16px;
   text-align: center;
   margin-top: 8px;
@@ -253,11 +253,12 @@ body {
 }
 .dropdownTab3 {
   border: none;
-   font-size: 20px;
+   font-size: 23px;
    text-align: center;
    margin-top: 8px;
    margin-right: 30px;
    background: transparent;
+   color: rgb(33, 29, 29);
    
  }
 

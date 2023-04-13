@@ -7,7 +7,7 @@
     </div>
     
     <div class="container mt-4">
-        <form>
+        <form ng-submit="saveUser()">
             <div class="row g-3 form-control d-flex justify-content-between addfacility m-auto">
                 <div class="col-auto d-flex justify-content-between w-50">
                     <label for="">Last Name </label>
@@ -20,7 +20,7 @@
                
                 <div class="col-auto d-flex justify-content-between w-50">
                     <label for="">User Name</label>
-                    <input type="text" class="inputeditCorporate" ng-model="userAddData.username">
+                    <input type="email" class="inputeditCorporate" ng-model="userAddData.username">
                 </div>
                 
                 <div class="col-auto d-flex justify-content-between w-50">
@@ -45,7 +45,7 @@
                 </div>
                 <div class="col-auto d-flex justify-content-between w-50">
                     <label for="">Phone</label>
-                    <input type="text" class="inputeditCorporate" ng-model="userAddData.phoneNo">
+                    <input type="tel" pattern="^\d{10}$" class="inputeditCorporate" ng-model="userAddData.phoneNo">
                 </div>
                 <div class="col-auto d-flex justify-content-between w-50">
                     <label >Password  </label>
@@ -57,11 +57,10 @@
                     <input class="inputeditCorporate" type="password" name="confirmPassword"
                     ng-model="userAddData.confirmPassword" required ng-init="confirmPassword_error_show =0"
                     ng-change="validPassword()"  placeholder="Confirm Password" />
-                    <span id="Invalid" style="display: none; color: red;">Password Not Matched</span>
-                    <span id="valid" style="display: none; color: green;">Password Matched</span>
+                   
                 </div>
-                <hr>
-                <div class="col-auto">
+                
+                <div class="col-auto d-flex justify-content-between w-50">
                     <label for="">Status</label>
                     <select ng-model="userAddData.status" class="text-center dropdownUserSetup" required>
                         <option value="" class="d-none">Please Choose</option>
@@ -70,7 +69,13 @@
                         
                     </select>
                 </div>
-                <button type="button" class="btn btn-info" ng-click="saveUser()">Save</button>
+                <div class="col-auto d-flex justify-content-between w-50" style="padding-left: 25%;">
+                    <span id="Invalid" style="display: none; color: red;">Password Not Matched</span>
+                    <span id="valid" style="display: none; color: green;">Password Matched</span>
+
+                </div>
+                <!-- <button type="button" class="btn btn-info" ng-click="saveUser()">Save</button> -->
+                <input class="btn btn-primary" name="register" type="submit" value="Add User"></input>
             </div>
         </form>
     </div>
