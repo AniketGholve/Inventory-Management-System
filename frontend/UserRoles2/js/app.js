@@ -93,6 +93,8 @@ app.controller("headerController", ($scope, $http, $location) => {
             break;
         case '/reporting': $scope.activeTab = 'reporting';
             break;
+        case '/clinicInventory': $scope.activeTab = 'reporting';
+            break;
 
 
 
@@ -256,6 +258,10 @@ app.config(function ($routeProvider, $httpProvider) {
         .when('/reporting',
             {
                 templateUrl: "view/reporting.html"
+            })
+        .when('/clinicInventory',
+            {
+                templateUrl: "view/clinicInventory.html"
             })
 
         .when('/editCorporate',
@@ -718,20 +724,7 @@ app.controller("clp", function ($scope, $http, $window, $location) {
 
     }
 
-    $http({
-        method: 'GET',
-        url: "http://localhost:7890/getAllDispense",
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': sessionStorage.getItem("token")
-        }
-    }).then((response) => {
-        console.log("Hello");
-        console.log(response.data);
-        $scope.dispenseShow = response.data;
-    }, (error) => {
-        console.log(error);
-    });
+    
 
     $http({
         method: 'GET',
@@ -930,6 +923,8 @@ app.controller("clp", function ($scope, $http, $window, $location) {
             headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") }
         }).then((response) => {
             getPatientDetails(response.data);
+            console.log("Patients");
+            console.log(response.data);
         }, (error) => { })
         $http({
             method: 'get',
@@ -947,6 +942,22 @@ app.controller("clp", function ($scope, $http, $window, $location) {
         }, (error) => {
             console.log(error);
         })
+
+        // $http({
+        //     method: 'GET',
+        //     url: "http://localhost:7890/getAllDispense/" + sessionStorage.getItem("locationId") ,
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //         'Authorization': sessionStorage.getItem("token")
+        //     }
+        // }).then((response) => {
+        //     console.log("Hello Dispense");
+        //     console.log(response.data);
+        //     $scope.dispenseShow = response.data;
+        // }, (error) => {
+        //     console.log(error);
+        // })
+
         $scope.shippedSerial = () => {
             if ($scope.demodata != null && sessionStorage.getItem("locationId") != null) {
                 $http({
@@ -1422,21 +1433,143 @@ app.controller("alp", ($scope, $http, $window, $location, $routeParams) => {
     }
 
 
+    // Location Reporting
+
+
+    // $scope.reportName = (id) => {
+    //     sessionStorage.setItem("reportName", id);
+    //     if (sessionStorage.getItem("reportName") == "addPatient") {
+    //         $window.location.href = "#!/insertPatient";
+    //     }
+    //     else if (sessionStorage.getItem("reportName") == "addPhysician") {
+    //         $window.location.href = "#!addPhysician";
+    //     }
+    //     else if (sessionStorage.getItem("reportName") == "addNurse") {
+    //         $window.location.href = "#!addNurse";
+    //     }
+    //     else if (sessionStorage.getItem("reportName") == "orders") {
+    //         $window.location.href = "#!orders";
+    //     }
+    // }
+    // $scope.reportLocation = () => {
+    //     let thePath = $location.path();
+    //     if (thePath === "/reports") {
+    //         return true;
+    //     }
+    //     return false;
+    // }
+    $scope.reportingLocation = () => {
+        let reportingPath = $location.path();
+        if (reportingPath === "/reporting" || reportingPath === "/clinicInventory" ) {
+            return true;
+        }
+        return false;
+    }
+    $scope.reportingDropdownTab = sessionStorage.getItem("reportingName");
+    $scope.reportingName = (id) => {
+        sessionStorage.setItem("reportingName", id);
+        if (sessionStorage.getItem("reportingName") == "reporting" ) {
+            $window.location.href = "#!/reporting";
+        }
+        else if (sessionStorage.getItem("reportingName") == "clinicInventory") {
+            $window.location.href = "#!/clinicInventory";
+        
+    }
+}
+
     $http({
         method: 'get',
         url: "http://localhost:7890/getClinicNames",
         headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") }
     }).then((response) => {
         $scope.clinicNames = response.data;
+        
         // $window.location.reload();
         console.log($scope.clinicNames);
     }, (error) => { })
 
-    $scope.downloadXLS = () =>{
+    $scope.clinicName = (id) => {
+        sessionStorage.setItem("locationId", id);
+        // $window.location.reload();
+    }
 
+    $http({
+        method: 'get',
+        url: "http://localhost:7890/getInventoryByClinic/" + sessionStorage.getItem("locationId"),
+        headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") }
+    }).then((response) => {
+        getInventoryDetails(response.data);
+    }, (error) => { })
+
+
+    getInventoryDetails = (data) => {
+        $scope.invetoryData = data;
+        console.log($scope.invetoryData);
+    };
+
+
+    $scope.getExcel=() => {
+        $http({
+            method: 'get',
+            url: "http://localhost:7890/download/InventoryExcel/" + sessionStorage.getItem("locationId"),
+            headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") }
+        }).then((response) => {
+           console.log("EXCel")
+        }, (error) => { })
+    
+
+    }
+    $scope.downloadLocation=sessionStorage.getItem("locationId");
+
+
+    // $http({
+    //     method: 'get',
+    //     url: "http://localhost:7890/getInventoryByClinic/" + sessionStorage.getItem("locationId"),
+    //     headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") }
+    // }).then((response) => {
+    //     console.log("Reporting")
+    //     getInventoryDetails(response.data);
+    // }, (error) => { })
+
+
+    // getInventoryDetails = (data) => {
+    //     $scope.invetoryData = data;
+    //     console.log($scope.invetoryData);
+    // };
+
+    $scope.getOnHand = (id) => {
+        $http({
+            method: 'GET',
+            url: "http://localhost:7890/getSerialNumber/" + id,
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': sessionStorage.getItem("token")
+            }
+        }).then((response) => {
+            $scope.onHandData = response.data;
+            console.log("onhand")
+            console.log($scope.onHandData)
+        }, (error) => {
+            console.log(error)
+        })
+    }
+    $scope.getExpired = (id) => {
+        $http({
+            method: 'GET',
+            url: "http://localhost:7890/getExpiredSerialDetails/" + id,
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': sessionStorage.getItem("token")
+            }
+        }).then((response) => {
+            $scope.expiredData = response.data;
+        }, (error) => {
+            console.log(error)
+        })
     }
 
 
+    
 
 });
 

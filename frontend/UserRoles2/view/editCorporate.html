@@ -1,14 +1,16 @@
 <div ng-controller="alp">
     <div ng-include="'view/header.html'"></div>
     <div ng-include="'view/header3.html'"></div>
-    <div class="container mt-5">
+    <div class="container  mt-5">
+        <div class="d-flex ">
         <a class="corporateModify" href="#!setup">Back to Corporate</a>
-        <h2 class="text-center ">Modify Corporate</h2>
+        <h2 class=" " style="padding-left: 28%;">Modify Corporate</h2>
+    </div>
     </div>
     
-    <div class="container mt-4">
-        <form>
-            <div class="row g-3 form-control d-flex justify-content-between editCorporate m-auto" >
+    <div class="container  mt-4">
+        
+            <div  class="row g-3 form-control d-flex justify-content-between editCorporate m-auto" >
                 
                 <div class="col-auto d-flex justify-content-between w-50">
                     <label for="">Corporate Name</label>
@@ -52,10 +54,13 @@
                     </div>
                     
                 </div>
-                
-                <button type="button" class="btn btn-info" ng-click="enterpriseUpdate()">Update</button>
+
+                <div class=" d-flex justify-content-between p-3 ">
+                <a type="button" class="btn btn-danger Cancel" href="#!setup">Cancel</a>
+                <button type="button" class="btn btn-info Cancel" ng-click="enterpriseUpdate()">Update</button>
+                </div>
             </div>
-        </form>
+        
     </div>
 
 </div>

@@ -3,8 +3,10 @@
     <div ng-include="'view/header3.html'"></div>
     <div class="container mt-5">
 
-        <a class="corporateModify" href="#!setup">Back to Corporate</a>
-        <h2 class="text-center ">Edit Facility</h2>
+        <div class="d-flex ">
+            <a class="corporateModify" href="#!setup">Back to Corporate</a>
+            <h2 class=" " style="padding-left: 28%;">Edit Facility</h2>
+        </div>
         
     </div>
     
@@ -35,7 +37,10 @@
                     <label for="">Zipcode:</label>
                     <input type="text" class="inputeditCorporate" ng-model="facilityUpdateData.zipcode">
                 </div>
-                <button type="button" class="btn btn-info" ng-click="UpdateFacility()">Update</button>
+                <div class=" d-flex justify-content-between p-3 ">
+                    <a type="button" class="btn btn-danger Cancel" href="#!setup">Cancel</a>
+                <button type="button" class="btn btn-info Cancel" ng-click="UpdateFacility()">Update</button>
+                </div>
             </div>
         </form>
     </div>

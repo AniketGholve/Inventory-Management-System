@@ -1,5 +1,5 @@
 body {
-  font-family: 'Gentium Book Plus', serif;
+  font-family:Arial, Helvetica, sans-serif
 }
 
 #patientDetailsTable,
@@ -259,6 +259,8 @@ body {
    margin-right: 30px;
    background: transparent;
    color: rgb(33, 29, 29);
+   outline: none;
+   cursor: pointer;
    
  }
 
@@ -344,7 +346,7 @@ body {
   background-color: rgba(80, 212, 175, 0.989);
   color: white;
 }
-.header2 , .header3{
+.header2 , .header3 ,.header4{
   height: 40px;
   background-color: rgb(115, 202, 111);
 
@@ -533,11 +535,11 @@ nav{
 }
 
 .editCorporate{
-  width: 63%;
+  width: 59%;
 }
 
-.inputeditCorporate{
-  border: 2px solid black;
+.Cancel{
+  width: 20%;
 }
 
 .productSetup{
@@ -547,6 +549,6 @@ nav{
 }
 
 .dropdownUserSetup{
-  border: 2px solid black;
+  
   width: 58%;
 }
