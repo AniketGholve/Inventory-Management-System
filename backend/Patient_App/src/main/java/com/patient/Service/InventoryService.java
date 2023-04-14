@@ -13,7 +13,7 @@ public Inventory createInventory(Inventory inventory);
 	
 	//public List<?> getScreen();
 	
-	public List<Serial> getSerialNumber(int productId);
+	public List<Serial> getSerialNumber(int productId,int locationId);
 	
 	public List<Inventory> getScreen();
 	

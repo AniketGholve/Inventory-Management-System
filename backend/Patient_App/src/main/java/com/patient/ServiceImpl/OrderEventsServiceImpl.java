@@ -57,7 +57,12 @@ public class OrderEventsServiceImpl implements OrderEventsService {
 	@Override
 	public List<OrderEvents> createOrderEvent(List<Inventory> inventory, Integer clinicOrderId) {
 		// TODO Auto-generated method stub
-
+		Query q = entityManager.createNativeQuery("select max(serial_number) from serial");
+		k = (int)q.getSingleResult();
+//		if(k==null) {
+//			k=1000;
+//		}
+		
 		long m = System.currentTimeMillis();
 		Date d = new Date(m);
 		Format formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

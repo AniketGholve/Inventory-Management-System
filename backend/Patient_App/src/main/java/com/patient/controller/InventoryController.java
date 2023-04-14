@@ -45,10 +45,10 @@ public class InventoryController {
 	}
 	
 
-	@GetMapping("/getSerialNumber/{pid}")
-	public ResponseEntity<?> getSerialNumber(@PathVariable("pid") Integer pid)
+	@GetMapping("/getSerialNumber/{pid}/{locationId}")
+	public ResponseEntity<?> getSerialNumber(@PathVariable("pid") Integer pid,@PathVariable("locationId") int locationId)
 	{
-		List<Serial> l=inventoryServiceImpl.getSerialNumber(pid);
+		List<Serial> l=inventoryServiceImpl.getSerialNumber(pid,locationId);
 		return new ResponseEntity<List<Serial>>(l,HttpStatus.OK);
 		
 	}

@@ -56,11 +56,7 @@ public class DownloadController {
 		List<Object[]> rows = q.getResultList();
 		System.out.println(Arrays.toString(rows.get(0)));
 		
-		
-//		List<DisplayClinic> list = 
-//		Query q = entityManager.createNativeQuery("desc clinic");
-//		List<Object[]> col = q.getResultList();
-		
+
 		Workbook workbook = new XSSFWorkbook();
 		Sheet sheet = workbook.createSheet("ListOfClinics");
 		
@@ -137,7 +133,7 @@ public class DownloadController {
 	document.open();
 
 	// Create table
-	PdfPTable table = new PdfPTable(8);
+	PdfPTable table = new PdfPTable(8); 
 	PdfPCell cell0 = new PdfPCell(new Phrase("Territory"));
 	table.addCell(cell0);
 	PdfPCell cell1 = new PdfPCell(new Phrase("clinicName"));
@@ -170,13 +166,18 @@ public class DownloadController {
 	}
 	
 	
-	@PostMapping(value = "/inventoryPdf/{locationId}", produces = "application/pdf")
+	@GetMapping(value = "/inventoryPdf/{locationId}", produces = "application/pdf")
 	public ResponseEntity<byte[]> downloadInventoryPdf(@PathVariable int locationId) throws IOException, DocumentException {
 	
-		Query q = entityManager.createNativeQuery("select p.product_name,s.expiry_date,s.serial_number,s.serial_status from serial s inner join product p where p.product_id=s.product_id and s.location_id=?");
+		Query q = entityManager.createNativeQuery("select p.product_name,s.expiry_date,s.serial_number,s.serial_status from serial s inner join product p where p.product_id=s.product_id and s.location_id=? and s.serial_status =? and s.expiry_date > CURRENT_DATE");
 		q.setParameter(1, locationId);
+		q.setParameter(2, "Recieved");
 		List<Object[]> rows = q.getResultList();
 		System.out.println(Arrays.toString(rows.get(0)));
+		
+		Query q1 = entityManager.createNativeQuery("select p.product_name,s.expiry_date,s.serial_number,s.serial_status from serial s inner join product p where p.product_id=s.product_id and s.location_id=? and s.expiry_date < CURRENT_DATE");
+		q1.setParameter(1, locationId);
+		List<Object[]> expRows = q1.getResultList();
 	
 	
 	Document document = new Document();
@@ -186,6 +187,9 @@ public class DownloadController {
 	document.open();
 
 	// Create table
+	PdfPTable tablehead = new PdfPTable(1);
+	PdfPCell cellhead = new PdfPCell(new Phrase("1)				On hand Doses"));
+	tablehead.addCell(cellhead);
 	PdfPTable table = new PdfPTable(4);
 	PdfPCell cell0 = new PdfPCell(new Phrase("Dose"));
 	table.addCell(cell0);
@@ -202,8 +206,31 @@ public class DownloadController {
 			table.addCell(cells);
 		}
 	}
-
+	document.add(tablehead);
 	document.add(table);
+	
+	PdfPTable Exptablehead = new PdfPTable(1);
+	PdfPCell Expcellhead = new PdfPCell(new Phrase("2)				Expired Doses"));
+	Exptablehead.addCell(Expcellhead);
+	PdfPTable table1 = new PdfPTable(4);
+	PdfPCell cell4 = new PdfPCell(new Phrase("Dose"));
+	table.addCell(cell4);
+	PdfPCell cell5 = new PdfPCell(new Phrase("Expiry"));
+	table.addCell(cell5);
+	PdfPCell cell6 = new PdfPCell(new Phrase("SerialNumber"));
+	table.addCell(cell6);
+	PdfPCell cell7 = new PdfPCell(new Phrase("status"));
+	table.addCell(cell7);
+	
+	for(Object[] expRow: expRows) {
+		for(Object val:expRow) {
+			PdfPCell expCells = new PdfPCell(new Phrase(String.valueOf(val)));
+			table1.addCell(expCells);
+		}
+	}
+	
+	document.add(Exptablehead);
+	document.add(table1);
 	document.close();
 
 	return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=Inventory.pdf")
@@ -211,20 +238,29 @@ public class DownloadController {
 	}
 	
 	
-	@PostMapping(value = "/InventoryExcel/{locationId}", produces = "application/vnd.ms-excel")
+	@GetMapping(value = "/InventoryExcel/{locationId}", produces = "application/vnd.ms-excel")
 	public ResponseEntity<byte[]> downloadInventoryExcel(@PathVariable int locationId) throws IOException{
 		
 		 
-		Query q = entityManager.createNativeQuery("select p.product_name,s.expiry_date,s.serial_number,s.serial_status from serial s inner join product p where p.product_id=s.product_id and s.location_id=?");
+		Query q = entityManager.createNativeQuery("select p.product_name,DATE_FORMAT(s.expiry_date,'%Y-%m-%d') as Expiry,s.serial_number,s.serial_status from serial s inner join product p where p.product_id=s.product_id and s.location_id=? and s.serial_status =? and s.expiry_date > CURRENT_DATE");
 		q.setParameter(1, locationId);
+		q.setParameter(2, "Recieved");
 		List<Object[]> rows = q.getResultList();
 		System.out.println(Arrays.toString(rows.get(0)));
+		
+		Query q1 = entityManager.createNativeQuery("select p.product_name,DATE_FORMAT(s.expiry_date,'%Y-%m-%d') as Expiry,s.serial_number,s.serial_status from serial s inner join product p where p.product_id=s.product_id and s.location_id=? and s.expiry_date < CURRENT_DATE");
+		q1.setParameter(1, locationId);
+		List<Object[]> expRows = q1.getResultList();
 		
 		Workbook workbook = new XSSFWorkbook();
 		Sheet sheet = workbook.createSheet("Inventory");
 		
 		//create header row
-		Row header = sheet.createRow(0);
+		Row header0 = sheet.createRow(0);
+		Cell cell0 = header0.createCell(1);
+		cell0.setCellValue("On Hand Doses");
+		
+		Row header = sheet.createRow(1);
 		
 		Cell cell = header.createCell(0);
 		cell.setCellValue("Dose");
@@ -236,7 +272,7 @@ public class DownloadController {
 		cell3.setCellValue("Status");
 	
 		//create Data rows
-		int rowNum = 1;
+		int rowNum = 2;
 		for(Object[] row:rows) {
 			Row dataRow = sheet.createRow(rowNum++);
 			int colNum =0;
@@ -253,6 +289,42 @@ public class DownloadController {
 				}			
 			}
 		}
+		
+		rowNum = rowNum + 2;
+		Row Expheader = sheet.createRow(rowNum);
+		Cell cell9 = Expheader.createCell(1);
+		cell9.setCellValue("Expired Doses");
+		
+		rowNum = rowNum +1;
+		Row header1 = sheet.createRow(rowNum);
+		
+		Cell cell4 = header1.createCell(0);
+		cell4.setCellValue("Dose");
+		Cell cell5 = header1.createCell(1);
+		cell5.setCellValue("Expiry");
+		Cell cell6 = header1.createCell(2);
+		cell6.setCellValue("SerialNumber");
+		Cell cell7 = header1.createCell(3);
+		cell7.setCellValue("Status");
+		
+		for(Object[] row:expRows) {
+			Row dataRow = sheet.createRow(rowNum++);
+			int colNum =0;
+			for(Object value:row) {
+				Cell cells = dataRow.createCell(colNum++);
+				if(value instanceof Date) {
+					cells.setCellValue((Date)value);
+				}
+				else if(value instanceof Integer) {
+					cells.setCellValue((Integer)value);
+				}
+				else if(value instanceof String) {
+					cells.setCellValue((String)value);
+				}			
+			}
+		}
+		
+		
 		
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		workbook.write(baos);

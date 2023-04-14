@@ -55,11 +55,12 @@ public class InventoryServiceImpl implements InventoryService {
 
 	
 	@Override
-	public List<Serial> getSerialNumber(int productId) {
+	public List<Serial> getSerialNumber(int productId,int locationId) {
 		// TODO Auto-generated method stub
-		Query q=entityManager.createNativeQuery("select * from serial where product_id=? and serial_Status=?");
+		Query q=entityManager.createNativeQuery("select * from serial s where s.product_id=? and s.serial_Status=? and s.location_id=? and expiry_date>CURRENT_DATE");
 		q.setParameter(1, productId);
 		q.setParameter(2, "Received");
+		q.setParameter(3,locationId);
 		List<Object[]> l=q.getResultList();
 		List<Serial> resultList=new ArrayList<>();
 		for (Object[] o:l)
