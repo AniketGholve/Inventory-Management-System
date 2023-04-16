@@ -44,6 +44,13 @@ app.factory('myInterceptor', function ($q) {
 
 app.controller("headerController", ($scope, $http, $location) => {
     var path = $location.path();
+    // $scope.administrator = () => {
+    //     let reportingPath = $location.path();
+    //     if (reportingPath === "/administrator") {
+    //         return 'true';
+    //     }
+    //     return 'false';
+    // }
     switch (path) {
         case '/': $scope.activeTab = 'login';
             break;
@@ -1467,16 +1474,26 @@ app.controller("alp", ($scope, $http, $window, $location, $routeParams) => {
     }
     $scope.reportingDropdownTab = sessionStorage.getItem("reportingName");
     $scope.reportingName = (id) => {
-        sessionStorage.setItem("reportingName", id);
-        if (sessionStorage.getItem("reportingName") == "reporting" ) {
+        
+        if (id== "" ) {
+            sessionStorage.setItem("reportingName", id);
             $window.location.href = "#!/reporting";
+           
+           
         }
-        else if (sessionStorage.getItem("reportingName") == "clinicInventory") {
+        else if (id== "clinicInventory") {
+            sessionStorage.setItem("reportingName", id);
             $window.location.href = "#!/clinicInventory";
+            
+            
+    }
+    else{
+        sessionStorage.removeItem("reportingName");
         
     }
+    
 }
-
+    $scope.id = sessionStorage.getItem("locationId");
     $http({
         method: 'get',
         url: "http://localhost:7890/getClinicNames",
@@ -1490,9 +1507,9 @@ app.controller("alp", ($scope, $http, $window, $location, $routeParams) => {
 
     $scope.clinicName = (id) => {
         sessionStorage.setItem("locationId", id);
-        // $window.location.reload();
+        $window.location.reload();
     }
-
+    if( $scope.id  != null){
     $http({
         method: 'get',
         url: "http://localhost:7890/getInventoryByClinic/" + sessionStorage.getItem("locationId"),
@@ -1502,41 +1519,20 @@ app.controller("alp", ($scope, $http, $window, $location, $routeParams) => {
     }, (error) => { })
 
 
+}
+
     getInventoryDetails = (data) => {
         $scope.invetoryData = data;
         console.log($scope.invetoryData);
     };
 
 
-    $scope.getExcel=() => {
-        $http({
-            method: 'get',
-            url: "http://localhost:7890/download/InventoryExcel/" + sessionStorage.getItem("locationId"),
-            headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") }
-        }).then((response) => {
-           console.log("EXCel")
-        }, (error) => { })
     
-
-    }
     $scope.downloadLocation=sessionStorage.getItem("locationId");
 
 
-    // $http({
-    //     method: 'get',
-    //     url: "http://localhost:7890/getInventoryByClinic/" + sessionStorage.getItem("locationId"),
-    //     headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") }
-    // }).then((response) => {
-    //     console.log("Reporting")
-    //     getInventoryDetails(response.data);
-    // }, (error) => { })
-
-
-    // getInventoryDetails = (data) => {
-    //     $scope.invetoryData = data;
-    //     console.log($scope.invetoryData);
-    // };
-
+    
+    
     $scope.getOnHand = (id) => {
         $http({
             method: 'GET',
@@ -2184,40 +2180,6 @@ app.controller('updateClinic', function ($scope, $http, $window, $routeParams) {
     }
 });
 
-// app.controller('clinicSelect', function ($scope, $http, $route) {
-
-//     $http({
-//         method: 'get',
-//         url: "http://localhost:7890/getClinicNames",
-//         headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") }
-//     }).then((response) => {
-//         $scope.clinicNames = response.data;
-//     }, (error) => { })
-
-//     $scope.clinicName = (id) => {
-//         sessionStorage.setItem("locationId", id);
-//         let locationId = sessionStorage.getItem("locationId");
-//         console.log(locationId)
-//         $http({
-//             method: 'get',
-//             url: "http://localhost:7890/getPatientByClinic/" + locationId,
-//             headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") }
-//         }).then((response) => {
-//             console.log(response)
-//             getPatientDetails(response.data);
-//         }, (error) => { })
-
-//         $http({
-//             method: 'get',
-//             url: "http://localhost:7890/getInventoryByClinic/" + locationId,
-//             headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") }
-//         }).then((response) => {
-//             getInventoryDetails(response.data);
-//         }, (error) => { })
-
-//     }
-
-// });
 
 app.controller('allClinicsUsers', function ($scope, $http, $window) {
     $http({
