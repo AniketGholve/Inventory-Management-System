@@ -557,3 +557,9 @@ nav{
 .fontweight{
   font-weight: bold;
 }
+.patientSpecific{
+  background-color: #ffffff;
+  border: 2px solid rgb(49, 47, 47);
+  margin-left: 225px;
+  width:190px
+}

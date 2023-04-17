@@ -972,6 +972,7 @@ app.controller("clp", function ($scope, $http, $window, $location) {
                     url: "http://localhost:7890/getSerialBySerialId/" + $scope.demodata + "/" + sessionStorage.getItem("locationId"),
                     headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") },
                 }).then((response) => {
+                    console.log("AddToInventory")
                     $scope.shippedSerialDetails = response.data;
                     console.log($scope.shippedSerialDetails)
                 }, (error) => {

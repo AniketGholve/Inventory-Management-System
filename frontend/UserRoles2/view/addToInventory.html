@@ -21,7 +21,19 @@
             <tbody>
                 <tr ng-class="{'d-none':shippedSerialDetails==null}">
                     <td class="p-3">{{shippedSerialDetails.serialId}}</td>
-                    <td class="p-3">{{shippedSerialDetails.patientSpecific}}</td>
+                    <td class="p-3"><input type="checkbox" style="height: 20px;width: 20px;" ng-model="showTable"> <br><a class="btn btn-info" href="#!/insertPatient" ng-show="showTable">Add Patient</a> <br>
+                    <div ng-show="showTable" class="d-flex  justify-content-around patientSpecific mt-2 p-2" >
+                        <div>
+                            <label for="">First Name</label>
+                            
+                        </div>
+                        <div>
+                            <label for="">Last Name</label>
+                            
+
+                        </div>
+                        
+                    </div></td>
                     <td class="p-3">{{shippedSerialDetails.serialNumber}}</td>
                     <td class="p-3">{{shippedSerialDetails.productId}}</td>
                     <td class="p-3">{{shippedSerialDetails.serialStatus}}</td>
