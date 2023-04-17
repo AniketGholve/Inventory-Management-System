@@ -41,7 +41,8 @@ public class SecurityConfiguration {
 
 		http.csrf().disable().authorizeHttpRequests()
 
-				.requestMatchers(new AntPathRequestMatcher("/login"),new AntPathRequestMatcher("/download/pdf"),new AntPathRequestMatcher("/download/inventoryPdf/1"),new AntPathRequestMatcher("/download/InventoryExcel/1"),new AntPathRequestMatcher("/download/excel"),new AntPathRequestMatcher("/editProduct"), new AntPathRequestMatcher("/api/ErrorOrders/1"), new AntPathRequestMatcher("/api/addUser"), new AntPathRequestMatcher("/api/editUser/"),new AntPathRequestMatcher("/swagger-ui/index.html"),new AntPathRequestMatcher("/v3/api-docs"))
+
+				.requestMatchers(new AntPathRequestMatcher("/login"),new AntPathRequestMatcher("/download/pdf"),new AntPathRequestMatcher("/download/excel"),new AntPathRequestMatcher("/download/inventoryPdf/1"),new AntPathRequestMatcher("/download/inventoryPdf/2"),new AntPathRequestMatcher("/download/inventoryPdf/3"),new AntPathRequestMatcher("/download/InventoryExcel/1"),new AntPathRequestMatcher("/download/InventoryExcel/2"),new AntPathRequestMatcher("/download/InventoryExcel/3"),new AntPathRequestMatcher("/editProduct"), new AntPathRequestMatcher("/api/ErrorOrders/1"), new AntPathRequestMatcher("/api/addUser"), new AntPathRequestMatcher("/api/editUser/"),new AntPathRequestMatcher("/swagger-ui/index.html"),new AntPathRequestMatcher("/v3/api-docs"))
 				.permitAll().anyRequest().authenticated().and().cors().and().exceptionHandling()
 				.authenticationEntryPoint(this.jwtAuthenticationEntryPoint).and().sessionManagement()
 				.sessionCreationPolicy(SessionCreationPolicy.STATELESS);

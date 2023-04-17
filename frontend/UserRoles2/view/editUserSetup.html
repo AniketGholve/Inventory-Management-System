@@ -2,8 +2,10 @@
     <div ng-include="'view/header.html'"></div>
     <div ng-include="'view/header3.html'"></div>
     <div class="container mt-5">
-        <a class="corporateModify" href="#!setup">Back to Corporate</a>
-        <h2 class="text-center ">Edit User</h2>
+        <div class="d-flex ">
+            <a class="corporateModify" href="#!setup">Back to Corporate</a>
+            <h2 class=" " style="padding-left: 28%;">Edit User</h2>
+        </div>
     </div>
 
     <div class="container mt-4">
@@ -78,8 +80,12 @@
                     <span id="valid" style="display: none; color: green;">Password Matched</span>
 
                 </div>
-                <!-- <button type="button" class="btn btn-info" ng-click="saveUserSetup()">Save</button> -->
-                <input class="btn btn-primary" name="edit" type="submit" value="Save"></input>
+               
+             <!-- <button type="button" class="btn btn-info" ng-click="saveUserSetup()">Save</button> -->
+             <div class=" d-flex justify-content-between p-3 ">
+                <a type="button" class="btn btn-danger Cancel" href="#!setup">Cancel</a>
+                <input class="btn btn-primary Cancel" name="edit" type="submit" value="Save"></input>
+             </div>
             </div>
         </form>
     </div>

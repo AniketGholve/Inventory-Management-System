@@ -41,6 +41,7 @@ public class AutoReorderServiceImpl implements AutoReorderService {
 		
 		for(Object[] o:l) {
 			System.out.println(Arrays.toString(o));
+			if(k<usageList.size()) {
 
 		AutoReorder ar=new AutoReorder();
 //        ar.setProductId();
@@ -55,6 +56,7 @@ public class AutoReorderServiceImpl implements AutoReorderService {
 		
 		list.add(ar);
 
+		}
 		}
 
 //		List<ManualReorder> list = manualReorderRepo.findAll();

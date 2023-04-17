@@ -25,6 +25,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
@@ -171,7 +173,7 @@ public class DownloadController {
 	
 		Query q = entityManager.createNativeQuery("select p.product_name,s.expiry_date,s.serial_number,s.serial_status from serial s inner join product p where p.product_id=s.product_id and s.location_id=? and s.serial_status =? and s.expiry_date > CURRENT_DATE");
 		q.setParameter(1, locationId);
-		q.setParameter(2, "Recieved");
+		q.setParameter(2, "Received");
 		List<Object[]> rows = q.getResultList();
 		System.out.println(Arrays.toString(rows.get(0)));
 		
@@ -188,8 +190,15 @@ public class DownloadController {
 
 	// Create table
 	PdfPTable tablehead = new PdfPTable(1);
-	PdfPCell cellhead = new PdfPCell(new Phrase("1)				On hand Doses"));
+	PdfPCell cellhead = new PdfPCell();
+	Phrase phrase = new Phrase("On hand Doses");
+	
+	Paragraph paragraph = new Paragraph();
+	paragraph.setAlignment(Element.ALIGN_CENTER);
+	paragraph.add(phrase);
+	cellhead.addElement(paragraph);
 	tablehead.addCell(cellhead);
+	
 	PdfPTable table = new PdfPTable(4);
 	PdfPCell cell0 = new PdfPCell(new Phrase("Dose"));
 	table.addCell(cell0);
@@ -210,8 +219,16 @@ public class DownloadController {
 	document.add(table);
 	
 	PdfPTable Exptablehead = new PdfPTable(1);
-	PdfPCell Expcellhead = new PdfPCell(new Phrase("2)				Expired Doses"));
+	PdfPCell Expcellhead = new PdfPCell();
+	
+	Phrase phrase1 = new Phrase("Expired Doses");
+	
+	Paragraph paragraph1 = new Paragraph();
+	paragraph1.setAlignment(Element.ALIGN_CENTER);
+	paragraph1.add(phrase1);
+	Expcellhead.addElement(paragraph1);
 	Exptablehead.addCell(Expcellhead);
+	
 	PdfPTable table1 = new PdfPTable(4);
 	PdfPCell cell4 = new PdfPCell(new Phrase("Dose"));
 	table.addCell(cell4);
@@ -244,7 +261,7 @@ public class DownloadController {
 		 
 		Query q = entityManager.createNativeQuery("select p.product_name,DATE_FORMAT(s.expiry_date,'%Y-%m-%d') as Expiry,s.serial_number,s.serial_status from serial s inner join product p where p.product_id=s.product_id and s.location_id=? and s.serial_status =? and s.expiry_date > CURRENT_DATE");
 		q.setParameter(1, locationId);
-		q.setParameter(2, "Recieved");
+		q.setParameter(2, "Received");
 		List<Object[]> rows = q.getResultList();
 		System.out.println(Arrays.toString(rows.get(0)));
 		

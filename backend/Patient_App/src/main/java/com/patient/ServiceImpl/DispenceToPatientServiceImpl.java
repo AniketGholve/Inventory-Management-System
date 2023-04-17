@@ -48,7 +48,7 @@ public class DispenceToPatientServiceImpl implements DispenceToPatientService{
 	public Serial getProductBySerialNo(Integer serialNo) {
 		// TODO Auto-generated method stub
 		if(serialNo==null)return null;
-		Query q=entityManager.createQuery("select s from Serial s where s.serialNumber=:u and s.serialStatus IN (:v,:y) ");
+		Query q=entityManager.createQuery("select s from Serial s where s.serialNumber=:u and s.serialStatus IN (:v,:y)");
 		q.setParameter("u", serialNo);
 		q.setParameter("v", "Available");
 		q.setParameter("y", "Received");
@@ -146,8 +146,8 @@ public class DispenceToPatientServiceImpl implements DispenceToPatientService{
 	public List<LastInjectionScreen> getAllDispense(int locationId) {
 		// TODO Auto-generated method stub
 //		List<DispenseToPatient> list = dispenseRepo.findAll();
-		Query q = entityManager.createQuery("select pa.patientFirstName,pa.patientLastName,pa.patientDob,dp.createdOn,dp.nextInjection,p.productName from DispenseToPatient dp inner join Product p on dp.productId = p.productId inner join Patient pa on pa.id = dp.patientId where STR_TO_DATE(dp.nextInjection,'%Y-%m-%d') <= CURRENT_DATE+3 and dp.locationId =? order by dp.nextInjection");//CURRENT_DATE <=3
-		q.setParameter(1, locationId);
+		Query q = entityManager.createQuery("select pa.patientFirstName,pa.patientLastName,pa.patientDob,dp.createdOn,dp.nextInjection,p.productName from DispenseToPatient dp inner join Product p on dp.productId = p.productId inner join Patient pa on pa.id = dp.patientId where STR_TO_DATE(dp.nextInjection,'%Y-%m-%d') <= CURRENT_DATE+3 and dp.locationId =:u order by dp.nextInjection");//CURRENT_DATE <=3
+		q.setParameter("u", locationId);
 		List<Object[]> list = q.getResultList();
 //		Object[][] objArray = list.toArray(new Object[0][]);
 //		System.out.println(Arrays.deepToString(objArray));
