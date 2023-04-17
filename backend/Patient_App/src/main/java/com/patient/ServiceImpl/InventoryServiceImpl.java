@@ -63,6 +63,15 @@ public class InventoryServiceImpl implements InventoryService {
 		q.setParameter(3,locationId);
 		List<Object[]> l=q.getResultList();
 		List<Serial> resultList=new ArrayList<>();
+		
+		Query q1 = entityManager.createNativeQuery("select c.name from clinic c where c.location_id =?");
+		q1.setParameter(1, locationId);
+		String clinicName = (String)q1.getSingleResult();
+		
+		Query q2 = entityManager.createNativeQuery("select e.name from enterprises e inner join clinic c on e.enterprise_id=c.enterprise_id where c.location_id =?");
+		q2.setParameter(1, locationId);
+		String enterpriseName = (String)q2.getSingleResult();
+		
 		for (Object[] o:l)
 		{
 			Serial s=new Serial();
@@ -78,6 +87,8 @@ public class InventoryServiceImpl implements InventoryService {
 			s.setSerialNumber((Integer) o[9]);
 			s.setSerialStatus((String) o[10]);
 			s.setSrcId((Integer) o[11]);
+			s.setClinicName(clinicName);
+			s.setEnterpriseName(enterpriseName);
 			resultList.add(s);
 			
 			

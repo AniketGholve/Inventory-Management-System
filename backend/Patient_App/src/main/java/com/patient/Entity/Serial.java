@@ -7,6 +7,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Transient;
 
 
 @Entity
@@ -41,6 +42,24 @@ public class Serial {
 	private String  patientSpecific;
 	@Column(name="src_id")
 	private Integer srcId;
+	@Transient
+	private String ClinicName;
+	@Transient
+	private String EnterpriseName;
+	
+	
+	public String getClinicName() {
+		return ClinicName;
+	}
+	public void setClinicName(String clinicName) {
+		ClinicName = clinicName;
+	}
+	public String getEnterpriseName() {
+		return EnterpriseName;
+	}
+	public void setEnterpriseName(String enterpriseName) {
+		EnterpriseName = enterpriseName;
+	}
 	public Integer getSerialId() {
 		return serialId;
 	}
@@ -120,9 +139,10 @@ public class Serial {
 				+ ", enterpriseId=" + enterpriseId + ", locationId=" + locationId + ", productId=" + productId
 				+ ", patientSpecific=" + patientSpecific + ", srcId=" + srcId + "]";
 	}
+	
 	public Serial(Integer serialId, Integer serialNumber, Integer ndc, Integer lot, Date expiryDate,
 			String serialStatus, Date createdOn, Integer enterpriseId, Integer locationId, Integer productId,
-			String patientSpecific, Integer srcId) {
+			String patientSpecific, Integer srcId, String clinicName, String enterpriseName) {
 		super();
 		this.serialId = serialId;
 		this.serialNumber = serialNumber;
@@ -136,6 +156,8 @@ public class Serial {
 		this.productId = productId;
 		this.patientSpecific = patientSpecific;
 		this.srcId = srcId;
+		ClinicName = clinicName;
+		EnterpriseName = enterpriseName;
 	}
 	public Serial() {
 		super();
