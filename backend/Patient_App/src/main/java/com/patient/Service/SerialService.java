@@ -17,7 +17,7 @@ public interface SerialService {
 	public Serial getSerialBySerialNo(Integer serialNo,Integer locationId);
 	
 	
-	public String changeSerialStatus(Integer serialId,Integer locationId);
+	public String changeSerialStatus(Integer serialId,Integer locationId,String patientSpecific);
 	
 
 	

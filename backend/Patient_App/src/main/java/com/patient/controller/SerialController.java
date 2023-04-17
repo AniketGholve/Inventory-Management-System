@@ -50,9 +50,9 @@ public class SerialController {
 		return new ResponseEntity<Serial>(result,HttpStatus.OK);
 	}
 	
-	@PostMapping("/changeStatusAvailable/{serialId}/{locationId}")
-	public String changeStatus(@PathVariable("serialId") int serialId,@PathVariable("locationId") int locationId) {
-		String s = serialServiceImpl.changeSerialStatus(serialId, locationId);
+	@PostMapping("/changeStatusAvailable/{serialId}/{locationId}/{patientSpecific}")
+	public String changeStatus(@PathVariable("serialId") int serialId,@PathVariable("locationId") int locationId,@PathVariable("patientSpecific") String patientSpecific) {
+		String s = serialServiceImpl.changeSerialStatus(serialId, locationId,patientSpecific);
 		System.out.println("Hello Ship ");
 		return s;
 		
