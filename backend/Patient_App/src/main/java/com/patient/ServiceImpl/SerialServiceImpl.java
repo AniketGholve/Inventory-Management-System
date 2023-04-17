@@ -82,17 +82,19 @@ public class SerialServiceImpl implements SerialService{
 		q.setParameter("c", serialId);
 		q.executeUpdate();
 		
-		Query q2 = entityManager.createNativeQuery("update Serial set patient_specific=? where serial_Status=? AND serial_Id=?");
-		q2.setParameter(1, patientSpecific);
-		q2.setParameter(2, "Shipped");
-		q2.setParameter(3, serialId);
-		q2.executeUpdate();
-		
 		Query q1 = entityManager.createNativeQuery("update order_events set event_desc=? where event_desc=? and location_id=?");
 		q1.setParameter(1, "Received");
 		q1.setParameter(2, "Shipped");
 		q1.setParameter(3, locationId);
 		q1.executeUpdate();
+		
+		Query q2 = entityManager.createNativeQuery("update Serial set patient_specific=? where patient_specific is null and serial_Status=? and serial_Id=? and location_id=?");
+		q2.setParameter(1, patientSpecific);
+		q2.setParameter(2, "Received");
+		q2.setParameter(3, serialId);
+		q2.setParameter(4, locationId);
+		System.out.println("patientSpecufic:"+patientSpecific);
+		q2.executeUpdate();
 		return "Status Changed to Recieved";
 	}
 
