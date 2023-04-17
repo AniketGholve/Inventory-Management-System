@@ -58,7 +58,7 @@ public class OrderEventsServiceImpl implements OrderEventsService {
 	public List<OrderEvents> createOrderEvent(List<Inventory> inventory, Integer clinicOrderId) {
 		// TODO Auto-generated method stub
 		Query q = entityManager.createNativeQuery("select max(serial_number) from serial");
-		k = (int)q.getSingleResult();
+		k = (int)q.getSingleResult()+1;
 //		if(k==null) {
 //			k=1000;
 //		}
@@ -101,7 +101,9 @@ public class OrderEventsServiceImpl implements OrderEventsService {
 					s.setEnterpriseId(oe.getEnterpriseId());
 					s.setProductId(oe.getProductId());
 					s.setSerialStatus("Comissioned");
-					s.setSerialNumber(k);
+					s.setSerialNumber(k+200000);
+					s.setLot(k+11111);
+					s.setNdc(k+111);
 					k++;
 					serialSeviceRepo.save(s);
 				}

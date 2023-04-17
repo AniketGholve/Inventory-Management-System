@@ -291,7 +291,7 @@ body {
 .dispense_section {
   display: flex;
   font-size: 30px;
-  padding-left: 200px;
+  padding-left: 150px;
   padding-right: 200px;
 }
 
@@ -314,7 +314,7 @@ body {
 .inventory_section {
   display: flex;
   font-size: 30px;
-  padding-left: 200px;
+  padding-left: 150px;
   padding-right: 200px;
 }
 
@@ -335,6 +335,7 @@ body {
 
 .dispense_input{
   padding: 5px;
+  padding-left: 3px;
   margin: 15px;
   width: 200px;
   border: 1px solid black;
@@ -551,4 +552,14 @@ nav{
 .dropdownUserSetup{
   
   width: 58%;
+}
+
+.fontweight{
+  font-weight: bold;
+}
+.patientSpecific{
+  background-color: #ffffff;
+  border: 2px solid rgb(49, 47, 47);
+  margin-left: 225px;
+  width:190px
 }
