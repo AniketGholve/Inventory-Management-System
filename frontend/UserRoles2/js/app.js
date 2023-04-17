@@ -1559,7 +1559,10 @@ app.controller("alp", ($scope, $http, $window, $location, $routeParams) => {
                 'Authorization': sessionStorage.getItem("token")
             }
         }).then((response) => {
+            console.log("Expired")
             $scope.expiredData = response.data;
+            console.log($scope.expiredData)
+            
         }, (error) => {
             console.log(error)
         })
