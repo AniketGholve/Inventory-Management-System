@@ -17,7 +17,7 @@ public Inventory createInventory(Inventory inventory);
 	
 	public List<Inventory> getScreen();
 	
-	public List<Serial> getExpiredSerialDetails(int productId);
+	public List<Serial> getExpiredSerialDetails(int productId,int locationId);
 	
 	public List<Inventory> getInventoryByClinic(Integer clinicLocationId);
 	

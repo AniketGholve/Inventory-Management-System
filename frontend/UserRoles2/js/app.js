@@ -1,11 +1,11 @@
 function reloadWindow() {
     location.reload();
-    // var lnk = document.getElementById("themeChange");
-    // if (lnk.getAttribute("href") === "css/themecss.css") {
-    //     themeIcon.setAttribute("class", "fa-sharp fa-solid fa-moon")
-    // } else if (lnk.getAttribute("href") === "css/logincss.css") {
-    //     themeIcon.setAttribute("class", "fa-sharp fa-solid fa-sun")
-    // }
+    var lnk = document.getElementById("themeChange");
+    if (lnk.getAttribute("href") === "css/themecss.css") {
+        themeIcon.setAttribute("class", "fa-sharp fa-solid fa-moon")
+    } else if (lnk.getAttribute("href") === "css/logincss.css") {
+        themeIcon.setAttribute("class", "fa-sharp fa-solid fa-sun")
+    }
 }
 theme = () => {
     var lnk = document.getElementById("themeChange");
@@ -13,7 +13,6 @@ theme = () => {
     if (lnk.getAttribute("href") === "css/logincss.css") {
         lnk.setAttribute("href", "css/themecss.css")
         themeIcon.setAttribute("class", "fa-sharp fa-solid fa-moon")
-        
 
     } else if (lnk.getAttribute("href") === "css/themecss.css") {
         lnk.setAttribute("href", "css/logincss.css")
@@ -45,17 +44,13 @@ app.factory('myInterceptor', function ($q) {
 
 app.controller("headerController", ($scope, $http, $location) => {
     var path = $location.path();
-    
-    $scope.administrator = () => {
-        let adminPAth = $location.path();
-        
-        if (adminPAth === "/administrator") {
-            return 'true';
-        }
-        return 'false';
-    }
-    
-   
+    // $scope.administrator = () => {
+    //     let reportingPath = $location.path();
+    //     if (reportingPath === "/administrator") {
+    //         return 'true';
+    //     }
+    //     return 'false';
+    // }
     switch (path) {
         case '/': $scope.activeTab = 'login';
             break;
@@ -1009,7 +1004,7 @@ app.controller("clp", function ($scope, $http, $window, $location) {
     $scope.getExpired = (id) => {
         $http({
             method: 'GET',
-            url: "http://localhost:7890/getExpiredSerialDetails/" + id,
+            url: "http://localhost:7890/getExpiredSerialDetails/" + id +"/"+ sessionStorage.getItem("locationId"),
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': sessionStorage.getItem("token")
@@ -1141,7 +1136,7 @@ app.controller("clp", function ($scope, $http, $window, $location) {
         $scope.shippedSerialDetails;
         $http({
             method: 'POST',
-            url: 'http://localhost:7890/changeStatusAvailable/' + $scope.shippedSerialDetails.serialId + "/" + $scope.shippedSerialDetails.locationId + "/" + $scope.dispance.patientId ,
+            url: 'http://localhost:7890/changeStatusAvailable/' + $scope.shippedSerialDetails.serialId + "/" + $scope.shippedSerialDetails.locationId + "/" + $scope.dispance.patientId,
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': sessionStorage.getItem("token")
