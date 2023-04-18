@@ -92,10 +92,11 @@
                         <a class="btn btn-info mx-5" href="#!/insertPatient">Add Patient</a>
                     </div>
 
-                    <div class="d-flex justify-content-center"
+                    <div class=""
                         ng-class="{'d-none':search.patientFirstName==null || search.patientFirstName==''}">
-                        <table id="patientDetailsTable" class=" table table-striped text-center">
-                            <thead class="thead">
+                        
+                        <table id="patientDetailsTable" class=" table  table striped text-center shadow ">
+                            <thead class="">
                                 <tr>
                                     <th class="px-3" ng-class="{'d-none':dispance.patientId != null}">Patient Id</th>
                                     <th class="px-3">First Name</th>
@@ -144,7 +145,8 @@
                             </tbody>
                         </table>
                     </div>
-                </div>
+                    </div>
+                
                 <div class="row">
                     <div class="col-6"
                         ng-class="{'d-none':dispance.serialId==null || serialNumber=='' || serialNumber==null}">
@@ -155,8 +157,8 @@
                         </div>
                         <div class=" d-flex justify-content-center"
                             ng-class="{'d-none':physicianSearch.firstName==null || physicianSearch.firstName==''}">
-                            <table id="physicianDetailsTable" class=" table table-striped text-center">
-                                <thead class="thead">
+                            <table id="physicianDetailsTable" class=" table  table striped text-center shadow">
+                                <thead class="">
                                     <tr>
                                         <th class="px-3">First Name</th>
                                         <th class="px-3">Last Name</th>
@@ -200,8 +202,8 @@
                         </div>
                         <div class="d-flex justify-content-center "
                             ng-class="{'d-none':nurseSearch.firstName==null || nurseSearch.firstName==''}">
-                            <table id="physicianDetailsTable" class=" table table-striped text-center">
-                                <thead class="thead">
+                            <table id="physicianDetailsTable" class=" table  table striped text-center shadow">
+                                <thead class="">
                                     <tr>
                                         <th class="px-3">First Name</th>
                                         <th class="px-3">Last Name</th>
