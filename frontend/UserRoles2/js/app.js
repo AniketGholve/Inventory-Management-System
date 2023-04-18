@@ -1136,12 +1136,13 @@ app.controller("clp", function ($scope, $http, $window, $location) {
         $scope.shippedSerialDetails;
         $http({
             method: 'POST',
-            url: 'http://localhost:7890/changeStatusAvailable/' + $scope.shippedSerialDetails.serialId + "/" + $scope.shippedSerialDetails.locationId,
+            url: 'http://localhost:7890/changeStatusAvailable/' + $scope.shippedSerialDetails.serialId + "/" + $scope.shippedSerialDetails.locationId + "/" + "Varun" ,
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': sessionStorage.getItem("token")
             }
         }).then((response) => {
+            console.log("Add to Inventory Updated")
             alert("Status Changed Successfully");
             $window.location.reload();
 
@@ -1217,6 +1218,7 @@ app.controller("alp", ($scope, $http, $window, $location, $routeParams) => {
             'Authorization': sessionStorage.getItem("token")
         }
     }).then((response) => {
+        console.log("OrderALP")
         $scope.orderData = response.data;
         console.log(response)
     }, (error) => {
@@ -1551,7 +1553,7 @@ app.controller("alp", ($scope, $http, $window, $location, $routeParams) => {
     $scope.getExpired = (id) => {
         $http({
             method: 'GET',
-            url: "http://localhost:7890/getExpiredSerialDetails/" + id,
+            url: "http://localhost:7890/getExpiredSerialDetails/" + id ,
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': sessionStorage.getItem("token")

@@ -21,27 +21,140 @@
             <tbody>
                 <tr ng-class="{'d-none':shippedSerialDetails==null}">
                     <td class="p-3">{{shippedSerialDetails.serialId}}</td>
-                    <td class="p-3"><input type="checkbox" style="height: 20px;width: 20px;" ng-model="showTable"> <br><a class="btn btn-info" href="#!/insertPatient" ng-show="showTable">Add Patient</a> <br>
-                    <div ng-show="showTable" class="d-flex  justify-content-around patientSpecific mt-2 p-2" >
-                        <div>
-                            <label for="">First Name</label>
-                            
-                        </div>
-                        <div>
-                            <label for="">Last Name</label>
-                            
-
-                        </div>
-                        
-                    </div></td>
+                    <td class="p-3"><input type="checkbox" style="height: 20px;width: 20px;" ng-model="showTable"></td>
                     <td class="p-3">{{shippedSerialDetails.serialNumber}}</td>
                     <td class="p-3">{{shippedSerialDetails.productId}}</td>
                     <td class="p-3">{{shippedSerialDetails.serialStatus}}</td>
                 </tr>
             </tbody>
         </table>
+        <div class="row" ng-show="showTable" >
+        
+            <div class="mt-5 my-2" >
+                <label class="col-4" for="" style="width: 107px;">Patient Name:</label>
+                <input class="dispense_input " type="text" placeholder="Patient Name"
+                    ng-model="search.patientFirstName">
+                <a class="btn btn-info mx-5" href="#!/insertPatient">Add Patient</a>
+            </div>
+    
+            <div class="d-flex justify-content-center"
+                ng-class="{'d-none':search.patientFirstName==null || search.patientFirstName==''}">
+                <table id="patientDetailsTable" class=" table table-striped text-center">
+                    <thead class="thead">
+                        <tr>
+                            <th class="px-3" ng-class="{'d-none':dispance.patientId != null}">Patient Id</th>
+                            <th class="px-3">First Name</th>
+                            <th class="px-3">Last Name</th>
+                            <th class="px-3">Middle Name</th>
+                            <th class="px-3" ng-class="{'d-none':dispance.patientId != null}">Date Of Birth</th>
+                            <th class="px-3" ng-class="{'d-none':dispance.patientId != null}">Patient Status
+                            </th>
+                            <th class="px-3" ng-class="{'d-none':dispance.patientId != null}">Clinic Name</th>
+                            <th class="px-3" ng-class="{'d-none':dispance.patientId != null}">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="x in patientData | filter:search:strict" ng-if="searchPatientData==null"
+                            ng-class="{'d-none':dispance.patientId != null}">
+                            <td class="px-3">
+                                {{ x.patientId }}
+                            </td>
+                            <td class="px-3">
+                                {{ x.patientFirstName }}
+                            </td>
+                            <td class="px-3">
+                                {{ x.patientLastName }}
+                            </td>
+                            <td class="px-3">
+                                {{ x.patientMiddleName }}
+                            </td>
+                            <td class="px-3">
+                                {{ x.patientDob}}
+                            </td>
+                            <td class="px-3">
+                                {{ x.patientStatus}}
+                            </td>
+                            <td class="px-3">
+                                {{ x.clinicName}}
+                            </td>
+                            <td><a href="" ng-click="dispancePatientDetials(x)"><i
+                                        class="fa-sharp fa-solid fa-circle-check text-danger"></i></a></td>
+                        </tr>
+    
+                        <tr ng-class="{'d-none':dispensePatientData.firstName  == null}">
+                            <td class="px-3">{{ dispensePatientData.firstName }}</td>
+                            <td class="px-3">{{ dispensePatientData.lastName }}</td>
+                            <td class="px-3">{{ dispensePatientData.middleName }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
         <div style="float: right;" ng-class="{'d-none':shippedSerialDetails==null}">
             <input type="button"  class="btn btn-info" ng-click="inventoryStatusAvailable()" value="Add To Inventory">
         </div>
     </div>
+    <!-- <div class="row" ng-show="showTable" >
+        
+        <div class="mt-5 my-2" >
+            <label class="col-4" for="" style="width: 107px;">Patient Name:</label>
+            <input class="dispense_input " type="text" placeholder="Patient Name"
+                ng-model="search.patientFirstName">
+            <a class="btn btn-info mx-5" href="#!/insertPatient">Add Patient</a>
+        </div>
+
+        <div class="d-flex justify-content-center"
+            ng-class="{'d-none':search.patientFirstName==null || search.patientFirstName==''}">
+            <table id="patientDetailsTable" class=" table table-striped text-center">
+                <thead class="thead">
+                    <tr>
+                        <th class="px-3" ng-class="{'d-none':dispance.patientId != null}">Patient Id</th>
+                        <th class="px-3">First Name</th>
+                        <th class="px-3">Last Name</th>
+                        <th class="px-3">Middle Name</th>
+                        <th class="px-3" ng-class="{'d-none':dispance.patientId != null}">Date Of Birth</th>
+                        <th class="px-3" ng-class="{'d-none':dispance.patientId != null}">Patient Status
+                        </th>
+                        <th class="px-3" ng-class="{'d-none':dispance.patientId != null}">Clinic Name</th>
+                        <th class="px-3" ng-class="{'d-none':dispance.patientId != null}">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="x in patientData | filter:search:strict" ng-if="searchPatientData==null"
+                        ng-class="{'d-none':dispance.patientId != null}">
+                        <td class="px-3">
+                            {{ x.patientId }}
+                        </td>
+                        <td class="px-3">
+                            {{ x.patientFirstName }}
+                        </td>
+                        <td class="px-3">
+                            {{ x.patientLastName }}
+                        </td>
+                        <td class="px-3">
+                            {{ x.patientMiddleName }}
+                        </td>
+                        <td class="px-3">
+                            {{ x.patientDob}}
+                        </td>
+                        <td class="px-3">
+                            {{ x.patientStatus}}
+                        </td>
+                        <td class="px-3">
+                            {{ x.clinicName}}
+                        </td>
+                        <td><a href="" ng-click="dispancePatientDetials(x)"><i
+                                    class="fa-sharp fa-solid fa-circle-check text-danger"></i></a></td>
+                    </tr>
+
+                    <tr ng-class="{'d-none':dispensePatientData.firstName  == null}">
+                        <td class="px-3">{{ dispensePatientData.firstName }}</td>
+                        <td class="px-3">{{ dispensePatientData.lastName }}</td>
+                        <td class="px-3">{{ dispensePatientData.middleName }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div> -->
 </div>
