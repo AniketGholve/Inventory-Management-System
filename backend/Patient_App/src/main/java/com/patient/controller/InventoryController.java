@@ -53,10 +53,10 @@ public class InventoryController {
 		
 	}
 	
-	@GetMapping("/getExpiredSerialDetails/{pid}")
-	public ResponseEntity<?> getExpiredSerialDetails(@PathVariable("pid") Integer pid)
+	@GetMapping("/getExpiredSerialDetails/{pid}/{locationId}")
+	public ResponseEntity<?> getExpiredSerialDetails(@PathVariable("pid") Integer pid,@PathVariable("locationId") Integer locationId)
 	{
-		List<Serial> l=inventoryServiceImpl.getExpiredSerialDetails(pid);
+		List<Serial> l=inventoryServiceImpl.getExpiredSerialDetails(pid,locationId);
 		return new ResponseEntity<List<Serial>>(l,HttpStatus.OK);
 	}
 	

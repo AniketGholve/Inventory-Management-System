@@ -1004,7 +1004,7 @@ app.controller("clp", function ($scope, $http, $window, $location) {
     $scope.getExpired = (id) => {
         $http({
             method: 'GET',
-            url: "http://localhost:7890/getExpiredSerialDetails/" + id,
+            url: "http://localhost:7890/getExpiredSerialDetails/" + id +"/"+ sessionStorage.getItem("locationId"),
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': sessionStorage.getItem("token")
