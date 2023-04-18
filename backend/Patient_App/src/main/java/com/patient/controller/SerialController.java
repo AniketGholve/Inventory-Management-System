@@ -51,7 +51,7 @@ public class SerialController {
 	}
 	
 	@PostMapping("/changeStatusAvailable/{serialId}/{locationId}/{patientSpecific}")
-	public String changeStatus(@PathVariable("serialId") int serialId,@PathVariable("locationId") int locationId,@PathVariable("patientSpecific") String patientSpecific) {
+	public String changeStatus(@PathVariable("serialId") int serialId,@PathVariable("locationId") int locationId,@PathVariable("patientSpecific") int patientSpecific) {
 		String s = serialServiceImpl.changeSerialStatus(serialId, locationId,patientSpecific);
 		System.out.println("Hello Ship ");
 		return s;
