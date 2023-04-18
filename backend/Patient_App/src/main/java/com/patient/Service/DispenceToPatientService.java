@@ -26,6 +26,8 @@ public interface DispenceToPatientService {
 	public List<LastInjectionScreen> getAllDispense(int locationId);
 	
 	public List<UsageOverLastMonths> getAllUsedDoses();
+	
+	public Patient getPatientById(int PatientSpecific);
 
 	
 

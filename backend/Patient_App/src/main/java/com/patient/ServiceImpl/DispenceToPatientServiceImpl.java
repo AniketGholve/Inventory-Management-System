@@ -208,4 +208,12 @@ public class DispenceToPatientServiceImpl implements DispenceToPatientService{
 	}
 
 
+	@Override
+	public Patient getPatientById(int PatientSpecific) {
+		// TODO Auto-generated method stub
+		Patient p = patientRepo.findById(PatientSpecific).orElseThrow();
+		return p;
+	}
+
+
 }

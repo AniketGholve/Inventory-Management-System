@@ -38,7 +38,7 @@ public class InventoryServiceImpl implements InventoryService {
 	@Autowired
 	private InventoryRepo inventoryRepo;
 	
-	@Autowired
+	@Autowired 
 	private OrderEventsRepo orderEventsRepo;
 	
 	@Autowired
@@ -82,7 +82,7 @@ public class InventoryServiceImpl implements InventoryService {
 			s.setLocationId((Integer) o[4]);
 			s.setLot((Integer) o[5]);
 			s.setNdc((Integer) o[6]);
-			s.setPatientSpecific((String) o[7]);
+			s.setPatientSpecific((Integer) o[7]);
 			s.setProductId((Integer) o[8]);
 			s.setSerialNumber((Integer) o[9]);
 			s.setSerialStatus((String) o[10]);
@@ -140,7 +140,7 @@ public class InventoryServiceImpl implements InventoryService {
 			s.setLocationId((Integer) o[4]);
 			s.setLot((Integer) o[5]);
 			s.setNdc((Integer) o[6]);
-			s.setPatientSpecific((String) o[7]);
+			s.setPatientSpecific((Integer) o[7]);
 			s.setProductId((Integer) o[8]);
 			s.setSerialNumber((Integer) o[9]);
 			s.setSerialStatus((String) o[10]);

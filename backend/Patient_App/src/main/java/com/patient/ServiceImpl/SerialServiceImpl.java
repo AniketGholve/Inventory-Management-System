@@ -72,7 +72,7 @@ public class SerialServiceImpl implements SerialService{
 	
 	@Transactional
 	@Override
-	public String changeSerialStatus(Integer serialId, Integer locationId,String patientSpecific) {
+	public String changeSerialStatus(Integer serialId, Integer locationId,Integer patientSpecific) {
 		// TODO Auto-generated method stub
 		System.out.println(serialId);
 		System.out.println(locationId);

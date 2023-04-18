@@ -39,7 +39,7 @@ public class Serial {
 	@Column(name="product_id")
 	private Integer productId;
 	@Column(name="patient_specific")
-	private String  patientSpecific;
+	private Integer  patientSpecific;
 	@Column(name="src_id")
 	private Integer srcId;
 	@Transient
@@ -120,10 +120,10 @@ public class Serial {
 	public void setProductId(Integer productId) {
 		this.productId = productId;
 	}
-	public String getPatientSpecific() {
+	public Integer getPatientSpecific() {
 		return patientSpecific;
 	}
-	public void setPatientSpecific(String patientSpecific) {
+	public void setPatientSpecific(Integer patientSpecific) {
 		this.patientSpecific = patientSpecific;
 	}
 	public Integer getSrcId() {
@@ -142,7 +142,7 @@ public class Serial {
 	
 	public Serial(Integer serialId, Integer serialNumber, Integer ndc, Integer lot, Date expiryDate,
 			String serialStatus, Date createdOn, Integer enterpriseId, Integer locationId, Integer productId,
-			String patientSpecific, Integer srcId, String clinicName, String enterpriseName) {
+			Integer patientSpecific, Integer srcId, String clinicName, String enterpriseName) {
 		super();
 		this.serialId = serialId;
 		this.serialNumber = serialNumber;
