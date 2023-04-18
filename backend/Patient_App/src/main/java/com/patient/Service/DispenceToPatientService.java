@@ -27,7 +27,7 @@ public interface DispenceToPatientService {
 	
 	public List<UsageOverLastMonths> getAllUsedDoses();
 	
-	public Patient getPatientById(int PatientSpecific);
+	public Patient getPatientByPatientId(int PatientSpecific);
 
 	
 

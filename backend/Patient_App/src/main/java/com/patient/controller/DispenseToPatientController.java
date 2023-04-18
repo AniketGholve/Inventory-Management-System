@@ -73,10 +73,10 @@ public class DispenseToPatientController {
 		return list;
 	}
 	
-	@GetMapping("/getPatientById/{patientSpecific}")
+	@GetMapping("/getPatientByPatientId/{patientSpecific}")
 	public Patient getPatientById(@PathVariable("patientSpecific") int patientSpecific)
 	{
-		Patient p = dispenceToServiceImpl.getPatientById(patientSpecific);
+		Patient p = dispenceToServiceImpl.getPatientByPatientId(patientSpecific);
 		return p;
 	}
 	
