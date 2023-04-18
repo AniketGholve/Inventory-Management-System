@@ -82,9 +82,11 @@
                     </tr>
                 </tbody>
             </table> -->
+            
+
             <div>
-                <div class="row"
-                    ng-class="{'d-none':dispance.serialId==null || serialNumber=='' || serialNumber==null}">
+                <div class="row" 
+                    ng-class="{'d-none':dispance.serialId==null || serialNumber=='' || serialNumber==null || serialData.patientSpecific != null}">
                     <div class="mt-5 my-2" ng-class="{'d-none':serialNumber=='' || serialNumber==null}">
                         <label class="col-4" for="" style="width: 107px;">Patient Name:</label>
                         <input class="dispense_input " type="text" placeholder="Patient Name"
@@ -145,6 +147,26 @@
                             </tbody>
                         </table>
                     </div>
+                    </div>
+                    <div  ng-class="{'d-none':serialData.patientSpecific == null}">
+                        <table id="patientDetailsTable" class=" table  table striped text-center shadow ">
+                            <thead class="">
+                                <tr >
+                                    <th class="px-3">First Name</th>
+                                    <th class="px-3">Last Name</th>
+                                    <th class="px-3">Middle Name</th>
+                                    
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                <td>{{serialData.patientSpecific}}</td>
+                            </tr>
+                                
+                            </tbody>
+                            
+
+                        </table>
                     </div>
                 
                 <div class="row">
