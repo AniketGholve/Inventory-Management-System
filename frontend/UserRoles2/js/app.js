@@ -1156,6 +1156,21 @@ app.controller("clp", function ($scope, $http, $window, $location) {
         });
     }
 
+    $http({
+        method: 'GET',
+        url: "http://localhost:7890/getPatientById/" + 4,
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': sessionStorage.getItem("token")
+        }
+    }).then((response) => {
+        console.log("GetCALL")
+        console.log(response.data);
+        $scope.patientSpecific = response.data;
+    }, (error) => {
+        console.log(error);
+    });
+
 
 
 
@@ -1558,7 +1573,7 @@ app.controller("alp", ($scope, $http, $window, $location, $routeParams) => {
     $scope.getExpired = (id) => {
         $http({
             method: 'GET',
-            url: "http://localhost:7890/getExpiredSerialDetails/" + id ,
+            url: "http://localhost:7890/getExpiredSerialDetails/" + id+"/"+ sessionStorage.getItem("locationId"),
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': sessionStorage.getItem("token")
