@@ -149,7 +149,8 @@
                     </div>
                     </div>
                     <div  ng-class="{'d-none':serialData.patientSpecific == null}">
-                        <table id="patientDetailsTable" class=" table  table striped text-center shadow ">
+                        <div>Patient Name</div>
+                        <table id="patientDetailsTable" class=" table  table striped text-center shadow mt-2">
                             <thead class="">
                                 <tr >
                                     <th class="px-3">First Name</th>
@@ -160,12 +161,11 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                <td>{{patientSpecific.firstName}}</td>
-                            </tr>
-                                
+                                <td>{{patientSpecificdata.patientFirstName}}</td>
+                                <td>{{patientSpecificdata.patientLastName}}</td>
+                                <td>{{patientSpecificdata.patientMiddleName}}</td>
+                                </tr>
                             </tbody>
-                            
-
                         </table>
                     </div>
                 

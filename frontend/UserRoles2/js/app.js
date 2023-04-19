@@ -44,13 +44,13 @@ app.factory('myInterceptor', function ($q) {
 
 app.controller("headerController", ($scope, $http, $location) => {
     var path = $location.path();
-    // $scope.administrator = () => {
-    //     let reportingPath = $location.path();
-    //     if (reportingPath === "/administrator") {
-    //         return 'true';
-    //     }
-    //     return 'false';
-    // }
+    $scope.administrator = () => {
+        let reportingPath = $location.path();
+        if (reportingPath === "/administrator") {
+            return 'true';
+        }
+        return 'false';
+    }
     switch (path) {
         case '/': $scope.activeTab = 'login';
             break;
@@ -395,7 +395,7 @@ app.controller("clp", function ($scope, $http, $window, $location) {
 
 
     }
-
+    
 
     $scope.dispenseToPatient = () => {
         console.log($scope.dispance)
@@ -458,6 +458,7 @@ app.controller("clp", function ($scope, $http, $window, $location) {
                 $scope.dispance.enterpriseId = $scope.serialData.enterpriseId;
                 $scope.dispance.serialId = $scope.serialData.serialId;
 
+
                 if ($scope.serialData.productId != null) {
 
                     $http({
@@ -475,6 +476,27 @@ app.controller("clp", function ($scope, $http, $window, $location) {
                     }), (error) => {
                         console.log(error);
                     };
+
+
+
+                    console.log( $scope.serialData.patientSpecific);
+                    $http({
+                        method: 'GET',
+                        url: "http://localhost:7890/getPatientByPatientId/" + $scope.serialData.patientSpecific,
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': sessionStorage.getItem("token")
+                        }
+                    }).then((response) => {
+                        console.log("GetCALL")
+                        console.log(response.data);
+                        $scope.patientSpecificdata = response.data;
+                        $scope.dispance.patientId =$scope.patientSpecificdata.id
+                    }, (error) => {
+                        console.log(error);
+                    });
+
+
                 }
                 $http({
                     method: 'GET',
@@ -1150,21 +1172,12 @@ app.controller("clp", function ($scope, $http, $window, $location) {
             console.log(error);
         });
     }
+    //  console.log($scope.dispance.patientId)
+    //  console.log($scope.dispance)
+    // $scope.patientSpecificdata.patientSpecific= $scope.dispance.patientId
+    
 
-    $http({
-        method: 'GET',
-        url: "http://localhost:7890/getPatientById/" + 4,
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': sessionStorage.getItem("token")
-        }
-    }).then((response) => {
-        console.log("GetCALL")
-        console.log(response.data);
-        $scope.patientSpecific = response.data;
-    }, (error) => {
-        console.log(error);
-    });
+    
 
 
 
@@ -1568,7 +1581,7 @@ app.controller("alp", ($scope, $http, $window, $location, $routeParams) => {
     $scope.getExpired = (id) => {
         $http({
             method: 'GET',
-            url: "http://localhost:7890/getExpiredSerialDetails/" + id+"/"+ sessionStorage.getItem("locationId"),
+            url: "http://localhost:7890/getExpiredSerialDetails/" + id +"/"+ sessionStorage.getItem("locationId"),
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': sessionStorage.getItem("token")
