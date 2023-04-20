@@ -563,3 +563,15 @@ nav{
   margin-left: 225px;
   width:190px
 }
+
+
+.addQuicklink{
+  background-color: #323562;
+  color: white;
+}
+
+.allQuickLinks{
+  background-color: #3fcdaf;
+    color: white;
+    border-radius: 10px;
+}

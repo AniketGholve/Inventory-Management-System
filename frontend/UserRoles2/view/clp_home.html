@@ -134,11 +134,11 @@
         <div class="container mt-4">
             <div class="d-flex justify-content-between ">
             <h1>Quick Links</h1>
-             <button data-bs-toggle="modal" data-bs-target="#quickLinks" class=" btn btn-primary mx-5 " style="float: right;"> + Add Quick Links</button>
+             <button data-bs-toggle="modal" data-bs-target="#quickLinks" class=" btn addQuicklink mx-5 " style="float: right;"> + Add Quick Links</button>
             </div>
           
             <div class=" row row-cols-3 mt-5 ">
-                <span class="d-flex align-items-center bg-warning m-2 mx-3"ng-repeat="x in getLinksData"><a  href="{{x.url}}" class="btn btn-warning w-75 mx-5 my-2 ">{{x.title}}</a>  
+                <span class="d-flex align-items-center allQuickLinks m-2 mx-3"ng-repeat="x in getLinksData"><a  href="{{x.url}}" class="btn allQuickLinks w-75 mx-5 my-2 ">{{x.title}}</a>  
                     <i class="fa-regular fa-pen-to-square link-danger mx-5" data-bs-toggle="modal" data-bs-target="#editQuickLinks" ng-click="getQuickLinkData(x.id)" style="cursor: pointer;"></i>
                     <i class="fa-regular fa-circle-xmark link-danger " ng-click="deleteLinks(x.id)" style="cursor: pointer;"></i></span>
             </div>
