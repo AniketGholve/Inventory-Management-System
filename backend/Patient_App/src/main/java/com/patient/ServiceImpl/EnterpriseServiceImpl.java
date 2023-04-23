@@ -53,9 +53,9 @@ public class EnterpriseServiceImpl implements EnterpriseService {
 				Query q1 = entityManager.createNativeQuery("select * from facility where enterprise_Id=?");
 				q1.setParameter(1, e.getEnterpriseId());
 				e.setFacilityCount(q1.getResultList().size());
-				Query q2 = entityManager.createNativeQuery("select * from user_entity where enterprise_Id=? and active=?");
-				q2.setParameter(1, e.getEnterpriseId());
-				q2.setParameter(2, e.getActive());
+				Query q2 = entityManager.createNativeQuery("select * from user_entity ");
+//				q2.setParameter(1, e.getEnterpriseId());
+//				q2.setParameter(2, e.getActive());
 				e.setUsers(q2.getResultList().size());
 				list.add(e);
 				len--;

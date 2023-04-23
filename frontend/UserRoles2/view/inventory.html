@@ -67,7 +67,7 @@
                                 <table id="patientDetailsTable" class="table table-striped table-bordered text-center ">
                                     <tr>
 
-                                        <th class="px-3">Serial Id</th>
+                                        <!-- <th class="px-3">Serial Id</th> -->
 
                                         <th class="px-3">Serial Number</th>
 
@@ -81,22 +81,29 @@
 
                                         <th class="px-3">Created On</th>
 
-                                        <th class="px-3">Enterprise Id</th>
+                                        <th class="px-3">Enterprise Name</th>
 
-                                        <th class="px-3">Location Id</th>
+                                        <th class="px-3">Location Name</th>
 
                                         <th class="px-3">Product Id</th>
 
                                         <th class="px-3">Patient Specific</th>
 
-                                        <th class="px-3">src Id</th>
+                                        <!-- <th class="px-3">src Id</th> -->
 
                                     </tr>
 
                                     <tr ng-repeat="x in onHandData">
-
-                                        <td ng-repeat="t in x">{{t}}</td>
-
+                                        <td>{{x.serialNumber}}</td>
+                                        <td>{{x.ndc}}</td>
+                                        <td>{{x.lot}}</td>
+                                        <td>{{x.expiryDate}}</td>
+                                        <td>{{x.serialStatus}}</td>
+                                        <td>{{x.createdOn}}</td>
+                                        <td>{{x.enterpriseName}}</td>
+                                        <td>{{x.clinicName}}</td>
+                                        <td>{{x.productId}}</td>
+                                        <td>{{x.patientSpecific}}</td>
                                     </tr>
 
                                 </table>
@@ -137,7 +144,7 @@
                                 <table id="patientDetailsTable" class="table table-striped table-bordered text-center">
                                     <tr>
 
-                                        <th class="px-3">Serial Id</th>
+                                        <!-- <th class="px-3">Serial Id</th> -->
 
                                         <th class="px-3">Serial Number</th>
 
@@ -151,22 +158,31 @@
 
                                         <th class="px-3">Created On</th>
 
-                                        <th class="px-3">Enterprise Id</th>
+                                        <th class="px-3">Enterprise Name</th>
 
-                                        <th class="px-3">Location Id</th>
+                                        <th class="px-3">Location Name</th>
 
                                         <th class="px-3">Product Id</th>
 
                                         <th class="px-3">Patient Specific</th>
 
-                                        <th class="px-3">Src Id</th>
+                                        <!-- <th class="px-3">Src Id</th> -->
 
                                     </tr>
 
                                     <tr ng-repeat="x in expiredData">
+                                        <td>{{x.serialNumber}}</td>
+                                        <td>{{x.ndc}}</td>
+                                        <td>{{x.lot}}</td>
+                                        <td>{{x.expiryDate}}</td>
+                                        <td>{{x.serialStatus}}</td>
+                                        <td>{{x.createdOn}}</td>
+                                        <td>{{x.enterpriseName}}</td>
+                                        <td>{{x.clinicName}}</td>
+                                        <td>{{x.productId}}</td>
+                                        <td>{{x.patientSpecific}}</td>
 
-                                        <td ng-repeat="t in x">{{t}}</td>
-
+                                        
                                     </tr>
 
                                 </table>

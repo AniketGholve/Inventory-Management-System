@@ -23,11 +23,13 @@ import com.patient.Entity.ClinicOrder;
 import com.patient.Entity.Inventory;
 import com.patient.Entity.Notifications;
 import com.patient.Entity.OrderEvents;
+import com.patient.Entity.Serial;
 import com.patient.Repo.ClinicOrderRepo;
  
 import com.patient.Repo.ClinicRepo;
 import com.patient.Repo.NotificatinsRepo;
 import com.patient.Repo.OrderEventsRepo;
+import com.patient.Repo.SerialRepo;
 import com.patient.Service.OrderEventsService;
 
 import jakarta.persistence.EntityManager;
@@ -53,11 +55,24 @@ public class OrderEventsServiceImpl implements OrderEventsService {
 	
 	@Autowired
 	private NotificatinsRepo notificationsRepo;
-
+	
+	@Autowired
+	private SerialServiceImpl serialServiceImpl;
+	
+	@Autowired
+	private SerialRepo serialSeviceRepo;
+	
+	private static int k = 1000;
+	
 	@Override
 	public List<OrderEvents> createOrderEvent(List<Inventory> inventory, Integer clinicOrderId) {
 		// TODO Auto-generated method stub
-
+		Query q = entityManager.createNativeQuery("select max(serial_number) from serial");
+		k = (int)q.getSingleResult()+1;
+//		if(k==null) {
+//			k=1000;
+//		}
+		
 		long m = System.currentTimeMillis();
 		Date d = new Date(m);
 		Format formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
@@ -79,12 +94,29 @@ public class OrderEventsServiceImpl implements OrderEventsService {
 				orderEvents.setPackageType(null);
 				orderEvents.setProductId(i.getProductId());
 				orderEvents.setQuantity(i.getOrderedQty());
+				int len = i.getOrderedQty();
 				orderEvents.setShipmentTrackingId(123);
 				orderEvents.setSrcId(clinicOrder.getSrcId());
 				orderEvents.setStatusId(clinicOrder.getOrderStatusId());
 				orderEvents.setUserId(clinicOrder.getUserId());
 				OrderEvents oe=orderEventsRepo.save(orderEvents);
 				orderEventsList.add(oe);
+				for(int j=0;j<len;j++) {
+					Serial s = new Serial();
+					s.setCreatedOn(d);
+					System.out.println("hello");
+					System.out.println(oe.getLocationId());
+					System.out.println(oe.getEnterpriseId());
+					s.setLocationId(oe.getLocationId());
+					s.setEnterpriseId(oe.getEnterpriseId());
+					s.setProductId(oe.getProductId());
+					s.setSerialStatus("Comissioned");
+					s.setSerialNumber(k+200000);
+					s.setLot(k+11111);
+					s.setNdc(k+111);
+					k++;
+					serialSeviceRepo.save(s);
+				}
 			}
 		}
 		return orderEventsList;

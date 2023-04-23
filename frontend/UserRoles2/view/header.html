@@ -29,11 +29,14 @@
                     <li class="nav-item nav_hover {{alp}}" ng-class="{active: activeTab === 'clinic'}">
                         <a class="nav-link" href="#!clinics">Clinics</a>
                     </li>
-                    <li class="nav-item nav_hover {{alp}}" ng-class="{active: activeTab === 'user'}">
+                    <!-- <li class="nav-item nav_hover {{alp}}" ng-class="{active: activeTab === 'user'}">
                         <a class="nav-link" href="#!/clinicUsers">Users</a>
+                    </li> -->
+                    <li class="nav-item nav_hover {{alp}}" ng-class="{active: activeTab === 'reporting'}">
+                        <a class="nav-link" href="#!reporting">Reporting</a>
                     </li>
                     <li class="nav-item nav_hover {{alp}}" ng-class="{active: activeTab === 'orderInfo'}">
-                        <a class="nav-link" href="#!/ordersInfo">Orders</a>
+                        <a class="nav-link" href="#!/ordersInfo">Ordering</a>
                     </li>
                     <li class="nav-item nav_hover {{alp}}" ng-class="{active: activeTab === 'shipping'}">
                         <a class="nav-link" href="#!/shipping">Shipping</a>
@@ -50,7 +53,7 @@
 
                 </ul>
             </div>
-            <div class="{{notificationIcon}}" >
+            <div class="{{notificationIcon}}" ng-class="{'d-none':administrator() == 'false'}" >
                 <div>
                 <button onclick="notificationFunction()" class="btn3"><i class="fa-sharp fa-solid fa-bell"></i></button>
             </div>
@@ -79,13 +82,14 @@
                 </div>
                 </div>
 
-                
             </div>
         </div>
 
             <div style="border:0cap;">
-                <button onclick="theme()" class="btn3" ><i id ="themeIcon"class="fa-sharp fa-solid fa-sun" ></i></button>
+                <button onclick="theme()" class="btn3" ><i id ="themeIcon" class="fa-sharp fa-solid fa-sun" ></i></button>
             </div>
+
+            
             <div class="{{userIcon}}">
                 <div class="icon">
                     <button onclick="userFunction()" class="btn1"><i class="fa-solid fa-circle-user"

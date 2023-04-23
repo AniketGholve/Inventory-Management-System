@@ -1,0 +1,88 @@
+<div ng-controller="alp">
+    <div ng-include="'view/header.html'"></div>
+    <div ng-include="'view/header3.html'"></div>
+    <div class="container mt-5">
+        <div class="d-flex ">
+            <a class="corporateModify" href="#!setup">Back to Corporate</a>
+            <h2 class=" " style="padding-left: 32%;">Add User</h2>
+        </div>
+    </div>
+    
+    <div class="container mt-4">
+        <form ng-submit="saveUser()">
+            <div class="row g-3 form-control d-flex justify-content-between addfacility m-auto">
+                <div class="col-auto d-flex justify-content-between w-50">
+                    <label for="">Last Name </label>
+                    <input type="text" class="inputeditCorporate" ng-model="userAddData.lastName" >
+                </div>
+                <div class="col-auto d-flex justify-content-between w-50">
+                    <label for="">First Name </label>
+                    <input type="text" class="inputeditCorporate" ng-model="userAddData.firstName">
+                </div>
+               
+                <div class="col-auto d-flex justify-content-between w-50">
+                    <label for="">User Name</label>
+                    <input type="email" class="inputeditCorporate" ng-model="userAddData.username">
+                </div>
+                
+                <div class="col-auto d-flex justify-content-between w-50">
+                    <label for="">Role</label>
+                    <select ng-model="userAddData.role" class="text-center dropdownUserSetup" required>
+                        <option value="" class="d-none">Please Choose</option>
+                        <option value="ELP">ELP</option>
+                        <option value="MLP">MLP</option>
+                        <option value="ALP">ALP</option>
+                        <option value="CLP">CLP</option>
+                    </select>
+                </div>
+                <div class="col-auto d-flex justify-content-between w-50">
+                    <label for="">Job Title</label>
+                    <select ng-model="userAddData.jobTitile" class="text-center dropdownUserSetup" required>
+                        <option value="" class="d-none">Please Choose</option>
+                        <option value="Sales">Sales</option>
+                        <option value="Marketing">Marketing</option>
+                        <option value="Tech Support All">Tech Support All</option>
+                        <option value="Customer Service">Customer Service</option>
+                    </select>
+                </div>
+                <div class="col-auto d-flex justify-content-between w-50">
+                    <label for="">Phone</label>
+                    <input type="tel" pattern="^\d{10}$" class="inputeditCorporate" ng-model="userAddData.phoneNo">
+                </div>
+                <div class="col-auto d-flex justify-content-between w-50">
+                    <label >Password  </label>
+                    <input class="inputeditCorporate" type="password" name="password" ng-model="userAddData.password" required
+                        ng-init="password_error_show =0" placeholder="Password" />
+                </div>
+                <div class="col-auto d-flex justify-content-between w-50">
+                    <label >Confirm Password  </label>
+                    <input class="inputeditCorporate" type="password" name="confirmPassword"
+                    ng-model="userAddData.confirmPassword" required ng-init="confirmPassword_error_show =0"
+                    ng-change="validPassword()"  placeholder="Confirm Password" />
+                   
+                </div>
+                
+                <div class="col-auto d-flex justify-content-between w-50">
+                    <label for="">Status</label>
+                    <select ng-model="userAddData.status" class="text-center dropdownUserSetup" required>
+                        <option value="" class="d-none">Please Choose</option>
+                        <option value="Active">Active</option>
+                        <option value="Inactive">Inactive</option>
+                        
+                    </select>
+                </div>
+                <div class="col-auto d-flex justify-content-between w-50" style="padding-left: 25%;">
+                    <span id="Invalid" style="display: none; color: red;">Password Not Matched</span>
+                    <span id="valid" style="display: none; color: green;">Password Matched</span>
+
+                </div>
+                <!-- <button type="button" class="btn btn-info" ng-click="saveUser()">Save</button> -->
+                <div class=" d-flex justify-content-between p-3 ">
+                    <a type="button" class="btn btn-danger Cancel" href="#!setup">Cancel</a>
+                <input class="btn btn-primary Cancel" name="register" type="submit" value="Add User"></input>
+                </div>
+            </div>
+        </form>
+    </div>
+
+</div>

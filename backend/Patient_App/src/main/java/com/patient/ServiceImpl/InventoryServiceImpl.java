@@ -38,7 +38,7 @@ public class InventoryServiceImpl implements InventoryService {
 	@Autowired
 	private InventoryRepo inventoryRepo;
 	
-	@Autowired
+	@Autowired 
 	private OrderEventsRepo orderEventsRepo;
 	
 	@Autowired
@@ -55,12 +55,23 @@ public class InventoryServiceImpl implements InventoryService {
 
 	
 	@Override
-	public List<Serial> getSerialNumber(int productId) {
+	public List<Serial> getSerialNumber(int productId,int locationId) {
 		// TODO Auto-generated method stub
-		Query q=entityManager.createNativeQuery("select * from serial where product_id=?");
+		Query q=entityManager.createNativeQuery("select * from serial s where s.product_id=? and s.serial_Status=? and s.location_id=? and expiry_date>CURRENT_DATE");
 		q.setParameter(1, productId);
+		q.setParameter(2, "Received");
+		q.setParameter(3,locationId);
 		List<Object[]> l=q.getResultList();
 		List<Serial> resultList=new ArrayList<>();
+		
+		Query q1 = entityManager.createNativeQuery("select c.name from clinic c where c.location_id =?");
+		q1.setParameter(1, locationId);
+		String clinicName = (String)q1.getSingleResult();
+		
+		Query q2 = entityManager.createNativeQuery("select e.name from enterprises e inner join clinic c on e.enterprise_id=c.enterprise_id where c.location_id =?");
+		q2.setParameter(1, locationId);
+		String enterpriseName = (String)q2.getSingleResult();
+		
 		for (Object[] o:l)
 		{
 			Serial s=new Serial();
@@ -71,11 +82,13 @@ public class InventoryServiceImpl implements InventoryService {
 			s.setLocationId((Integer) o[4]);
 			s.setLot((Integer) o[5]);
 			s.setNdc((Integer) o[6]);
-			s.setPatientSpecific((String) o[7]);
-			s.setProductId((Integer) o[8]);
-			s.setSerialNumber((Integer) o[9]);
-			s.setSerialStatus((String) o[10]);
-			s.setSrcId((Integer) o[11]);
+			s.setProductId((Integer) o[7]);
+			s.setSerialNumber((Integer) o[8]);
+			s.setSerialStatus((String) o[9]);
+			s.setSrcId((Integer) o[10]);
+			s.setPatientSpecific((Integer) o[11]);
+			s.setClinicName(clinicName);
+			s.setEnterpriseName(enterpriseName);
 			resultList.add(s);
 			
 			
@@ -108,13 +121,20 @@ public class InventoryServiceImpl implements InventoryService {
 	}
 
 	@Override
-	public List<Serial> getExpiredSerialDetails(int productId) {
+	public List<Serial> getExpiredSerialDetails(int productId,int locationId) {
 		// TODO Auto-generated method stub
 		
 		Query q=entityManager.createNativeQuery("select * from serial where product_id=? and expiry_date<sysdate()");
 		q.setParameter(1, productId);
 		List<Object[]> l=q.getResultList();
 		
+		Query q1 = entityManager.createNativeQuery("select c.name from clinic c where c.location_id =?");
+		q1.setParameter(1, locationId);
+		String clinicName = (String)q1.getSingleResult();
+		
+		Query q2 = entityManager.createNativeQuery("select e.name from enterprises e inner join clinic c on e.enterprise_id=c.enterprise_id where c.location_id =?");
+		q2.setParameter(1, locationId);
+		String enterpriseName = (String)q2.getSingleResult();
 		
 		List<Serial> resultList=new ArrayList<>();
 		for(Object[] o:l)
@@ -127,11 +147,13 @@ public class InventoryServiceImpl implements InventoryService {
 			s.setLocationId((Integer) o[4]);
 			s.setLot((Integer) o[5]);
 			s.setNdc((Integer) o[6]);
-			s.setPatientSpecific((String) o[7]);
-			s.setProductId((Integer) o[8]);
-			s.setSerialNumber((Integer) o[9]);
-			s.setSerialStatus((String) o[10]);
-			s.setSrcId((Integer) o[11]);
+			s.setProductId((Integer) o[7]);
+			s.setSerialNumber((Integer) o[8]);
+			s.setSerialStatus((String) o[9]);
+			s.setSrcId((Integer) o[10]);
+			s.setPatientSpecific((Integer) o[11]);
+			s.setClinicName(clinicName);
+			s.setEnterpriseName(enterpriseName);
 			resultList.add(s);
 			
 		}

@@ -1,22 +1,22 @@
 function reloadWindow() {
-    location.reload();  
-    var lnk=document.getElementById("themeChange");
-    if(lnk.getAttribute("href")==="css/themecss.css"){
-        themeIcon.setAttribute("class","fa-sharp fa-solid fa-moon")
-    }else if(lnk.getAttribute("href")==="css/logincss.css"){
-        themeIcon.setAttribute("class","fa-sharp fa-solid fa-sun")
-    } 
+    location.reload();
+    var lnk = document.getElementById("themeChange");
+    if (lnk.getAttribute("href") === "css/themecss.css") {
+        themeIcon.setAttribute("class", "fa-sharp fa-solid fa-moon")
+    } else if (lnk.getAttribute("href") === "css/logincss.css") {
+        themeIcon.setAttribute("class", "fa-sharp fa-solid fa-sun")
+    }
 }
-theme=()=>{
-    var lnk=document.getElementById("themeChange");
+theme = () => {
+    var lnk = document.getElementById("themeChange");
     var themeIcon = document.getElementById("themeIcon")
-    if(lnk.getAttribute("href")==="css/logincss.css"){
-        lnk.setAttribute("href","css/themecss.css")
-        themeIcon.setAttribute("class","fa-sharp fa-solid fa-moon")
+    if (lnk.getAttribute("href") === "css/logincss.css") {
+        lnk.setAttribute("href", "css/themecss.css")
+        themeIcon.setAttribute("class", "fa-sharp fa-solid fa-moon")
 
-    }else if(lnk.getAttribute("href")==="css/themecss.css"){
-        lnk.setAttribute("href","css/logincss.css")
-        themeIcon.setAttribute("class","fa-sharp fa-solid fa-sun")
+    } else if (lnk.getAttribute("href") === "css/themecss.css") {
+        lnk.setAttribute("href", "css/logincss.css")
+        themeIcon.setAttribute("class", "fa-sharp fa-solid fa-sun")
     }
     console.log(lnk);
 }
@@ -44,6 +44,13 @@ app.factory('myInterceptor', function ($q) {
 
 app.controller("headerController", ($scope, $http, $location) => {
     var path = $location.path();
+    $scope.administrator = () => {
+        let reportingPath = $location.path();
+        if (reportingPath === "/administrator") {
+            return 'true';
+        }
+        return 'false';
+    }
     switch (path) {
         case '/': $scope.activeTab = 'login';
             break;
@@ -88,9 +95,16 @@ app.controller("headerController", ($scope, $http, $location) => {
         case '/product': $scope.activeTab = 'product';
             break;
         case '/editCorporate': $scope.activeTab = 'setup';
-            break; 
-        
-        
+            break;
+        case '/addfacility': $scope.activeTab = 'setup';
+            break;
+        case '/reporting': $scope.activeTab = 'reporting';
+            break;
+        case '/clinicInventory': $scope.activeTab = 'reporting';
+            break;
+
+
+
     }
     if (sessionStorage.getItem("username") != undefined) {
         $http({
@@ -110,21 +124,21 @@ app.controller("headerController", ($scope, $http, $location) => {
                 $scope.clp = "d-none";
                 $scope.elp = "d-none";
                 $scope.login = "d-none";
-                $scope.notificationIcon="d-none";
+                $scope.notificationIcon = "d-none";
             }
             else if ($scope.data.role == "ALP") {
                 $scope.clp = "d-none";
                 $scope.mlp = "d-none";
                 $scope.elp = "d-none";
                 $scope.login = "d-none";
-                $scope.notificationIcon="d-none";
+                $scope.notificationIcon = "d-none";
             }
             else if ($scope.data.role == "ELP") {
                 $scope.clp = "d-none";
                 $scope.mlp = "d-none";
                 $scope.alp = "d-none";
                 $scope.login = "d-none";
-                $scope.notificationIcon="d-none";
+                $scope.notificationIcon = "d-none";
             }
         })
     }
@@ -133,7 +147,7 @@ app.controller("headerController", ($scope, $http, $location) => {
         $scope.alp = "d-none";
         $scope.elp = "d-none";
         $scope.userIcon = "d-none";
-        $scope.notificationIcon="d-none";
+        $scope.notificationIcon = "d-none";
     }
 })
 
@@ -151,7 +165,7 @@ app.directive("fileInput", function ($parse) {
     }
 });
 
-app.config(function ($routeProvider, $httpProvider ) {
+app.config(function ($routeProvider, $httpProvider) {
     $routeProvider
         .when('/', {
             templateUrl: "view/login.html",
@@ -240,13 +254,43 @@ app.config(function ($routeProvider, $httpProvider ) {
             {
                 templateUrl: "view/setup.html"
             })
+        .when("/productInformation/:param1",
+            {
+                templateUrl: "view/productInformation.html"
+            })
         .when('/product',
             {
                 templateUrl: "view/product.html"
             })
+        .when('/reporting',
+            {
+                templateUrl: "view/reporting.html"
+            })
+        .when('/clinicInventory',
+            {
+                templateUrl: "view/clinicInventory.html"
+            })
+
         .when('/editCorporate',
             {
                 templateUrl: "view/editCorporate.html"
+            })
+        .when('/addfacility',
+            {
+                templateUrl: "view/addfacility.html"
+            })
+        .when("/editfacility/:param1",
+            {
+                templateUrl: "view/editFacility.html"
+            })
+
+        .when('/addUserSetup',
+            {
+                templateUrl: "view/addUserSetup.html"
+            })
+        .when("/editUserSetup/:param1",
+            {
+                templateUrl: "view/editUserSetup.html"
             })
         .when('/addToInventory',
             {
@@ -274,7 +318,7 @@ app.config(function ($routeProvider, $httpProvider ) {
             });
 
     $httpProvider.interceptors.push('myInterceptor');
-    
+
 });
 
 app.controller("loginCtrl", ($scope, $http, $window,) => {
@@ -292,6 +336,15 @@ app.controller("loginCtrl", ($scope, $http, $window,) => {
             sessionStorage.setItem("token", "Bearer " + $scope.data.token)
             if ($scope.data) {
                 sessionStorage.setItem("username", $scope.submit.username)
+                $http({
+                    method: 'GET',
+                    url: 'http://localhost:7890/getEnterpriseIdByUsername/' + $scope.submit.username,
+                    headers: { 'Authorization': sessionStorage.getItem("token") }
+                }).then((response) => {
+                    $scope.dataEnterprise = response.data;
+                    sessionStorage.setItem("EnterpriseId", $scope.dataEnterprise.enterpriseId)
+
+                })
                 $http({
                     method: 'GET',
                     url: 'http://localhost:7890/api/get/' + $scope.submit.username,
@@ -321,7 +374,7 @@ app.controller("loginCtrl", ($scope, $http, $window,) => {
 app.controller("clp", function ($scope, $http, $window, $location) {
     $scope.dispance = {}
     $scope.dispancePatientDetials = (x) => {
-        $scope.dispance.patientId= x.id;
+        $scope.dispance.patientId = x.id;
         $scope.dispensePatientData = {};
         $scope.dispensePatientData.firstName = x.patientFirstName;
         $scope.dispensePatientData.lastName = x.patientLastName;
@@ -338,46 +391,46 @@ app.controller("clp", function ($scope, $http, $window, $location) {
         $scope.dispenseNurseData = {};
         $scope.dispenseNurseData.firstName = x.firstName;
         $scope.dispenseNurseData.lastName = x.lastName;
-        
 
-        
+
+
     }
     
 
-    $scope.dispenseToPatient =() => {
+    $scope.dispenseToPatient = () => {
         console.log($scope.dispance)
-        $http ({
+        $http({
             method: 'POST',
             url: 'http://localhost:7890/createDispense',
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': sessionStorage.getItem("token")
             },
-            data : $scope.dispance
+            data: $scope.dispance
 
-            }).then((response)=> {
-                alert("Dispensed Successfully");
-                
-
-            })
-        }
-        $scope.closedispenseTable=false;
-        $scope.closeTable = () => {
-            $scope.closedispenseTable = true;
-        }
-
-        $scope.viewTable = () => {
-            $scope.closedispenseTable = false;
+        }).then((response) => {
+            alert("Dispensed Successfully");
 
 
-        }
+        })
+    }
+    $scope.closedispenseTable = false;
+    $scope.closeTable = () => {
+        $scope.closedispenseTable = true;
+    }
+
+    $scope.viewTable = () => {
+        $scope.closedispenseTable = false;
+
+
+    }
     $scope.serialDataFunction = () => {
 
 
         if ($scope.serialNumber != null) {
             $http({
                 method: 'GET',
-                url: 'http://localhost:7890/getSerialBySerialNo/' + $scope.serialNumber+"/"+sessionStorage.getItem("locationId"),
+                url: 'http://localhost:7890/getSerialBySerialNo/' + $scope.serialNumber + "/" + sessionStorage.getItem("locationId"),
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': sessionStorage.getItem("token")
@@ -385,10 +438,10 @@ app.controller("clp", function ($scope, $http, $window, $location) {
             }).then((response) => {
                 $scope.dispenseSerial
 
-            }),(error) => {
+            }), (error) => {
                 console.log(error);
             };
-            
+
             $http({
                 method: 'GET',
                 url: 'http://localhost:7890/getProductBySerialNo/' + $scope.serialNumber,
@@ -405,24 +458,46 @@ app.controller("clp", function ($scope, $http, $window, $location) {
                 $scope.dispance.enterpriseId = $scope.serialData.enterpriseId;
                 $scope.dispance.serialId = $scope.serialData.serialId;
 
-                if($scope.serialData.productId != null){
-                    
-                $http({
-                    method: 'GET',
-                    url: 'http://localhost:7890/getDoseName/'+$scope.serialData.productId +"/"+ $scope.serialNumber,
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': sessionStorage.getItem("token")
-                    }
-                }).then((response) => {
-                    
-                    $scope.serialDespense = response.data
-                    console.log(response.data)
-    
-                }),(error) => {
-                    console.log(error);
-                };
-            }
+
+                if ($scope.serialData.productId != null) {
+
+                    $http({
+                        method: 'GET',
+                        url: 'http://localhost:7890/getDoseName/' + $scope.serialData.productId + "/" + $scope.serialNumber,
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': sessionStorage.getItem("token")
+                        }
+                    }).then((response) => {
+
+                        $scope.serialDespense = response.data
+                        console.log(response.data)
+
+                    }), (error) => {
+                        console.log(error);
+                    };
+
+
+
+                    console.log( $scope.serialData.patientSpecific);
+                    $http({
+                        method: 'GET',
+                        url: "http://localhost:7890/getPatientByPatientId/" + $scope.serialData.patientSpecific,
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': sessionStorage.getItem("token")
+                        }
+                    }).then((response) => {
+                        console.log("GetCALL")
+                        console.log(response.data);
+                        $scope.patientSpecificdata = response.data;
+                        $scope.dispance.patientId =$scope.patientSpecificdata.id
+                    }, (error) => {
+                        console.log(error);
+                    });
+
+
+                }
                 $http({
                     method: 'GET',
                     url: "http://localhost:7890/getAllPhysicians",
@@ -452,13 +527,13 @@ app.controller("clp", function ($scope, $http, $window, $location) {
                 }, (error) => {
                     console.log(error);
                 });
-                
+
             }, (error) => {
                 console.log(error)
             })
 
-            
-    }
+
+        }
     }
     $scope.dispanceValueSetter = (x) => {
         console.log(x);
@@ -484,8 +559,8 @@ app.controller("clp", function ($scope, $http, $window, $location) {
                     'Authorization': sessionStorage.getItem("token")
                 }
             }).then((response) => {
-                
-                check=true
+
+                check = true
                 alert("Order Placed Successfully")
 
                 $window.location.reload();
@@ -541,7 +616,7 @@ app.controller("clp", function ($scope, $http, $window, $location) {
         }
         return false;
     }
-    
+
 
     $scope.reportName = (id) => {
         sessionStorage.setItem("reportName", id);
@@ -549,46 +624,46 @@ app.controller("clp", function ($scope, $http, $window, $location) {
             $window.location.href = "#!/insertPatient";
         }
         else if (sessionStorage.getItem("reportName") == "addPhysician") {
-            $window.location.href = "#!addPhysician";    
+            $window.location.href = "#!addPhysician";
         }
         else if (sessionStorage.getItem("reportName") == "addNurse") {
-            $window.location.href = "#!addNurse";    
+            $window.location.href = "#!addNurse";
         }
         else if (sessionStorage.getItem("reportName") == "orders") {
-            $window.location.href = "#!orders";    
+            $window.location.href = "#!orders";
         }
     }
     $scope.reportLocation = () => {
         let thePath = $location.path();
-        if (thePath === "/reports" ) {
+        if (thePath === "/reports") {
             return true;
         }
         return false;
     }
-    $scope.linkData ={};
-    $scope.saveLinks = () =>{
+    $scope.linkData = {};
+    $scope.saveLinks = () => {
         $http({
             method: 'post',
             url: "http://localhost:7890/addLink",
             headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") },
-            data : $scope.linkData
+            data: $scope.linkData
         }).then((response) => {
             $window.location.reload()
-            
-        }, (error) => { })     
+
+        }, (error) => { })
     }
     $http({
         method: 'get',
         url: "http://localhost:7890/getAllQuickLink",
         headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") },
-        
+
     }).then((response) => {
-        $scope.getLinksData=response.data;
+        $scope.getLinksData = response.data;
         console.log(response)
-        
-    }, (error) => { })  
-    
-    $scope.deleteLinks= (id) =>{
+
+    }, (error) => { })
+
+    $scope.deleteLinks = (id) => {
         $http({
             method: 'delete',
             url: "http://localhost:7890/deleteQucikLink/" + id,
@@ -596,22 +671,22 @@ app.controller("clp", function ($scope, $http, $window, $location) {
                 'Content-Type': 'application/json',
                 'Authorization': sessionStorage.getItem("token")
             }
-        }).then((response) => {$window.location.reload() }, (error) => { })
+        }).then((response) => { $window.location.reload() }, (error) => { })
     }
-    $scope.updateLinkData={};
-    $scope.updateLinks = () =>{
+    $scope.updateLinkData = {};
+    $scope.updateLinks = () => {
         $http({
             method: 'put',
-            url: "http://localhost:7890/updateQuickLink" ,
+            url: "http://localhost:7890/updateQuickLink",
             headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") },
-            data : $scope.updateLinkData
+            data: $scope.updateLinkData
         }).then((response) => {
             $window.location.reload()
-            
-        }, (error) => { })     
+
+        }, (error) => { })
     }
-    
-    $scope.getQuickLinkData = (id) =>{
+
+    $scope.getQuickLinkData = (id) => {
         console.log()
         $http({
             method: 'get',
@@ -619,9 +694,10 @@ app.controller("clp", function ($scope, $http, $window, $location) {
             headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") }
         }).then((response) => {
             $scope.updateLinkData = response.data;
-            
-        }, (error) => { })     
-        
+            console.log(response);
+
+        }, (error) => { })
+
     }
     $http({
         method: 'GET',
@@ -634,11 +710,12 @@ app.controller("clp", function ($scope, $http, $window, $location) {
         console.log("Before")
         $scope.product_data = [...response.data];
         console.log($scope.product_data)
-        
+
     }, (error) => {
         console.log(error);
     });
 
+    //Minimum Days
     $http({
         method: 'GET',
         url: 'http://localhost:7890/getAllProduct',
@@ -647,15 +724,15 @@ app.controller("clp", function ($scope, $http, $window, $location) {
             'Authorization': sessionStorage.getItem("token")
         },
 
-       
+
     }).then((response) => {
         console.log("Before")
-        
+
         $scope.product_data1 = [...response.data];
     }, (error) => {
         console.log(error);
     });
-    
+
     $scope.editMinimumDays = () => {
         $http({
             method: 'PUT',
@@ -665,31 +742,18 @@ app.controller("clp", function ($scope, $http, $window, $location) {
                 'Authorization': sessionStorage.getItem("token")
             },
             data: $scope.product_data1
-            
+
         }).then((response) => {
             console.log("update")
             console.log($scope.product_data1);
-                },
-                (error) => {
+        },
+            (error) => {
 
-        })
+            })
 
     }
+
     
-    $http({
-        method: 'GET',
-        url: "http://localhost:7890/getAllDispense",
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': sessionStorage.getItem("token")
-        }
-    }).then((response) => {
-        console.log("Hello");
-        console.log(response.data);
-        $scope.dispenseShow = response.data;
-    }, (error) => {
-        console.log(error);
-    }); 
 
     $http({
         method: 'GET',
@@ -704,11 +768,11 @@ app.controller("clp", function ($scope, $http, $window, $location) {
         $scope.dispenseDoseTable = response.data;
     }, (error) => {
         console.log(error);
-    }); 
+    });
 
-    // $scope.onOff =true;
-    // $scope.addMonths=[];
-    // $scope.marchMonth;
+    $scope.onOff =true;
+    $scope.addMonths=[];
+    $scope.marchMonth;
 
     $http({
         method: 'GET',
@@ -765,7 +829,7 @@ app.controller("clp", function ($scope, $http, $window, $location) {
                 'Authorization': sessionStorage.getItem("token")
             },
             data: $scope.autoTableData1
-            
+
         }).then((response) => {
             console.log("updateAutoTable")
             console.log($scope.autoTableData1);
@@ -777,7 +841,7 @@ app.controller("clp", function ($scope, $http, $window, $location) {
         })
 
     }
-    
+
     $http({
         method: 'GET',
         url: "http://localhost:7890/getManualReorder",
@@ -817,13 +881,13 @@ app.controller("clp", function ($scope, $http, $window, $location) {
                 'Authorization': sessionStorage.getItem("token")
             },
             data: $scope.manualReorder1
-            
+
         }).then((response) => {
             console.log("updateManualTable")
             console.log($scope.manualReorder1);
             manualTableData()
             // $window.location.reload();
-            
+
                 },
                 (error) => {
 
@@ -860,21 +924,21 @@ app.controller("clp", function ($scope, $http, $window, $location) {
         console.log(response.data);
     }, (error) => {
         console.log(error);
-    }); 
+    });
 
-    $scope.deleteNotifications= () =>{
+    $scope.deleteNotifications = () => {
         $http({
             method: 'DELETE',
-            url: "http://localhost:7890/deleteAllNotifications" ,
+            url: "http://localhost:7890/deleteAllNotifications",
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': sessionStorage.getItem("token")
             }
         }).then((response) => { }, (error) => { })
     }
-    
-    
-    
+
+
+
     if (sessionStorage.getItem("locationId") != undefined || sessionStorage.getItem("locationId") != null) {
         $scope.id = sessionStorage.getItem("locationId");
         $scope.selectedDropdownTab = sessionStorage.getItem("screensName");
@@ -888,6 +952,8 @@ app.controller("clp", function ($scope, $http, $window, $location) {
             headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") }
         }).then((response) => {
             getPatientDetails(response.data);
+            console.log("Patients");
+            console.log(response.data);
         }, (error) => { })
         $http({
             method: 'get',
@@ -905,6 +971,22 @@ app.controller("clp", function ($scope, $http, $window, $location) {
         }, (error) => {
             console.log(error);
         })
+
+        $http({
+            method: 'GET',
+            url: "http://localhost:7890/getAllDispense/" + sessionStorage.getItem("locationId") ,
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': sessionStorage.getItem("token")
+            }
+        }).then((response) => {
+            console.log("Hello Dispense");
+            console.log(response.data);
+            $scope.dispenseShow = response.data;
+        }, (error) => {
+            console.log(error);
+        })
+
         $scope.shippedSerial = () => {
             if ($scope.demodata != null && sessionStorage.getItem("locationId") != null) {
                 $http({
@@ -912,6 +994,7 @@ app.controller("clp", function ($scope, $http, $window, $location) {
                     url: "http://localhost:7890/getSerialBySerialId/" + $scope.demodata + "/" + sessionStorage.getItem("locationId"),
                     headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") },
                 }).then((response) => {
+                    console.log("AddToInventory")
                     $scope.shippedSerialDetails = response.data;
                     console.log($scope.shippedSerialDetails)
                 }, (error) => {
@@ -927,13 +1010,15 @@ app.controller("clp", function ($scope, $http, $window, $location) {
     $scope.getOnHand = (id) => {
         $http({
             method: 'GET',
-            url: "http://localhost:7890/getSerialNumber/" + id,
+            url: "http://localhost:7890/getSerialNumber/" + id +"/"+ sessionStorage.getItem("locationId"),
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': sessionStorage.getItem("token")
             }
         }).then((response) => {
             $scope.onHandData = response.data;
+            console.log("onhand")
+            console.log($scope.onHandData)
         }, (error) => {
             console.log(error)
         })
@@ -941,7 +1026,7 @@ app.controller("clp", function ($scope, $http, $window, $location) {
     $scope.getExpired = (id) => {
         $http({
             method: 'GET',
-            url: "http://localhost:7890/getExpiredSerialDetails/" + id,
+            url: "http://localhost:7890/getExpiredSerialDetails/" + id +"/"+ sessionStorage.getItem("locationId"),
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': sessionStorage.getItem("token")
@@ -1069,33 +1154,40 @@ app.controller("clp", function ($scope, $http, $window, $location) {
         console.log($scope.invetoryData);
     };
 
-    $scope.inventoryStatusAvailable=()=>{
+    $scope.inventoryStatusAvailable = () => {
         $scope.shippedSerialDetails;
         $http({
             method: 'POST',
-            url: 'http://localhost:7890/changeStatusAvailable/' +$scope.shippedSerialDetails.serialId +"/"+$scope.shippedSerialDetails.locationId, 
+            url: 'http://localhost:7890/changeStatusAvailable/' + $scope.shippedSerialDetails.serialId + "/" + $scope.shippedSerialDetails.locationId + "/" + $scope.dispance.patientId,
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': sessionStorage.getItem("token")
             }
         }).then((response) => {
+            console.log("Add to Inventory Updated")
             alert("Status Changed Successfully");
             $window.location.reload();
-           
+
         }, (error) => {
             console.log(error);
         });
     }
-
+    //  console.log($scope.dispance.patientId)
+    //  console.log($scope.dispance)
+    // $scope.patientSpecificdata.patientSpecific= $scope.dispance.patientId
     
 
     
+
+
+
+
 
 
 
 });
 
-app.controller("alp", ($scope, $http, $window ,$location) => {
+app.controller("alp", ($scope, $http, $window, $location, $routeParams) => {
     // clinic controller
     $http({
         method: 'GET',
@@ -1112,7 +1204,7 @@ app.controller("alp", ($scope, $http, $window ,$location) => {
         console.log(error);
     });
 
-    $scope.closeDropDown=false;
+    $scope.closeDropDown = false;
     $scope.downloadfiles = () => {
         $scope.closeDropDown = true;
     }
@@ -1120,15 +1212,15 @@ app.controller("alp", ($scope, $http, $window ,$location) => {
     $scope.options = [
         { label: 'XLS', value: 'option1', url: 'http://localhost:7890/download/excel' },
         { label: 'PDF', value: 'option2', url: 'http://localhost:7890/download/pdf' },
-        
-      ];
+
+    ];
     $scope.selectedOption = '';
-      $scope.openUrl = function() {
+    $scope.openUrl = function () {
         const selectedOption = $scope.options.find(o => o.value === $scope.selectedOption);
         if (selectedOption) {
-          window.open(selectedOption.url);
+            window.open(selectedOption.url);
         }
-      };
+    };
     $scope.deleteClinic = (id) => {
         console.log("delete");
         console.log(id);
@@ -1154,6 +1246,7 @@ app.controller("alp", ($scope, $http, $window ,$location) => {
             'Authorization': sessionStorage.getItem("token")
         }
     }).then((response) => {
+        console.log("OrderALP")
         $scope.orderData = response.data;
         console.log(response)
     }, (error) => {
@@ -1204,7 +1297,7 @@ app.controller("alp", ($scope, $http, $window ,$location) => {
         });
     }
 
-    
+
     $scope.setUpLocation = () => {
         let setUpPath = $location.path();
         if (setUpPath === "/setup" || setUpPath === "/product") {
@@ -1220,7 +1313,7 @@ app.controller("alp", ($scope, $http, $window ,$location) => {
         }
         else if (sessionStorage.getItem("setupName") == "product") {
             $window.location.href = "#!/product";
-            
+
         }
     }
 
@@ -1235,41 +1328,27 @@ app.controller("alp", ($scope, $http, $window ,$location) => {
         console.log("Product Dropdown")
         $scope.productAlp = response.data;
         console.log($scope.productAlp)
-        
+
     }, (error) => {
         console.log(error);
     });
 
     $http({
         method: 'GET',
-        url: 'http://localhost:7890/getAllEnterprise',
+        url: 'http://localhost:7890/getByEnterpriseId/' + sessionStorage.getItem("EnterpriseId"),
         headers: {
             'Content-Type': 'application/json',
             'Authorization': sessionStorage.getItem("token")
         },
     }).then((response) => {
         console.log("Enterprise")
-        $scope.enterpriseData = [...response.data];
+        $scope.enterpriseData = response.data;
         console.log($scope.enterpriseData)
-        
+
     }, (error) => {
         console.log(error);
     });
-    $http({
-        method: 'GET',
-        url: 'http://localhost:7890/getAllEnterprise',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': sessionStorage.getItem("token")
-        },
-    }).then((response) => {
-        console.log("EnterpriseModify")
-        $scope.enterpriseDataModify = [...response.data];
-        console.log($scope.enterpriseDataModify)
-        
-    }, (error) => {
-        console.log(error);
-    });
+
 
     $scope.enterpriseUpdate = () => {
         $http({
@@ -1279,205 +1358,591 @@ app.controller("alp", ($scope, $http, $window ,$location) => {
                 'Content-Type': 'application/json',
                 'Authorization': sessionStorage.getItem("token")
             },
-            data: $scope.enterpriseDataModify
-            
+            data: $scope.enterpriseData
+
         }).then((response) => {
             console.log("updateEnterprise Table");
-            console.log($scope.enterpriseDataModify);
+            console.log($scope.enterpriseData);
             // alert("Enterprise Data Added Successfully");
-            // $window.location.reload();
-            
-            
-                },
-                (error) => {
-
-        })
-
+            // $window.location.reload(); 
+        },
+            (error) => {
+            })
     }
 
 
+    //Facility ApI
+
+    $scope.facilityAddData = {};
+
+    $scope.saveFacility = () => {
+        $scope.facilityAddData.enterpriseId = sessionStorage.getItem("EnterpriseId");
+        $http({
+            method: 'post',
+            url: "http://localhost:7890/addFacility/" + sessionStorage.getItem("EnterpriseId"),
+            headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") },
+            data: $scope.facilityAddData
+        }).then((response) => {
+            console.log("facilityAddData");
+            console.log($scope.facilityAddData);
+            console.log(response)
+
+        }, (error) => { })
+    }
+    $http({
+        method: 'GET',
+        url: 'http://localhost:7890/getAllFacilityByEnterpriseId/' + sessionStorage.getItem("EnterpriseId"),
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': sessionStorage.getItem("token")
+        },
+    }).then((response) => {
+        console.log("Facility")
+        $scope.facilitydata = response.data;
+        console.log($scope.facilitydata)
+
+    }, (error) => {
+        console.log(error);
+    });
+    $scope.deletefacility = (facilityId) => {
+        $http({
+            method: 'POST',
+            url: "http://localhost:7890/deleteFacility/" + facilityId,
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': sessionStorage.getItem("token")
+            }
+        }).then((response) => { $window.location.reload() }, (error) => { })
+    }
+    //user
+    $http({
+        method: 'GET',
+        url: 'http://localhost:7890/getAllUsersByEnterpriseId/' + sessionStorage.getItem("EnterpriseId"),
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': sessionStorage.getItem("token")
+        },
+    }).then((response) => {
+        console.log("UserData")
+        $scope.userDataSetup = response.data;
+        console.log($scope.userDataSetup)
+
+    }, (error) => {
+        console.log(error);
+    });
+
+
+    $scope.userAddData = {};
+
+    $scope.saveUser = () => {
+        $scope.userAddData.enterpriseId = sessionStorage.getItem("EnterpriseId");
+        if ($scope.userAddData.confirmPassword === $scope.userAddData.password) {
+            document.getElementById("valid").style.display = "block";
+            document.getElementById("Invalid").style.display = "none";
+        }
+        else {
+            document.getElementById("Invalid").style.display = "block";
+            document.getElementById("valid").style.display = "none";
+        }
+        if (document.getElementById("valid").style.display === "block") {
+        $http({
+            method: 'post',
+            url: "http://localhost:7890/api/addUser",
+            headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") },
+            data: $scope.userAddData
+        }).then((response) => {
+            console.log("userAddData");
+            console.log($scope.userAddData);
+            console.log(response)
+
+        }, (error) => { })
+    }
+    }
+
+    $scope.deleteuser = (id) => {
+        $http({
+            method: 'POST',
+            url: "http://localhost:7890/api/deleteById/" + id,
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': sessionStorage.getItem("token")
+            }
+        }).then((response) => { $window.location.reload() }, (error) => { })
+    }
+
+
+    // Location Reporting
+
+
+    // $scope.reportName = (id) => {
+    //     sessionStorage.setItem("reportName", id);
+    //     if (sessionStorage.getItem("reportName") == "addPatient") {
+    //         $window.location.href = "#!/insertPatient";
+    //     }
+    //     else if (sessionStorage.getItem("reportName") == "addPhysician") {
+    //         $window.location.href = "#!addPhysician";
+    //     }
+    //     else if (sessionStorage.getItem("reportName") == "addNurse") {
+    //         $window.location.href = "#!addNurse";
+    //     }
+    //     else if (sessionStorage.getItem("reportName") == "orders") {
+    //         $window.location.href = "#!orders";
+    //     }
+    // }
+    // $scope.reportLocation = () => {
+    //     let thePath = $location.path();
+    //     if (thePath === "/reports") {
+    //         return true;
+    //     }
+    //     return false;
+    // }
+    $scope.reportingLocation = () => {
+        let reportingPath = $location.path();
+        if (reportingPath === "/reporting" || reportingPath === "/clinicInventory" ) {
+            return true;
+        }
+        return false;
+    }
+    $scope.reportingDropdownTab = sessionStorage.getItem("reportingName");
+    $scope.reportingName = (id) => {
+        
+        if (id== "" ) {
+            sessionStorage.setItem("reportingName", id);
+            $window.location.href = "#!/reporting";
+           
+           
+        }
+        else if (id== "clinicInventory") {
+            sessionStorage.setItem("reportingName", id);
+            $window.location.href = "#!/clinicInventory";
+            
+            
+    }
+    else{
+        sessionStorage.removeItem("reportingName");
+        
+    }
+    
+}
+    $scope.id = sessionStorage.getItem("locationId");
+    $http({
+        method: 'get',
+        url: "http://localhost:7890/getClinicNames",
+        headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") }
+    }).then((response) => {
+        $scope.clinicNames = response.data;
+        
+        // $window.location.reload();
+        console.log($scope.clinicNames);
+    }, (error) => { })
+
+    $scope.clinicName = (id) => {
+        sessionStorage.setItem("locationId", id);
+        $window.location.reload();
+    }
+
+    if( $scope.id  != null){
+    $http({
+        method: 'get',
+        url: "http://localhost:7890/getInventoryByClinic/" + sessionStorage.getItem("locationId"),
+        headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") }
+    }).then((response) => {
+        getInventoryDetails(response.data);
+    }, (error) => { })
+
+
+}
+
+    getInventoryDetails = (data) => {
+        $scope.invetoryData = data;
+        console.log($scope.invetoryData);
+    };
+
+
+    
+    $scope.downloadLocation=sessionStorage.getItem("locationId");
+    
+    $scope.getOnHand = (id) => {
+        $http({
+            method: 'GET',
+            url: "http://localhost:7890/getSerialNumber/" + id +"/"+ sessionStorage.getItem("locationId"),
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': sessionStorage.getItem("token")
+            }
+        }).then((response) => {
+            $scope.onHandData = response.data;
+            console.log("onhand")
+            console.log($scope.onHandData)
+        }, (error) => {
+            console.log(error)
+        })
+    }
+    $scope.getExpired = (id) => {
+        $http({
+            method: 'GET',
+            url: "http://localhost:7890/getExpiredSerialDetails/" + id +"/"+ sessionStorage.getItem("locationId"),
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': sessionStorage.getItem("token")
+            }
+        }).then((response) => {
+            console.log("Expired")
+            $scope.expiredData = response.data;
+            console.log($scope.expiredData)
+            
+        }, (error) => {
+            console.log(error)
+        })
+    }
+
+
+    
+
 });
+
+app.controller('updateUserSetupController', function ($scope, $http, $routeParams, $window) {
+
+
+    $scope.setUpLocation = () => {
+        let setUpPath = $location.path();
+        if (setUpPath === "/setup" || setUpPath === "/product") {
+            return true;
+        }
+        return false;
+    }
+    $scope.setupDropdownTab = sessionStorage.getItem("setupName");
+    $scope.setupName = (id) => {
+        sessionStorage.setItem("setupName", id);
+        if (sessionStorage.getItem("setupName") == "setup") {
+            $window.location.href = "#!/setup";
+        }
+        else if (sessionStorage.getItem("setupName") == "product") {
+            $window.location.href = "#!/product";
+
+        }
+    }
+
+
+    $http({
+        method: 'get',
+        url: "http://localhost:7890/api/getUserById/" + $routeParams.param1,
+        headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") }
+    }).then((response) => {
+
+        console.log("User Update")
+        console.log($routeParams.param1)
+        $scope.userdataUpdate = response.data;
+        console.log($scope.userdataUpdate);
+
+    }, (error) => { })
+
+    $scope.saveUserSetup = () => {
+        delete $scope.userdataUpdate.authorities;
+        if ($scope.userdataUpdate.confirmPassword === $scope.userdataUpdate.password) {
+            document.getElementById("valid").style.display = "block";
+            document.getElementById("Invalid").style.display = "none";
+        }
+        else {
+            document.getElementById("Invalid").style.display = "block";
+            document.getElementById("valid").style.display = "none";
+        }
+        if (document.getElementById("valid").style.display === "block") {
+        $http({
+            method: 'put',
+            url: "http://localhost:7890/api/editUser",
+            headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") },
+            data: $scope.userdataUpdate
+        }).then((response) => {
+            console.log("Hello")
+            console.log($scope.userdataUpdate)
+            $window.location.href = "#!setup";
+
+
+        }, (error) => { })
+    }
+}
+});
+
+
+app.controller('updateFacilityController', function ($scope, $http, $routeParams, $window) {
+
+    $scope.setUpLocation = () => {
+        let setUpPath = $location.path();
+        if (setUpPath === "/setup" || setUpPath === "/product") {
+            return true;
+        }
+        return false;
+    }
+    $scope.setupDropdownTab = sessionStorage.getItem("setupName");
+    $scope.setupName = (id) => {
+        sessionStorage.setItem("setupName", id);
+        if (sessionStorage.getItem("setupName") == "setup") {
+            $window.location.href = "#!/setup";
+        }
+        else if (sessionStorage.getItem("setupName") == "product") {
+            $window.location.href = "#!/product";
+
+        }
+    }
+
+
+
+
+    $http({
+        method: 'get',
+        url: "http://localhost:7890/getFacilityById/" + $routeParams.param1,
+        headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") }
+    }).then((response) => {
+        console.log("Facility Update")
+        console.log($routeParams.param1)
+        $scope.facilityUpdateData = response.data;
+        console.log($scope.facilityUpdateData);
+
+    }, (error) => { })
+
+    $scope.UpdateFacility = () => {
+        $http({
+            method: 'put',
+            url: "http://localhost:7890/editFacility",
+            headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") },
+            data: $scope.facilityUpdateData
+        }).then((response) => {
+            console.log("Hello")
+            $window.location.href = "#!setup"
+
+        }, (error) => { })
+    }
+
+
+
+
+});
+
+app.controller('updateProductController', function ($scope, $http, $routeParams, $window) {
+
+
+
+    $scope.setUpLocation = () => {
+        let setUpPath = $location.path();
+        if (setUpPath === "/setup" || setUpPath === "/product") {
+            return true;
+        }
+        return false;
+    }
+    $scope.setupDropdownTab = sessionStorage.getItem("setupName");
+    $scope.setupName = (id) => {
+        sessionStorage.setItem("setupName", id);
+        if (sessionStorage.getItem("setupName") == "setup") {
+            $window.location.href = "#!/setup";
+        }
+        else if (sessionStorage.getItem("setupName") == "product") {
+            $window.location.href = "#!/product";
+
+        }
+    }
+ 
+
+
+    $http({
+        method: 'GET',
+        url: "http://localhost:7890/getProductById/" + $routeParams.param1,
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': sessionStorage.getItem("token")
+        }
+    }).then((response) => {
+        console.log("productSetup")
+        $scope.productSetup = response.data;
+        console.log($scope.productSetup)
+        console.log(response)
+
+    }, (error) => {
+        console.log(error);
+    });
+
+});
+
 app.controller("shipping", ($scope, $http, $window) => {
 
-        $scope.clinicShipToName;
-    
-        $http({
-    
-            method: 'Get',
-    
-            url: "http://localhost:7890/getAllShipToId",
-    
-            headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") }
-    
-        }).then((response) => {
-    
-            $scope.clinicDropdownName = response.data;
-    
-            $scope.orderIdFunction = () => {
-    
-                let clinicNameAndLocation = $scope.clinicNameAndLocation;
-    
-    
-    
-    
-                $http({
-    
-                    method: 'Get',
-    
-                    url: "http://localhost:7890/getShippingDataByShippingId/" + clinicNameAndLocation,
-    
-                    headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") }
-    
-                }).then((response) => {
-    
-                    $scope.clinicShipToData = response.data;
-    
-                    console.log($scope.clinicShipToData == "")
-    
-                    if ($scope.clinicShipToData != "") {
-    
-                        let nameAndLocation = clinicNameAndLocation.split("_");
-    
-                        $http({
-    
-                            method: 'Get',
-    
-                            url: "http://localhost:7890/getprocessedorderEvents/" + nameAndLocation[1],
-    
-                            headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") }
-    
-                        }).then((response) => {
-    
-                            $scope.orderEventData = response.data;
-    
-                            if ($scope.productIdAndOrderEventId != undefined) {
-    
-                                var productIdAndOrderEventId = $scope.productIdAndOrderEventId;
-    
-                                // var productIdOrderEventId = productIdAndOrderEventId.split(",");
-    
-                                $scope.orderEventId = $scope.productIdAndOrderEventId;
-    
-                                $scope.demoVar = false;
-    
-                                $http({
-    
-                                    method: 'Get',
-    
-                                    url: "http://localhost:7890/getserialbyproductId/" + $scope.productIdAndOrderEventId,
-    
-                                    headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") }
-    
-                                }).then((response) => {
-    
-                                    $scope.serialId = response.data;
-    
-                                    console.log($scope.serialId)
-    
-                                }, (error) => {
-    
-                                    console.log(error);
-    
-                                });
-    
-                            }
-    
-                            else {
-    
-                                $scope.demoVar = true;
-    
-                            }
-    
-                        }, (error) => {
-    
-                            console.log(error);
-    
-                        });
-    
-                    }
-    
-                }, (error) => {
-    
-                    console.log(error);
-    
-                });
-    
-            }
-    
-        }, (error) => {
-    
-            console.log(error);
-    
-        });
-    
-    
-    
-    
-        $scope.shipOrder = () => {
-    
-            $http({
-    
-                method: 'Get',
-    
-                url: "http://localhost:7890/changeSerialAndOrderStatusToShipped/" + $scope.orderEventId,
-    
-                headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") }
-    
-            }).then((response) => {
-    
-                $scope.shipmentDetails = response.data;
-    
-                alert("Ordered Shipped");
-    
-                $window.location.href = "#!/shipping";
-    
-            }, (error) => {
-    
-                console.log(error);
-    
-            });
-    
-        }
-    
-        $scope.demoFunction = () => {
-    
-            if ($scope.scanShipmentDetails != undefined) {
-    
-                console.log($scope.scanShipmentDetails)
-    
-                let scanShipmentDetails = $scope.scanShipmentDetails;
-    
-                let serialIdAndProductId = scanShipmentDetails.split(",");
-    
-                console.log($scope.orderEventId);
-    
-                $http({
-    
-                    method: 'Get',
-    
-                    url: "http://localhost:7890/scannedShipmentDetails/" + serialIdAndProductId[0] + "/" + serialIdAndProductId[1] + "/" + $scope.orderEventId,
-    
-                    headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") }
-    
-                }).then((response) => {
-    
-                    $scope.shipmentDetails = response.data;
-    
-                    console.log($scope.shipmentDetails)
-    
-                }, (error) => {
-    
-                    console.log(error);
-    
-                });
-    
-            }
-    
-        }
-    
-        $scope.demoVar = true;
-    
+    $scope.clinicShipToName;
+
+    $http({
+
+        method: 'Get',
+
+        url: "http://localhost:7890/getAllShipToId",
+
+        headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") }
+
+    }).then((response) => {
+
+        $scope.clinicDropdownName = response.data;
+
+        $scope.orderIdFunction = () => {
+
+            let clinicNameAndLocation = $scope.clinicNameAndLocation;
+
+
+
+
+            $http({
+
+                method: 'Get',
+
+                url: "http://localhost:7890/getShippingDataByShippingId/" + clinicNameAndLocation,
+
+                headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") }
+
+            }).then((response) => {
+
+                $scope.clinicShipToData = response.data;
+
+                console.log($scope.clinicShipToData == "")
+
+                if ($scope.clinicShipToData != "") {
+
+                    let nameAndLocation = clinicNameAndLocation.split("_");
+
+                    $http({
+
+                        method: 'Get',
+
+                        url: "http://localhost:7890/getprocessedorderEvents/" + nameAndLocation[1],
+
+                        headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") }
+
+                    }).then((response) => {
+
+                        $scope.orderEventData = response.data;
+
+                        if ($scope.productIdAndOrderEventId != undefined) {
+
+                            var productIdAndOrderEventId = $scope.productIdAndOrderEventId;
+
+                            // var productIdOrderEventId = productIdAndOrderEventId.split(",");
+
+                            $scope.orderEventId = $scope.productIdAndOrderEventId;
+
+                            $scope.demoVar = false;
+
+                            $http({
+
+                                method: 'Get',
+
+                                url: "http://localhost:7890/getserialbyproductId/" + $scope.productIdAndOrderEventId,
+
+                                headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") }
+
+                            }).then((response) => {
+
+                                $scope.serialId = response.data;
+
+                                console.log($scope.serialId)
+
+                            }, (error) => {
+
+                                console.log(error);
+
+                            });
+
+                        }
+
+                        else {
+
+                            $scope.demoVar = true;
+
+                        }
+
+                    }, (error) => {
+
+                        console.log(error);
+
+                    });
+
+                }
+
+            }, (error) => {
+
+                console.log(error);
+
+            });
+
+        }
+
+    }, (error) => {
+
+        console.log(error);
+
     });
+
+
+
+
+    $scope.shipOrder = () => {
+
+        $http({
+
+            method: 'Get',
+
+            url: "http://localhost:7890/changeSerialAndOrderStatusToShipped/" + $scope.orderEventId,
+
+            headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") }
+
+        }).then((response) => {
+
+            $scope.shipmentDetails = response.data;
+
+            alert("Ordered Shipped");
+
+            $window.location.href = "#!/shipping";
+
+        }, (error) => {
+            console.log(error);
+
+        });
+
+    }
+
+    $scope.demoFunction = () => {
+
+        if ($scope.scanShipmentDetails != undefined) {
+
+            console.log($scope.scanShipmentDetails)
+
+            let scanShipmentDetails = $scope.scanShipmentDetails;
+
+            let serialIdAndProductId = scanShipmentDetails.split(",");
+
+            console.log($scope.orderEventId);
+
+            $http({
+
+                method: 'Get',
+
+                url: "http://localhost:7890/scannedShipmentDetails/" + serialIdAndProductId[0] + "/" + serialIdAndProductId[1] + "/" + $scope.orderEventId,
+
+                headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") }
+
+            }).then((response) => {
+
+                $scope.shipmentDetails = response.data;
+
+                console.log($scope.shipmentDetails)
+
+            }, (error) => {
+
+                console.log(error);
+
+            });
+
+        }
+
+    }
+
+    $scope.demoVar = true;
+
+});
 
 app.controller('registerController', function ($scope, $http, $window) {
     $scope.register = {};
@@ -1560,7 +2025,7 @@ app.controller('updateController', function ($scope, $http, $routeParams, $windo
             range.push(i);
         }
         $scope.range = range;
-        
+
     }, (error) => {
         console.log(error);
     })
@@ -1747,40 +2212,6 @@ app.controller('updateClinic', function ($scope, $http, $window, $routeParams) {
     }
 });
 
-// app.controller('clinicSelect', function ($scope, $http, $route) {
-
-//     $http({
-//         method: 'get',
-//         url: "http://localhost:7890/getClinicNames",
-//         headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") }
-//     }).then((response) => {
-//         $scope.clinicNames = response.data;
-//     }, (error) => { })
-
-//     $scope.clinicName = (id) => {
-//         sessionStorage.setItem("locationId", id);
-//         let locationId = sessionStorage.getItem("locationId");
-//         console.log(locationId)
-//         $http({
-//             method: 'get',
-//             url: "http://localhost:7890/getPatientByClinic/" + locationId,
-//             headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") }
-//         }).then((response) => {
-//             console.log(response)
-//             getPatientDetails(response.data);
-//         }, (error) => { })
-
-//         $http({
-//             method: 'get',
-//             url: "http://localhost:7890/getInventoryByClinic/" + locationId,
-//             headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") }
-//         }).then((response) => {
-//             getInventoryDetails(response.data);
-//         }, (error) => { })
-
-//     }
-
-// });
 
 app.controller('allClinicsUsers', function ($scope, $http, $window) {
     $http({

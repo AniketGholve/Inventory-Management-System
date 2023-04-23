@@ -53,8 +53,9 @@ public class FacilityServiceImpl implements FacilityService {
 	public Facility addFacility(Facility facility,int enterpriseId) {
 		// TODO Auto-generated method stub
 		Facility f = new Facility();
+//		f.setEnterpriseId(enterpriseId);
 		f = facilityRepo.save(facility);
-		f.setEnterpriseId(enterpriseId);
+		
 		return f;
 	}
 
@@ -62,7 +63,7 @@ public class FacilityServiceImpl implements FacilityService {
 	public Facility getFacilityById(int id) {
 		// TODO Auto-generated method stub
 		Facility f = facilityRepo.findById(id).orElseThrow();
-		return null;
+		return f;
 	}
 
 }

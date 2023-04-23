@@ -2,7 +2,7 @@
     <div ng-include="'view/header.html'"></div>
     <div ng-include="'view/header2.html'"></div>
     <div class="container">
-        <h2 class="text-center">Dispense To Patient</h2>
+        <h2 class="text-center mt-4">Dispense To Patient</h2>
         <div class="container mt-3">
             <label for="">Serial Number:</label>
             <input type="number" list="serialList" class="dispense_input" placeholder="Serial Number"
@@ -11,54 +11,60 @@
                 <option ng-repeat="x in clinicDropdownName">{{x.shipToName}}</option>
             </datalist> -->
             <div>
-            <div class="shadow">
-                <table class="table  table striped text-center mt-5" ng-class="{'d-none':serialNumber==''||serialNumber==null}">
-                    <thead >
-                        <tr class="">
-                            <th class="col-2">Dose</th>
-                            <th class="col-2">Quantity</th>
-                            <th class="col-3">Status</th>
-                            <th class="col-3" ></th>
-                            <th class="col-2">Option</th>
+                <div class="shadow">
+                    <table class="table  table striped text-center mt-5"
+                        ng-class="{'d-none':serialNumber==''||serialNumber==null}">
+                        <thead>
+                            <tr class="">
+                                <th class="col-2">Dose</th>
+                                <th class="col-2">Quantity</th>
+                                <th class="col-3">Status</th>
+                                <th class="col-3"></th>
+                                <th class="col-2">Option</th>
 
-                        </tr>
+                            </tr>
 
-                    </thead>
-                    <tbody >
-                        <tr class="">
-                            <td class="col-2">{{serialDespense.productName}}</td>
-                            <td class="col-2">{{serialDespense.quantity}}</td>
-                            <td class="col-3">{{serialData.serialStatus}}</td>
-                            <td class="col-3"></td>
-                            <td class="col-2" ng-class="{'d-none':closedispenseTable == true }"><a class="text-danger text-decoration-none" style="cursor: pointer;" ng-click="closeTable()" >Close</a></td>
-                            <td class="col-2" ng-class="{'d-none': closedispenseTable == false }"><a class="text-primary text-decoration-none" style="cursor: pointer;" ng-click="viewTable()" >View</a></td>
-                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="">
+                                <td class="col-2">{{serialDespense.productName}}</td>
+                                <td class="col-2">{{serialDespense.quantity}}</td>
+                                <td class="col-3">{{serialData.serialStatus}}</td>
+                                <td class="col-3"></td>
+                                <td class="col-2" ng-class="{'d-none':closedispenseTable == true }"><a
+                                        class="text-danger text-decoration-none" style="cursor: pointer;"
+                                        ng-click="closeTable()">Close</a></td>
+                                <td class="col-2" ng-class="{'d-none': closedispenseTable == false }"><a
+                                        class="text-primary text-decoration-none" style="cursor: pointer;"
+                                        ng-click="viewTable()">View</a></td>
+                            </tr>
 
-                    </tbody>
-                </table>
-            </div >
-            <div class="shadow">
-                <table class="table  table striped text-center " ng-class="{'d-none': serialNumber==''||serialNumber==null || closedispenseTable == true }">
-                    <thead>
-                        <tr>
-                            <th>Serial Number</th>
-                            <th>Expiry Date</th>
-                            <th>Status</th>
-                            <th>Clearing Kit</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>{{serialData.serialNumber}}</td>
-                            <td>{{serialData.expiryDate}}</td>
-                            <td>{{serialData.serialStatus}}</td>
-                            <td><i class="fa-regular fa-circle-xmark link-danger "></i></td>
-                        </tr>
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="shadow">
+                    <table class="table  table striped text-center "
+                        ng-class="{'d-none': serialNumber==''||serialNumber==null || closedispenseTable == true }">
+                        <thead>
+                            <tr>
+                                <th>Serial Number</th>
+                                <th>Expiry Date</th>
+                                <th>Status</th>
+                                <th>Clearing Kit</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{{serialData.serialNumber}}</td>
+                                <td>{{serialData.expiryDate}}</td>
+                                <td>{{serialData.serialStatus}}</td>
+                                <td><i class="fa-regular fa-circle-xmark link-danger "></i></td>
+                            </tr>
+                        </tbody>
+                    </table>
 
+                </div>
             </div>
-        </div>
             <!-- <table class="table  table striped text-center mt-5"
                 ng-class="{'d-none':serialNumber==''||serialNumber==null}">
                 <thead class="thead">
@@ -76,173 +82,213 @@
                     </tr>
                 </tbody>
             </table> -->
+            
+
             <div>
-            <div ng-class="{'d-none':dispance.serialId==null || serialNumber=='' || serialNumber==null}">
+                <div class="row" 
+                    ng-class="{'d-none':dispance.serialId==null || serialNumber=='' || serialNumber==null || serialData.patientSpecific != null}">
+                    <div class="mt-5 my-2" ng-class="{'d-none':serialNumber=='' || serialNumber==null}">
+                        <label class="col-4" for="" style="width: 107px;">Patient Name:</label>
+                        <input class="dispense_input " type="text" placeholder="Patient Name"
+                            ng-model="search.patientFirstName">
+                        <a class="btn btn-info mx-5" href="#!/insertPatient">Add Patient</a>
+                    </div>
+
+                    <div class=""
+                        ng-class="{'d-none':search.patientFirstName==null || search.patientFirstName==''}">
+                        
+                        <table id="patientDetailsTable" class=" table  table striped text-center shadow ">
+                            <thead class="">
+                                <tr>
+                                    <th class="px-3" ng-class="{'d-none':dispance.patientId != null}">Patient Id</th>
+                                    <th class="px-3">First Name</th>
+                                    <th class="px-3">Last Name</th>
+                                    <th class="px-3">Middle Name</th>
+                                    <th class="px-3" ng-class="{'d-none':dispance.patientId != null}">Date Of Birth</th>
+                                    <th class="px-3" ng-class="{'d-none':dispance.patientId != null}">Patient Status
+                                    </th>
+                                    <th class="px-3" ng-class="{'d-none':dispance.patientId != null}">Clinic Name</th>
+                                    <th class="px-3" ng-class="{'d-none':dispance.patientId != null}">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="x in patientData | filter:search:strict" ng-if="searchPatientData==null"
+                                    ng-class="{'d-none':dispance.patientId != null}">
+                                    <td class="px-3">
+                                        {{ x.patientId }}
+                                    </td>
+                                    <td class="px-3">
+                                        {{ x.patientFirstName }}
+                                    </td>
+                                    <td class="px-3">
+                                        {{ x.patientLastName }}
+                                    </td>
+                                    <td class="px-3">
+                                        {{ x.patientMiddleName }}
+                                    </td>
+                                    <td class="px-3">
+                                        {{ x.patientDob}}
+                                    </td>
+                                    <td class="px-3">
+                                        {{ x.patientStatus}}
+                                    </td>
+                                    <td class="px-3">
+                                        {{ x.clinicName}}
+                                    </td>
+                                    <td><a href="" ng-click="dispancePatientDetials(x)"><i
+                                                class="fa-sharp fa-solid fa-circle-check text-danger"></i></a></td>
+                                </tr>
+
+                                <tr ng-class="{'d-none':dispensePatientData.firstName  == null}">
+                                    <td class="px-3">{{ dispensePatientData.firstName }}</td>
+                                    <td class="px-3">{{ dispensePatientData.lastName }}</td>
+                                    <td class="px-3">{{ dispensePatientData.middleName }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    </div>
+
+                    <div  ng-class="{'d-none':serialData.patientSpecific == null}">
+                        <div>Patient Details</div>
+                        <table id="patientDetailsTable" class=" table  table striped text-center shadow mt-2">
+                            <thead class="">
+                                <tr >
+                                    <th class="px-3">First Name</th>
+                                    <th class="px-3">Last Name</th>
+                                    <th class="px-3">Middle Name</th>
+                                    
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                <td>{{patientSpecificdata.patientFirstName}}</td>
+                                <td>{{patientSpecificdata.patientLastName}}</td>
+                                <td>{{patientSpecificdata.patientMiddleName}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                
+                <div class="row">
+                    <div class="col-6"
+                        ng-class="{'d-none':dispance.serialId==null || serialNumber=='' || serialNumber==null}">
+                        <div class="mt-5 my-2 " ng-class="{'d-none':serialNumber=='' || serialNumber==null}">
+                            <label for="" style="width:107px;">Physician:</label>
+                            <input class="dispense_input " type="text" placeholder="Physician Name"
+                                ng-model="physicianSearch.firstName">
+                        </div>
+                        <div class=" d-flex justify-content-center"
+                            ng-class="{'d-none':physicianSearch.firstName==null || physicianSearch.firstName==''}">
+                            <table id="physicianDetailsTable" class=" table  table striped text-center shadow">
+                                <thead class="">
+                                    <tr>
+                                        <th class="px-3">First Name</th>
+                                        <th class="px-3">Last Name</th>
+                                        <th class="px-3" ng-class="{'d-none':dispance.physicianId != null}">Middle Name
+                                        </th>
+                                        <th class="px-3" ng-class="{'d-none':dispance.physicianId != null}">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="x in physician_data | filter:physicianSearch:strict"
+                                        ng-if="searchphysician_data==null"
+                                        ng-class="{'d-none':dispance.physicianId != null}">
+                                        <td class="px-3">
+                                            {{ x.firstName }}
+                                        </td>
+                                        <td class="px-3">
+                                            {{ x.lastName }}
+                                        </td>
+                                        <td class="px-3">
+                                            {{ x.middleName }}
+                                        </td>
+                                        <td><a href="" ng-click="dispancePhysicianDetials(x)"><i
+                                                    class="fa-sharp fa-solid fa-circle-check text-danger"></i></a></td>
+                                    </tr>
+
+                                    <tr ng-class="{'d-none':dispensePhysicianData.firstName == null}">
+                                        <td class="px-3">{{dispensePhysicianData.firstName}}</td>
+                                        <td class="px-3">{{dispensePhysicianData.lastName }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                    </div>
+                    <div class="col-6"
+                        ng-class="{'d-none':dispance.serialId==null || serialNumber=='' || serialNumber==null}">
+                        <div class="mt-5 my-2 " ng-class="{'d-none':serialNumber=='' || serialNumber==null}">
+                            <label for="" style="width:107px;">Nurse:</label>
+                            <input class="dispense_input " type="text" placeholder="Nurse Name"
+                                ng-model="nurseSearch.firstName">
+                        </div>
+                        <div class="d-flex justify-content-center "
+                            ng-class="{'d-none':nurseSearch.firstName==null || nurseSearch.firstName==''}">
+                            <table id="physicianDetailsTable" class=" table  table striped text-center shadow">
+                                <thead class="">
+                                    <tr>
+                                        <th class="px-3">First Name</th>
+                                        <th class="px-3">Last Name</th>
+                                        <th class="px-3" ng-class="{'d-none':dispance.nurseId != null}">Middle Name</th>
+                                        <th class="px-3" ng-class="{'d-none':dispance.nurseId != null}">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="x in nurse_data | filter:nurseSearch:strict"
+                                        ng-if="searchnurse_data==null" ng-class="{'d-none':dispance.nurseId != null}">
+                                        <td class="px-3">
+                                            {{ x.firstName }}
+                                        </td>
+                                        <td class="px-3">
+                                            {{ x.lastName }}
+                                        </td>
+                                        <td class="px-3">
+                                            {{ x.middleName }}
+                                        </td>
+                                        <td><a href="" ng-click="dispanceNurseDetials(x)"><i
+                                                    class="fa-sharp fa-solid fa-circle-check text-danger"></i></a></td>
+                                    </tr>
+
+                                    <tr ng-class="{'d-none':dispenseNurseData.firstName == null}">
+                                        <td class="px-3">{{dispenseNurseData.firstName}}</td>
+                                        <td class="px-3">{{dispenseNurseData.lastName}}</td>
+
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row" ng-class="{'d-none':dispance.serialId==null || serialNumber=='' || serialNumber==null}">
                 <div class="mt-5 my-2" ng-class="{'d-none':serialNumber=='' || serialNumber==null}">
-                    <label for="" style="width:100px;">Patient Name:</label>
-                    <input class="dispense_input " type="text" placeholder="Patient Name"
-                        ng-model="search.patientFirstName">
-                    <a class="btn btn-info mx-5" href="#!/insertPatient">Add Patient</a>
+                    <div class="col-6">
+                    <label for="" style="margin-right: 5px;" >Injection Site :</label>
+                
+                    
+                        <select class=" dispense_input" type="checkbox" ng-model="dispance.injectionSite">
+                            <option value="Left Hip">Left Hip</option>
+                            <option value="Right Hip">Right Hip</option>
+                            <option value="Left Thigh">Left Thigh</option>
+                            <option value="Right Hip">Right Thigh</option>
+                            <option value="Left Buttock">Left Buttock</option>
+                            <option value="Right Buttock">Right Buttock</option>
+                            <option value="Left Deltoid">Left Deltoid</option>
+                            <option value="Right Deltoid">Right Deltoid</option>
+                        </select>
+                    </div>
                 </div>
-              
-                <div class="d-flex justify-content-center"
-                    ng-class="{'d-none':search.patientFirstName==null || search.patientFirstName==''}">
-                    <table id="patientDetailsTable" class=" table table-striped text-center">
-                        <thead class="thead" >
-                            <tr>
-                                <th class="px-3" ng-class="{'d-none':dispance.patientId != null}">Patient Id</th>
-                                <th class="px-3">First Name</th>
-                                <th class="px-3">Last Name</th>
-                                <th class="px-3">Middle Name</th>
-                                <th class="px-3" ng-class="{'d-none':dispance.patientId != null}">Date Of Birth</th>
-                                <th class="px-3" ng-class="{'d-none':dispance.patientId != null}">Patient Status</th>
-                                <th class="px-3" ng-class="{'d-none':dispance.patientId != null}">Clinic Name</th>
-                                <th class="px-3" ng-class="{'d-none':dispance.patientId != null}">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        <tr ng-repeat="x in patientData | filter:search:strict" ng-if="searchPatientData==null" ng-class="{'d-none':dispance.patientId != null}">
-                            <td class="px-3">
-                                {{ x.patientId }}
-                            </td>
-                            <td class="px-3">
-                                {{ x.patientFirstName }}
-                            </td>
-                            <td class="px-3">
-                                {{ x.patientLastName }}
-                            </td>
-                            <td class="px-3">
-                                {{ x.patientMiddleName }}
-                            </td>
-                            <td class="px-3">
-                                {{ x.patientDob}}
-                            </td>
-                            <td class="px-3">
-                                {{ x.patientStatus}}
-                            </td>
-                            <td class="px-3">
-                                {{ x.clinicName}}
-                            </td>
-                            <td><a href="" ng-click="dispancePatientDetials(x)"><i
-                                        class="fa-sharp fa-solid fa-circle-check text-danger"></i></a></td>
-                        </tr>
-
-                        <tr ng-class="{'d-none':dispensePatientData.firstName  == null}">
-                            <td class="px-3">{{ dispensePatientData.firstName }}</td>
-                            <td class="px-3">{{ dispensePatientData.lastName }}</td>
-                            <td class="px-3">{{ dispensePatientData.middleName }}</td>
-                        </tr>
-                    </tbody>
-                    </table>
-                </div>
-            </div>
-            <div class="row">
-            <div  class ="col-6" ng-class="{'d-none':dispance.serialId==null || serialNumber=='' || serialNumber==null}">
-                <div class="mt-5 my-2 " ng-class="{'d-none':serialNumber=='' || serialNumber==null}">
-                    <label for="" style="width:100px;" >Physician:</label>
-                    <input class="dispense_input " type="text" placeholder="Physician Name"
-                        ng-model="physicianSearch.firstName">
-                </div>
-                <div class=" d-flex justify-content-center"
-                    ng-class="{'d-none':physicianSearch.firstName==null || physicianSearch.firstName==''}">
-                    <table id="physicianDetailsTable" class=" table table-striped text-center">
-                        <thead class="thead">
-                            <tr>
-                                <th class="px-3">First Name</th>
-                                <th class="px-3">Last Name</th>
-                                <th class="px-3"  ng-class="{'d-none':dispance.physicianId != null}">Middle Name</th>
-                                <th class="px-3"  ng-class="{'d-none':dispance.physicianId != null}">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        <tr ng-repeat="x in physician_data | filter:physicianSearch:strict" ng-if="searchphysician_data==null"  ng-class="{'d-none':dispance.physicianId != null}">
-                            <td class="px-3">
-                                {{ x.firstName }}
-                            </td>
-                            <td class="px-3">
-                                {{ x.lastName }}
-                            </td>
-                            <td class="px-3">
-                                {{ x.middleName }}
-                            </td>
-                            <td><a href="" ng-click="dispancePhysicianDetials(x)"><i
-                                        class="fa-sharp fa-solid fa-circle-check text-danger"></i></a></td>
-                        </tr>
-
-                        <tr ng-class="{'d-none':dispensePhysicianData.firstName == null}">
-                            <td class="px-3">{{dispensePhysicianData.firstName}}</td>
-                            <td class="px-3">{{dispensePhysicianData.lastName }}</td>
-                        </tr>
-                    </tbody>
-                    </table>
-                </div>
-            </div>
-            <div class="col-6" ng-class="{'d-none':dispance.serialId==null || serialNumber=='' || serialNumber==null}">
-                <div class="mt-5 my-2 " ng-class="{'d-none':serialNumber=='' || serialNumber==null}">
-                    <label for="" style="width:100px;" >Nurse:</label>
-                    <input class="dispense_input " type="text" placeholder="Nurse Name" ng-model="nurseSearch.firstName">
-                </div>
-                <div class="d-flex justify-content-center "
-                    ng-class="{'d-none':nurseSearch.firstName==null || nurseSearch.firstName==''}">
-                    <table id="physicianDetailsTable" class=" table table-striped text-center">
-                        <thead class="thead">
-                            <tr>
-                                <th class="px-3">First Name</th>
-                                <th class="px-3">Last Name</th>
-                                <th class="px-3" ng-class="{'d-none':dispance.nurseId != null}">Middle Name</th>
-                                <th class="px-3" ng-class="{'d-none':dispance.nurseId != null}">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        <tr ng-repeat="x in nurse_data | filter:nurseSearch:strict" ng-if="searchnurse_data==null" ng-class="{'d-none':dispance.nurseId != null}">
-                            <td class="px-3">
-                                {{ x.firstName }}
-                            </td>
-                            <td class="px-3">
-                                {{ x.lastName }}
-                            </td>
-                            <td class="px-3">
-                                {{ x.middleName }}
-                            </td>
-                            <td><a href="" ng-click="dispanceNurseDetials(x)"><i
-                                        class="fa-sharp fa-solid fa-circle-check text-danger"></i></a></td>
-                        </tr>
-
-                        <tr ng-class="{'d-none':dispenseNurseData.firstName == null}">
-                            <td class="px-3">{{dispenseNurseData.firstName}}</td>
-                            <td class="px-3">{{dispenseNurseData.lastName}}</td>
-                            
-                        </tr>
-                    </tbody>
-                    </table>
-                </div>
-            </div>
             </div>
         </div>
-        
-                
-                <div class="row"ng-class="{'d-none':dispance.serialId==null || serialNumber=='' || serialNumber==null}">
-                <div class="mt-5 my-2" ng-class="{'d-none':serialNumber=='' || serialNumber==null}">
-                <label for="" style="width:100px;" >Injection Site :</label>
-                <select class =" dispense_input" type="checkbox" ng-model="dispance.injectionSite">
-                <option value="Left Hip">Left Hip</option>
-                <option value="Right Hip">Right Hip</option>
-                <option value="Left Thigh">Left Thigh</option>
-                <option value="Right Hip">Right Thigh</option>
-                <option value="Left Buttock">Left Buttock</option>
-                <option value="Right Buttock">Right Buttock</option>
-                <option value="Left Deltoid">Left Deltoid</option>
-                <option value="Right Deltoid">Right Deltoid</option>
-            </select>
-            </div>
-                </div>
-            </div>
-            
-            <div class="text-center">
-                <input class="btn2 text-center " value="Dispense To Patient" style="cursor: pointer;" ng-class="{'d-none':dispance.nurseId == null}"
-                    ng-click="dispenseToPatient()">
-            </div>
 
+        <div class="text-center">
+            <input class="btn2 text-center " value="Dispense To Patient" style="cursor: pointer;"
+                ng-class="{'d-none':dispance.nurseId == null}" ng-click="dispenseToPatient()">
         </div>
 
     </div>
+
+</div>

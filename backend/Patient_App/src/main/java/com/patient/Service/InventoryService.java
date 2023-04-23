@@ -13,11 +13,11 @@ public Inventory createInventory(Inventory inventory);
 	
 	//public List<?> getScreen();
 	
-	public List<Serial> getSerialNumber(int productId);
+	public List<Serial> getSerialNumber(int productId,int locationId);
 	
 	public List<Inventory> getScreen();
 	
-	public List<Serial> getExpiredSerialDetails(int productId);
+	public List<Serial> getExpiredSerialDetails(int productId,int locationId);
 	
 	public List<Inventory> getInventoryByClinic(Integer clinicLocationId);
 	

@@ -72,7 +72,7 @@ public class SerialServiceImpl implements SerialService{
 	
 	@Transactional
 	@Override
-	public String changeSerialStatus(Integer serialId, Integer locationId) {
+	public String changeSerialStatus(Integer serialId, Integer locationId,Integer patientSpecific) {
 		// TODO Auto-generated method stub
 		System.out.println(serialId);
 		System.out.println(locationId);
@@ -87,6 +87,14 @@ public class SerialServiceImpl implements SerialService{
 		q1.setParameter(2, "Shipped");
 		q1.setParameter(3, locationId);
 		q1.executeUpdate();
+		
+		Query q2 = entityManager.createNativeQuery("update Serial set patient_specific=? where patient_specific is null and serial_Status=? and serial_Id=? and location_id=?");
+		q2.setParameter(1, patientSpecific);
+		q2.setParameter(2, "Received");
+		q2.setParameter(3, serialId);
+		q2.setParameter(4, locationId);
+		System.out.println("patientSpecufic:"+patientSpecific);
+		q2.executeUpdate();
 		return "Status Changed to Recieved";
 	}
 

@@ -16,12 +16,84 @@
                 </thead>
                 <tbody>
                     <tr ng-repeat="x in productAlp">
-                        <td>{{x.productName}}</td>
-                        <td>{{x.gtin}}</td>
+                        <td ><a href="#!productInformation/{{x.productId}}"
+                            class="productSetup">{{x.productName}}</a></td>
+                        <td>{{x.ndc}}</td>
                         <td>{{x.manufacturer}}</td>
                         
                     </tr>
                 </tbody>
             </table>
         </div>
+
+        <div class="modal fade" id="productName" tabindex="-1" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+
+        <div class="modal-dialog w-25">
+
+            <div class="modal-content ">
+
+                <div class="modal-header">
+
+                    <h5 class="modal-title" id="exampleModalLabel">Product</h5>
+
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+
+                </div>
+
+                <div class="modal-body">
+                    <div class="d-grid container shadow " style="padding: 15px;width: 80%;" >
+                        <div class="row">
+                            <div class="d-flex justify-content-between  ">
+                                <label>Product ID:</label>
+                                <div>{{productSetup.productId}} </div>
+                            </div> 
+                        </div>
+                        <div class="row">
+                            <div class="d-flex justify-content-between ">
+                                <label>Product Name:</label>
+                                <div>{{productSetup.productName}} </div>
+                            </div> 
+                        </div>
+                        <div class="row">
+                            <div class="d-flex justify-content-between ">
+                                <label>Product Code:</label>
+                                <div> {{productSetup.ndc}}</div>
+                            </div> 
+                        </div>
+                        <div class="row">
+                            <div class="d-flex justify-content-between ">
+                                <label>Manufacturer:</label>
+                                <div> {{productSetup.manufacturer}}</div>
+                            </div> 
+                        </div>
+                        <div class="row">
+                            <div class="d-flex justify-content-between ">
+                                <label>Gtin:</label>
+                                <div> {{productSetup.gtin}}</div>
+                            </div> 
+                        </div>
+                        <div class="row">
+                            <div class="d-flex justify-content-between ">
+                                <label>Status:</label>
+                                <div> Active</div>
+                            </div> 
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- <div class="modal-footer">
+
+                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
+
+                <!-- </div> --> 
+
+            </div>
+
+        </div>
+
+    </div>
     </div>

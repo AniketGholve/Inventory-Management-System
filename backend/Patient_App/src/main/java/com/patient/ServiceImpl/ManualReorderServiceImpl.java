@@ -84,6 +84,7 @@ public class ManualReorderServiceImpl implements ManualReorderService {
 	
 	for(Object[] o:l) {
 		System.out.println(Arrays.toString(o));
+		if(k<usageList.size()) {
 
 	ManualReorder mr=new ManualReorder();
 
@@ -101,6 +102,7 @@ public class ManualReorderServiceImpl implements ManualReorderService {
 	mr.setUsageOverLastMonths(usageList.get(k++));
 	
 	list.add(mr);
+		}
 
 	}
 

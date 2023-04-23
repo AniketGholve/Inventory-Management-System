@@ -7,6 +7,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Transient;
 
 
 @Entity
@@ -17,6 +18,8 @@ public class Serial {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="serial_id")
 	private Integer serialId;
+//	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="serial_number")
 	private Integer serialNumber;
 	@Column(name="ndc")
@@ -36,9 +39,27 @@ public class Serial {
 	@Column(name="product_id")
 	private Integer productId;
 	@Column(name="patient_specific")
-	private String  patientSpecific;
+	private Integer  patientSpecific;
 	@Column(name="src_id")
 	private Integer srcId;
+	@Transient
+	private String ClinicName;
+	@Transient
+	private String EnterpriseName;
+	
+	
+	public String getClinicName() {
+		return ClinicName;
+	}
+	public void setClinicName(String clinicName) {
+		ClinicName = clinicName;
+	}
+	public String getEnterpriseName() {
+		return EnterpriseName;
+	}
+	public void setEnterpriseName(String enterpriseName) {
+		EnterpriseName = enterpriseName;
+	}
 	public Integer getSerialId() {
 		return serialId;
 	}
@@ -99,10 +120,10 @@ public class Serial {
 	public void setProductId(Integer productId) {
 		this.productId = productId;
 	}
-	public String getPatientSpecific() {
+	public Integer getPatientSpecific() {
 		return patientSpecific;
 	}
-	public void setPatientSpecific(String patientSpecific) {
+	public void setPatientSpecific(Integer patientSpecific) {
 		this.patientSpecific = patientSpecific;
 	}
 	public Integer getSrcId() {
@@ -118,9 +139,10 @@ public class Serial {
 				+ ", enterpriseId=" + enterpriseId + ", locationId=" + locationId + ", productId=" + productId
 				+ ", patientSpecific=" + patientSpecific + ", srcId=" + srcId + "]";
 	}
+	
 	public Serial(Integer serialId, Integer serialNumber, Integer ndc, Integer lot, Date expiryDate,
 			String serialStatus, Date createdOn, Integer enterpriseId, Integer locationId, Integer productId,
-			String patientSpecific, Integer srcId) {
+			Integer patientSpecific, Integer srcId, String clinicName, String enterpriseName) {
 		super();
 		this.serialId = serialId;
 		this.serialNumber = serialNumber;
@@ -134,6 +156,8 @@ public class Serial {
 		this.productId = productId;
 		this.patientSpecific = patientSpecific;
 		this.srcId = srcId;
+		ClinicName = clinicName;
+		EnterpriseName = enterpriseName;
 	}
 	public Serial() {
 		super();

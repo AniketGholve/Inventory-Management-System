@@ -1,5 +1,5 @@
 body {
-  font-family: 'Gentium Book Plus', serif;
+  font-family:Arial, Helvetica, sans-serif
 }
 
 #patientDetailsTable,
@@ -231,14 +231,38 @@ body {
   top: 40%;
   left: 50%;
 }
-
-.dropdownTab {
-  border-radius: 10px;
-  font-size: 17px;
+.dropdownTab4{
+  width: 20%;
+  height: 60%;
+  padding: 10px;
+  border-radius: 10px ;
+  font-size: 16px;
   text-align: center;
   margin-top: 8px;
   margin-right: 30px;
+
 }
+.dropdownTab {
+ border-radius: 10px ;
+  font-size: 18px;
+  text-align: center;
+  margin-top: 8px;
+  margin-right: 30px;
+  
+  
+}
+.dropdownTab3 {
+  border: none;
+   font-size: 23px;
+   text-align: center;
+   margin-top: 8px;
+   margin-right: 30px;
+   background: transparent;
+   color: rgb(33, 29, 29);
+   outline: none;
+   cursor: pointer;
+   
+ }
 
 .shipInfo {
   background-color: rgb(209, 208, 208);
@@ -267,7 +291,7 @@ body {
 .dispense_section {
   display: flex;
   font-size: 30px;
-  padding-left: 200px;
+  padding-left: 150px;
   padding-right: 200px;
 }
 
@@ -290,7 +314,7 @@ body {
 .inventory_section {
   display: flex;
   font-size: 30px;
-  padding-left: 200px;
+  padding-left: 150px;
   padding-right: 200px;
 }
 
@@ -311,6 +335,7 @@ body {
 
 .dispense_input{
   padding: 5px;
+  padding-left: 3px;
   margin: 15px;
   width: 200px;
   border: 1px solid black;
@@ -322,7 +347,7 @@ body {
   background-color: rgba(80, 212, 175, 0.989);
   color: white;
 }
-.header2 , .header3{
+.header2 , .header3 ,.header4{
   height: 40px;
   background-color: rgb(115, 202, 111);
 
@@ -346,6 +371,8 @@ nav{
 .shadow{
   box-shadow: 10px 10px grey;
 }
+
+
 .d{
   justify-self: center;
   align-items: center;
@@ -504,3 +531,47 @@ nav{
 
 }
 
+.addfacility{
+  width: 60%;
+}
+
+.editCorporate{
+  width: 59%;
+}
+
+.Cancel{
+  width: 20%;
+}
+
+.productSetup{
+  cursor: pointer;
+  text-decoration: none;
+  color: #b5202f;
+}
+
+.dropdownUserSetup{
+  
+  width: 58%;
+}
+
+.fontweight{
+  font-weight: bold;
+}
+.patientSpecific{
+  background-color: #ffffff;
+  border: 2px solid rgb(49, 47, 47);
+  margin-left: 225px;
+  width:190px
+}
+
+
+.addQuicklink{
+  background-color: #323562;
+  color: white;
+}
+
+.allQuickLinks{
+  background-color: #3fcdaf;
+    color: white;
+    border-radius: 10px;
+}

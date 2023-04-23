@@ -12,4 +12,6 @@ public interface UserEntityService {
 	public UserEntity editUser(UserEntity userEntity);
 	
 	public void deleteUser(int id);
+	
+	public UserEntity findUserById(int id);
 }
