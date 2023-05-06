@@ -2,6 +2,7 @@
     <div ng-include="'view/header.html'"></div>
     <div class="container">
         <h1 class="text-center">User Login</h1>
+        
         <div class="sub2">
             <form name="frm" ng-submit="getRequest(submit.username)">
                 <div class="d-flex justify-content-center mt-3">
@@ -18,6 +19,10 @@
                     <span class="getResponse">{{ getResponse }}</span>
                 </div>
             </form>
+            <div>
+                <button class="sso">Single Sign-On</button>
+            </div>
         </div>
+
     </div>
 </div>
