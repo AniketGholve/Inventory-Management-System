@@ -1,0 +1,9 @@
+{
+    "realm": "Inventory-management",
+    "auth-server-url": "http://localhost:8080/",
+    "ssl-required": "external",
+    "resource": "keycloak-inventory",
+    "public-client": true,
+    "confidential-port": 0
+  }
+  
