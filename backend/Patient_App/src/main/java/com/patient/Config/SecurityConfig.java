@@ -55,7 +55,7 @@ http.authorizeRequests()
 
 .anyRequest()
 
-.permitAll();
+.authenticated();
 
 http.oauth2Login()
 
