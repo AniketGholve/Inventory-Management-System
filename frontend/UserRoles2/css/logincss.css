@@ -505,6 +505,17 @@ nav{
   border: 1px solid #0e0e0e;
 
 }
+
+.sso{
+  background-color: #323562;
+  color: white;
+  position: absolute;
+  top: 43%;
+  right: 41%;
+  padding: 8px;
+  width: 18%;
+  border-radius: 5px;
+}
 .successNotification{
   background-color:  #6eeb8d;
   padding: 5px;
@@ -562,4 +573,16 @@ nav{
   border: 2px solid rgb(49, 47, 47);
   margin-left: 225px;
   width:190px
+}
+
+
+.addQuicklink{
+  background-color: #323562;
+  color: white;
+}
+
+.allQuickLinks{
+  background-color: #3fcdaf;
+    color: white;
+    border-radius: 10px;
 }

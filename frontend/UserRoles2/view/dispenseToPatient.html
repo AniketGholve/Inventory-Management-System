@@ -2,7 +2,7 @@
     <div ng-include="'view/header.html'"></div>
     <div ng-include="'view/header2.html'"></div>
     <div class="container">
-        <h2 class="text-center">Dispense To Patient</h2>
+        <h2 class="text-center mt-4">Dispense To Patient</h2>
         <div class="container mt-3">
             <label for="">Serial Number:</label>
             <input type="number" list="serialList" class="dispense_input" placeholder="Serial Number"
@@ -148,8 +148,9 @@
                         </table>
                     </div>
                     </div>
+
                     <div  ng-class="{'d-none':serialData.patientSpecific == null}">
-                        <div>Patient Name</div>
+                        <div>Patient Details</div>
                         <table id="patientDetailsTable" class=" table  table striped text-center shadow mt-2">
                             <thead class="">
                                 <tr >
