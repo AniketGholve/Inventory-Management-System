@@ -28,21 +28,22 @@ function initKeycloak() {
     document.querySelector("#preloader").style.display = "none";
     keycloak.init({ onLoad: 'login-required' }).then(isAuthenticated => {
 
-        location.href="http://localhost:5501/#!/"
+        
+        // location.href="http://127.0.0.1:5501/#!/"
 
 
-        // if (keycloak.hasRealmRole("CLP")) {
-        //     location.href = "#!clp_users";
-        // }
-        // else if (keycloak.hasRealmRole("MLP")) {
-        //     location.href = "#!mlp_users";
-        // }
-        // else if (keycloak.hasRealmRole("ALP")) {
-        //     location.href = "#!alp_users";
-        // }
-        // else if (keycloak.hasRealmRole("ELP")) {
-        //     location.href = "#!elp_users";
-        // }
+        if (keycloak.hasRealmRole("CLP")) {
+            location.href = "#!clp_users";
+        }
+        else if (keycloak.hasRealmRole("MLP")) {
+            location.href = "#!mlp_users";
+        }
+        else if (keycloak.hasRealmRole("ALP")) {
+            location.href = "#!alp_users";
+        }
+        else if (keycloak.hasRealmRole("ELP")) {
+            location.href = "#!elp_users";
+        }
         // sessionStorage.setItem("token", keycloak.token)
         // sessionStorage.setItem("username", keycloak.idTokenParsedpreferred_username)
 
