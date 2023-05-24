@@ -38,8 +38,8 @@ public class UserController {
 	@Autowired
 	private UserEntityServiceImpl userEntityServiceImpl;
 
-	@Autowired
-	private PasswordEncoder passwordEncoder;
+//	@Autowired
+//	private PasswordEncoder passwordEncoder;
 
 	@Autowired
 	private OrdersRepository Orepo;
