@@ -27,6 +27,15 @@ window.onload = () => {
     document.querySelector("#preloader").style.display = "none";
 }
 
+// var keycloak = new keycloak('./keycloak.json')
+// keycloak.init({ onLoad: 'login-required' }).success(function(authenticated){
+//     if(authenticated){
+//         console.log('authenticated');
+//     }else{
+//         console.log('Not authenticated');
+//     }
+// })
+
 app.factory('myInterceptor', function ($q) {
     var interceptor = {
         responseError: function (rejection) {
