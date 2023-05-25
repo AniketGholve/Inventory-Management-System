@@ -28,8 +28,7 @@ function initKeycloak() {
     document.querySelector("#preloader").style.display = "none";
     keycloak.init({ onLoad: 'login-required' }).then(isAuthenticated => {
 
-        
-        // location.href="http://127.0.0.1:5501/#!/"
+        // location.href="http://localhost:5501/#!/"
 
 
         if (keycloak.hasRealmRole("CLP")) {
@@ -44,8 +43,8 @@ function initKeycloak() {
         else if (keycloak.hasRealmRole("ELP")) {
             location.href = "#!elp_users";
         }
-        // sessionStorage.setItem("token", keycloak.token)
-        // sessionStorage.setItem("username", keycloak.idTokenParsedpreferred_username)
+        sessionStorage.setItem("token", keycloak.token)
+        sessionStorage.setItem("username", keycloak.idTokenParsed.preferred_username)
 
 
     }).catch(function () {
@@ -132,7 +131,7 @@ app.controller("headerController", ($scope, $http, $location) => {
 
 
     }
-    if (sessionStorage.getItem("username") != undefined) {
+    if (sessionStorage.getItem("username") !==null ) {
         $http({
             method: 'GET',
             url: 'http://localhost:7890/api/get/' + sessionStorage.getItem("username"),
@@ -348,53 +347,53 @@ app.config(function ($routeProvider, $httpProvider) {
 });
 
 app.controller("loginCtrl", ($scope, $http, $window,) => {
-    $scope.getRequest = (v) => {
-        console.log($scope.submit)
-        $http({
-            method: 'POST',
-            url: 'http://localhost:7890/login',
-            data: $scope.submit,
-            headers: { 'Content-Type': 'application/json', 'Authorization': 'qweryui' }
-        }).then((response) => {
-            $scope.data = response.data;
-            console.log($scope.data)
-            console.log(response.data)
-            sessionStorage.setItem("token", "Bearer " + sessionStorage.getItem("token"))
-            if (sessionStorage.getItem("username")!=null) {
-                sessionStorage.setItem("username", sessionStorage.getItem("username"))
-                $http({
-                    method: 'GET',
-                    url: 'http://localhost:7890/getEnterpriseIdByUsername/' + $scope.submit.username,
-                    headers: { 'Authorization': sessionStorage.getItem("token") }
-                }).then((response) => {
-                    $scope.dataEnterprise = response.data;
-                    sessionStorage.setItem("EnterpriseId", $scope.dataEnterprise.enterpriseId)
+    
+    // $scope.getRequest = (v) => {
+    //     console.log($scope.submit)
+    //     $http({
+    //         method: 'POST',
+    //         url: 'http://localhost:7890/login',
+    //         data: $scope.submit,
+    //         headers: { 'Content-Type': 'application/json', 'Authorization': 'qweryui' }
+    //     }).then((response) => {
+    //         $scope.data = response.data;
+    //         console.log($scope.data)
+    //         console.log(response.data)
+    //         sessionStorage.setItem("token", "Bearer " + sessionStorage.getItem("token"))
+    //         if (sessionStorage.getItem("username")!=null) {
+    //             $http({
+    //                 method: 'GET',
+    //                 url: 'http://localhost:7890/getEnterpriseIdByUsername/' + $scope.submit.username,
+    //                 headers: { 'Authorization': sessionStorage.getItem("token") }
+    //             }).then((response) => {
+    //                 $scope.dataEnterprise = response.data;
+    //                 sessionStorage.setItem("EnterpriseId", $scope.dataEnterprise.enterpriseId)
 
-                })
-                $http({
-                    method: 'GET',
-                    url: 'http://localhost:7890/api/get/' + $scope.submit.username,
-                    headers: { 'Authorization': sessionStorage.getItem("token") }
-                }).then((response) => {
-                    $scope.data = response.data;
-                    if ($scope.data.role == "CLP") {
-                        $window.location.href = "#!clp_users";
-                    }
-                    else if ($scope.data.role == "MLP") {
-                        $window.location.href = "#!mlp_users";
-                    }
-                    else if ($scope.data.role == "ALP") {
-                        $window.location.href = "#!alp_users";
-                    }
-                    else if ($scope.data.role == "ELP") {
-                        $window.location.href = "#!elp_users";
-                    }
-                })
-            }
-        }, (error) => {
-            alert("Wrong User Id Or Password");
-        })
-    }
+    //             })
+    //             $http({
+    //                 method: 'GET',
+    //                 url: 'http://localhost:7890/api/get/' + $scope.submit.username,
+    //                 headers: { 'Authorization': sessionStorage.getItem("token") }
+    //             }).then((response) => {
+    //                 $scope.data = response.data;
+    //                 if ($scope.data.role == "CLP") {
+    //                     $window.location.href = "#!clp_users";
+    //                 }
+    //                 else if ($scope.data.role == "MLP") {
+    //                     $window.location.href = "#!mlp_users";
+    //                 }
+    //                 else if ($scope.data.role == "ALP") {
+    //                     $window.location.href = "#!alp_users";
+    //                 }
+    //                 else if ($scope.data.role == "ELP") {
+    //                     $window.location.href = "#!elp_users";
+    //                 }
+    //             })
+    //         }
+    //     }, (error) => {
+    //         alert("Wrong User Id Or Password");
+    //     })
+    // }
 });
 
 app.controller("clp", function ($scope, $http, $window, $location) {
@@ -1215,6 +1214,17 @@ app.controller("clp", function ($scope, $http, $window, $location) {
 
 app.controller("alp", ($scope, $http, $window, $location, $routeParams) => {
     // clinic controller
+    if (sessionStorage.getItem("username")!=null) {
+        $http({
+            method: 'GET',
+            url: 'http://localhost:7890/getEnterpriseIdByUsername/' + sessionStorage.getItem("username"),
+            headers: { 'Authorization': sessionStorage.getItem("token") }
+        }).then((response) => {
+            $scope.dataEnterprise = response.data;
+            sessionStorage.setItem("EnterpriseId", $scope.dataEnterprise.enterpriseId)
+
+        })
+    }
     $http({
         method: 'GET',
         url: 'http://localhost:7890/getAllClinic',
