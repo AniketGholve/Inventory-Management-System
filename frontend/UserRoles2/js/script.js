@@ -126,8 +126,9 @@ app.controller('logoutCtrl', function ($scope, $window) {
         sessionStorage.removeItem("token")
         sessionStorage.removeItem("locationId")
         sessionStorage.removeItem("username")
-        $window.location.href = "#!";
-    }
+        // $window.location.href = "#!";
+        window.location.href = `http://localhost:8080/realms/Inventory-management/protocol/openid-connect/logout`
+     }
 });
 
 app.controller("edit_userCtrl", function ($scope, $http, $window, $route) {

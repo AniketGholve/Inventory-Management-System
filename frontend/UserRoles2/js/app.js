@@ -27,10 +27,10 @@ function initKeycloak() {
     var keycloak = new Keycloak();
     document.querySelector("#preloader").style.display = "none";
     keycloak.init({ onLoad: 'login-required' }).then(isAuthenticated => {
-
+        
         // location.href="http://localhost:5501/#!/"
 
-
+        console.log(keycloak)
         if (keycloak.hasRealmRole("CLP")) {
             location.href = "#!clp_users";
         }
@@ -51,7 +51,6 @@ function initKeycloak() {
         alert('failed to initialize');
     });
 }
-
 app.factory('myInterceptor', function ($q) {
     var interceptor = {
         responseError: function (rejection) {
@@ -59,7 +58,7 @@ app.factory('myInterceptor', function ($q) {
                 sessionStorage.removeItem("token")
                 sessionStorage.removeItem("locationId")
                 sessionStorage.removeItem("username")
-                window.location.href = '#!';
+                window.location.href = 'http://localhost:8080/';
                 console.log("Unauthorized To access the page");
             }
         }
@@ -2210,10 +2209,14 @@ app.controller('insertClinic', function ($scope, $http, $window) {
     $scope.formDataFields = {};
     $scope.createEnterpriseForm = () => {
         console.log($scope.formDataFields);
+        let myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+        myHeaders.append("Authorization", sessionStorage.getItem("token"));
+        myHeaders.append("Access-Control-Allow-Origin","*")
         $http({
             method: 'Post',
             url: "http://localhost:7890/createClinic",
-            headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") },
+            headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token")  },
             data: $scope.formDataFields
         }).then((response) => {
             $window.location.href = "#!clinics";
