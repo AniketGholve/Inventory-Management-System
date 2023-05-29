@@ -1,5 +1,7 @@
 package com.patient.Config;
 
+import org.keycloak.admin.client.Keycloak;
+import org.keycloak.admin.client.KeycloakBuilder;
 import org.springframework.context.annotation.Bean;
 
 import org.springframework.context.annotation.Configuration;
@@ -18,7 +20,6 @@ import org.springframework.security.web.authentication.session.RegisterSessionAu
 
 import org.springframework.security.web.authentication.session.SessionAuthenticationStrategy;
 
-
 //package com.patient.Config;
 
 @Configuration
@@ -27,50 +28,58 @@ import org.springframework.security.web.authentication.session.SessionAuthentica
 
 class SecurityConfig {
 
-private final KeycloakLogoutHandler keycloakLogoutHandler;
+	private final KeycloakLogoutHandler keycloakLogoutHandler;
 
-SecurityConfig(KeycloakLogoutHandler keycloakLogoutHandler) {
+	SecurityConfig(KeycloakLogoutHandler keycloakLogoutHandler) {
 
-this.keycloakLogoutHandler = keycloakLogoutHandler;
+		this.keycloakLogoutHandler = keycloakLogoutHandler;
 
-}
+	}
 
-@Bean
+	@Bean
 
-protected SessionAuthenticationStrategy sessionAuthenticationStrategy() {
+	protected SessionAuthenticationStrategy sessionAuthenticationStrategy() {
 
-return new RegisterSessionAuthenticationStrategy(new SessionRegistryImpl());
+		return new RegisterSessionAuthenticationStrategy(new SessionRegistryImpl());
 
-}
+	}
 
-@Bean
+	@Bean
 
-public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
-http.authorizeRequests()
+		http.csrf().disable().authorizeRequests()
 
-.requestMatchers("/customers*")
+				.requestMatchers("/customers*")
 
-.hasRole("USER")
+				.hasRole("USER")
 
-.anyRequest()
+				.anyRequest().authenticated();
 
-.authenticated();
 
-http.oauth2Login()
+		http.oauth2Login()
 
-.and()
+				.and()
 
-.logout()
+				.logout()
 
-.addLogoutHandler(keycloakLogoutHandler)
+				.addLogoutHandler(keycloakLogoutHandler)
 
-.logoutSuccessUrl("/");
+				.logoutSuccessUrl("/");
 
-http.oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt);
+		http.oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt);
 
-return http.build();
+		return http.build();
 
-}
+	}
+	
+	@Bean
+	public Keycloak keycloak() {
+		return KeycloakBuilder.builder()
+				.serverUrl("http://localhost:8080/realms/InventoryManagementSystem")
+				.realm("InventoryManagementSystem")
+				.clientId("Keycloak-SpringBoot")
+				.build();
+	}
 
 }
