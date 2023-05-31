@@ -4,6 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.web.client.RestTemplate;
 
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
@@ -26,5 +27,10 @@ public class PatientAppApplication {
                 .termsOfService("Terms of Service")
                 );
     }
+	
+	@Bean 
+	public RestTemplate restTemplate()
+	{ return new RestTemplate(); }
+
 
 }

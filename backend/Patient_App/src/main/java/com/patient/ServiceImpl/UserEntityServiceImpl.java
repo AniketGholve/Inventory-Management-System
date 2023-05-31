@@ -23,8 +23,8 @@ public class UserEntityServiceImpl implements UserEntityService {
 	@Autowired
 	private UserEntityRepo userEntityRepo;
 	
-	@Autowired
-	private PasswordEncoder passwordEncoder;
+//	@Autowired
+//	private PasswordEncoder passwordEncoder;
 
 	@Override
 	public UserEntity findByCustomUsername(String username) {
@@ -43,7 +43,8 @@ public class UserEntityServiceImpl implements UserEntityService {
 		String arr[] = { "CLP", "ELP", "ALP", "MLP" };
 		boolean result = Arrays.asList(arr).contains(role);
 		if (result) {
-			userEntity.setPassword(passwordEncoder.encode(userEntity.getPassword()));
+			//userEntity.setPassword(passwordEncoder.encode(userEntity.getPassword()));
+			userEntity.setPassword(userEntity.getPassword());
 			userEntity.setActive(true);
 			userEntity.setDeleted(false);
 			userEntityRepo.save(userEntity);
@@ -76,7 +77,9 @@ public class UserEntityServiceImpl implements UserEntityService {
 			u.setPhoneNo(userEntity.getPhoneNo());
 		}
 		if (userEntity.getPassword() != null) {
-			u.setPassword(passwordEncoder.encode(userEntity.getPassword()));
+//			u.setPassword(passwordEncoder.encode(userEntity.getPassword()));
+			u.setPassword(userEntity.getPassword());
+
 		}
 		if (userEntity.getUsername() != null) {
 			u.setUsername(userEntity.getUsername());

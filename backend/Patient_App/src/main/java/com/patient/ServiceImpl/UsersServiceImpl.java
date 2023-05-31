@@ -16,8 +16,8 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
 @Service
 public class UsersServiceImpl implements UsersService {
-	@Autowired
-	private PasswordEncoder passwordEncoder;
+//	@Autowired
+//	private PasswordEncoder passwordEncoder;
 	@Autowired
 	private EntityManager entityManager;
 	
@@ -42,7 +42,9 @@ public class UsersServiceImpl implements UsersService {
 		users.setTokenExpiryTime(null);
 		users.setLastLogin(null);
 		users.setSrcId(null);
-		users.setPassword(passwordEncoder.encode(users.getPassword()));
+//		users.setPassword(passwordEncoder.encode(users.getPassword()));
+		users.setPassword(users.getPassword());
+
 		Users u=usersRepo.save(users);
 		return u;
 			 

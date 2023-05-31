@@ -2,6 +2,7 @@ package com.patient.controller;
 
 import java.util.Arrays;
 
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,9 +38,9 @@ public class UserController {
 	
 	@Autowired
 	private UserEntityServiceImpl userEntityServiceImpl;
-
-	@Autowired
-	private PasswordEncoder passwordEncoder;
+//
+//	@Autowired
+//	private PasswordEncoder passwordEncoder;
 
 	@Autowired
 	private OrdersRepository Orepo;
