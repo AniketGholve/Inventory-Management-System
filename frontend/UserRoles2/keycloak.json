@@ -1,0 +1,9 @@
+{
+    "realm": "InventoryManagementSystem",
+    "auth-server-url": "http://localhost:8080/",
+    "ssl-required": "external",
+    "resource": "Keycloak-SpringBoot",
+    "public-client": true,
+    "confidential-port": 0
+  }
+  

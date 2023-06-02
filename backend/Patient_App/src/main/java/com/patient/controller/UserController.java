@@ -38,7 +38,6 @@ public class UserController {
 	
 	@Autowired
 	private UserEntityServiceImpl userEntityServiceImpl;
-//
 //	@Autowired
 //	private PasswordEncoder passwordEncoder;
 
@@ -49,6 +48,7 @@ public class UserController {
 	@PostMapping("/addUser")
 	public ResponseEntity<UserEntity> addUser(@RequestBody UserEntity userEntity) 
 	{
+		System.out.println("lkjhgfdsasdfghjkl;");
 		userEntityServiceImpl.addUser(userEntity);
 		return new ResponseEntity<UserEntity>(HttpStatus.CREATED);
 	}

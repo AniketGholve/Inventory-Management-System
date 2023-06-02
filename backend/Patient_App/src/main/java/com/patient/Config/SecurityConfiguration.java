@@ -63,15 +63,18 @@
 ////		provider.setPasswordEncoder(passwordEncoder());
 ////		return provider;
 ////	}
+
 //
 //	@Bean
 //	public PasswordEncoder passwordEncoder() {
 //		return new BCryptPasswordEncoder();
 //	}
 //
+
 ////	@Bean
 ////	public AuthenticationManager authenticationManagerBean(AuthenticationConfiguration configuration) throws Exception {
 ////		return configuration.getAuthenticationManager();
 ////	}
+
 //
 //}

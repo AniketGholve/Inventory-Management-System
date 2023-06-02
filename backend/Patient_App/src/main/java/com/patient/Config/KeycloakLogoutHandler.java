@@ -46,5 +46,4 @@ public class KeycloakLogoutHandler implements LogoutHandler {
             logger.error("Could not propagate logout to Keycloak");
         }
     }
-
 }

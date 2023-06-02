@@ -1,12 +1,19 @@
 package com.patient.ServiceImpl;
 
 import java.util.Arrays;
+import java.util.Collections;
 
+import org.apache.http.auth.Credentials;
+import org.keycloak.admin.client.Keycloak;
+import org.keycloak.admin.client.resource.UsersResource;
+import org.keycloak.representations.idm.CredentialRepresentation;
+import org.keycloak.representations.idm.RoleRepresentation;
+import org.keycloak.representations.idm.UserRepresentation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+//import com.patient.Config.Credentials;
+//import com.patient.Config.KeycloakConfig;
 import com.patient.Entity.UserEntity;
 import com.patient.Repo.UserEntityRepo;
 import com.patient.Service.UserEntityService;
@@ -25,6 +32,20 @@ public class UserEntityServiceImpl implements UserEntityService {
 	
 //	@Autowired
 //	private PasswordEncoder passwordEncoder;
+	
+//	@Autowired
+//	private KeycloakConfig keycloakConfig;
+	@Autowired
+	private Keycloak keycloak;
+
+	
+		
+//	@Autowired
+//	public UserEntityServiceImpl(Keycloak keycloak) {
+//		this.keycloak=keycloak;
+//	}
+//	
+	
 
 	@Override
 	public UserEntity findByCustomUsername(String username) {
@@ -44,11 +65,70 @@ public class UserEntityServiceImpl implements UserEntityService {
 		boolean result = Arrays.asList(arr).contains(role);
 		if (result) {
 			//userEntity.setPassword(passwordEncoder.encode(userEntity.getPassword()));
+			System.out.println("lkjhg");
 			userEntity.setPassword(userEntity.getPassword());
+			System.out.println("lkjhg");
 			userEntity.setActive(true);
 			userEntity.setDeleted(false);
+			System.out.println("lkjhg");
 			userEntityRepo.save(userEntity);
+			System.out.println("kjhg99fd");
+
+			
+			
+			//System.out.println(keycloak.realm("Inventory_Management").getRealmEventsConfig());
+//			List<UserRepresentation> users = keycloak.realm("Inventory_Management_New")
+//				      .users()
+//				      .searchByUsername("ajay", false);
+//			for(UserRepresentation u:users)
+//			{
+//				System.out.println(u.getEmail());
+//			}
+
+//			System.out.println(keycloak.toString());
+			//create user in keycloak
+			String password = userEntity.getPassword();
+			UserRepresentation userRepresentation = new UserRepresentation();
+			userRepresentation.setUsername(userEntity.getUsername());
+			//Response response = keycloak.realm(password)
+
+			CredentialRepresentation credential = new CredentialRepresentation();
+			credential.setType(CredentialRepresentation.PASSWORD);
+			credential.setValue(password);
+			credential.setTemporary(false);
+			userRepresentation.setCredentials(Arrays.asList(credential));
+			userRepresentation.setEnabled(true);
+			
+			System.out.println("09876543");
+			
+			keycloak.realm("Inventory_Management_New").users().create(userRepresentation);
+			
+			//Response response = keycloak.realm("Inventory_Management_New").realmResource.users().create(userRepresentation);
+
+
+//			keycloak.realm("Inventory_Management_New").users().create(userRepresentation);		
+//			RoleRepresentation roleRepresentation = keycloak.realm("Inventory_Management_New").roles().get(role).toRepresentation();
+//			System.out.println("mnbvcx");
+//			keycloak.realm("Inventory_Management_New").users().get(userRepresentation.getUsername()).roles().realmLevel().add(Arrays.asList(roleRepresentation));
+//			System.out.println("----------");
+//			keycloak.realm("Inventory_Management_New").users().create(userRepresentation);
+			//-------==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+//			CredentialRepresentation credential = Credentials
+//		            .createPasswordCredentials(userEntity.getPassword());
+//		    UserRepresentation user = new UserRepresentation();
+//		    user.setUsername(userEntity.getUsername());
+//		    user.setFirstName(userEntity.getFirstName());
+//		    user.setLastName(userEntity.getLastName());
+//		    user.setCredentials(Collections.singletonList(credential));
+//		    user.setEnabled(true);
+
+//		    UsersResource instance =  keycloakConfig.getInstance();
+//		    instance.create(user);
+
+			
 			return 1;
+			
+			
 		}
 		return -1;
 		
