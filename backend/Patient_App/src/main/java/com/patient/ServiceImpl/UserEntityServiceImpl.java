@@ -2,14 +2,18 @@ package com.patient.ServiceImpl;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 
 import org.apache.http.auth.Credentials;
 import org.keycloak.admin.client.Keycloak;
+import org.keycloak.admin.client.resource.RealmResource;
+import org.keycloak.admin.client.resource.UserResource;
 import org.keycloak.admin.client.resource.UsersResource;
 import org.keycloak.representations.idm.CredentialRepresentation;
 import org.keycloak.representations.idm.RoleRepresentation;
 import org.keycloak.representations.idm.UserRepresentation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 //import com.patient.Config.Credentials;
@@ -30,8 +34,8 @@ public class UserEntityServiceImpl implements UserEntityService {
 	@Autowired
 	private UserEntityRepo userEntityRepo;
 	
-//	@Autowired
-//	private PasswordEncoder passwordEncoder;
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 	
 //	@Autowired
 //	private KeycloakConfig keycloakConfig;
@@ -61,10 +65,11 @@ public class UserEntityServiceImpl implements UserEntityService {
 		// TODO Auto-generated method stub
 		System.out.println(userEntity.toString());
 		String role = userEntity.getRole();
+		String password = userEntity.getPassword();
 		String arr[] = { "CLP", "ELP", "ALP", "MLP" };
 		boolean result = Arrays.asList(arr).contains(role);
 		if (result) {
-			//userEntity.setPassword(passwordEncoder.encode(userEntity.getPassword()));
+			userEntity.setPassword(passwordEncoder.encode(userEntity.getPassword()));
 			System.out.println("lkjhg");
 			userEntity.setPassword(userEntity.getPassword());
 			System.out.println("lkjhg");
@@ -87,7 +92,6 @@ public class UserEntityServiceImpl implements UserEntityService {
 
 //			System.out.println(keycloak.toString());
 			//create user in keycloak
-			String password = userEntity.getPassword();
 			UserRepresentation userRepresentation = new UserRepresentation();
 			userRepresentation.setUsername(userEntity.getUsername());
 			//Response response = keycloak.realm(password)
@@ -101,8 +105,14 @@ public class UserEntityServiceImpl implements UserEntityService {
 			
 			System.out.println("09876543");
 			
-			keycloak.realm("Inventory_Management_New").users().create(userRepresentation);
+			keycloak.realm("InventoryManagementSystem").users().create(userRepresentation);
 			
+			RealmResource realmResource = keycloak.realm("InventoryManagementSystem");
+			UsersResource usersResource = realmResource.users();
+			List<UserRepresentation> users = usersResource.search(userEntity.getUsername());
+			UserResource userResource = usersResource.get(users.get(0).getId());
+			RoleRepresentation roleRepresentation = realmResource.roles().get(role).toRepresentation();
+			userResource.roles().realmLevel().add(Collections.singletonList(roleRepresentation));
 			//Response response = keycloak.realm("Inventory_Management_New").realmResource.users().create(userRepresentation);
 
 
