@@ -69,6 +69,13 @@ public class InventoryController {
 		return new ResponseEntity<List<Inventory>>(inventoryList,HttpStatus.OK);
 	}
 	
+	@GetMapping("/getTransitDoses/{product_id}/{location_id}")
+	public List<Serial> getTransitDoses(@PathVariable Integer product_id,@PathVariable Integer location_id)
+	{
+		List<Serial> list = inventoryServiceImpl.getTransitDoses(product_id,location_id);
+		return list;
+	}
+	
 	
 	
 

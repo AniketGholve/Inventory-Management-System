@@ -3,18 +3,37 @@ package com.patient.Entity;
 import java.sql.Date;
 
 public class LastInjectionScreen {
-	 
+	
+	private int id;
 	private String patientName;
 	private String patientLastName;
 	private Date patientDOB;
 	private Date CreatedOn;
 	private String productname;
 	private String lastInjection;
+	private Boolean flag;
 	
+	public Boolean getFlag() {
+		return flag;
+	}
+
+	public void setFlag(Boolean flag) {
+		this.flag = flag;
+	}
+
 	public LastInjectionScreen() {}
 
 	public String getPatientName() {
 		return patientName;
+	}
+	
+	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public void setPatientName(String patientName) {
@@ -68,16 +87,22 @@ public class LastInjectionScreen {
 				+ ", lastInjection=" + lastInjection + "]";
 	}
 
-	public LastInjectionScreen(String patientName, String patientLastName, Date patientDOB, Date createdOn,
-			String productname, String lastInjection) {
+	public LastInjectionScreen(int id, String patientName, String patientLastName, Date patientDOB, Date createdOn,
+			String productname, String lastInjection, Boolean flag) {
 		super();
+		this.id = id;
 		this.patientName = patientName;
 		this.patientLastName = patientLastName;
 		this.patientDOB = patientDOB;
-		CreatedOn = createdOn;
+		this.CreatedOn = createdOn;
 		this.productname = productname;
 		this.lastInjection = lastInjection;
+		this.flag = flag;
 	}
+
+	
+
+	
 
 	
 	

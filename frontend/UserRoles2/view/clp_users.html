@@ -6,8 +6,13 @@
     <!-- <div>Please Select a Clinic </div> -->
     <div class="isDisabled">
         <h1 class="text-center">Patients</h1>
+        <div class="patinetInjectionHeading">
+            <h2>{{dispenseShow.length}} Patients Due for next Injection in 7 Days </h2>
+            <a href="#!injectionIn30">View all patients due for injection in next 30 days</a>
+        </div>
         <div class="d-flex container mt-4 ">
             <div class="container shadow w-100 row m-3 " ng-repeat="x in dispenseShow">
+                <p class="w-100 text-center bg-danger" ng-if="x.flag==false"> Overdue</p>
                 <h3 class="mt-2" style="font-size:25px;">{{x.patientLastName}} , {{x.patientName}} {{x.patientDOB}} </h3>
                 <div class="d-flex mt-3 mb-3">
                     <div class="col-3">
@@ -46,11 +51,6 @@
             </form>
         </div>
         <br>
-        <div class="text-center mt-2">
-            <a class="btn btn-info" href="#!/insertPatient">Add Patient</a>
-
-        </div>
-        <br>
         <div class="container d-flex justify-content-center mt-3">
             <table id="patientDetailsTable" class=" table table-striped text-center">
                 <thead class="thead">
@@ -59,10 +59,12 @@
                         <th class="px-3">Patient Id</th>
                         <th class="px-3">First Name</th>
                         <th class="px-3">Last Name</th>
-                        <th class="px-3">Middle Name</th>
                         <th class="px-3">Date Of Birth</th>
                         <th class="px-3">Patient Status</th>
-                        <th class="px-3">Clinic Name</th>
+                        <th class="px-3">Last Dispense</th>
+                        <th class="px-3">Dose</th>
+                        <th class="px-3">Days Since Last Dispense</th>
+                        <th class="px-3">Overdue</th>
                         <th class="px-3">Actions</th>
                     </tr>
                 </thead>
@@ -77,16 +79,22 @@
                         {{ x.patientLastName }}
                     </td>
                     <td class="px-3">
-                        {{ x.patientMiddleName }}
-                    </td>
-                    <td class="px-3">
                         {{ x.patientDob}}
                     </td>
                     <td class="px-3">
                         {{ x.patientStatus}}
                     </td>
                     <td class="px-3">
-                        {{ x.clinicName}}
+                        {{ x.lastDispense}}
+                    </td>
+                    <td class="px-3">
+                        {{ x.dose}}
+                    </td>
+                    <td class="px-3">
+                        {{ x.daysAfterLastInjection}}
+                    </td>
+                    <td class="px-3">
+                        <p ng-if="x.overDue==true" class="overdue">Overdue</p>
                     </td>
                     <td><a href="#!updatePatient/{{x.patientId}}">Edit</a>&nbsp &nbsp<a href=""
                             ng-click="deleteById(x.id)" onclick="reloadWindow()">Delete</a></td>

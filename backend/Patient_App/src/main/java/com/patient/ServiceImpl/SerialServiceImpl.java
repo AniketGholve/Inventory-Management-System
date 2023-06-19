@@ -1,14 +1,24 @@
 package com.patient.ServiceImpl;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.patient.Entity.Clinic;
 import com.patient.Entity.OrderEvents;
 import com.patient.Entity.Product;
 import com.patient.Entity.Serial;
+import com.patient.Entity.SerialEventDesc;
+import com.patient.Repo.ClinicRepo;
+import com.patient.Repo.ProductRepo;
 import com.patient.Repo.SerialRepo;
+import com.patient.Service.EmailSenderService;
 import com.patient.Service.SerialService;
 
 import jakarta.persistence.EntityManager;
@@ -23,6 +33,15 @@ public class SerialServiceImpl implements SerialService{
 	
 	@Autowired
 	private EntityManager entityManager;
+	
+	@Autowired
+	private ClinicRepo clinicRepo;
+	
+	@Autowired
+	private ProductRepo productRepo;
+	
+	@Autowired
+	private EmailSenderService mailSender;
 
 	@Transactional
 	public Serial createSerial(Serial serial) {
@@ -72,7 +91,7 @@ public class SerialServiceImpl implements SerialService{
 	
 	@Transactional
 	@Override
-	public String changeSerialStatus(Integer serialId, Integer locationId,Integer patientSpecific) {
+	public String changeSerialStatus(Integer serialId, Integer locationId,Integer patientSpecific,String UserMail) {
 		// TODO Auto-generated method stub
 		System.out.println(serialId);
 		System.out.println(locationId);
@@ -95,6 +114,31 @@ public class SerialServiceImpl implements SerialService{
 		q2.setParameter(4, locationId);
 		System.out.println("patientSpecufic:"+patientSpecific);
 		q2.executeUpdate();
+		
+		Serial s = serialRepo.findById(serialId).orElseThrow();
+		Integer serialNo = s.getSerialNumber();
+		Integer productId = s.getProductId();
+		Integer lot = s.getLot();
+		Date expiryDate = s.getExpiryDate();
+		
+		Clinic c = clinicRepo.findById(locationId).orElseThrow();
+		String clinicName = c.getName();
+		
+		Product p = productRepo.findById(productId).orElseThrow();
+		String productName = p.getProductName();
+		String gtin = p.getGtin();
+		
+		mailSender.sendAddtoInventoryMail(UserMail, serialNo, clinicName, productName,expiryDate,lot,gtin);
+		
+		LocalDate d = LocalDate.now();
+		Query q3 = entityManager.createNativeQuery("INSERT INTO serial_event_desc (`serial_id`, `serial_number`, `event_date`, `status`, `product_id`) VALUES (?, ?, ?, ?, ?)");
+		q3.setParameter(1, serialId);
+		q3.setParameter(2, serialNo);
+		q3.setParameter(3, d);
+		q3.setParameter(4, "Received");
+		q3.setParameter(5, productId);
+		q3.executeUpdate();
+		
 		return "Status Changed to Recieved";
 	}
 
@@ -139,6 +183,87 @@ public class SerialServiceImpl implements SerialService{
 	public Product getDoseName(Integer productId) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	@Transactional
+	@Override
+	public void transferDose(int serialNo,int gettingLocationId) {
+		// TODO Auto-generated method stub
+		Serial s = serialRepo.findBySerialNumber(serialNo);
+		System.out.println(s.toString());
+//		if(s.getSerialStatus()=="Received") {
+		int givingLocationId = s.getLocationId();
+		int productId = s.getProductId();
+		
+		//decreasing product from onhand
+		Query q = entityManager.createNativeQuery("select on_hand from Inventory where location_id=? and product_id=?");
+		q.setParameter(1, givingLocationId);
+		q.setParameter(2, productId);
+		int onHand = (int)q.getSingleResult();
+		Query q1 = entityManager.createNativeQuery("update Inventory set on_hand=? where location_id=? and product_id=?");
+		q1.setParameter(1,onHand-1);
+		q1.setParameter(2, givingLocationId);
+		q1.setParameter(3, productId);
+		q1.executeUpdate();
+		
+		//increasing product from onhand
+		Query q2 = entityManager.createNativeQuery("select on_hand from Inventory where location_id=? and product_id=?");
+		q2.setParameter(1, gettingLocationId);
+		q2.setParameter(2, productId);
+		int onHand2 = (int)q2.getSingleResult();
+		Query q3 = entityManager.createNativeQuery("update Inventory set on_hand=? where location_id=? and product_id=?");
+		q3.setParameter(1,onHand2+1);
+		q3.setParameter(2, gettingLocationId);
+		q3.setParameter(3, productId);
+		q3.executeUpdate();
+		
+		Query q4 = entityManager.createNativeQuery("select transit_doses from Inventory where location_id=? and product_id=?");
+		q4.setParameter(1, gettingLocationId);
+		q4.setParameter(2, productId);
+		int transitdoses = (int)q4.getSingleResult();
+		Query q5 = entityManager.createNativeQuery("update Inventory set transit_doses=? where location_id=? and product_id=?");
+		q5.setParameter(1,transitdoses+1);
+		q5.setParameter(2, gettingLocationId);
+		q5.setParameter(3, productId);
+		q5.executeUpdate();
+		Query q6 = entityManager.createNativeQuery("update Serial s set transited_dose=? where location_id=? and product_id=? and serial_number=?");
+		q6.setParameter(1, 1);
+		q6.setParameter(2, gettingLocationId);
+		q6.setParameter(3, productId);
+		q6.setParameter(4, serialNo);
+		q6.executeUpdate();
+		
+		s.setLocationId(gettingLocationId);
+		serialRepo.save(s);	
+//	}
+	}
+
+	@Override
+	public List<Serial> getSerialReceivedByLocationId(Integer locationId) {
+		Query q=entityManager.createQuery("select s from Serial s where s.locationId=:u and s.serialStatus=:v");
+		q.setParameter("u", locationId);
+		q.setParameter("v", "Received");
+		List<Object[]> list = new ArrayList<>();
+		List<Serial> serialList = q.getResultList();
+		List<Serial> result = new ArrayList<>();
+		for(Serial s : serialList) {
+			int productId = s.getProductId();
+			Product p = productRepo.findById(productId).orElseThrow();
+			s.setProductName(p.getProductName());
+			result.add(s);
+		}
+		return result;
+	}
+
+	@Override
+	public Serial getSerialDetailsBySerialNo(int serialNo) {
+		// TODO Auto-generated method stub
+		Serial s = serialRepo.findBySerialNumber(serialNo);
+		Query q = entityManager.createNativeQuery("select * from serialEventDesc where serial_number=?");
+		q.setParameter(1, serialNo);
+		SerialEventDesc se = (SerialEventDesc)q.getSingleResult();
+		s.setSerialEventDesc(se);
+		return s;
 	}
 	
 	

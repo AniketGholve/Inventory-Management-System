@@ -37,11 +37,21 @@ public class Inventory {
 	private Date modifiedOn;
 	@Column(name="expired")
 	private Integer expiredQty;
+	@Column(name="transit_doses")
+	private Integer transitDoses;
 	
 	@Transient
 	private String productName;
 
 	
+	public Integer getTransitDoses() {
+		return transitDoses;
+	}
+
+	public void setTransitDoses(Integer transitDoses) {
+		this.transitDoses = transitDoses;
+	}
+
 	public Integer getInventoryId() {
 		return inventoryId;
 	}
@@ -149,7 +159,7 @@ public class Inventory {
 
 	public Inventory(Integer inventoryId, Integer enterpriseId, String initial, Integer locationId, Integer onHand,
 			Integer orderedQty, Date overDue, Integer productId, Date createdOn, Date modifiedOn, Integer expiredQty,
-			String productName) {
+			Integer transitDoses,String productName) {
 		super();
 		this.inventoryId = inventoryId;
 		this.enterpriseId = enterpriseId;
@@ -162,6 +172,7 @@ public class Inventory {
 		this.createdOn = createdOn;
 		this.modifiedOn = modifiedOn;
 		this.expiredQty = expiredQty;
+		this.transitDoses = transitDoses;
 		this.productName = productName;
 	}
 

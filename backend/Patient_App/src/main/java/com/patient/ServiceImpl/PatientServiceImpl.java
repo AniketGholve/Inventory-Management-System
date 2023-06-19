@@ -1,6 +1,9 @@
 package com.patient.ServiceImpl;
 
 import java.sql.Date;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -96,7 +99,8 @@ public class PatientServiceImpl implements PatientService {
 	@Override
 	public List<Patient> getPatientByLocationId(Integer clinicLocationId) {
 		// TODO Auto-generated method stub
-		Query q=entityManager.createQuery("select p.patientId,p.patientFirstName,p.patientLastName,p.patientMiddleName,p.patientDob,p.patientStatus,c.name,p.patientEnterpriseId,p.id from Patient p inner join Clinic c on p.patientLocationId=c.locationId where p.patientLocationId=:u" );
+		Query q=entityManager.createQuery("select p.patientId,p.patientFirstName,p.patientLastName,p.patientMiddleName,p.patientDob,p.patientStatus,c.name,p.patientEnterpriseId,p.id,d.createdOn,pr.productName,STR_TO_DATE(d.nextInjection, '%Y-%m-%d') as nextInjection from Patient p inner join Clinic c on p.patientLocationId=c.locationId inner join DispenseToPatient d on d.patientId = p.Id inner join Product pr on d.productId = pr.productId where p.patientLocationId=:u group by p.patientFirstName" );
+//		Last Dispense Date, Days since last injection(dispensetoPatient), Dose name & Alerts in the Patients list.
 		q.setParameter("u", clinicLocationId);
 		List<Object[]> l=q.getResultList();
 		List<Patient> resultList=new ArrayList<>();
@@ -112,6 +116,24 @@ public class PatientServiceImpl implements PatientService {
 			p.setClinicName((String)o[6]);
 			p.setPatientEnterpriseId((Integer)o[7]);
 			p.setId((Integer)o[8]);
+			p.setLastDispense((Date)o[9]);
+			p.setDose((String)o[10]);
+			
+			LocalDate today = LocalDate.now();
+			Date lastInjection = (Date)o[9];
+			LocalDate lj = lastInjection.toLocalDate();
+			int days = (int) ChronoUnit.DAYS.between(lj, today);
+			p.setDaysAfterLastInjection(days);
+			
+			Date nextInjection = (Date)o[11];
+			LocalDate nj = nextInjection.toLocalDate();
+			if(today.isAfter(nj)) {
+				p.setOverDue(true);
+			}
+			else {
+				p.setOverDue(false);
+			}
+			
 			resultList.add(p);
 		}
 		return resultList;

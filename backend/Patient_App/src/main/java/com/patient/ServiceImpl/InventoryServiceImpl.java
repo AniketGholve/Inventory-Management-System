@@ -164,7 +164,7 @@ public class InventoryServiceImpl implements InventoryService {
 	
 	public  List<Inventory> getInventoryByClinic(Integer clinicLocationId)
 	{
-		Query q=entityManager.createNativeQuery("select i.product_id,p.product_name,i.expired,i.on_hand from inventory i inner join product p on i.product_id=p.product_id where i.location_id=?");
+		Query q=entityManager.createNativeQuery("select i.product_id,p.product_name,i.expired,i.on_hand,i.transit_doses from inventory i inner join product p on i.product_id=p.product_id where i.location_id=?");
 		q.setParameter(1, clinicLocationId);
 		List<Object[]> l=q.getResultList();	
 		List<Inventory> resultList=new ArrayList<>();
@@ -175,6 +175,7 @@ public class InventoryServiceImpl implements InventoryService {
 			i.setProductName(result[1]==null?null:(String) result[1]);
 			i.setExpiredQty(result[2]==null?null:(Integer) result[2]);
 			i.setOnHand(result[3]==null?null:(Integer) result[3]);
+			i.setTransitDoses((Integer)result[4]);
 			resultList.add(i);
 			
 		}
@@ -185,7 +186,7 @@ public class InventoryServiceImpl implements InventoryService {
 	@Override
 	@Transactional
 	//@Scheduled(cron = "0 10 20 * * MON-FRI") //cron = "0 10 20 * * MON-FRI"
-	@Scheduled(fixedRate = 86400000)
+//	@Scheduled(fixedRate = 86400000)
 	public void AutoOrder() 
 	{	
 		List<Clinic> clinicList=clinicRepo.findAll();
@@ -322,13 +323,54 @@ public class InventoryServiceImpl implements InventoryService {
 
 		}
 		
-//	public void AutoOrder() {
-//		// TODO Auto-generated method stub
-//		
-//	}
-
-
 	
 }
+
+
+	@Override
+	public List<Serial> getTransitDoses(int productId, int locationId) {
+		// TODO Auto-generated method stub
+		Query q=entityManager.createNativeQuery("select * from serial s where s.product_id=? and s.serial_Status=? and s.location_id=? and s.transited_dose=?");
+		q.setParameter(1, productId);
+		q.setParameter(2, "Received");
+		q.setParameter(3,locationId);
+		q.setParameter(4, true);
+		List<Object[]> l=q.getResultList();
+		List<Serial> resultList=new ArrayList<>();
+		
+		Query q1 = entityManager.createNativeQuery("select c.name from clinic c where c.location_id =?");
+		q1.setParameter(1, locationId);
+		String clinicName = (String)q1.getSingleResult();
+		
+		Query q2 = entityManager.createNativeQuery("select e.name from enterprises e inner join clinic c on e.enterprise_id=c.enterprise_id where c.location_id =?");
+		q2.setParameter(1, locationId);
+		String enterpriseName = (String)q2.getSingleResult();
+		
+		for (Object[] o:l)
+		{
+			Serial s=new Serial();
+			s.setSerialId((Integer) o[0]);
+			s.setCreatedOn((Date) o[1]);
+			s.setEnterpriseId((Integer) o[2]);
+			s.setExpiryDate((Date) o[3]);
+			s.setLocationId((Integer) o[4]);
+			s.setLot((Integer) o[5]);
+			s.setNdc((Integer) o[6]);
+			s.setProductId((Integer) o[7]);
+			s.setSerialNumber((Integer) o[8]);
+			s.setSerialStatus((String) o[9]);
+			s.setSrcId((Integer) o[10]);
+			s.setPatientSpecific((Integer) o[11]);
+			s.setClinicName(clinicName);
+			s.setEnterpriseName(enterpriseName);
+			s.setTransitedDose((Boolean)o[12]);
+			resultList.add(s);
+			
+			
+		}
+		
+		//System.out.println(l.toString());
+		return resultList;
+	}
 }
 

@@ -110,7 +110,7 @@ public class OrderEventsServiceImpl implements OrderEventsService {
 					s.setLocationId(oe.getLocationId());
 					s.setEnterpriseId(oe.getEnterpriseId());
 					s.setProductId(oe.getProductId());
-					s.setSerialStatus("Comissioned");
+					s.setSerialStatus("Processed");
 					s.setSerialNumber(k+200000);
 					s.setLot(k+11111);
 					s.setNdc(k+111);

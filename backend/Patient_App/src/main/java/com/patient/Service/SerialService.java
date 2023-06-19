@@ -17,7 +17,7 @@ public interface SerialService {
 	public Serial getSerialBySerialNo(Integer serialNo,Integer locationId);
 	
 	
-	public String changeSerialStatus(Integer serialId,Integer locationId,Integer patientSpecific);
+	public String changeSerialStatus(Integer serialId,Integer locationId,Integer patientSpecific,String UserMail);
 	
 
 	
@@ -27,4 +27,10 @@ public interface SerialService {
 	public OrderEvents getQuantity(Integer productId,Integer locationId);
 	
 	public List<Serial> getSerialShipped(Integer locationId,Integer serialNo);
+	
+	public void transferDose(int serialNo,int gettingLocationId);
+	
+	public List<Serial> getSerialReceivedByLocationId(Integer locationId);
+	
+	public Serial getSerialDetailsBySerialNo(int serialNo);
 }
