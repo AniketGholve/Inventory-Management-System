@@ -79,5 +79,11 @@ public class SerialController {
 		return list;
 	}
 	
+	@GetMapping("/getSerialDetailsBySerialNo/{serialNo}")
+	public Serial getSerialDetailsBySerialNo(@PathVariable int serialNo) {
+		Serial s = serialServiceImpl.getSerialDetailsBySerialNo(serialNo);
+		return s;
+	}
+	
 
 }

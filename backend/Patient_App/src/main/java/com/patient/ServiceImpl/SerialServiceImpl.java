@@ -1,5 +1,7 @@
 package com.patient.ServiceImpl;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -130,11 +132,14 @@ public class SerialServiceImpl implements SerialService{
 		
 		mailSender.sendAddtoInventoryMail(UserMail, serialNo, clinicName, productName,expiryDate,lot,gtin);
 		
-		LocalDate d = LocalDate.now();
+		long m= System.currentTimeMillis();
+		Date dat = new Date(m);
+		Timestamp time = new Timestamp(m);
+		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
 		Query q3 = entityManager.createNativeQuery("INSERT INTO serial_event_desc (`serial_id`, `serial_number`, `event_date`, `status`, `product_id`) VALUES (?, ?, ?, ?, ?)");
 		q3.setParameter(1, serialId);
 		q3.setParameter(2, serialNo);
-		q3.setParameter(3, d);
+		q3.setParameter(3, time);
 		q3.setParameter(4, "Received");
 		q3.setParameter(5, productId);
 		q3.executeUpdate();
@@ -259,10 +264,12 @@ public class SerialServiceImpl implements SerialService{
 	public Serial getSerialDetailsBySerialNo(int serialNo) {
 		// TODO Auto-generated method stub
 		Serial s = serialRepo.findBySerialNumber(serialNo);
-		Query q = entityManager.createNativeQuery("select * from serialEventDesc where serial_number=?");
-		q.setParameter(1, serialNo);
-		SerialEventDesc se = (SerialEventDesc)q.getSingleResult();
+		Product p = productRepo.findById(s.getProductId()).orElseThrow();
+		Query q = entityManager.createQuery("select s from SerialEventDesc s where s.serialNumber=:u");
+		q.setParameter("u", serialNo);
+		List<SerialEventDesc> se = (List<SerialEventDesc>)q.getResultList();
 		s.setSerialEventDesc(se);
+		s.setProductName(p.getProductName());
 		return s;
 	}
 	

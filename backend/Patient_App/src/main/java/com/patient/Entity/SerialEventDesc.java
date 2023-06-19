@@ -27,6 +27,7 @@ public class SerialEventDesc {
 	@Column(name="event_date")
 	private Date eventDate;
 	
+
 	public SerialEventDesc() {}
 
 	public Integer getSerialEventId() {
