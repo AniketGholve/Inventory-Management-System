@@ -1,11 +1,11 @@
 function reloadWindow() {
     location.reload();
-    var lnk = document.getElementById("themeChange");
-    if (lnk.getAttribute("href") === "css/themecss.css") {
-        themeIcon.setAttribute("class", "fa-sharp fa-solid fa-moon")
-    } else if (lnk.getAttribute("href") === "css/logincss.css") {
-        themeIcon.setAttribute("class", "fa-sharp fa-solid fa-sun")
-    }
+    // var lnk = document.getElementById("themeChange");
+    // if (lnk.getAttribute("href") === "css/themecss.css") {
+    //     themeIcon.setAttribute("class", "fa-sharp fa-solid fa-moon")
+    // } else if (lnk.getAttribute("href") === "css/logincss.css") {
+    //     themeIcon.setAttribute("class", "fa-sharp fa-solid fa-sun")
+    // }
 }
 theme = () => {
     var lnk = document.getElementById("themeChange");
@@ -51,20 +51,20 @@ function initKeycloak() {
         alert('failed to initialize');
     });
 }
-app.factory('myInterceptor', function ($q) {
-    var interceptor = {
-        responseError: function (rejection) {
-            if (rejection.status === 401) {
-                sessionStorage.removeItem("token")
-                sessionStorage.removeItem("locationId")
-                sessionStorage.removeItem("username")
-                window.location.href = 'http://localhost:8080/';
-                console.log("Unauthorized To access the page");
-            }
-        }
-    };
-    return interceptor;
-});
+// app.factory('myInterceptor', function ($q) {
+    // var interceptor = {
+    //     responseError: function (rejection) {
+    //         if (rejection.status === 401) {
+    //             sessionStorage.removeItem("token")
+    //             sessionStorage.removeItem("locationId")
+    //             sessionStorage.removeItem("username")
+    //             window.location.href = 'http://localhost:8080/';
+    //             console.log("Unauthorized To access the page");
+    //         }
+    //     }
+    // };
+    // return interceptor;
+// });
 
 app.controller("headerController", ($scope, $http, $location) => {
     var path = $location.path();
@@ -357,7 +357,7 @@ app.config(function ($routeProvider, $httpProvider) {
             {
                 templateUrl: "view/serialInfo.html"
             });
-    $httpProvider.interceptors.push('myInterceptor');
+    // $httpProvider.interceptors.push('myInterceptor');
 
 });
 
@@ -431,7 +431,6 @@ app.controller("clp", function ($scope, $http, $window, $location) {
         $scope.dispenseNurseData = {};
         $scope.dispenseNurseData.firstName = x.firstName;
         $scope.dispenseNurseData.lastName = x.lastName;
-
 
 
     }
@@ -1317,6 +1316,37 @@ app.controller("clp", function ($scope, $http, $window, $location) {
         });
 
     }
+
+    $scope.serialDetailsClp= () => {
+
+    $http({
+
+        method: 'GET',
+
+        url: "http://localhost:7890/getSerialDetailsBySerialNo/" + $scope.serialNumber,
+
+        headers: {
+
+            'Content-Type': 'application/json',
+
+            'Authorization': sessionStorage.getItem("token")
+
+        }
+
+    }).then((response) => {
+
+        console.log("Serialdetails");
+        $scope.serialDetails=response.data;
+        console.log(response.data);
+
+    }, (error) => {
+
+        console.log(error);
+
+    });
+    }
+
+
 
 
 

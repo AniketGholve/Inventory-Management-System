@@ -1,6 +1,7 @@
 package com.patient.ServiceImpl;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -86,7 +87,7 @@ public class DispenceToPatientServiceImpl implements DispenceToPatientService{
 		return s;
 	}	
 	
-
+	@Transactional
 	@Override
 	public DispenseToPatient createDispence(DispenseToPatient dispenceToPatient,String UserName) {
 		
@@ -122,14 +123,21 @@ public class DispenceToPatientServiceImpl implements DispenceToPatientService{
 				String patientName = pa.getPatientFirstName();
 				
 				Serial s = serialRepo.findById(d.getSerialId()).orElseThrow();
+				s.setSerialStatus("Dispensed");
+				serialRepo.save(s);
 				
 				System.out.println("Mail");
 				emailsenderservice.sendDespenseMail(UserName, clinicName, patientName, productName);
 				
+				long m= System.currentTimeMillis();
+				Date dat = new Date(m);
+				Timestamp time = new Timestamp(m);
+				System.out.println("Time");
+				System.out.println(time);
 				Query q3 = entityManager.createNativeQuery("INSERT INTO serial_event_desc (`serial_id`, `serial_number`, `event_date`, `status`, `product_id`) VALUES (?, ?, ?, ?, ?)");
 				q3.setParameter(1, d.getSerialId());
 				q3.setParameter(2, s.getSerialNumber());
-				q3.setParameter(3, d);
+				q3.setParameter(3, time);
 				q3.setParameter(4, "Dispensed");
 				q3.setParameter(5, d.getProductId());
 				q3.executeUpdate();

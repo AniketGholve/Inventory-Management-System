@@ -1,6 +1,7 @@
 package com.patient.Entity;
 
 import java.util.Date;
+import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -49,7 +50,7 @@ public class Serial {
 	@Transient
 	private String EnterpriseName;
 	@Transient
-	private SerialEventDesc serialEventDesc;
+	private List<SerialEventDesc> serialEventDesc;
 	@Transient 
 	private String productName;
 	
@@ -60,10 +61,10 @@ public class Serial {
 	public void setProductName(String productName) {
 		this.productName = productName;
 	}
-	public SerialEventDesc getSerialEventDesc() {
+	public List<SerialEventDesc> getSerialEventDesc() {
 		return serialEventDesc;
 	}
-	public void setSerialEventDesc(SerialEventDesc serialEventDesc) {
+	public void setSerialEventDesc(List<SerialEventDesc> serialEventDesc) {
 		this.serialEventDesc = serialEventDesc;
 	}
 	public Boolean getTransitedDose() {
@@ -166,7 +167,7 @@ public class Serial {
 	
 	public Serial(Integer serialId, Integer serialNumber, Integer ndc, Integer lot, Date expiryDate,
 			String serialStatus, Date createdOn, Integer enterpriseId, Integer locationId, Integer productId,
-			Integer patientSpecific, Integer srcId,Boolean transitedDose, String clinicName, String enterpriseName, SerialEventDesc serialEventDesc) {
+			Integer patientSpecific, Integer srcId,Boolean transitedDose, String clinicName, String enterpriseName, List<SerialEventDesc> serialEventDesc) {
 		super();
 		this.serialId = serialId;
 		this.serialNumber = serialNumber;

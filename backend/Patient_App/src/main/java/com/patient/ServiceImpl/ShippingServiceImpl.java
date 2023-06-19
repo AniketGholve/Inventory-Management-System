@@ -1,6 +1,7 @@
 package com.patient.ServiceImpl;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -157,12 +158,14 @@ public class ShippingServiceImpl implements ShippingService {
 		serial.setSerialStatus("Commissioned");
 		int serialNo = serial.getSerialNumber();
 		serialRepo.save(serial);
-		Date d = new Date(System.currentTimeMillis());
+		long mi= System.currentTimeMillis();
+		Date dat = new Date(mi);
+		Timestamp time = new Timestamp(mi);
 		//sending commissioned serials to serial_event-desc
 		Query q3 = entityManager.createNativeQuery("INSERT INTO serial_event_desc (`serial_id`, `serial_number`, `event_date`, `status`, `product_id`) VALUES (?, ?, ?, ?, ?)");
 		q3.setParameter(1, serialId);
 		q3.setParameter(2, serialNo);
-		q3.setParameter(3, d);
+		q3.setParameter(3, time);
 		q3.setParameter(4, "Commissioned");
 		q3.setParameter(5, productId);
 		q3.executeUpdate();
@@ -238,10 +241,13 @@ public class ShippingServiceImpl implements ShippingService {
 			int serialNo = s.getSerialNumber();
 			int productId = s.getProductId();
 			Date d = new Date(System.currentTimeMillis());
+			long mi= System.currentTimeMillis();
+			Date dat = new Date(mi);
+			Timestamp time = new Timestamp(mi);
 			Query q3 = entityManager.createNativeQuery("INSERT INTO serial_event_desc (`serial_id`, `serial_number`, `event_date`, `status`, `product_id`) VALUES (?, ?, ?, ?, ?)");
 			q3.setParameter(1, serialId);
 			q3.setParameter(2, serialNo);
-			q3.setParameter(3, d);
+			q3.setParameter(3, m);
 			q3.setParameter(4, "Shipped");
 			q3.setParameter(5, productId);
 			q3.executeUpdate();
