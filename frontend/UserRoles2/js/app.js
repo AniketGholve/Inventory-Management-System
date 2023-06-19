@@ -27,10 +27,10 @@ function initKeycloak() {
     var keycloak = new Keycloak();
     document.querySelector("#preloader").style.display = "none";
     keycloak.init({ onLoad: 'login-required' }).then(isAuthenticated => {
-
+        
         // location.href="http://localhost:5501/#!/"
 
-
+        console.log(keycloak)
         if (keycloak.hasRealmRole("CLP")) {
             location.href = "#!clp_users";
         }
@@ -51,9 +51,6 @@ function initKeycloak() {
         alert('failed to initialize');
     });
 }
-
-
-
 app.factory('myInterceptor', function ($q) {
     var interceptor = {
         responseError: function (rejection) {
@@ -61,7 +58,7 @@ app.factory('myInterceptor', function ($q) {
                 sessionStorage.removeItem("token")
                 sessionStorage.removeItem("locationId")
                 sessionStorage.removeItem("username")
-                window.location.href = '#!';
+                window.location.href = 'http://localhost:8080/';
                 console.log("Unauthorized To access the page");
             }
         }
@@ -98,6 +95,8 @@ app.controller("headerController", ($scope, $http, $location) => {
         case '/ordersInfo': $scope.activeTab = 'orderInfo';
             break;
         case '/orders': $scope.activeTab = 'order';
+            break;
+        case '/transferInventory': $scope.activeTab = 'transferInventory';
             break;
         case '/elp_users': $scope.activeTab = 'successOrders';
             break;
@@ -268,6 +267,10 @@ app.config(function ($routeProvider, $httpProvider) {
         .when('/orders',
             {
                 templateUrl: "view/orders.html"
+            })
+        .when('/transferInventory',
+            {
+                templateUrl: "view/transferInventory.html"
             })
         .when('/home',
             {
@@ -621,10 +624,23 @@ app.controller("clp", function ($scope, $http, $window, $location) {
         // $window.location.reload();
         console.log($scope.clinicNames);
     }, (error) => { })
+    
+    $http({
+        method: 'get',
+        url: "http://localhost:7890/getClinicNames",
+        headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") }
+    }).then((response) => {
+        $scope.clinictransferNames = response.data;
+        // $window.location.reload();
+        console.log("TransferNaMe")
+        console.log($scope.clinictransferNames);
+    }, (error) => { })
+
+
 
     $scope.clinicName = (id) => {
         sessionStorage.setItem("locationId", id);
-        $window.location.reload();
+        // $window.location.reload();
     }
     $scope.screensName = (id) => {
         sessionStorage.setItem("screensName", id);
@@ -633,12 +649,15 @@ app.controller("clp", function ($scope, $http, $window, $location) {
         }
         else if (sessionStorage.getItem("screensName") == "inventory") {
             $window.location.href = "#!/inventory";
-            $window.location.reload();
+            // $window.location.reload();
+        }
+        else if (sessionStorage.getItem("screensName") == "transfer") {
+            $window.location.href = "#!/transferInventory";
         }
     }
     $scope.inventoryLocation = () => {
         let allPath = $location.path();
-        if (allPath === "/inventory" || allPath === "/orders") {
+        if (allPath === "/inventory" || allPath === "/orders" || allPath=="/transferInventory") {
             return true;
         }
         return false;
@@ -1204,7 +1223,20 @@ app.controller("clp", function ($scope, $http, $window, $location) {
     // $scope.patientSpecificdata.patientSpecific= $scope.dispance.patientId
 
 
-
+    $http({
+        method: 'GET',
+        url: "http://localhost:7890/getSerialByLocationId" + "/" + sessionStorage.getItem("locationId"),
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': sessionStorage.getItem("token")
+        }
+    }).then((response) => {
+        console.log("Transfer");
+        console.log(response.data);
+        $scope.serialNo = response.data;
+    }, (error) => {
+        console.log(error);
+    });
 
 
 
@@ -1492,6 +1524,7 @@ app.controller("alp", ($scope, $http, $window, $location, $routeParams) => {
                 console.log("userAddData");
                 console.log($scope.userAddData);
                 console.log(response)
+                $window.location.href = "#!setup";
 
             }, (error) => { })
         }
@@ -2212,10 +2245,14 @@ app.controller('insertClinic', function ($scope, $http, $window) {
     $scope.formDataFields = {};
     $scope.createEnterpriseForm = () => {
         console.log($scope.formDataFields);
+        let myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+        myHeaders.append("Authorization", sessionStorage.getItem("token"));
+        myHeaders.append("Access-Control-Allow-Origin","*")
         $http({
             method: 'Post',
             url: "http://localhost:7890/createClinic",
-            headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") },
+            headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token")  },
             data: $scope.formDataFields
         }).then((response) => {
             $window.location.href = "#!clinics";
@@ -2396,7 +2433,7 @@ app.controller("addPhysicianNurseCtrl", function ($scope, $http, $window, $route
 
         sessionStorage.setItem("locationId", id);
 
-        $window.location.reload();
+        // $window.location.reload();
 
     }
 

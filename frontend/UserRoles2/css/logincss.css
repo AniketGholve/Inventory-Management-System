@@ -586,3 +586,8 @@ nav{
     color: white;
     border-radius: 10px;
 }
+
+#transfer{
+  width: 25%;
+  border-radius: 10px;
+}

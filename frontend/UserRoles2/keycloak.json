@@ -3,6 +3,8 @@
   "auth-server-url": "http://localhost:8080/",
   "ssl-required": "external",
   "resource": "Keycloak-Imsjs",
-  "public-client": true,
+  "credentials": {
+    "secret": "sjamNclfyKOOct5nd7CEEIYBzyAchR8K"
+  },
   "confidential-port": 0
 }
