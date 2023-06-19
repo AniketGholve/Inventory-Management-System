@@ -43,6 +43,8 @@ public class UsersServiceImpl implements UsersService {
 		users.setLastLogin(null);
 		users.setSrcId(null);
 //		users.setPassword(passwordEncoder.encode(users.getPassword()));
+		users.setPassword(users.getPassword());
+
 		Users u=usersRepo.save(users);
 		return u;
 			 

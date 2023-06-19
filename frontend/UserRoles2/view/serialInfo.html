@@ -1,0 +1,88 @@
+<div ng-controller="clp">
+    <div ng-include="'view/header.html'"></div>
+    <div ng-include="'view/header2.html'"></div>
+    <div class="container">
+        <h2 class="text-center mt-4">Serial Information</h2>
+        <div class="container mt-3">
+            <label for="">Serial Number:</label>
+            <input type="number" list="serialList" class="dispense_input" placeholder="Serial Number"
+                ng-model="serialNumber" ng-change="serialDataFunction()"></input>
+            <!-- <datalist id="serialList">
+                <option ng-repeat="x in clinicDropdownName">{{x.shipToName}}</option>
+            </datalist> -->
+            <div>
+                <div class="shadow">
+                    <table class="table  table striped text-center mt-5"
+                        ng-class="{'d-none':serialNumber==''||serialNumber==null}">
+                        <thead>
+                            <tr class="">
+                                <th class="col-2">Dose</th>
+                                <th class="col-2">Quantity</th>
+                                <th class="col-3">Status</th>
+                                <th class="col-3"></th>
+
+                            </tr>
+
+                        </thead>
+                        <tbody>
+                            <tr class="">
+                                <td class="col-2">{{serialDespense.productName}}</td>
+                                <td class="col-2">{{serialDespense.quantity}}</td>
+                                <td class="col-3">{{serialData.serialStatus}}</td>
+                                <td class="col-3"></td>
+                                <!-- <td class="col-2" ng-class="{'d-none':closedispenseTable == true }"><a
+                                        class="text-danger text-decoration-none" style="cursor: pointer;"
+                                        ng-click="closeTable()">Close</a></td>
+                                <td class="col-2" ng-class="{'d-none': closedispenseTable == false }"><a
+                                        class="text-primary text-decoration-none" style="cursor: pointer;"
+                                        ng-click="viewTable()">View</a></td> -->
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="shadow">
+                    <table class="table  table striped text-center "
+                        ng-class="{'d-none': serialNumber==''||serialNumber==null || closedispenseTable == true }">
+                        <thead>
+                            <tr>
+                                <th>Serial Number</th>
+                                <th>Expiry Date</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{{serialData.serialNumber}}</td>
+                                <td>{{serialData.expiryDate}}</td>
+                                <td>{{serialData.serialStatus}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <table id="patientDetailsTable" class=" table  table striped text-center  ">
+                    <thead class="">
+                        <tr>
+                            <th class="px-3">Status</th>
+                            <th class="px-3">Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{serialData.serialEventDesc.isShipped}}</td>
+                            <td>{{serialData.serialEventDesc.shippedDate}}</td>
+                        </tr>
+                        <tr>
+                            <td>{{serialData.serialEventDesc.isReceived}}</td>
+                            <td>{{serialData.serialEventDesc.receivedDate}}</td>
+                        </tr>
+                        <tr>
+                            <td>{{serialData.serialEventDesc.isDispensed}}</td>
+                            <td>{{serialData.serialEventDesc.dispensedDate}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div>
+          
+            </div>

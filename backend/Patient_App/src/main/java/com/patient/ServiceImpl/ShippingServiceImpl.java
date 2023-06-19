@@ -1,6 +1,7 @@
 package com.patient.ServiceImpl;
 
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -153,11 +154,23 @@ public class ShippingServiceImpl implements ShippingService {
 			oId=orderId;
 		}
 		Serial serial=serialRepo.findById(serialId).orElseThrow();
-		serial.setSerialStatus("Comissioned");
+		serial.setSerialStatus("Commissioned");
+		int serialNo = serial.getSerialNumber();
 		serialRepo.save(serial);
+		Date d = new Date(System.currentTimeMillis());
+		//sending commissioned serials to serial_event-desc
+		Query q3 = entityManager.createNativeQuery("INSERT INTO serial_event_desc (`serial_id`, `serial_number`, `event_date`, `status`, `product_id`) VALUES (?, ?, ?, ?, ?)");
+		q3.setParameter(1, serialId);
+		q3.setParameter(2, serialNo);
+		q3.setParameter(3, d);
+		q3.setParameter(4, "Commissioned");
+		q3.setParameter(5, productId);
+		q3.executeUpdate();
+		
+		
 		Serial s=serialRepo.findById(serialId).orElseThrow();
 		Query q1=entityManager.createNativeQuery("update order_events set event_desc=? where order_id=?");
-		q1.setParameter(1, "Comissioned");
+		q1.setParameter(1, "Commissioned");
 		q1.setParameter(2, orderId);
 		q1.executeUpdate();
 		Product p=productRepo.findById(productId).orElseThrow();
@@ -166,12 +179,10 @@ public class ShippingServiceImpl implements ShippingService {
 			ScannedShipmentDetails scannedShipmentDetails=new ScannedShipmentDetails();
 			scannedShipmentDetails.setDose(p.getProductName());
 			scannedShipmentDetails.setQuantity(1);
-			scannedShipmentDetails.setStatus("Comissioned");
+			scannedShipmentDetails.setStatus("Commissioned");
 			scannedShipmentDetails.setProductId(productId);
 			scannedShipmentDetailsList.add(scannedShipmentDetails);
-			serialIdList.add(serialId);
-			
-			
+			serialIdList.add(serialId);	
 		}
 		else {
 			Integer i=m.get(p.getProductId().toString());
@@ -215,13 +226,29 @@ public class ShippingServiceImpl implements ShippingService {
 		q1.setParameter(1, "Shipped");
 		q1.setParameter(2, orderId);
 		q1.executeUpdate();
+		System.out.println("shipping");
+		System.out.println(serialIdList.size());
 		for(Integer serialId:serialIdList) {
 			Query q2=entityManager.createNativeQuery("update serial set serial_status=? where serial_id=?");
 			q2.setParameter(1, "Shipped");
 			q2.setParameter(2, serialId);
-			q2.executeUpdate();
+			q2.executeUpdate();	
 			
+			Serial s = serialRepo.findById(serialId).orElseThrow();
+			int serialNo = s.getSerialNumber();
+			int productId = s.getProductId();
+			Date d = new Date(System.currentTimeMillis());
+			Query q3 = entityManager.createNativeQuery("INSERT INTO serial_event_desc (`serial_id`, `serial_number`, `event_date`, `status`, `product_id`) VALUES (?, ?, ?, ?, ?)");
+			q3.setParameter(1, serialId);
+			q3.setParameter(2, serialNo);
+			q3.setParameter(3, d);
+			q3.setParameter(4, "Shipped");
+			q3.setParameter(5, productId);
+			q3.executeUpdate();
 		}
+		
+		serialIdList.clear();
+		scannedShipmentDetailsList.clear();
 		
 		Notifications notification = new Notifications();
 		Date date = new Date(System.currentTimeMillis());

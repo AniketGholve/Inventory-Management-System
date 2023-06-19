@@ -164,7 +164,7 @@ public class InventoryServiceImpl implements InventoryService {
 	
 	public  List<Inventory> getInventoryByClinic(Integer clinicLocationId)
 	{
-		Query q=entityManager.createNativeQuery("select i.product_id,p.product_name,i.expired,i.on_hand from inventory i inner join product p on i.product_id=p.product_id where i.location_id=?");
+		Query q=entityManager.createNativeQuery("select i.product_id,p.product_name,i.expired,i.on_hand,i.transit_doses from inventory i inner join product p on i.product_id=p.product_id where i.location_id=?");
 		q.setParameter(1, clinicLocationId);
 		List<Object[]> l=q.getResultList();	
 		List<Inventory> resultList=new ArrayList<>();
@@ -175,6 +175,7 @@ public class InventoryServiceImpl implements InventoryService {
 			i.setProductName(result[1]==null?null:(String) result[1]);
 			i.setExpiredQty(result[2]==null?null:(Integer) result[2]);
 			i.setOnHand(result[3]==null?null:(Integer) result[3]);
+			i.setTransitDoses((Integer)result[4]);
 			resultList.add(i);
 			
 		}
@@ -183,18 +184,193 @@ public class InventoryServiceImpl implements InventoryService {
 
 
 	@Override
-	public void AutoOrder() {
-		// TODO Auto-generated method stub
+	@Transactional
+	//@Scheduled(cron = "0 10 20 * * MON-FRI") //cron = "0 10 20 * * MON-FRI"
+//	@Scheduled(fixedRate = 86400000)
+	public void AutoOrder() 
+	{	
+		List<Clinic> clinicList=clinicRepo.findAll();
+
+		long m=System.currentTimeMillis();
+
+		Date d=new Date(m);
+
+		Format formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+
+		for(Clinic c:clinicList) {
+
+		Query q=entityManager.createQuery("select i from Inventory i where i.locationId=:u");
+
+		q.setParameter("u",c.getLocationId());
+
+		List<Inventory> inventoryList=q.getResultList();
 		
+
+		int co=-1;
+
+		ClinicOrder savedClinicOrder=null;
+
+		for(Inventory i:inventoryList)
+
+		{
+			Query q2=entityManager.createQuery("select ar from AutoReorder ar where ar.productId=:v");
+			q2.setParameter("v",i.getProductId());
+			System.out.println("product id"+i.getProductId()+" "+i.getLoactionId());
+			AutoReorder autoReorder=(AutoReorder) q2.getSingleResult();
+		
+		ClinicOrder clinicOrder;
+
+		if(i.getOnHand()<autoReorder.getReorderPoint() && co==-1) {
+			
+		
+
+		clinicOrder=new ClinicOrder();
+
+		Clinic clinic=clinicRepo.findById(i.getLoactionId()).orElseThrow();
+
+		clinicOrder.setActivityDate(formatter.format(d));
+
+		clinicOrder.setBilltoId(123);
+
+		clinicOrder.setBilltoName(clinic.getBillTo());
+
+		clinicOrder.setEnterpriseId(1);
+
+		clinicOrder.setLocationId(i.getLoactionId());
+
+		clinicOrder.setMeu(null);
+
+		clinicOrder.setOrderDatetime(d);
+
+		clinicOrder.setOrderId(12345);
+
+		clinicOrder.setOrderNote(null);
+
+		clinicOrder.setOrderStatusId(123);
+
+		clinicOrder.setOrderType(null);
+
+		clinicOrder.setPersonInitial(null);
+
+		clinicOrder.setShipfromId(0);
+
+		clinicOrder.setShiptoId(clinic.getLocationId()+clinic.getName());
+
+		clinicOrder.setShiptoName(clinic.getName());
+
+		clinicOrder.setSrcId(123);
+
+		clinicOrder.setUserId(0);
+
+		savedClinicOrder=clinicOrderRepo.save(clinicOrder);
+
+		co=0;
+
+		}
+
+		if(i.getOnHand()<autoReorder.getReorderPoint() && co==0) {
+			
+		Query q3=entityManager.createNativeQuery("update inventory i set i.on_hand=? where i.location_id=? and i.product_id=?" );
+		q3.setParameter(1, i.getOnHand()+autoReorder.getReorderQuantity());
+		q3.setParameter(2, i.getLoactionId());
+		System.out.println("product id+++++"+i.getProductId()+" "+i.getLoactionId());
+		q3.setParameter(3, autoReorder.getProductId());
+		q3.executeUpdate();
+
+		 
+
+		OrderEvents orderEvents = new OrderEvents();
+
+		 
+
+		orderEvents.setActivityDate(formatter.format(d));
+
+		orderEvents.setDeliveryOrderId(null);
+
+		orderEvents.setEnterpriseId(savedClinicOrder.getEnterpriseId());
+
+		orderEvents.setEventDesc("Submitted");
+
+		orderEvents.setLocationId(savedClinicOrder.getLocationId());
+
+		orderEvents.setOrderId(savedClinicOrder);
+
+		orderEvents.setPackageType(null);
+
+		orderEvents.setProductId(i.getProductId());
+
+		orderEvents.setQuantity(autoReorder.getReorderQuantity());
+
+		orderEvents.setShipmentTrackingId(123);
+
+		orderEvents.setSrcId(savedClinicOrder.getSrcId());
+
+		orderEvents.setStatusId(savedClinicOrder.getOrderStatusId());
+
+		orderEvents.setUserId(savedClinicOrder.getUserId());
+
+		OrderEvents oe=orderEventsRepo.save(orderEvents);
+
+		 
+
+		}
+
+		}
+
+		 
+
+		 
+
+		}
+		
+	
+}
+
+
+	@Override
+	public List<Serial> getTransitDoses(int productId, int locationId) {
+		// TODO Auto-generated method stub
+		Query q=entityManager.createNativeQuery("select * from serial s where s.product_id=? and s.serial_Status=? and s.location_id=? and s.transited_dose=?");
+		q.setParameter(1, productId);
+		q.setParameter(2, "Received");
+		q.setParameter(3,locationId);
+		q.setParameter(4, true);
+		List<Object[]> l=q.getResultList();
+		List<Serial> resultList=new ArrayList<>();
+		
+		Query q1 = entityManager.createNativeQuery("select c.name from clinic c where c.location_id =?");
+		q1.setParameter(1, locationId);
+		String clinicName = (String)q1.getSingleResult();
+		
+		Query q2 = entityManager.createNativeQuery("select e.name from enterprises e inner join clinic c on e.enterprise_id=c.enterprise_id where c.location_id =?");
+		q2.setParameter(1, locationId);
+		String enterpriseName = (String)q2.getSingleResult();
+		
+		for (Object[] o:l)
+		{
+			Serial s=new Serial();
+			s.setSerialId((Integer) o[0]);
+			s.setCreatedOn((Date) o[1]);
+			s.setEnterpriseId((Integer) o[2]);
+			s.setExpiryDate((Date) o[3]);
+			s.setLocationId((Integer) o[4]);
+			s.setLot((Integer) o[5]);
+			s.setNdc((Integer) o[6]);
+			s.setProductId((Integer) o[7]);
+			s.setSerialNumber((Integer) o[8]);
+			s.setSerialStatus((String) o[9]);
+			s.setSrcId((Integer) o[10]);
+			s.setPatientSpecific((Integer) o[11]);
+			s.setClinicName(clinicName);
+			s.setEnterpriseName(enterpriseName);
+			s.setTransitedDose((Boolean)o[12]);
+			resultList.add(s);
+			
+			
+		}
+		
+		//System.out.println(l.toString());
+		return resultList;
 	}
-
-
-	
-	
-	
-	
-	
-	
-
 }
 

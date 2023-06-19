@@ -66,6 +66,14 @@ public class Patient {
 	
 	@Transient
 	private String clinicName;
+	@Transient
+	private Date LastDispense;
+	@Transient
+	private String Dose;
+	@Transient
+	private Integer DaysAfterLastInjection;
+	@Transient
+	private Boolean OverDue;
 	
 //	@Transient
 //	@OneToOne(mappedBy = "id")
@@ -308,6 +316,52 @@ public class Patient {
 	public void setClinicName(String clinicName) {
 		this.clinicName = clinicName;
 	}
+	
+
+	public Date getLastDispense() {
+		return LastDispense;
+	}
+
+
+
+	public void setLastDispense(Date lastDispense) {
+		LastDispense = lastDispense;
+	}
+
+
+
+	public String getDose() {
+		return Dose;
+	}
+
+
+
+	public void setDose(String dose) {
+		Dose = dose;
+	}
+	
+	
+	public Integer getDaysAfterLastInjection() {
+		return DaysAfterLastInjection;
+	}
+
+
+
+	public void setDaysAfterLastInjection(Integer daysAfterLastInjection) {
+		DaysAfterLastInjection = daysAfterLastInjection;
+	}
+
+
+
+	public Boolean getOverDue() {
+		return OverDue;
+	}
+
+
+
+	public void setOverDue(Boolean overDue) {
+		OverDue = overDue;
+	}
 
 
 
@@ -325,12 +379,16 @@ public class Patient {
 	}
 
 
+	
+
+
 
 	public Patient(Integer id, String patientId, String patientFirstName, String patientLastName,
 			String patientMiddleName, Date patientDob, String patientStatus, String patientEmail, Date patientCreatedOn,
 			Date patientModifiedOn, Integer patientLocationId, Integer patientLastDispenseId,
 			Integer patientEnterpriseId, String patientPayerType, Boolean patientPaNeeded, Boolean independentInventory,
-			Integer patientSrcId, String clinicName, List<PatientFile> patientFile) {
+			Integer patientSrcId, String clinicName, Date lastDispense, String dose, Integer daysAfterLastInjection,
+			Boolean overDue, List<PatientFile> patientFile) {
 		super();
 		this.id = id;
 		this.patientId = patientId;
@@ -350,6 +408,10 @@ public class Patient {
 		this.independentInventory = independentInventory;
 		this.patientSrcId = patientSrcId;
 		this.clinicName = clinicName;
+		this.LastDispense = lastDispense;
+		this.Dose = dose;
+		this.DaysAfterLastInjection = daysAfterLastInjection;
+		this.OverDue = overDue;
 		this.patientFile = patientFile;
 	}
 

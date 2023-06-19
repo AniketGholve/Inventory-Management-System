@@ -23,21 +23,16 @@ public class ManualReorder {
 	private boolean inSystem;
 	@Column(name = "email")
 	private boolean email;
+	
 	@Transient
 	private UsageOverLastMonths usageOverLastMonths;
 
-	public ManualReorder() {}
+	public String getProductName() {
+		return ProductName;
+	}
 
-	public ManualReorder(String productName, int productId, boolean lowInventoryAlerts, int alertQuantity,
-			boolean inSystem, boolean email, UsageOverLastMonths usageOverLastMonths) {
-		super();
+	public void setProductName(String productName) {
 		ProductName = productName;
-		this.productId = productId;
-		LowInventoryAlerts = lowInventoryAlerts;
-		AlertQuantity = alertQuantity;
-		this.inSystem = inSystem;
-		this.email = email;
-		this.usageOverLastMonths = usageOverLastMonths;
 	}
 
 	public int getProductId() {
@@ -46,22 +41,6 @@ public class ManualReorder {
 
 	public void setProductId(int productId) {
 		this.productId = productId;
-	}
-
-	public UsageOverLastMonths getUsageOverLastMonths() {
-		return usageOverLastMonths;
-	}
-
-	public void setUsageOverLastMonths(UsageOverLastMonths usageOverLastMonths) {
-		this.usageOverLastMonths = usageOverLastMonths;
-	}
-
-	public String getProductName() {
-		return ProductName;
-	}
-
-	public void setProductName(String productName) {
-		ProductName = productName;
 	}
 
 	public boolean isLowInventoryAlerts() {
@@ -95,6 +74,43 @@ public class ManualReorder {
 	public void setEmail(boolean email) {
 		this.email = email;
 	}
+
+	public UsageOverLastMonths getUsageOverLastMonths() {
+		return usageOverLastMonths;
+	}
+
+	public void setUsageOverLastMonths(UsageOverLastMonths usageOverLastMonths) {
+		this.usageOverLastMonths = usageOverLastMonths;
+	}
+
+	@Override
+	public String toString() {
+		return "ManualReorder [ProductName=" + ProductName + ", productId=" + productId + ", LowInventoryAlerts="
+				+ LowInventoryAlerts + ", AlertQuantity=" + AlertQuantity + ", inSystem=" + inSystem + ", email="
+				+ email + ", usageOverLastMonths=" + usageOverLastMonths + "]";
+	}
+
+	public ManualReorder(String productName, int productId, boolean lowInventoryAlerts, int alertQuantity,
+			boolean inSystem, boolean email, UsageOverLastMonths usageOverLastMonths) {
+		super();
+		ProductName = productName;
+		this.productId = productId;
+		LowInventoryAlerts = lowInventoryAlerts;
+		AlertQuantity = alertQuantity;
+		this.inSystem = inSystem;
+		this.email = email;
+		this.usageOverLastMonths = usageOverLastMonths;
+	}
+
+	public ManualReorder() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+ 
+
+	
+
+	
 	
 	
 	

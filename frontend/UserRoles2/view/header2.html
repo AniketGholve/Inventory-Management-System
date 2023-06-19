@@ -2,29 +2,39 @@
     <div class="header2">
         <div style="float: right;">
             <label for="dropdownViewTab" class="text-white mx-2">View :</label>
-            <select id="dropdownViewTab" class="dropdownTab" ng-model="id" ng-change="clinicName(id)" >
+            <select id="dropdownViewTab" class="dropdownTab" ng-model="id" ng-change="clinicName(id)">
                 <option label="Select Clinic" class="d-none"></option>
                 <option ng-repeat="x in clinicNames" value="{{x.locationId}}" class="text-center">{{x.name}}</option>
             </select>
         </div>
         <div style="float: left;" ng-class="{'d-none': inventoryLocation()!=true}">
-            <label for="dropdownTab" class="text-white mx-2"><h5>Choose :</h5></label>
-            <select id="dropdownTab"class="dropdownTab" ng-model="selectedDropdownTab" ng-change="screensName(selectedDropdownTab)">
+            <label for="dropdownTab" class="text-white mx-2">
+                <h5>Choose :</h5>
+            </label>
+            <select id="dropdownTab" class="dropdownTab" ng-model="selectedDropdownTab"
+                ng-change="screensName(selectedDropdownTab)">
                 <option label="Select" class="d-none"></option>
                 <option class="text-center" value="inventory">Inventory Dashboard</option>
                 <option class="text-center" value="ordering">Order Inventory</option>
                 <option class="text-center" value="transfer">Transfer Inventory</option>
+<<<<<<< HEAD
+=======
+                <option class="text-center" value="serialInfo">Serial Information</option>
+>>>>>>> 8c995598229904d79a777ce123b75ac576299ffd
             </select>
-    </div>
-    <div style="float: left;" ng-class="{'d-none': reportLocation()!=true}">
-        <label for="dropdownTab" class="text-white mx-2"><h5>Choose :</h5></label>
-        <select id="dropdownTab"class="dropdownTab" ng-model="selectedDropdown" ng-change="reportName(selectedDropdown)">
-            <option label="Select a Report" class="d-none"></option>
-            <option class="text-center" value="addPatient">Add Patient</option>
-            <option class="text-center" value="orders">Order Inventory</option>
-            <option class="text-center" value="addPhysician">Add Physician</option>
-            <option class="text-center" value="addNurse">Add Nurse</option>
+        </div>
+        <div style="float: left;" ng-class="{'d-none': reportLocation()!=true}">
+            <label for="dropdownTab" class="text-white mx-2">
+                <h5>Choose :</h5>
+            </label>
+            <select id="dropdownTab" class="dropdownTab" ng-model="selectedDropdown"
+                ng-change="reportName(selectedDropdown)">
+                <option label="Select a Report" class="d-none"></option>
+                <option class="text-center" value="addPatient">Add Patient</option>
+                <option class="text-center" value="orders">Order Inventory</option>
+                <option class="text-center" value="addPhysician">Add Physician</option>
+                <option class="text-center" value="addNurse">Add Nurse</option>
 
-        </select>
+            </select>
 
-</div>
+        </div>

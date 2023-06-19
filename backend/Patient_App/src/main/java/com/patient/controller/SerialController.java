@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -50,9 +51,9 @@ public class SerialController {
 		return new ResponseEntity<Serial>(result,HttpStatus.OK);
 	}
 	
-	@PostMapping("/changeStatusAvailable/{serialId}/{locationId}/{patientSpecific}")
-	public String changeStatus(@PathVariable("serialId") int serialId,@PathVariable("locationId") int locationId,@PathVariable("patientSpecific") int patientSpecific) {
-		String s = serialServiceImpl.changeSerialStatus(serialId, locationId,patientSpecific);
+	@PostMapping("/changeStatusAvailable/{serialId}/{locationId}/{patientSpecific}/{UserMail}")
+	public String changeStatus(@PathVariable("serialId") int serialId,@PathVariable("locationId") int locationId,@PathVariable("patientSpecific") int patientSpecific,@PathVariable("UserMail") String UserMail) {
+		String s = serialServiceImpl.changeSerialStatus(serialId, locationId,patientSpecific,UserMail);
 		System.out.println("Hello Ship ");
 		return s;
 		
@@ -64,6 +65,18 @@ public class SerialController {
 		List<Serial> list = serialServiceImpl.getSerialShipped(locationId, serialNo);
 		return new ResponseEntity<List<Serial>>(list,HttpStatus.OK);
 		
+	}
+	
+	@PostMapping("/transferDose/{serialNo}/{gettingLocationId}")
+	public void trasferDose(@PathVariable int serialNo,@PathVariable int gettingLocationId) {
+		System.out.println("Transferred Dose");
+		serialServiceImpl.transferDose(serialNo, gettingLocationId);
+	}
+	
+	@GetMapping("/getSerialReceivedByLocationId/{locationId}")
+	public List<Serial> getSerialReceivedByLocationId(@PathVariable int locationId){
+		List<Serial> list = serialServiceImpl.getSerialReceivedByLocationId(locationId);
+		return list;
 	}
 	
 

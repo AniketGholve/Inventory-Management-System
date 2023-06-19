@@ -32,7 +32,6 @@ public class EnterpriseController {
 	private UserEntityRepo userEntityRepo;
 	
 	
-	
 	@PostMapping("/createEnterprises")
 	public ResponseEntity<Enterprises> createEnterprise(@RequestBody Enterprises enterprise)
 	{

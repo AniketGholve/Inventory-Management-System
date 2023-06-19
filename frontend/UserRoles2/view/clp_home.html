@@ -28,6 +28,7 @@
                         <th class="px-3 capitalize" scope="row">Doses</th>
                         <th class="px-3 capitalize" scope="row">On Hand</th>
                         <th class="px-3 capitalize" scope="row">Expired Doses</th>
+                        <th class="px-3 capitalize" scope="row">Transit Doses</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -38,11 +39,57 @@
                         <td ng-click="getExpired(x.productId)"><a href="" ng-class="{'text-danger':x.expiredQty>0}"
                                 data-bs-toggle="modal" data-bs-target="#expiredDoses"
                                 style="cursor: default;">{{x.expiredQty}}</a></td>
+                        <td ng-click="getTransitDoses(x.productId)"><a  class="textDecorationNone text-dark" href=""
+                                data-bs-toggle="modal" data-bs-target="#transitDoses"
+                                style="cursor: default;">{{x.transitDoses}}</a></td>
                     </tr>
                 </tbody>
             </table>
 
             <!-- Modal -->
+            <div class="modal fade" id="transitDoses" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Serial Numbers</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <table id="patientDetailsTable" class="table table-striped table-bordered text-center">
+                                <tr>
+                                    <!-- <th class="px-3">Serial Id</th> -->
+                                    <th class="px-3">Serial Number</th>
+                                    <th class="px-3">NDC</th>
+                                    <th class="px-3">LOT</th>
+                                    <th class="px-3">Expiry Date</th>
+                                    <th class="px-3">Serial Status</th>
+                                    <th class="px-3">Created On</th>
+                                    <th class="px-3">Enterprise Name</th>
+                                    <th class="px-3">Location Name</th>
+                                    <th class="px-3">Product Id</th>
+                                    <th class="px-3">Patient Specific</th>
+                                    <!-- <th class="px-3">src Id</th> -->
+                                </tr>
+                                <tr ng-repeat="x in transitDoseDetails">
+                                    <td>{{x.serialNumber}}</td>
+                                    <td>{{x.ndc}}</td>
+                                    <td>{{x.lot}}</td>
+                                    <td>{{x.expiryDate}}</td>
+                                    <td>{{x.serialStatus}}</td>
+                                    <td>{{x.createdOn}}</td>
+                                    <td>{{x.enterpriseName}}</td>
+                                    <td>{{x.clinicName}}</td>
+                                    <td>{{x.productId}}</td>
+                                    <td>{{x.patientSpecific}}</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="modal fade" id="ohHand" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">

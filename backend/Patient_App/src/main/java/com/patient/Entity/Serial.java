@@ -42,12 +42,36 @@ public class Serial {
 	private Integer  patientSpecific;
 	@Column(name="src_id")
 	private Integer srcId;
+	@Column(name="Transited_dose")
+	private Boolean transitedDose;
 	@Transient
 	private String ClinicName;
 	@Transient
 	private String EnterpriseName;
+	@Transient
+	private SerialEventDesc serialEventDesc;
+	@Transient 
+	private String productName;
 	
 	
+	public String getProductName() {
+		return productName;
+	}
+	public void setProductName(String productName) {
+		this.productName = productName;
+	}
+	public SerialEventDesc getSerialEventDesc() {
+		return serialEventDesc;
+	}
+	public void setSerialEventDesc(SerialEventDesc serialEventDesc) {
+		this.serialEventDesc = serialEventDesc;
+	}
+	public Boolean getTransitedDose() {
+		return transitedDose;
+	}
+	public void setTransitedDose(Boolean transitedDose) {
+		this.transitedDose = transitedDose;
+	}
 	public String getClinicName() {
 		return ClinicName;
 	}
@@ -142,7 +166,7 @@ public class Serial {
 	
 	public Serial(Integer serialId, Integer serialNumber, Integer ndc, Integer lot, Date expiryDate,
 			String serialStatus, Date createdOn, Integer enterpriseId, Integer locationId, Integer productId,
-			Integer patientSpecific, Integer srcId, String clinicName, String enterpriseName) {
+			Integer patientSpecific, Integer srcId,Boolean transitedDose, String clinicName, String enterpriseName, SerialEventDesc serialEventDesc) {
 		super();
 		this.serialId = serialId;
 		this.serialNumber = serialNumber;
@@ -156,8 +180,10 @@ public class Serial {
 		this.productId = productId;
 		this.patientSpecific = patientSpecific;
 		this.srcId = srcId;
-		ClinicName = clinicName;
-		EnterpriseName = enterpriseName;
+		this.transitedDose = transitedDose;
+		this.ClinicName = clinicName;
+		this.EnterpriseName = enterpriseName;
+		this.serialEventDesc = serialEventDesc;
 	}
 	public Serial() {
 		super();

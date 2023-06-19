@@ -1,0 +1,51 @@
+<div ng-controller="clp">
+    <div class="isDisabled">
+        <div ng-include="'view/header.html'"></div>
+    </div>
+    <div ng-include="'view/header2.html'"></div>
+    <div class="isDisabled">
+        <div class="injectionHeading">
+            <a class="" href="#!patient">Back</a>
+            <h2 class=""> {{injectionIn30Days.length}} Patients Due for next Injection in 30 Days </h2>
+        </div>
+        <div class="container d-flex justify-content-center mt-3">
+            <table id="patientDetailsTable" class=" table table-striped text-center">
+                <thead class="thead">
+                    <tr>
+                        <th class="px-3">Patient Id</th>
+                        <th class="px-3">First Name</th>
+                        <th class="px-3">Last Name</th>
+                        <th class="px-3">Date Of Birth</th>
+                        <th class="px-3">Dose</th>
+                        <th class="px-3">Next Injection</th>
+                        <th class="px-3">Last Injection</th>
+                    </tr>
+                </thead>
+                <tr ng-repeat="x in injectionIn30Days">
+                    <td class="px-3">
+                        {{ x.id }}
+                    </td>
+                    <td class="px-3">
+                        {{ x.patientName }}
+                    </td>
+                    <td class="px-3">
+                        {{ x.patientLastName }}
+                    </td>
+                    <td class="px-3">
+                        {{ x.patientDOB}}
+                    </td>
+                    <td class="px-3">
+                        {{ x.productname}}
+                    </td>
+                    <td class="px-3">
+                        {{ x.lastInjection}}
+                    </td>
+                    <td class="px-3">
+                        {{ x.createdOn}}
+                    </td>
+
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>

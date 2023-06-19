@@ -36,42 +36,45 @@
 //	@Autowired
 //	private JwtRequestFilter jwtRequestFilter;
 //
-//	@Bean
-//	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-//
-//		http.csrf().disable().authorizeHttpRequests()
-//
-//
-//				.requestMatchers(new AntPathRequestMatcher("/login"),new AntPathRequestMatcher("/download/pdf"),new AntPathRequestMatcher("/download/excel"),new AntPathRequestMatcher("/download/inventoryPdf/1"),new AntPathRequestMatcher("/download/inventoryPdf/2"),new AntPathRequestMatcher("/download/inventoryPdf/3"),new AntPathRequestMatcher("/download/InventoryExcel/1"),new AntPathRequestMatcher("/download/InventoryExcel/2"),new AntPathRequestMatcher("/download/InventoryExcel/3"),new AntPathRequestMatcher("/editProduct"), new AntPathRequestMatcher("/api/ErrorOrders/1"), new AntPathRequestMatcher("/api/addUser"), new AntPathRequestMatcher("/api/editUser/"),new AntPathRequestMatcher("/swagger-ui/index.html"),new AntPathRequestMatcher("/v3/api-docs"))
-//				.permitAll().anyRequest().authenticated().and().cors().and().exceptionHandling()
-//				.authenticationEntryPoint(this.jwtAuthenticationEntryPoint).and().sessionManagement()
-//				.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-//
-//		http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
-//
-//		http.authenticationProvider(daoAuthenticationProvider());
-//		DefaultSecurityFilterChain defaultSecurityFilterChain = http.build();
-//
-//		return defaultSecurityFilterChain;
-//
-//	}
-//
-//	@Bean
-//	public DaoAuthenticationProvider daoAuthenticationProvider() {
-//		DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
-//		provider.setUserDetailsService(this.customUserDetailService);
-//		provider.setPasswordEncoder(passwordEncoder());
-//		return provider;
-//	}
+////	@Bean
+////	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+////
+////		http.csrf().disable().authorizeHttpRequests()
+////
+////
+////				.requestMatchers(new AntPathRequestMatcher("/login"),new AntPathRequestMatcher("/download/pdf"),new AntPathRequestMatcher("/download/excel"),new AntPathRequestMatcher("/download/inventoryPdf/1"),new AntPathRequestMatcher("/download/inventoryPdf/2"),new AntPathRequestMatcher("/download/inventoryPdf/3"),new AntPathRequestMatcher("/download/InventoryExcel/1"),new AntPathRequestMatcher("/download/InventoryExcel/2"),new AntPathRequestMatcher("/download/InventoryExcel/3"),new AntPathRequestMatcher("/editProduct"), new AntPathRequestMatcher("/api/ErrorOrders/1"), new AntPathRequestMatcher("/api/addUser"), new AntPathRequestMatcher("/api/editUser/"),new AntPathRequestMatcher("/swagger-ui/index.html"),new AntPathRequestMatcher("/v3/api-docs"))
+////				.permitAll().anyRequest().authenticated().and().cors().and().exceptionHandling()
+////				.authenticationEntryPoint(this.jwtAuthenticationEntryPoint).and().sessionManagement()
+////				.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+////
+////		http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+////
+////		http.authenticationProvider(daoAuthenticationProvider());
+////		DefaultSecurityFilterChain defaultSecurityFilterChain = http.build();
+////
+////		return defaultSecurityFilterChain;
+////
+////	}
+////
+////	@Bean
+////	public DaoAuthenticationProvider daoAuthenticationProvider() {
+////		DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+////		provider.setUserDetailsService(this.customUserDetailService);
+////		provider.setPasswordEncoder(passwordEncoder());
+////		return provider;
+////	}
+
 //
 //	@Bean
 //	public PasswordEncoder passwordEncoder() {
 //		return new BCryptPasswordEncoder();
 //	}
 //
-//	@Bean
-//	public AuthenticationManager authenticationManagerBean(AuthenticationConfiguration configuration) throws Exception {
-//		return configuration.getAuthenticationManager();
-//	}
+
+////	@Bean
+////	public AuthenticationManager authenticationManagerBean(AuthenticationConfiguration configuration) throws Exception {
+////		return configuration.getAuthenticationManager();
+////	}
+
 //
 //}

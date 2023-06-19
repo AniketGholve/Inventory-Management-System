@@ -33,9 +33,11 @@ public class ClinicOrderServiceImpl implements ClinicOrderService {
 	@Override
 	public ClinicOrder createOrder(Integer locationId) {
 		// TODO Auto-generated method stub
+		//Format formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		long m=System.currentTimeMillis();
-		Format formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+		//Format formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 		Date d=new Date(m);
+		Format formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 		Clinic clinic=clinicRepo.findById(locationId).orElseThrow();
 		ClinicOrder clinicOrder=new ClinicOrder();
 		clinicOrder.setActivityDate(formatter.format(d));

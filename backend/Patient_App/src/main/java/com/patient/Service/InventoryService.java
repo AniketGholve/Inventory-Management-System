@@ -23,5 +23,7 @@ public Inventory createInventory(Inventory inventory);
 	
 	public void AutoOrder();
 	
+	public List<Serial> getTransitDoses(int productId,int locationId); 
+	
 	
 }

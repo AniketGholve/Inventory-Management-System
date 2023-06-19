@@ -1,9 +1,11 @@
 package com.patient.ServiceImpl;
 
 import java.util.ArrayList;
+
 import java.util.Arrays;
 import java.util.List;
 
+import org.hibernate.query.NativeQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -15,19 +17,19 @@ import com.patient.Service.ManualReorderService;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
+ 
 import jakarta.transaction.Transactional;
-@Service
+ @Service
 public class ManualReorderServiceImpl implements ManualReorderService {
 	
 	@Autowired
 	private ManualReorderRepo manualReorderRepo;
-	
+	@Autowired
+	private DispenceToPatientServiceImpl dispenceToPatientServiceImpl;
 	@Autowired
 	private EntityManager entityManager;
 	
-	@Autowired
-	private DispenceToPatientServiceImpl dispenceToPatientServiceImpl;
-	
+	 
 	@Override
 	public List<ManualReorder> update(List<ManualReorder> list) {
 		// TODO Auto-generated method stub
@@ -49,6 +51,24 @@ public class ManualReorderServiceImpl implements ManualReorderService {
 	@Override
 
 	public List<ManualReorder> getAll() {
+		// TODO Auto-generated method stub
+//		Query q=entityManager.createNativeQuery("select * from manual_reorder order by product_id");
+//		List<Object[]> l=q.getResultList();
+//		List<UsageOverLastMonths> usageList=dispenceToPatientServiceImpl.getAllUsedDoses();
+//		int k=0;
+//		for(Object[] o:l) {
+//			ManualReorder mr=new ManualReorder();
+//			mr.setProductName((String)o[0]);
+//			mr.setAlertQuantity((Integer)o[1]);
+//			mr.setLowInventoryAlerts((Boolean)o[2]);
+//			mr.setEmail((Boolean)o[3]);
+//			mr.setInSystem((Boolean)o[4]);
+//			mr.setUsageOverLastMonths(usageList.get(k++));
+//			
+//		}
+//		List<ManualReorder> list = manualReorderRepo.findAll();
+//		return list;
+//		}
 
 	// TODO Auto-generated method stub
 

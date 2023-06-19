@@ -27,8 +27,8 @@
 //	@Autowired
 //	private CustomUserDetailService customUserDetailService;
 //
-////	@Autowired
-////	private AuthenticationManager authenticationManager;
+//	@Autowired
+//	private AuthenticationManager authenticationManager;
 //
 //	@Autowired
 //	private JwtUtilTokenHelper jwtUtilTokenHelper;
@@ -36,8 +36,8 @@
 //	@PostMapping("/login")
 //	public ResponseEntity<JwtResponse> createToken(@RequestBody JwtRequest jwtRequest) throws Exception {
 //		try {
-////			this.authenticationManager.authenticate(
-////					new UsernamePasswordAuthenticationToken(jwtRequest.getUsername(), jwtRequest.getPassword()));
+//			this.authenticationManager.authenticate(
+//					new UsernamePasswordAuthenticationToken(jwtRequest.getUsername(), jwtRequest.getPassword()));
 //		} catch (UsernameNotFoundException e) {
 //			e.printStackTrace();
 //			throw new Exception("User Not Found Exception");

@@ -64,10 +64,6 @@ public class OrderEvents {
 	private Map<String,Integer> quantityMap=new HashMap<>();
 	@Transient
 	private Integer displayId;
-	
-	
-	
-	
 	public Integer getOrderEventId() {
 		return orderEventId;
 	}
@@ -229,6 +225,8 @@ public class OrderEvents {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
+	
 	
 	
 	
