@@ -624,3 +624,10 @@ nav{
   width: 25%;
   border-radius: 10px;
 }
+
+.shipwidth{
+  width: 242px
+}
+.shipkitwidth{
+  width: 100%
+}

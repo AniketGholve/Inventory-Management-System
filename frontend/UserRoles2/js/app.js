@@ -51,20 +51,20 @@ function initKeycloak() {
         alert('failed to initialize');
     });
 }
-// app.factory('myInterceptor', function ($q) {
-    // var interceptor = {
-    //     responseError: function (rejection) {
-    //         if (rejection.status === 401) {
-    //             sessionStorage.removeItem("token")
-    //             sessionStorage.removeItem("locationId")
-    //             sessionStorage.removeItem("username")
-    //             window.location.href = 'http://localhost:8080/';
-    //             console.log("Unauthorized To access the page");
-    //         }
-    //     }
-    // };
-    // return interceptor;
-// });
+app.factory('myInterceptor', function ($q) {
+    var interceptor = {
+        responseError: function (rejection) {
+            if (rejection.status === 401) {
+                sessionStorage.removeItem("token")
+                sessionStorage.removeItem("locationId")
+                sessionStorage.removeItem("username")
+                window.location.href = 'http://localhost:8080/';
+                console.log("Unauthorized To access the page");
+            }
+        }
+    };
+    return interceptor;
+});
 
 app.controller("headerController", ($scope, $http, $location) => {
     var path = $location.path();
@@ -331,7 +331,7 @@ app.config(function ($routeProvider, $httpProvider) {
             {
                 templateUrl: "view/addToInventory.html"
             })
-        .when('/dispenseToPatient',
+        .when('/dispenseToPatient/:param1',
             {
                 templateUrl: "view/dispenseToPatient.html"
             })
@@ -413,7 +413,7 @@ app.controller("loginCtrl", ($scope, $http, $window,) => {
     // }
 });
 
-app.controller("clp", function ($scope, $http, $window, $location) {
+app.controller("clp", function ($scope, $http, $window, $location,$routeParams) {
     $scope.dispance = {}
     $scope.dispancePatientDetials = (x) => {
         $scope.dispance.patientId = x.id;
@@ -448,10 +448,13 @@ app.controller("clp", function ($scope, $http, $window, $location) {
                 'Authorization': sessionStorage.getItem("token")
             },
         }).then((response) => {
+            console.log("HELLO")
             $scope.transitDoseDetails = response.data;
+            console.log(response.data)
             console.error(response.data)
         })
     }
+
     $scope.transferDose = () => {
         let gettingTransferSerialNo = $scope.serialNumberValue
         let splitter = gettingTransferSerialNo.split("-")
@@ -696,7 +699,7 @@ app.controller("clp", function ($scope, $http, $window, $location) {
 
     $scope.clinicName = (id) => {
         sessionStorage.setItem("locationId", id);
-        // $window.location.reload();
+        $window.location.reload();
     }
     $scope.screensName = (id) => {
         sessionStorage.setItem("screensName", id);
@@ -716,7 +719,7 @@ app.controller("clp", function ($scope, $http, $window, $location) {
     }
     $scope.inventoryLocation = () => {
         let allPath = $location.path();
-        if (allPath === "/inventory" || allPath === "/orders" || allPath == "/transferInventory") {
+        if (allPath === "/inventory" || allPath === "/orders" || allPath === "/transferInventory" || allPath== "/serialInfo") {
             return true;
         }
         return false;
@@ -1317,11 +1320,15 @@ app.controller("clp", function ($scope, $http, $window, $location) {
             }
 
         }).then((response) => {
-
+            
             console.log("Transfer");
             $scope.validSerial=true;
-            console.log(response.data);
-
+            // console.log(response);
+            let gettingTransferSerialNo = $scope.serialNumberValue
+            let splitter = gettingTransferSerialNo.split("-")
+            $scope.serialNumber=splitter[0];
+            $scope.serialDetailsClp();
+            
             $scope.serialNo = response.data;
             console.log($scope.serialNo)
 
@@ -1361,8 +1368,24 @@ app.controller("clp", function ($scope, $http, $window, $location) {
 
     });
     }
+    $scope.patientDetails=null
+  if ($location.path()==="/dispenseToPatient/"+$routeParams.param1 && $routeParams.param1!==null){
+    $http({
+        method: 'GET',
+        url: "http://localhost:7890/getPatientById/" + $routeParams.param1,
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': sessionStorage.getItem("token")
+        }
+    }).then((response) => {
+        $scope.patientDetails=response.data
+        console.warn(response.data)
+    }, (error) => {
 
+    });
+}
 
+    
 
 
 

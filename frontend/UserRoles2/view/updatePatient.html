@@ -1,7 +1,8 @@
 <div ng-controller="updateController">
     <div ng-include="'view/header.html'"></div>
-    <div>
-        <h1 class="text-center">Update Patient Details</h1>
+    <div class="d-flex ">
+        <h1 class="text-center mt-3">Update Patient Details</h1>
+        <!-- <a class="btn btn-info w-25" href="#!dispenseToPatient/{{x.patientId}}">Dispense</a> -->
     </div>
     <form name="userForm" ng-submit="updatePatientForm()">
         <div class="row g-3 form-control d-flex justify-content-between w-50 m-auto">
@@ -65,6 +66,7 @@
             <input class="btn btn-primary" type="submit" name="updateFormData" value="Update" />
         </div>
     </form>
+    
     <h3 class="text-center mt-4">Patient Files</h3>
     <div class="d-flex justify-content-center">
         <table>
