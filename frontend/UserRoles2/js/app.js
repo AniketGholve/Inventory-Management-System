@@ -434,7 +434,7 @@ app.controller("clp", function ($scope, $http, $window, $location) {
 
 
     }
-    $scope.gettingClinicId
+    // $scope.gettingClinicId
     $scope.gettingTransferSerialNo
     
     $scope.getTransitDoses = (productId) => {
@@ -466,6 +466,7 @@ app.controller("clp", function ($scope, $http, $window, $location) {
             alert("Transfered Dose Successfully");
             $window.location.reload();
         })
+        // console.log($scope.gettingClinicId)
 
     }
     $http({
@@ -700,7 +701,7 @@ app.controller("clp", function ($scope, $http, $window, $location) {
     }
     $scope.inventoryLocation = () => {
         let allPath = $location.path();
-        if (allPath === "/inventory" || allPath === "/orders" || allPath == "/transferInventory") {
+        if (allPath === "/inventory" || allPath === "/orders" || allPath == "/transferInventory" || allPath== "/serialInfo") {
             return true;
         }
         return false;
