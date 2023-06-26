@@ -79,5 +79,38 @@ class SecurityConfig {
     
     
 
+<<<<<<< HEAD
+	@Bean
+
+	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+
+		http.csrf().disable().authorizeRequests()
+
+				.requestMatchers("/customers*")
+
+				.hasRole("USER")
+
+				.anyRequest()
+//				.authenticated();
+
+				.permitAll();
+
+		http.oauth2Login()
+
+				.and()
+
+				.logout()
+
+				.addLogoutHandler(keycloakLogoutHandler)
+
+				.logoutSuccessUrl("/");
+
+		http.oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt);
+
+		return http.build();
+
+	}
+=======
+>>>>>>> 8c995598229904d79a777ce123b75ac576299ffd
 
 }

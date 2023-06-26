@@ -4,6 +4,27 @@
     <div class="container">
         <h2 class="text-center mt-4">Dispense To Patient</h2>
         <div class="container mt-3">
+            <div class="shadow">
+                <table class="table  table striped text-center mt-5"
+                        ng-class="{'d-none':patientDetails==null}">
+                        <thead>
+                            <tr class="">
+                                <th class="col-3">First Name</th>
+                                <th class="col-3">Last Name</th>
+                                <th class="col-3">D.O.B</th>
+                                <th class="col-3">PatientId</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="col-3">{{patientDetails.patientFirstName}}</td>
+                                <td class="col-3">{{patientDetails.patientLastName}}</td>
+                                <td class="col-3">{{patientDetails.patientDob}}</td>
+                                <td class="col-3">{{patientDetails.patientId}}</td>
+                            </tr>
+                        </tbody>
+                </table>
+            </div>
             <label for="">Serial Number:</label>
             <input type="number" list="serialList" class="dispense_input" placeholder="Serial Number"
                 ng-model="serialNumber" ng-change="serialDataFunction()"></input>

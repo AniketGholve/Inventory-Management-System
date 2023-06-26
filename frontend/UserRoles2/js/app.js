@@ -51,20 +51,20 @@ function initKeycloak() {
         alert('failed to initialize');
     });
 }
-// app.factory('myInterceptor', function ($q) {
-    // var interceptor = {
-    //     responseError: function (rejection) {
-    //         if (rejection.status === 401) {
-    //             sessionStorage.removeItem("token")
-    //             sessionStorage.removeItem("locationId")
-    //             sessionStorage.removeItem("username")
-    //             window.location.href = 'http://localhost:8080/';
-    //             console.log("Unauthorized To access the page");
-    //         }
-    //     }
-    // };
-    // return interceptor;
-// });
+app.factory('myInterceptor', function ($q) {
+    var interceptor = {
+        responseError: function (rejection) {
+            if (rejection.status === 401) {
+                sessionStorage.removeItem("token")
+                sessionStorage.removeItem("locationId")
+                sessionStorage.removeItem("username")
+                window.location.href = 'http://localhost:8080/';
+                console.log("Unauthorized To access the page");
+            }
+        }
+    };
+    return interceptor;
+});
 
 app.controller("headerController", ($scope, $http, $location) => {
     var path = $location.path();
@@ -97,6 +97,8 @@ app.controller("headerController", ($scope, $http, $location) => {
         case '/transferInventory': $scope.activeTab = 'transferInventory';
             break;
         case '/orders': $scope.activeTab = 'order';
+            break;
+        case '/transferInventory': $scope.activeTab = 'transferInventory';
             break;
         case '/elp_users': $scope.activeTab = 'successOrders';
             break;
@@ -329,7 +331,7 @@ app.config(function ($routeProvider, $httpProvider) {
             {
                 templateUrl: "view/addToInventory.html"
             })
-        .when('/dispenseToPatient',
+        .when('/dispenseToPatient/:param1',
             {
                 templateUrl: "view/dispenseToPatient.html"
             })
@@ -411,7 +413,7 @@ app.controller("loginCtrl", ($scope, $http, $window,) => {
     // }
 });
 
-app.controller("clp", function ($scope, $http, $window, $location) {
+app.controller("clp", function ($scope, $http, $window, $location,$routeParams) {
     $scope.dispance = {}
     $scope.dispancePatientDetials = (x) => {
         $scope.dispance.patientId = x.id;
@@ -446,10 +448,13 @@ app.controller("clp", function ($scope, $http, $window, $location) {
                 'Authorization': sessionStorage.getItem("token")
             },
         }).then((response) => {
+            console.log("HELLO")
             $scope.transitDoseDetails = response.data;
+            console.log(response.data)
             console.error(response.data)
         })
     }
+
     $scope.transferDose = () => {
         let gettingTransferSerialNo = $scope.serialNumberValue
         let splitter = gettingTransferSerialNo.split("-")
@@ -537,6 +542,7 @@ app.controller("clp", function ($scope, $http, $window, $location) {
             }).then((response) => {
                 $scope.serialData = response.data;
                 console.log($scope.serialData)
+                console.log("Dispense")
                 console.error("demo")
                 $scope.dispance.productId = $scope.serialData.productId;
                 $scope.dispance.locationId = $scope.serialData.locationId;
@@ -678,6 +684,19 @@ app.controller("clp", function ($scope, $http, $window, $location) {
         // $window.location.reload();
         console.log($scope.clinicNames);
     }, (error) => { })
+    
+    $http({
+        method: 'get',
+        url: "http://localhost:7890/getClinicNames",
+        headers: { 'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem("token") }
+    }).then((response) => {
+        $scope.clinictransferNames = response.data;
+        // $window.location.reload();
+        console.log("TransferNaMe")
+        console.log($scope.clinictransferNames);
+    }, (error) => { })
+
+
 
     $scope.clinicName = (id) => {
         sessionStorage.setItem("locationId", id);
@@ -701,7 +720,11 @@ app.controller("clp", function ($scope, $http, $window, $location) {
     }
     $scope.inventoryLocation = () => {
         let allPath = $location.path();
+<<<<<<< HEAD
         if (allPath === "/inventory" || allPath === "/orders" || allPath == "/transferInventory" || allPath== "/serialInfo") {
+=======
+        if (allPath === "/inventory" || allPath === "/orders" || allPath === "/transferInventory" || allPath== "/serialInfo") {
+>>>>>>> 80c45bd5f71c42db703419ceffca12a7ccd01f38
             return true;
         }
         return false;
@@ -1302,11 +1325,15 @@ app.controller("clp", function ($scope, $http, $window, $location) {
             }
 
         }).then((response) => {
-
+            
             console.log("Transfer");
             $scope.validSerial=true;
-            console.log(response.data);
-
+            // console.log(response);
+            let gettingTransferSerialNo = $scope.serialNumberValue
+            let splitter = gettingTransferSerialNo.split("-")
+            $scope.serialNumber=splitter[0];
+            $scope.serialDetailsClp();
+            
             $scope.serialNo = response.data;
             console.log($scope.serialNo)
 
@@ -1346,8 +1373,24 @@ app.controller("clp", function ($scope, $http, $window, $location) {
 
     });
     }
+    $scope.patientDetails=null
+  if ($location.path()==="/dispenseToPatient/"+$routeParams.param1 && $routeParams.param1!==null){
+    $http({
+        method: 'GET',
+        url: "http://localhost:7890/getPatientById/" + $routeParams.param1,
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': sessionStorage.getItem("token")
+        }
+    }).then((response) => {
+        $scope.patientDetails=response.data
+        console.warn(response.data)
+    }, (error) => {
 
+    });
+}
 
+    
 
 
 
@@ -2542,7 +2585,7 @@ app.controller("addPhysicianNurseCtrl", function ($scope, $http, $window, $route
 
         sessionStorage.setItem("locationId", id);
 
-        $window.location.reload();
+        // $window.location.reload();
 
     }
 

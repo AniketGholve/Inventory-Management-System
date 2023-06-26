@@ -97,7 +97,9 @@
                         <p ng-if="x.overDue==true" class="overdue">Overdue</p>
                     </td>
                     <td><a href="#!updatePatient/{{x.patientId}}">Edit</a>&nbsp &nbsp<a href=""
-                            ng-click="deleteById(x.id)" onclick="reloadWindow()">Delete</a></td>
+                            ng-click="deleteById(x.id)" onclick="reloadWindow()">Delete</a>&nbsp &nbsp
+                            <a href="#!dispenseToPatient/{{x.patientId}}">Dispense</a>
+                        </td>
                 </tr>
 
                 <tr ng-if="searchPatientData!=null" ng-init="x=searchPatientData">

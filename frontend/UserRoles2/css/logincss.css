@@ -541,13 +541,13 @@ nav{
 
 .sso{
   background-color: #323562;
-  color: white;
-  position: absolute;
-  top: 43%;
-  right: 41%;
-  padding: 8px;
-  width: 18%;
-  border-radius: 5px;
+    color: white;
+    position: absolute;
+    top: 43%;
+    right: 42%;
+    padding: 8px;
+    width: 16%;
+    border-radius: 5px;
 }
 .successNotification{
   background-color:  #6eeb8d;
@@ -618,4 +618,16 @@ nav{
   background-color: #3fcdaf;
     color: white;
     border-radius: 10px;
+}
+
+#transfer{
+  width: 25%;
+  border-radius: 10px;
+}
+
+.shipwidth{
+  width: 242px
+}
+.shipkitwidth{
+  width: 100%
 }
