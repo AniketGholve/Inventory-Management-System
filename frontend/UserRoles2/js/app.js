@@ -134,7 +134,8 @@ app.controller("headerController", ($scope, $http, $location) => {
             break;
         case '/serialInfo': $scope.activeTab = 'inventory';
             break;
-
+        case '/removeInventory': $scope.activeTab = 'inventory';
+            break;
 
     }
     if (sessionStorage.getItem("username") !== null) {
@@ -277,6 +278,10 @@ app.config(function ($routeProvider, $httpProvider) {
             {
                 templateUrl: "view/transferInventory.html"
             })
+        .when('/removeInventory',
+            {
+                templateUrl: "view/removeInventory.html"
+            })
         .when('/home',
             {
                 templateUrl: "view/home.html"
@@ -363,7 +368,7 @@ app.config(function ($routeProvider, $httpProvider) {
 
 });
 
-app.controller("loginCtrl", ($scope, $http, $window,) => {
+// app.controller("loginCtrl", ($scope, $http, $window,) => {
 
     // $scope.getRequest = (v) => {
     //     console.log($scope.submit)
@@ -411,7 +416,7 @@ app.controller("loginCtrl", ($scope, $http, $window,) => {
     //         alert("Wrong User Id Or Password");
     //     })
     // }
-});
+// });
 
 app.controller("clp", function ($scope, $http, $window, $location,$routeParams) {
     $scope.dispance = {}
@@ -716,10 +721,13 @@ app.controller("clp", function ($scope, $http, $window, $location,$routeParams) 
         else if (sessionStorage.getItem("screensName") == "serialInfo") {
             $window.location.href = "#!/serialInfo";
         }
+        else if (sessionStorage.getItem("screensName") == "removeInventory") {
+            $window.location.href = "#!/removeInventory";
+        }
     }
     $scope.inventoryLocation = () => {
         let allPath = $location.path();
-        if (allPath === "/inventory" || allPath === "/orders" || allPath === "/transferInventory" || allPath== "/serialInfo") {
+        if (allPath === "/inventory" || allPath === "/orders" || allPath === "/transferInventory" || allPath=== "/serialInfo" || allPath==="/removeInventory") {
             return true;
         }
         return false;
