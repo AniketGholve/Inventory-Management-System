@@ -3,9 +3,9 @@
   "realm": "InventoryManagementSystem",
   "auth-server-url": "http://localhost:8080/",
   "ssl-required": "external",
-  "resource": "Keycloak-Imsjs",
+  "resource": "Keycloak-SpringBoot",
   "credentials": {
-    "secret": "QgCAkGloTm3MtEEnghRVhXJmwr4uesl1"
+    "secret": "J3l5TyK1E8mhBNub7Agf5Py5BjZD6wCn"
   },
   "confidential-port": 0
 }

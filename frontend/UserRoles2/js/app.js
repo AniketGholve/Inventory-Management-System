@@ -134,7 +134,8 @@ app.controller("headerController", ($scope, $http, $location) => {
             break;
         case '/serialInfo': $scope.activeTab = 'inventory';
             break;
-
+        case '/removeInventory': $scope.activeTab = 'inventory';
+            break;
 
     }
     if (sessionStorage.getItem("username") !== null) {
@@ -277,6 +278,10 @@ app.config(function ($routeProvider, $httpProvider) {
             {
                 templateUrl: "view/transferInventory.html"
             })
+        .when('/removeInventory',
+            {
+                templateUrl: "view/removeInventory.html"
+            })
         .when('/home',
             {
                 templateUrl: "view/home.html"
@@ -363,7 +368,7 @@ app.config(function ($routeProvider, $httpProvider) {
 
 });
 
-app.controller("loginCtrl", ($scope, $http, $window,) => {
+// app.controller("loginCtrl", ($scope, $http, $window,) => {
 
     // $scope.getRequest = (v) => {
     //     console.log($scope.submit)
@@ -411,7 +416,7 @@ app.controller("loginCtrl", ($scope, $http, $window,) => {
     //         alert("Wrong User Id Or Password");
     //     })
     // }
-});
+// });
 
 app.controller("clp", function ($scope, $http, $window, $location,$routeParams) {
     $scope.dispance = {}
@@ -486,6 +491,21 @@ app.controller("clp", function ($scope, $http, $window, $location,$routeParams) 
         $scope.injectionIn30Days = response.data;
     })
 
+    $scope.removeSerial=()=>{
+        let gettingTransferSerialNo = $scope.serialNumberValue
+        let splitter = gettingTransferSerialNo.split("-")
+        console.log(splitter);
+        $http({
+            method: 'POST',
+            url: 'http://localhost:7890/removeSerial/' + splitter[0],
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': sessionStorage.getItem("token")
+            },  
+    }).then((response) => {
+        alert("Removed Successfully");
+    })
+    }
 
     $scope.dispenseToPatient = () => {
         console.log($scope.dispance)
@@ -717,14 +737,14 @@ app.controller("clp", function ($scope, $http, $window, $location,$routeParams) 
         else if (sessionStorage.getItem("screensName") == "serialInfo") {
             $window.location.href = "#!/serialInfo";
         }
+        else if (sessionStorage.getItem("screensName") == "removeInventory") {
+            $window.location.href = "#!/removeInventory";
+        }
     }
     $scope.inventoryLocation = () => {
         let allPath = $location.path();
-<<<<<<< HEAD
-        if (allPath === "/inventory" || allPath === "/orders" || allPath == "/transferInventory" || allPath== "/serialInfo") {
-=======
-        if (allPath === "/inventory" || allPath === "/orders" || allPath === "/transferInventory" || allPath== "/serialInfo") {
->>>>>>> 80c45bd5f71c42db703419ceffca12a7ccd01f38
+
+        if (allPath === "/inventory" || allPath === "/orders" || allPath === "/transferInventory" || allPath=== "/serialInfo" || allPath==="/removeInventory") {
             return true;
         }
         return false;

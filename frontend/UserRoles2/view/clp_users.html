@@ -69,6 +69,7 @@
                     </tr>
                 </thead>
                 <tr ng-repeat="x in patientData | filter:search:strict" ng-if="searchPatientData==null">
+                    <a href="">
                     <td class="px-3">
                         {{ x.patientId }}
                     </td>
@@ -84,6 +85,7 @@
                     <td class="px-3">
                         {{ x.patientStatus}}
                     </td>
+                    </a>
                     <td class="px-3">
                         {{ x.lastDispense}}
                     </td>
