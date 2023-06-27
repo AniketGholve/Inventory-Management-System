@@ -273,6 +273,27 @@ public class SerialServiceImpl implements SerialService{
 		return s;
 	}
 	
+	@Transactional
+	@Override
+	public Serial removeSerial(int serialNo) {
+		// TODO Auto-generated method stub
+		Serial s = serialRepo.findBySerialNumber(serialNo);
+		s.setSerialStatus("Removed");
+		int productId = s.getProductId();
+		int locationId = s.getLocationId();
+		serialRepo.save(s);
+		Query q = entityManager.createNativeQuery("select on_hand from Inventory where location_id=? and product_id=?");
+		q.setParameter(1, locationId);
+		q.setParameter(2, productId);
+		int onHand = (int)q.getSingleResult();
+		Query q1 = entityManager.createNativeQuery("update Inventory set on_hand=? where location_id=? and product_id=?");
+		q1.setParameter(1,onHand-1);
+		q1.setParameter(2, locationId);
+		q1.setParameter(3, productId);
+		q1.executeUpdate();
+		return s;
+	}
+	
 	
 
 }

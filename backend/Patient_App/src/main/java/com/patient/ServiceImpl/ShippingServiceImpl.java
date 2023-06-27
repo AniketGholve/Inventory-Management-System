@@ -247,7 +247,7 @@ public class ShippingServiceImpl implements ShippingService {
 			Query q3 = entityManager.createNativeQuery("INSERT INTO serial_event_desc (`serial_id`, `serial_number`, `event_date`, `status`, `product_id`) VALUES (?, ?, ?, ?, ?)");
 			q3.setParameter(1, serialId);
 			q3.setParameter(2, serialNo);
-			q3.setParameter(3, m);
+			q3.setParameter(3, time);
 			q3.setParameter(4, "Shipped");
 			q3.setParameter(5, productId);
 			q3.executeUpdate();

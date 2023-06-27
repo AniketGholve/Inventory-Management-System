@@ -85,5 +85,11 @@ public class SerialController {
 		return s;
 	}
 	
+	@PostMapping("/removeSerial/{serialNo}")
+	public Serial removeSerial(@PathVariable int serialNo) {
+		Serial s = serialServiceImpl.removeSerial(serialNo);
+		return s;
+	}
+	
 
 }

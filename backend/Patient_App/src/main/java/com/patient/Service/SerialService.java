@@ -16,12 +16,7 @@ public interface SerialService {
 	
 	public Serial getSerialBySerialNo(Integer serialNo,Integer locationId);
 	
-<<<<<<< HEAD
-	public String changeSerialStatus(Integer serialId,Integer locationId,Integer patientSpecific);
-=======
-	
 	public String changeSerialStatus(Integer serialId,Integer locationId,Integer patientSpecific,String UserMail);
->>>>>>> 8c995598229904d79a777ce123b75ac576299ffd
 	
     public Product getDoseName(Integer productId);
 
@@ -34,4 +29,6 @@ public interface SerialService {
 	public List<Serial> getSerialReceivedByLocationId(Integer locationId);
 	
 	public Serial getSerialDetailsBySerialNo(int serialNo);
+	
+	public Serial removeSerial(int serialNo);
 }
