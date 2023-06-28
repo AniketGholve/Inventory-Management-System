@@ -69,23 +69,26 @@
                     </tr>
                 </thead>
                 <tr ng-repeat="x in patientData | filter:search:strict" ng-if="searchPatientData==null">
-                    <a href="">
-                    <td class="px-3">
+                    <td class="px-3"><a class="textStyle" href="#!updatePatient/{{x.patientId}}">
                         {{ x.patientId }}
-                    </td>
-                    <td class="px-3">
-                        {{ x.patientFirstName }}
-                    </td>
-                    <td class="px-3">
-                        {{ x.patientLastName }}
-                    </td>
-                    <td class="px-3">
-                        {{ x.patientDob}}
-                    </td>
-                    <td class="px-3">
-                        {{ x.patientStatus}}
-                    </td>
                     </a>
+                    </td>
+                    <td class="px-3"><a class="textStyle" href="#!updatePatient/{{x.patientId}}">
+                        {{ x.patientFirstName }}
+                    </a>
+                    </td>
+                    <td class="px-3"><a class="textStyle" href="#!updatePatient/{{x.patientId}}">
+                        {{ x.patientLastName }}
+                    </a>
+                    </td>
+                    <td class="px-3"><a class="textStyle" href="#!updatePatient/{{x.patientId}}">
+                        {{ x.patientDob}}
+                    </a>
+                    </td>
+                    <td class="px-3"><a class="textStyle" href="#!updatePatient/{{x.patientId}}">
+                        {{ x.patientStatus}}
+                    </a>
+                    </td>
                     <td class="px-3">
                         {{ x.lastDispense}}
                     </td>
@@ -98,8 +101,7 @@
                     <td class="px-3">
                         <p ng-if="x.overDue==true" class="overdue">Overdue</p>
                     </td>
-                    <td><a href="#!updatePatient/{{x.patientId}}">Edit</a>&nbsp &nbsp<a href=""
-                            ng-click="deleteById(x.id)" onclick="reloadWindow()">Delete</a>&nbsp &nbsp
+                    <td>&nbsp &nbsp
                             <a href="#!dispenseToPatient/{{x.patientId}}">Dispense</a>
                         </td>
                 </tr>

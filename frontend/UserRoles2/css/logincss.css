@@ -631,3 +631,7 @@ nav{
 .shipkitwidth{
   width: 100%
 }
+.textStyle{
+  text-decoration: none;
+  color: #0e0e0e;
+}

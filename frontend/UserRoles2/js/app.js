@@ -535,12 +535,13 @@ app.controller("clp", function ($scope, $http, $window, $location,$routeParams) 
 
     }
     $scope.serialDataFunction = () => {
-
-
-        if ($scope.serialNumber != null) {
+        let gettingTransferSerialNo = $scope.serialNumberValue
+        let splitter = gettingTransferSerialNo.split("-")
+        console.log(splitter);
+        if ($scope.serialNumberValue != null) {
             $http({
                 method: 'GET',
-                url: 'http://localhost:7890/getSerialBySerialNo/' + $scope.serialNumber + "/" + sessionStorage.getItem("locationId"),
+                url: 'http://localhost:7890/getSerialBySerialNo/' + splitter[0] + "/" + sessionStorage.getItem("locationId"),
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': sessionStorage.getItem("token")
@@ -554,7 +555,7 @@ app.controller("clp", function ($scope, $http, $window, $location,$routeParams) 
 
             $http({
                 method: 'GET',
-                url: 'http://localhost:7890/getProductBySerialNo/' + $scope.serialNumber,
+                url: 'http://localhost:7890/getProductBySerialNo/' + splitter[0] ,
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': sessionStorage.getItem("token")
@@ -573,7 +574,7 @@ app.controller("clp", function ($scope, $http, $window, $location,$routeParams) 
 
                     $http({
                         method: 'GET',
-                        url: 'http://localhost:7890/getDoseName/' + $scope.serialData.productId + "/" + $scope.serialNumber,
+                        url: 'http://localhost:7890/getDoseName/' + $scope.serialData.productId + "/" + splitter[0] ,
                         headers: {
                             'Content-Type': 'application/json',
                             'Authorization': sessionStorage.getItem("token")
@@ -1221,16 +1222,7 @@ app.controller("clp", function ($scope, $http, $window, $location,$routeParams) 
             $scope.searchPatientData = null;
         });
     }
-    $scope.deleteById = (id) => {
-        $http({
-            method: 'delete',
-            url: "http://localhost:7890/deletePatient/" + id,
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': sessionStorage.getItem("token")
-            }
-        }).then((response) => { }, (error) => { })
-    }
+   
     $scope.fileDownload = (id) => {
         $http({
             method: 'get',
@@ -2236,6 +2228,18 @@ app.controller('updateController', function ($scope, $http, $routeParams, $windo
             $rootScope.dataFile = newfiles;
         }
         console.log($rootScope.dataFile.length)
+    }
+    $scope.deleteById = (id) => {
+        $http({
+            method: 'delete',
+            url: "http://localhost:7890/deletePatient/" + id,
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': sessionStorage.getItem("token")
+            }
+        }).then((response) => {$window.location.href="#!patient"
+           console.log(response) 
+    }, (error) => { })
     }
 
     $scope.deleteData = (id) => {

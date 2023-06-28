@@ -13,7 +13,7 @@
             <div>
                 <div class="shadow">
                     <table class="table  table striped text-center mt-5"
-                        ng-class="{'d-none':serialNumber==''||serialNumber==null}">
+                        ng-class="{'d-none':serialNumber==''||serialNumber==null ||serialDetails==null}">
                         <thead>
                             <tr class="">
                                 <th class="">Dose</th>
@@ -63,7 +63,7 @@
                     </table>
                 </div> -->
                 <div class="shadow">
-                <table id="patientDetailsTable" class=" table  table striped text-center "ng-class="{'d-none':serialNumber==''||serialNumber==null}">
+                <table id="patientDetailsTable" class=" table  table striped text-center "ng-class="{'d-none':serialNumber==''||serialNumber==null ||serialDetails==null}">
                     <thead class="">
                         <tr>
                             <th class="px-3">Events</th>
